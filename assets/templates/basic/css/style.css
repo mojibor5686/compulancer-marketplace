@@ -6518,9 +6518,7 @@ textarea.form--control {
   -webkit-box-direction: normal;
   -ms-flex-direction: column;
   flex-direction: column;
-  border-radius: 8px;
   position: sticky;
-  top: 100px;
 }
 
 @media screen and (max-width: 991px) {
