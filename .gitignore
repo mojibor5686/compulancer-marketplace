@@ -1,0 +1,9 @@
+# Ignore environment files (project-specific)
+/core/.env
+
+# Ignore Composer vendor directory
+/core/vendor/
+
+# Optional: ignore root .env if present
+.env
+assets/admin/push_config.json

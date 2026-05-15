@@ -1,0 +1,1625 @@
+{
+    "dashboard": {
+        "keyword": [
+            "Dashboard",
+            "Home",
+            "Panel",
+            "Admin",
+            "Control center",
+            "Overview",
+            "Main hub",
+            "Management hub",
+            "Administrative hub",
+            "Central hub",
+            "Command center",
+            "Administrator portal",
+            "Centralized interface",
+            "Admin console",
+            "Management dashboard",
+            "Main screen",
+            "Administrative dashboard",
+            "Command dashboard",
+            "Main control panel",
+            "Analytics",
+            "Metrics",
+            "Statistics",
+            "Performance",
+            "Monitoring",
+            "Reports",
+            "KPIs",
+            "Dashboard overview",
+            "System status",
+            "Real-time monitoring"
+        ],
+        "title": "Dashboard",
+        "icon": "las la-home",
+        "route_name": "admin.dashboard",
+        "menu_active": "admin.dashboard"
+    },
+    "manage_staff": {
+        "title": "Manage Staff",
+        "icon": "las la-users",
+        "menu_active": ["admin.staff.*", "admin.roles.*"],
+        "keyword": [
+            "Staff management",
+            "Employee administration",
+            "Personnel management",
+            "Team management",
+            "Staff directory",
+            "Human resources",
+            "Workforce management",
+            "Staff supervision",
+            "Employee oversight",
+            "Personnel directory",
+            "Staff records",
+            "Employee database",
+            "Team coordination",
+            "Staff scheduling",
+            "Employee tracking",
+            "Personnel administration",
+            "Staff monitoring",
+            "Employee management system",
+            "Staff control",
+            "Team supervision"
+        ],
+        "submenu": [
+            {
+                "keyword": [
+                    "All Staff",
+                    "Staff Management",
+                    "Employees",
+                    "Team Members",
+                    "Personnel list",
+                    "Staff directory",
+                    "Employee database",
+                    "Staff roster",
+                    "Team roster",
+                    "Staff listing",
+                    "Employee records",
+                    "Staff overview",
+                    "Team overview",
+                    "Personnel overview",
+                    "Staff index"
+                ],
+                "title": "All Staff",
+                "route_name": "admin.staff.index",
+                "menu_active": "admin.staff.index"
+            },
+            {
+                "keyword": [
+                    "Roles",
+                    "User Roles",
+                    "Access Control",
+                    "Role Management",
+                    "Permissions",
+                    "Role assignments",
+                    "Access levels",
+                    "Security roles",
+                    "Role hierarchy",
+                    "Permission sets",
+                    "Role configuration",
+                    "Access management",
+                    "Role-based access",
+                    "Security permissions",
+                    "Authorization roles"
+                ],
+                "title": "Roles",
+                "route_name": "admin.roles.index",
+                "menu_active": "admin.roles.index"
+            }
+        ]
+    },
+    "service_booking": {
+        "title": "Service Booking",
+        "icon": "las la-book-reader",
+        "counters": [
+            "pendingServiceBookingCount",
+            "disputedServiceBookingCount"
+        ],
+        "keyword": [
+            "Service reservations",
+            "Booking management",
+            "Service scheduling",
+            "Appointment booking",
+            "Service appointments",
+            "Booking system",
+            "Service calendar",
+            "Reservation management",
+            "Booking administration",
+            "Service booking platform",
+            "Appointment scheduling",
+            "Booking coordination",
+            "Service reservation system",
+            "Booking tracker",
+            "Service management"
+        ],
+        "menu_active": "admin.booking.service*",
+        "submenu": [
+            {
+                "keyword": [
+                    "pending service booking",
+                    "service booking",
+                    "service pending",
+                    "service management",
+                    "awaiting approval",
+                    "pending requests",
+                    "unprocessed bookings",
+                    "pending reservations",
+                    "waiting list",
+                    "service queue",
+                    "pending appointments",
+                    "unapproved bookings",
+                    "booking requests",
+                    "pending services"
+                ],
+                "title": "Pending",
+                "route_name": "admin.booking.service.pending",
+                "menu_active": "admin.booking.service.pending",
+                "counter": "pendingServiceBookingCount"
+            },
+            {
+                "keyword": [
+                    "completed service booking",
+                    "service booking",
+                    "service completed",
+                    "service management",
+                    "finished services",
+                    "completed appointments",
+                    "fulfilled bookings",
+                    "completed reservations",
+                    "service history",
+                    "past bookings",
+                    "completed tasks",
+                    "service completion",
+                    "finished appointments",
+                    "executed services"
+                ],
+                "title": "Completed",
+                "route_name": "admin.booking.service.completed",
+                "menu_active": "admin.booking.service.completed"
+            },
+            {
+                "keyword": [
+                    "delivered service booking",
+                    "service booking",
+                    "service delivered",
+                    "service management",
+                    "delivered appointments",
+                    "service delivery",
+                    "completed delivery",
+                    "successful delivery",
+                    "delivery confirmation",
+                    "delivered services",
+                    "service fulfillment",
+                    "delivery status",
+                    "delivered bookings",
+                    "service handover"
+                ],
+                "title": "Delivered",
+                "route_name": "admin.booking.service.delivered",
+                "menu_active": "admin.booking.service.delivered"
+            },
+            {
+                "keyword": [
+                    "inprogress service booking",
+                    "service booking",
+                    "service inprogress",
+                    "service management",
+                    "ongoing services",
+                    "active bookings",
+                    "current appointments",
+                    "in process",
+                    "active services",
+                    "ongoing appointments",
+                    "current bookings",
+                    "active tasks",
+                    "work in progress",
+                    "running services"
+                ],
+                "title": "Inprogress",
+                "route_name": "admin.booking.service.inprogress",
+                "menu_active": "admin.booking.service.inprogress"
+            },
+            {
+                "keyword": [
+                    "reported service booking",
+                    "service booking",
+                    "service reported",
+                    "service management",
+                    "disputed service booking",
+                    "complaint reports",
+                    "service issues",
+                    "problem reports",
+                    "service complaints",
+                    "reported issues",
+                    "dispute cases",
+                    "service disputes",
+                    "problem bookings",
+                    "issue reports"
+                ],
+                "title": "Reported",
+                "route_name": "admin.booking.service.disputed",
+                "menu_active": "admin.booking.service.disputed",
+                "counter": "disputedServiceBookingCount"
+            },
+            {
+                "keyword": [
+                    "refunded service booking",
+                    "service booking",
+                    "service refunded",
+                    "service management",
+                    "refund processing",
+                    "refunded appointments",
+                    "refund cases",
+                    "money back",
+                    "refund requests",
+                    "payment refunds",
+                    "service refunds",
+                    "refunded services",
+                    "refund management",
+                    "reimbursed bookings"
+                ],
+                "title": "Refunded",
+                "route_name": "admin.booking.service.refunded",
+                "menu_active": "admin.booking.service.refunded"
+            },
+            {
+                "keyword": [
+                    "expired service booking",
+                    "service booking",
+                    "service expired",
+                    "service management",
+                    "outdated services",
+                    "expired appointments",
+                    "lapsed bookings",
+                    "timeout services",
+                    "expired reservations",
+                    "overdue bookings",
+                    "elapsed services",
+                    "expired tasks",
+                    "terminated services",
+                    "deadline passed"
+                ],
+                "title": "Expired",
+                "route_name": "admin.booking.service.expired",
+                "menu_active": "admin.booking.service.expired"
+            },
+            {
+                "keyword": [
+                    "all service booking",
+                    "service booking",
+                    "all services",
+                    "service management",
+                    "complete listing",
+                    "full service list",
+                    "entire bookings",
+                    "all appointments",
+                    "total services",
+                    "service overview",
+                    "booking database",
+                    "service records",
+                    "comprehensive list",
+                    "complete database"
+                ],
+                "title": "All",
+                "route_name": "admin.booking.service.all",
+                "menu_active": "admin.booking.service.all"
+            }
+        ]
+    },
+    "job_bidding": {
+        "title": "Job Bidding",
+        "icon": "las la-briefcase",
+        "counters": ["disputedJobBookingCount"],
+        "keyword": [
+            "Job auction",
+            "Bid management",
+            "Project bidding",
+            "Tender system",
+            "Contract bidding",
+            "Proposal system",
+            "Work bidding",
+            "Bid submission",
+            "Job proposals",
+            "Competitive bidding",
+            "Bid platform",
+            "Project proposals",
+            "Job offers",
+            "Work contracts",
+            "Tender management"
+        ],
+        "menu_active": "admin.hiring.job*",
+        "submenu": [
+            {
+                "keyword": [
+                    "completed job bidding",
+                    "job bidding",
+                    "job completed",
+                    "job management",
+                    "finished projects",
+                    "completed contracts",
+                    "executed jobs",
+                    "fulfilled bids",
+                    "completed work",
+                    "finished tasks",
+                    "job completion",
+                    "completed proposals",
+                    "successful bids",
+                    "finished assignments"
+                ],
+                "title": "Completed",
+                "route_name": "admin.hiring.job.completed",
+                "menu_active": "admin.hiring.job.completed"
+            },
+            {
+                "keyword": [
+                    "delivered job bidding",
+                    "job bidding",
+                    "job delivered",
+                    "job management",
+                    "work delivery",
+                    "delivered projects",
+                    "handed over jobs",
+                    "completed delivery",
+                    "work handover",
+                    "project delivery",
+                    "delivered assignments",
+                    "task delivery",
+                    "job handover",
+                    "work completion"
+                ],
+                "title": "Delivered",
+                "route_name": "admin.hiring.job.delivered",
+                "menu_active": "admin.hiring.job.delivered"
+            },
+            {
+                "keyword": [
+                    "inprogress job bidding",
+                    "job bidding",
+                    "job inprogress",
+                    "job management",
+                    "ongoing work",
+                    "active projects",
+                    "current jobs",
+                    "work in process",
+                    "running tasks",
+                    "active assignments",
+                    "ongoing contracts",
+                    "current work",
+                    "active bids",
+                    "processing jobs"
+                ],
+                "title": "Inprogress",
+                "route_name": "admin.hiring.job.inprogress",
+                "menu_active": "admin.hiring.job.inprogress"
+            },
+            {
+                "keyword": [
+                    "reported job bidding",
+                    "job bidding",
+                    "job reported",
+                    "job management",
+                    "disputed job bidding",
+                    "work complaints",
+                    "project issues",
+                    "job disputes",
+                    "reported work",
+                    "problem cases",
+                    "dispute management",
+                    "issue reports",
+                    "complaint handling",
+                    "problem jobs"
+                ],
+                "title": "Reported",
+                "route_name": "admin.hiring.job.disputed",
+                "menu_active": "admin.hiring.job.disputed",
+                "counter": "disputedJobBookingCount"
+            },
+            {
+                "keyword": [
+                    "canceled job bidding",
+                    "job bidding",
+                    "job canceled",
+                    "job management",
+                    "terminated projects",
+                    "cancelled work",
+                    "withdrawn bids",
+                    "stopped jobs",
+                    "cancelled contracts",
+                    "terminated work",
+                    "cancelled assignments",
+                    "withdrawn proposals",
+                    "discontinued jobs",
+                    "abandoned projects"
+                ],
+                "title": "Canceled",
+                "route_name": "admin.hiring.job.canceled",
+                "menu_active": "admin.hiring.job.canceled"
+            },
+            {
+                "keyword": [
+                    "expired job bidding",
+                    "job bidding",
+                    "job expired",
+                    "job management",
+                    "outdated projects",
+                    "lapsed bids",
+                    "timeout jobs",
+                    "expired work",
+                    "overdue projects",
+                    "elapsed contracts",
+                    "expired proposals",
+                    "deadline missed",
+                    "terminated bids",
+                    "expired assignments"
+                ],
+                "title": "Expired",
+                "route_name": "admin.hiring.job.expired",
+                "menu_active": "admin.hiring.job.expired"
+            },
+            {
+                "keyword": [
+                    "all job bidding",
+                    "job bidding",
+                    "all jobs",
+                    "job management",
+                    "complete jobs",
+                    "full listing",
+                    "all projects",
+                    "entire database",
+                    "total bids",
+                    "all contracts",
+                    "complete records",
+                    "full database",
+                    "job overview",
+                    "comprehensive list"
+                ],
+                "title": "All",
+                "route_name": "admin.hiring.job.all",
+                "menu_active": "admin.hiring.job.all"
+            }
+        ]
+    },
+    "software_sales": {
+        "keyword": [
+            "software sales",
+            "software log",
+            "sales management",
+            "software analytics",
+            "software revenue",
+            "sales tracking",
+            "software transactions",
+            "sales records",
+            "software purchases",
+            "sales history",
+            "software orders",
+            "sales data",
+            "software metrics",
+            "sales statistics",
+            "revenue tracking",
+            "software income",
+            "sales performance",
+            "software distribution",
+            "sales monitoring",
+            "software commerce"
+        ],
+        "title": "Software Sales",
+        "icon": "las la-laptop-code",
+        "route_name": "admin.sales.software.log",
+        "menu_active": "admin.sales.software.log"
+    },
+    "manage_users": {
+        "title": "Manage Users",
+        "icon": "las la-users",
+        "counters": [
+            "bannedUsersCount",
+            "emailUnverifiedUsersCount",
+            "mobileUnverifiedUsersCount",
+            "kycUnverifiedUsersCount",
+            "kycPendingUsersCount"
+        ],
+        "keyword": [
+            "User administration",
+            "Account management",
+            "User control",
+            "Member management",
+            "User supervision",
+            "Account oversight",
+            "User directory",
+            "Member administration",
+            "User database",
+            "Account control",
+            "User monitoring",
+            "Member supervision",
+            "User tracking",
+            "Account tracking",
+            "User records"
+        ],
+        "menu_active": "admin.users*",
+        "submenu": [
+            {
+                "keyword": [
+                    "active users",
+                    "Manage Users",
+                    "User management",
+                    "User control",
+                    "User status",
+                    "User activity",
+                    "User analytics",
+                    "current users",
+                    "enabled accounts",
+                    "active accounts",
+                    "valid users",
+                    "operating users",
+                    "functioning accounts",
+                    "live users",
+                    "working accounts"
+                ],
+                "title": "Active Users",
+                "route_name": "admin.users.active",
+                "menu_active": "admin.users.active"
+            },
+            {
+                "keyword": [
+                    "banned users",
+                    "Manage Users",
+                    "User management",
+                    "Account bans",
+                    "User activity",
+                    "suspended accounts",
+                    "blocked users",
+                    "deactivated accounts",
+                    "restricted users",
+                    "disabled accounts",
+                    "blacklisted users",
+                    "banned accounts",
+                    "suspended users",
+                    "blocked accounts"
+                ],
+                "title": "Banned Users",
+                "route_name": "admin.users.banned",
+                "menu_active": "admin.users.banned",
+                "counter": "bannedUsersCount"
+            },
+            {
+                "keyword": [
+                    "email unverified users",
+                    "Manage Users",
+                    "User verification",
+                    "User authentication",
+                    "User management",
+                    "pending email verification",
+                    "unconfirmed emails",
+                    "email validation",
+                    "verification pending",
+                    "unverified accounts",
+                    "email confirmation",
+                    "pending verification",
+                    "email authentication",
+                    "unvalidated emails"
+                ],
+                "title": "Email Unverified",
+                "route_name": "admin.users.email.unverified",
+                "menu_active": "admin.users.email.unverified",
+                "counter": "emailUnverifiedUsersCount"
+            },
+            {
+                "keyword": [
+                    "mobile unverified users",
+                    "Manage Users",
+                    "User verification",
+                    "User authentication",
+                    "User management",
+                    "phone verification",
+                    "unverified mobile",
+                    "mobile validation",
+                    "phone authentication",
+                    "mobile confirmation",
+                    "unconfirmed phones",
+                    "pending mobile verification",
+                    "phone validation",
+                    "mobile authentication"
+                ],
+                "title": "Mobile Unverified",
+                "route_name": "admin.users.mobile.unverified",
+                "menu_active": "admin.users.mobile.unverified",
+                "counter": "mobileUnverifiedUsersCount"
+            },
+            {
+                "keyword": [
+                    "kyc unverified users",
+                    "Manage Users",
+                    "User verification",
+                    "User authentication",
+                    "User management",
+                    "identity verification",
+                    "KYC validation",
+                    "unverified identity",
+                    "pending KYC",
+                    "identity check",
+                    "KYC process",
+                    "verification status",
+                    "identity validation",
+                    "KYC verification"
+                ],
+                "title": "KYC Unverified",
+                "route_name": "admin.users.kyc.unverified",
+                "menu_active": "admin.users.kyc.unverified",
+                "counter": "kycUnverifiedUsersCount"
+            },
+            {
+                "keyword": [
+                    "kyc pending users",
+                    "Manage Users",
+                    "User verification",
+                    "User authentication",
+                    "User management",
+                    "KYC review",
+                    "pending verification",
+                    "identity pending",
+                    "verification queue",
+                    "KYC processing",
+                    "awaiting verification",
+                    "identity review",
+                    "KYC status",
+                    "verification pending"
+                ],
+                "title": "KYC Pending",
+                "route_name": "admin.users.kyc.pending",
+                "menu_active": "admin.users.kyc.pending",
+                "counter": "kycPendingUsersCount"
+            },
+            {
+                "keyword": [
+                    "with balance users",
+                    "Manage Users",
+                    "User management",
+                    "User activity",
+                    "Account management",
+                    "account balance",
+                    "user funds",
+                    "balance holders",
+                    "funded accounts",
+                    "active balances",
+                    "user credits",
+                    "account funds",
+                    "balance management",
+                    "monetary accounts"
+                ],
+                "title": "With Balance",
+                "route_name": "admin.users.with.balance",
+                "menu_active": "admin.users.with.balance"
+            },
+            {
+                "keyword": [
+                    "all users users",
+                    "Manage Users",
+                    "User management",
+                    "User control",
+                    "User activity",
+                    "User analytics",
+                    "complete user list",
+                    "user database",
+                    "full user list",
+                    "user directory",
+                    "total users",
+                    "user overview",
+                    "member list",
+                    "account list"
+                ],
+                "title": "All Users",
+                "route_name": "admin.users.all",
+                "menu_active": "admin.users.all"
+            },
+            {
+                "keyword": [
+                    "send notification users",
+                    "Manage Users",
+                    "User notifications",
+                    "User management",
+                    "User activity",
+                    "message users",
+                    "user alerts",
+                    "notification system",
+                    "user messaging",
+                    "broadcast messages",
+                    "mass notification",
+                    "user communication",
+                    "notification management",
+                    "message distribution"
+                ],
+                "title": "Send Notification",
+                "route_name": "admin.users.notification.all",
+                "menu_active": "admin.users.notification.all"
+            }
+        ]
+    },
+    "manage_service": {
+        "title": "Manage Service",
+        "icon": "las la-list-alt",
+        "counters": ["pendingServiceCount"],
+        "keyword": [
+            "Service administration",
+            "Service control",
+            "Service oversight",
+            "Service coordination",
+            "Service supervision",
+            "Service monitoring",
+            "Service tracking",
+            "Service management system",
+            "Service directory",
+            "Service database",
+            "Service platform",
+            "Service organization",
+            "Service operations",
+            "Service handling",
+            "Service maintenance"
+        ],
+        "menu_active": "admin.service*",
+        "submenu": [
+            {
+                "keyword": [
+                    "pending service",
+                    "manage service",
+                    "service pending",
+                    "service management",
+                    "awaiting approval",
+                    "service queue",
+                    "pending approval",
+                    "service requests",
+                    "unapproved services",
+                    "waiting services",
+                    "service verification",
+                    "pending review",
+                    "service validation",
+                    "approval queue"
+                ],
+                "title": "Pending",
+                "route_name": "admin.service.pending",
+                "menu_active": "admin.service.pending",
+                "counter": "pendingServiceCount"
+            },
+            {
+                "keyword": [
+                    "approved service",
+                    "manage service",
+                    "service approved",
+                    "service management",
+                    "verified services",
+                    "accepted services",
+                    "confirmed services",
+                    "validated services",
+                    "approved listings",
+                    "active services",
+                    "service confirmation",
+                    "approved offerings",
+                    "verified listings",
+                    "accepted offerings"
+                ],
+                "title": "Approved",
+                "route_name": "admin.service.approved",
+                "menu_active": "admin.service.approved"
+            },
+            {
+                "keyword": [
+                    "rejected service",
+                    "manage service",
+                    "service rejected",
+                    "service management",
+                    "declined services",
+                    "refused services",
+                    "denied services",
+                    "rejected listings",
+                    "disapproved services",
+                    "unsuccessful services",
+                    "failed approval",
+                    "rejected offerings",
+                    "declined listings",
+                    "denied offerings"
+                ],
+                "title": "Rejected",
+                "route_name": "admin.service.canceled",
+                "menu_active": "admin.service.canceled"
+            },
+            {
+                "keyword": [
+                    "closed service",
+                    "manage service",
+                    "service closed",
+                    "service management",
+                    "terminated services",
+                    "ended services",
+                    "discontinued services",
+                    "finished services",
+                    "completed services",
+                    "inactive services",
+                    "service termination",
+                    "closed offerings",
+                    "ended listings",
+                    "discontinued offerings"
+                ],
+                "title": "Closed",
+                "route_name": "admin.service.closed",
+                "menu_active": "admin.service.closed"
+            },
+            {
+                "keyword": [
+                    "all service",
+                    "manage service",
+                    "all services",
+                    "service management",
+                    "complete services",
+                    "full service list",
+                    "service directory",
+                    "total services",
+                    "service database",
+                    "all offerings",
+                    "service overview",
+                    "complete listings",
+                    "service catalog",
+                    "full offerings"
+                ],
+                "title": "All",
+                "route_name": "admin.service.all",
+                "menu_active": "admin.service.all"
+            }
+        ]
+    },
+    "manage_job": {
+        "title": "Manage Job",
+        "icon": "las la-tasks",
+        "counters": ["pendingJobCount"],
+        "keyword": [
+            "Job administration",
+            "Job control",
+            "Job oversight",
+            "Job coordination",
+            "Job supervision",
+            "Job monitoring",
+            "Job tracking",
+            "Job management system",
+            "Job directory",
+            "Job database",
+            "Job platform",
+            "Job organization",
+            "Job operations",
+            "Job handling",
+            "Employment management"
+        ],
+        "menu_active": "admin.job*",
+        "submenu": [
+            {
+                "keyword": [
+                    "pending job",
+                    "manage job",
+                    "job pending",
+                    "job management",
+                    "awaiting approval",
+                    "job queue",
+                    "pending review",
+                    "job requests",
+                    "unapproved jobs",
+                    "waiting jobs",
+                    "job verification",
+                    "pending validation",
+                    "job approval",
+                    "approval queue"
+                ],
+                "title": "Pending",
+                "route_name": "admin.job.pending",
+                "menu_active": "admin.job.pending",
+                "counter": "pendingJobCount"
+            },
+            {
+                "keyword": [
+                    "approved job",
+                    "manage job",
+                    "job approved",
+                    "job management",
+                    "verified jobs",
+                    "accepted jobs",
+                    "confirmed jobs",
+                    "validated jobs",
+                    "approved listings",
+                    "active jobs",
+                    "job confirmation",
+                    "approved positions",
+                    "verified listings",
+                    "accepted positions"
+                ],
+                "title": "Approved",
+                "route_name": "admin.job.approved",
+                "menu_active": "admin.job.approved"
+            },
+            {
+                "keyword": [
+                    "rejected job",
+                    "manage job",
+                    "job rejected",
+                    "job management",
+                    "declined jobs",
+                    "refused jobs",
+                    "denied jobs",
+                    "rejected listings",
+                    "disapproved jobs",
+                    "unsuccessful jobs",
+                    "failed approval",
+                    "rejected positions",
+                    "declined listings",
+                    "denied positions"
+                ],
+                "title": "Rejected",
+                "route_name": "admin.job.canceled",
+                "menu_active": "admin.job.canceled"
+            },
+            {
+                "keyword": [
+                    "closed job",
+                    "manage job",
+                    "job closed",
+                    "job management",
+                    "terminated jobs",
+                    "ended jobs",
+                    "discontinued jobs",
+                    "finished jobs",
+                    "completed jobs",
+                    "inactive jobs",
+                    "job termination",
+                    "closed positions",
+                    "ended listings",
+                    "discontinued positions"
+                ],
+                "title": "Closed",
+                "route_name": "admin.job.closed",
+                "menu_active": "admin.job.closed"
+            },
+            {
+                "keyword": [
+                    "all job",
+                    "manage job",
+                    "all jobs",
+                    "job management",
+                    "complete jobs",
+                    "full job list",
+                    "job directory",
+                    "total jobs",
+                    "job database",
+                    "all positions",
+                    "job overview",
+                    "complete listings",
+                    "job catalog",
+                    "full positions"
+                ],
+                "title": "All",
+                "route_name": "admin.job.all",
+                "menu_active": "admin.job.all"
+            }
+        ]
+    },
+    "manage_software": {
+        "title": "Manage Software",
+        "icon": "las la-laptop-code",
+        "counters": ["pendingSoftwareCount"],
+        "keyword": [
+            "Software administration",
+            "Software control",
+            "Software oversight",
+            "Software coordination",
+            "Software supervision",
+            "Software monitoring",
+            "Software tracking",
+            "Software management system",
+            "Software directory",
+            "Software database",
+            "Software platform",
+            "Software organization",
+            "Software operations",
+            "Software handling",
+            "Application management"
+        ],
+        "menu_active": "admin.software*",
+        "submenu": [
+            {
+                "keyword": [
+                    "pending software",
+                    "manage software",
+                    "software pending",
+                    "software management",
+                    "awaiting approval",
+                    "software queue",
+                    "pending review",
+                    "software requests",
+                    "unapproved software",
+                    "waiting software",
+                    "software verification",
+                    "pending validation",
+                    "software approval",
+                    "approval queue"
+                ],
+                "title": "Pending",
+                "route_name": "admin.software.pending",
+                "menu_active": "admin.software.pending",
+                "counter": "pendingSoftwareCount"
+            },
+            {
+                "keyword": [
+                    "approved software",
+                    "manage software",
+                    "software approved",
+                    "software management",
+                    "verified software",
+                    "accepted software",
+                    "confirmed software",
+                    "validated software",
+                    "approved applications",
+                    "active software",
+                    "software confirmation",
+                    "approved programs",
+                    "verified applications",
+                    "accepted programs"
+                ],
+                "title": "Approved",
+                "route_name": "admin.software.approved",
+                "menu_active": "admin.software.approved"
+            },
+            {
+                "keyword": [
+                    "rejected software",
+                    "manage software",
+                    "software rejected",
+                    "software management",
+                    "declined software",
+                    "refused software",
+                    "denied software",
+                    "rejected applications",
+                    "disapproved software",
+                    "unsuccessful software",
+                    "failed approval",
+                    "software management"
+                ],
+                "title": "Rejected",
+                "route_name": "admin.software.canceled",
+                "menu_active": "admin.software.canceled"
+            },
+            {
+                "keyword": [
+                    "closed software",
+                    "manage software",
+                    "software closed",
+                    "software management",
+                    "terminated software",
+                    "ended software",
+                    "discontinued software",
+                    "finished software",
+                    "completed software",
+                    "inactive software",
+                    "software termination",
+                    "closed programs",
+                    "ended applications",
+                    "discontinued programs"
+                ],
+                "title": "Closed",
+                "route_name": "admin.software.closed",
+                "menu_active": "admin.software.closed"
+            },
+            {
+                "keyword": [
+                    "all software",
+                    "manage software",
+                    "software management",
+                    "software directory",
+                    "software database",
+                    "software catalog",
+                    "software inventory",
+                    "software list",
+                    "software collection",
+                    "complete software",
+                    "software repository",
+                    "software archive",
+                    "software records",
+                    "software entries",
+                    "software index"
+                ],
+                "title": "All",
+                "route_name": "admin.software.all",
+                "menu_active": "admin.software.all"
+            }
+        ]
+    },
+    "deposits": {
+        "title": "Deposits",
+        "icon": "las la-file-invoice-dollar",
+        "counters": ["pendingDepositsCount"],
+        "menu_active": "admin.deposit*",
+        "submenu": [
+            {
+                "keyword": [
+                    "Pending Deposits",
+                    "Deposits",
+                    "Deposit management",
+                    "Deposit control",
+                    "Deposit status",
+                    "Deposit activity"
+                ],
+                "title": "Pending Deposits",
+                "route_name": "admin.deposit.pending",
+                "menu_active": "admin.deposit.pending",
+                "counter": "pendingDepositsCount",
+                "params": {
+                    "user_id": ""
+                }
+            },
+            {
+                "keyword": [
+                    "Approved Deposits",
+                    "Deposits",
+                    "Deposit management",
+                    "Deposit activity"
+                ],
+                "title": "Approved Deposits",
+                "route_name": "admin.deposit.approved",
+                "menu_active": "admin.deposit.approved",
+                "params": {
+                    "user_id": ""
+                }
+            },
+            {
+                "keyword": [
+                    "Successful Deposits",
+                    "Deposits",
+                    "Deposit management",
+                    "Deposit activity"
+                ],
+                "title": "Successful Deposits",
+                "route_name": "admin.deposit.successful",
+                "menu_active": "admin.deposit.successful",
+                "params": {
+                    "user_id": ""
+                }
+            },
+            {
+                "keyword": [
+                    "Rejected Deposits",
+                    "Deposits",
+                    "Deposit management",
+                    "Deposit activity"
+                ],
+                "title": "Rejected Deposits",
+                "route_name": "admin.deposit.rejected",
+                "menu_active": "admin.deposit.rejected",
+                "params": {
+                    "user_id": ""
+                }
+            },
+            {
+                "keyword": [
+                    "Initiated Deposits",
+                    "Deposits",
+                    "Deposit management",
+                    "Deposit activity"
+                ],
+                "title": "Initiated Deposits",
+                "route_name": "admin.deposit.initiated",
+                "menu_active": "admin.deposit.initiated",
+                "params": {
+                    "user_id": ""
+                }
+            },
+            {
+                "keyword": [
+                    "All Deposits",
+                    "Deposits",
+                    "Deposit management",
+                    "Deposit control",
+                    "Deposit activity"
+                ],
+                "title": "All Deposits",
+                "route_name": "admin.deposit.list",
+                "menu_active": "admin.deposit.list",
+                "params": {
+                    "user_id": ""
+                }
+            }
+        ]
+    },
+    "withdrawals": {
+        "title": "Withdrawals",
+        "icon": "la la-bank",
+        "counters": ["pendingWithdrawCount"],
+        "menu_active": "admin.withdraw.data*",
+        "submenu": [
+            {
+                "keyword": [
+                    "Pending Withdrawals",
+                    "Withdrawals",
+                    "Withdrawal management",
+                    "Withdrawal control",
+                    "Withdrawal status",
+                    "Withdrawal activity"
+                ],
+                "title": "Pending Withdrawals",
+                "route_name": "admin.withdraw.data.pending",
+                "menu_active": "admin.withdraw.data.pending",
+                "counter": "pendingWithdrawCount",
+                "params": {
+                    "user_id": ""
+                }
+            },
+            {
+                "keyword": [
+                    "Approved Withdrawals",
+                    "Withdrawals",
+                    "Withdrawal management",
+                    "Withdrawal activity"
+                ],
+                "title": "Approved Withdrawals",
+                "route_name": "admin.withdraw.data.approved",
+                "menu_active": "admin.withdraw.data.approved",
+                "params": {
+                    "user_id": ""
+                }
+            },
+            {
+                "keyword": [
+                    "Rejected Withdrawals",
+                    "Withdrawals",
+                    "Withdrawal management",
+                    "Withdrawal activity"
+                ],
+                "title": "Rejected Withdrawals",
+                "route_name": "admin.withdraw.data.rejected",
+                "menu_active": "admin.withdraw.data.rejected",
+                "params": {
+                    "user_id": ""
+                }
+            },
+            {
+                "keyword": [
+                    "All Withdrawals",
+                    "Withdrawals",
+                    "Withdrawal management",
+                    "Withdrawal control",
+                    "Withdrawal activity"
+                ],
+                "title": "All Withdrawals",
+                "route_name": "admin.withdraw.data.all",
+                "menu_active": "admin.withdraw.data.all",
+                "params": {
+                    "user_id": ""
+                }
+            }
+        ]
+    },
+    "manage_categories": {
+        "keyword": ["manage categories", "category management", "categories"],
+        "title": "Manage Category",
+        "icon": "las la-list",
+        "route_name": "admin.category.index",
+        "menu_active": "admin.category.index"
+    },
+    "manage_sub_categories": {
+        "keyword": [
+            "manage categories",
+            "category management",
+            "categories",
+            "subcategories",
+            "subcategory"
+        ],
+        "title": "Manage Sub Category",
+        "icon": "las la-bolt",
+        "route_name": "admin.subcategory.index",
+        "menu_active": "admin.subcategory.index"
+    },
+    "manage_features": {
+        "title": "Manage Features",
+        "keyword": ["manage features", "feature management", "features"],
+        "icon": "las la-list-alt",
+        "route_name": "admin.feature.index",
+        "menu_active": "admin.feature.index"
+    },
+    "manage_advertisement": {
+        "title": "Manage Ad",
+        "keyword": [
+            "manage advertisement",
+            "advertisement management",
+            "advertising"
+        ],
+        "icon": "las la-ad",
+        "route_name": "admin.advertisement.index",
+        "menu_active": "admin.advertisement.index"
+    },
+    "manage_level": {
+        "title": "Manage Level",
+        "keyword": ["manage level", "Level management", "Level"],
+        "icon": "lab la-hackerrank",
+        "route_name": "admin.level.index",
+        "menu_active": "admin.level.index"
+    },
+    "manage_coupon": {
+        "title": "Manage Coupon",
+        "keyword": [
+            "manage coupon",
+            "coupon management",
+            "coupon codes",
+            "discount codes",
+            "promotional codes",
+            "promo codes",
+            "vouchers",
+            "special offers",
+            "discounts",
+            "deals",
+            "price reduction",
+            "savings",
+            "promotional offers",
+            "marketing offers",
+            "customer incentives",
+            "sales promotion"
+        ],
+        "icon": "las la-percentage",
+        "route_name": "admin.coupon.index",
+        "menu_active": "admin.coupon.index"
+    },
+    "support_ticket": {
+        "title": "Support Ticket",
+        "icon": "la la-ticket",
+        "counters": ["pendingTicketCount"],
+        "menu_active": "admin.ticket*",
+        "submenu": [
+            {
+                "keyword": [
+                    "Pending Ticket",
+                    "Support Ticket",
+                    "Ticket management",
+                    "Ticket control",
+                    "Ticket status",
+                    "Ticket activity"
+                ],
+                "title": "Pending Ticket",
+                "route_name": "admin.ticket.pending",
+                "menu_active": "admin.ticket.pending",
+                "counter": "pendingTicketCount"
+            },
+            {
+                "keyword": [
+                    "Closed Ticket",
+                    "Support Ticket",
+                    "Ticket management",
+                    "Ticket activity"
+                ],
+                "title": "Closed Ticket",
+                "route_name": "admin.ticket.closed",
+                "menu_active": "admin.ticket.closed"
+            },
+            {
+                "keyword": [
+                    "Answered Ticket",
+                    "Support Ticket",
+                    "Ticket management",
+                    "Ticket activity"
+                ],
+                "title": "Answered Ticket",
+                "route_name": "admin.ticket.answered",
+                "menu_active": "admin.ticket.answered"
+            },
+            {
+                "keyword": [
+                    "All Ticket",
+                    "Support Ticket",
+                    "Ticket management",
+                    "Ticket control",
+                    "Ticket activity"
+                ],
+                "title": "All Ticket",
+                "route_name": "admin.ticket.index",
+                "menu_active": "admin.ticket.index"
+            }
+        ]
+    },
+    "reports": {
+        "title": "Report",
+        "icon": "la la-list",
+        "menu_active": "admin.report*",
+        "submenu": [
+            {
+                "keyword": [
+                    "Transaction Log",
+                    "Report",
+                    "Transaction report",
+                    "Transaction history",
+                    "Transaction activity",
+                    "balance sheet",
+                    "balance log",
+                    "balance history"
+                ],
+                "title": "Transaction History",
+                "route_name": "admin.report.transaction",
+                "menu_active": [
+                    "admin.report.transaction",
+                    "admin.report.transaction.search"
+                ],
+                "params": {
+                    "user_id": ""
+                }
+            },
+            {
+                "keyword": [
+                    "Login History",
+                    "Report",
+                    "Login report",
+                    "Login history",
+                    "Login activity"
+                ],
+                "title": "Login History",
+                "route_name": "admin.report.login.history",
+                "menu_active": [
+                    "admin.report.login.history",
+                    "admin.report.login.ip.history"
+                ]
+            },
+            {
+                "keyword": [
+                    "Notification History",
+                    "Report",
+                    "Notification report",
+                    "Notification history",
+                    "Notification activity",
+                    "email log",
+                    "email history",
+                    "sms log",
+                    "sms history",
+                    "push notification log",
+                    "push notification history"
+                ],
+                "title": "Notification History",
+                "route_name": "admin.report.notification.history",
+                "menu_active": "admin.report.notification.history"
+            }
+        ]
+    },
+    "subscriber": {
+        "keyword": [
+            "subscriber",
+            "subscribers",
+            "Subscription management",
+            "Subscriber list",
+            "Subscriber activity"
+        ],
+        "title": "Subscribers",
+        "icon": "las la-thumbs-up",
+        "route_name": "admin.subscriber.index",
+        "menu_active": "admin.subscriber.*"
+    },
+    "system_setting": {
+        "keyword": [
+            "System Setting",
+            "setting",
+            "System configuration",
+            "System preferences",
+            "Configuration management",
+            "System setup"
+        ],
+        "title": "System Setting",
+        "icon": "las la-life-ring",
+        "route_name": "admin.setting.system",
+        "menu_active": [
+            "admin.setting.system",
+            "admin.setting.general",
+            "admin.setting.socialite.credentials",
+            "admin.cron*",
+            "admin.setting.system.configuration",
+            "admin.setting.logo.icon",
+            "admin.extensions.index",
+            "admin.language.manage",
+            "admin.language.key",
+            "admin.seo",
+            "admin.kyc.setting",
+            "admin.frontend.templates",
+            "admin.frontend.manage.*",
+            "admin.maintenance.mode",
+            "admin.setting.cookie",
+            "admin.setting.custom.css",
+            "admin.setting.sitemap",
+            "admin.setting.robot",
+            "admin.setting.notification.global.email",
+            "admin.setting.notification.global.sms",
+            "admin.setting.notification.global.push",
+            "admin.setting.notification.email",
+            "admin.setting.notification.sms",
+            "admin.setting.notification.push",
+            "admin.setting.notification.templates",
+            "admin.setting.notification.template.edit",
+            "admin.frontend.index",
+            "admin.frontend.sections*",
+            "admin.gateway*",
+            "admin.withdraw.method*",
+            "admin.setting.app.purchase"
+        ]
+    },
+    "extra": {
+        "title": "Extra",
+        "icon": "la la-server",
+        "menu_active": "admin.system*",
+        "counters": ["updateAvailable"],
+        "submenu": [
+            {
+                "keyword": [
+                    "Application",
+                    "System",
+                    "Application management",
+                    "Application settings",
+                    "System information",
+                    "version",
+                    "laravel",
+                    "timezone"
+                ],
+                "title": "Application",
+                "route_name": "admin.system.info",
+                "menu_active": "admin.system.info"
+            },
+            {
+                "keyword": [
+                    "Server",
+                    "System",
+                    "Server management",
+                    "Server settings",
+                    "System information",
+                    "version",
+                    "php version",
+                    "software",
+                    "ip address",
+                    "server ip address",
+                    "server port",
+                    "http host"
+                ],
+                "title": "Server",
+                "route_name": "admin.system.server.info",
+                "menu_active": "admin.system.server.info"
+            },
+            {
+                "keyword": [
+                    "Cache",
+                    "System",
+                    "Cache management",
+                    "Cache optimization",
+                    "System performance",
+                    "clear cache"
+                ],
+                "title": "Cache",
+                "route_name": "admin.system.optimize",
+                "menu_active": "admin.system.optimize"
+            },
+            {
+                "keyword": [
+                    "Update",
+                    "System",
+                    "Update management",
+                    "System update",
+                    "Software updates",
+                    "version update",
+                    "upgrade",
+                    "latest version"
+                ],
+                "title": "Update",
+                "route_name": "admin.system.update",
+                "menu_active": "admin.system.update*",
+                "counter": "updateAvailable"
+            }
+        ]
+    },
+    "report_and_request": {
+        "keyword": [
+            "Report & Request",
+            "Report and Request",
+            "Reports and Requests",
+            "Reporting and Requests",
+            "Report management",
+            "Request management",
+            "feature request",
+            "bug report"
+        ],
+        "title": "Report & Request",
+        "icon": "las la-bug",
+        "route_name": "admin.request.report",
+        "menu_active": "admin.request.report"
+    }
+}
