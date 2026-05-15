@@ -10,7 +10,7 @@ Route::post('pusher/auth', 'SiteController@pusher')->name('pusher.auth');
 
 Route::get('cron', 'CronController@cron')->name('cron');
 
-// User Support Ticket
+// User Support Tickets
 Route::controller('TicketController')->prefix('ticket')->name('ticket.')->group(function () {
     Route::get('/', 'supportTicket')->name('index');
     Route::get('new', 'openSupportTicket')->name('open');
