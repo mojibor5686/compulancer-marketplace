@@ -218,10 +218,14 @@
                 scrollToBottom();
 
                 // Form Ajax Request
+                // Form Ajax Request
                 $('#chat-form').on('submit', function(e) {
                     e.preventDefault();
                     var formData = new FormData(this);
-                    var hasMessage = $('#chat-message-field').val().trim() !== '';
+
+                    // সঠিক আইডি ব্যবহার করা হয়েছে
+                    var messageInput = $('#chat-message-field');
+                    var hasMessage = messageInput.length ? messageInput.val().trim() !== '' : false;
                     var hasFile = $('#file')[0].files.length > 0;
 
                     if (!hasMessage && !hasFile) {
@@ -236,11 +240,24 @@
                         processData: false,
                         contentType: false,
                         success: function(response) {
+                            // চ্যাট থ্রেডে নতুন মেসেজ অ্যাপেন্ড করা
                             $('#chat-thread').append(response.html);
+
+                            // ইনপুট ফিল্ড এবং ফাইল সঠিকভাবে ক্লিয়ার করা
                             $('#chat-message-field').val('');
                             $('#file').val('');
+                            $('#chat-form')[0].reset();
+
                             handleFileAttachment([]);
                             scrollToBottom();
+                        },
+                        error: function(xhr) {
+                            if (xhr.responseJSON && xhr.responseJSON.error) {
+                                notify('error', xhr.responseJSON.error);
+                            } else {
+                                notify('error', '@lang('An unexpected error occurred. Please try again.')');
+                            }
+                            console.error(xhr.responseText);
                         }
                     });
                 });
