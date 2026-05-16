@@ -57,19 +57,13 @@
 
         <!-- Delivery Time -->
         <div class="form--group-lg">
-            <div class="row align-items-center">
-                <div class="col-lg-3">
-                    <label class="form-label form--label required">@lang('Estimated Delivery Time')</label>
-                </div>
-                <div class="col-lg-9">
-                    <div class="input-group input--group">
-                        <input class="form-control form--control" name="delivery_time" type="number"
-                            value="{{ old('delivery_time', @$service->delivery_time) }}" required>
-                        <span class="input-group-text">@lang('Days')</span>
-                    </div>
-                    <p class="fs-14 mt-1">@lang('Provide the most affordable delivery days.')</p>
-                </div>
+            <label class="form-label form--label required">@lang('Estimated Delivery Time')</label>
+            <div class="input-group input--group">
+                <input class="form-control form--control" name="delivery_time" type="number"
+                    value="{{ old('delivery_time', @$service->delivery_time) }}" required>
+                <span class="input-group-text">@lang('Days')</span>
             </div>
+            <p class="fs-14 mt-1">@lang('Provide the most affordable delivery days.')</p>
         </div>
 
         <!-- Service Description -->
