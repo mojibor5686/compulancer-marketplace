@@ -7,11 +7,11 @@
         class="sidebar-brand-wrapper d-flex align-items-center p-3 border-bottom border-secondary border-opacity-25 mb-2">
         <a href="{{ url('/') }}" class="text-decoration-none">
             <img src="https://work.mojibor.com/assets/images/logo_icon/logo.png" alt="Compulancer Logo" class="img-fluid"
-                style="max-height: 40px; object-fit: contain;">
+                style="max-height: 35px; object-fit: contain;">
         </a>
     </div>
 
-    <div class="offcanvas-sidebar__body" data-overlayscrollbars-theme="os-theme-dark">
+    <div class="offcanvas-sidebar__body" data-overlayscrollbars-theme="os-theme-dark" style="padding: 0px;">
         <ul class="offcanvas-sidebar-menu">
             <li class="offcanvas-sidebar-menu__item {{ menuActive('user.seller.home') }}">
                 <a href="{{ route('user.seller.home') }}" class="offcanvas-sidebar-menu__link">
