@@ -8774,10 +8774,6 @@ textarea.form--control {
   padding: 24px;
 }
 
-.dashboard-main-content>*:not(:last-child) {
-  margin-bottom: 24px;
-}
-
 .dashboard-widget-grid {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
