@@ -1,5 +1,4 @@
 <li class="offcanvas-sidebar-menu__item offcanvas-sidebar-menu__items">
-    <i class="fas fa-wallet smart-icons"></i>
     <span class="offcanvas-sidebar-menu__title">@lang('Finance & Support')</span>
 </li>
 <ul id="sidebar-main-menu" class="offcanvas-sidebar-menu">

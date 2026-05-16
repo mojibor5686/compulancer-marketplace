@@ -6795,7 +6795,7 @@ textarea.form--control {
   color: hsl(var(--white)/0.7);
 }
 
-.offcanvas-sidebar--dashboard .offcanvas-sidebar-menu__item .smart-icon {
+.offcanvas-sidebar--dashboard .offcanvas-sidebar-menu__item .smart-icons {
   font-size: 20px;
   color: white;
 }
