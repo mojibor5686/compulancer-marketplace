@@ -2,19 +2,25 @@
 @section('content')
     <!-- Dashboard Top Section -->
     <div class="dashboard-top mb-4">
-        <form class="search-form" method="GET">
-            <div class="input-group">
-                <input class="form-control form--control bg-white" type="text" name="search"
-                    value="{{ request()->search ?? '' }}" placeholder="@lang('Search')...">
-                <button class="btn btn--base" type="submit">
-                    <i class="fas fa-search"></i>
-                </button>
+        <div class="row gy-3 align-items-center">
+            <div class="col-lg-8">
+                <form class="search-form" method="GET">
+                    <div class="input-group">
+                        <input class="form-control form--control bg-white" type="text" name="search"
+                            value="{{ request()->search ?? '' }}" placeholder="@lang('Search services...')">
+                        <button class="btn btn--base" type="submit">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </form>
             </div>
-        </form>
-        <a href="{{ route('user.seller.service.basic') }}" class="btn btn--base btn--lg" role="button">
-            <i class="fas fa-plus"></i>
-            <span>@lang('Create Service')</span>
-        </a>
+            <div class="col-lg-4 text-lg-end">
+                <a href="{{ route('user.seller.service.basic') }}" class="btn btn--base btn--lg" role="button">
+                    <i class="fas fa-plus"></i>
+                    <span>@lang('Create Service')</span>
+                </a>
+            </div>
+        </div>
     </div>
 
     <!-- Services Table Section -->
