@@ -213,7 +213,9 @@
                             </div>
                         </div>
 
-                        @yield('content')
+                        <div class="p-24">
+                            @yield('content')
+                        </div>
                     </div>
                 </div>
             </div>
