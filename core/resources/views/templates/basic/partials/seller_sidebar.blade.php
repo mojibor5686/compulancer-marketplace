@@ -43,7 +43,6 @@
             </li>
 
             <li class="offcanvas-sidebar-menu__item offcanvas-sidebar-menu__items">
-                <i class="fas fa-briefcase smart-icon"></i>
                 <span class="offcanvas-sidebar-menu__title">@lang('Business Insights')</span>
             </li>
 
