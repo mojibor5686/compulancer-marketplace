@@ -6795,12 +6795,17 @@ textarea.form--control {
   color: hsl(var(--white)/0.7);
 }
 
+.offcanvas-sidebar--dashboard .offcanvas-sidebar-menu__link .smart-icon {
+  font-size: 20px;
+}
+
 .offcanvas-sidebar--dashboard .offcanvas-sidebar-menu__link span {
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   display: -webkit-box;
   overflow: hidden;
   text-overflow: ellipsis;
+  margin-left: 10px;
 }
 
 .offcanvas-sidebar--dashboard .offcanvas-sidebar-menu__link svg {
