@@ -30,8 +30,7 @@
                     value="{{ old($data->label) }}" @if ($data->is_required == 'required') required @endif>
             @elseif($data->type == 'number')
                 <input type="number" class="form-control form--control" name="{{ $data->label }}"
-                    value="{{ old($data->label) }}" step="any"
-                    @if ($data->is_required == 'required') required @endif>
+                    value="{{ old($data->label) }}" step="any" @if ($data->is_required == 'required') required @endif>
             @elseif($data->type == 'textarea')
                 <textarea class="form-control form--control" name="{{ $data->label }}"
                     @if ($data->is_required == 'required') required @endif>{{ old($data->label) }}</textarea>
@@ -51,7 +50,8 @@
                                 <input id="{{ $data->label }}_{{ titleToKey($option) }}"
                                     name="{{ $data->label }}[]" type="checkbox" value="{{ $option }}"
                                     @checked($option == old($data->label))>
-                                <label for="{{ $data->label }}_{{ titleToKey($option) }}">{{ $option }}</label>
+                                <label
+                                    for="{{ $data->label }}_{{ titleToKey($option) }}">{{ $option }}</label>
                             </div>
                         @endforeach
                     </div>
@@ -62,10 +62,10 @@
                     <div class="d-flex gap-3 flex-wrap">
                         @foreach ($data->options as $option)
                             <div class="form-group custom-check-group">
-                                <input id="{{ $data->label }}_{{ titleToKey($option) }}"
-                                    name="{{ $data->label }}" type="radio" value="{{ $option }}"
-                                    @checked($option == old($data->label))>
-                                <label for="{{ $data->label }}_{{ titleToKey($option) }}">{{ $option }}</label>
+                                <input id="{{ $data->label }}_{{ titleToKey($option) }}" name="{{ $data->label }}"
+                                    type="radio" value="{{ $option }}" @checked($option == old($data->label))>
+                                <label
+                                    for="{{ $data->label }}_{{ titleToKey($option) }}">{{ $option }}</label>
                             </div>
                         @endforeach
                     </div>

@@ -53,7 +53,7 @@
             <li class="offcanvas-sidebar-menu__item {{ menuActive('user.buyer.hiring*') }}">
                 <a href="{{ route('user.buyer.hiring.list') }}" class="offcanvas-sidebar-menu__link">
                     <i class="fas fa-users smart-icon"></i>
-                    <span>@lang('Hiring List')</span>
+                    <span>@lang('Manage Hirings')</span>
                 </a>
             </li>
             <li class="offcanvas-sidebar-menu__item {{ menuActive('user.buyer.booked.*') }}">
