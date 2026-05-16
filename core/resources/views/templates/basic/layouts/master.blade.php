@@ -129,9 +129,11 @@
                                             class="rounded-circle object-fit-cover"
                                             style="width: 42px; height: 42px; border: 2px solid #e9ecef;">
                                         <div class="user-info-text lh-sm">
-                                            <h6 class="m-0 fw-bold text-dark" style="font-size: 14px;">{{ auth()->user()->name }}</h6>
+                                            <h6 class="m-0 fw-bold text-dark" style="font-size: 14px;">
+                                                {{ auth()->user()->name }}</h6>
                                             <small class="text-muted d-block" style="font-size: 11px;">
-                                                @lang('Freelancer') <span class="text-danger fw-semibold">{{ auth()->user()->balance }}</span>
+                                                @lang('Freelancer') <span
+                                                    class="text-danger fw-semibold">{{ auth()->user()->balance }}</span>
                                             </small>
                                         </div>
                                     </div>
@@ -157,11 +159,6 @@
                                             <li><a class="hover-menu-link px-3 py-2 d-flex align-items-center gap-2"
                                                     href="{{ route('user.seller.home') }}"><i
                                                         class="las la-border-all"></i> @lang('Dashboard')</a></li>
-                                            <li><a class="hover-menu-link px-3 py-2 d-flex align-items-center gap-2"
-                                                    href="{{ route('user.seller.services') }}"><i
-                                                        class="las la-briefcase"></i>
-                                                    @lang('My Services')</a>
-                                            </li>
                                             <li><a class="hover-menu-link px-3 py-2 d-flex align-items-center gap-2"
                                                     href="{{ route('user.inbox.list') }}"><i class="las la-sms"></i>
                                                     @lang('Messages')</a>
