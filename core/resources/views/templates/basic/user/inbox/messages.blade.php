@@ -1,11 +1,10 @@
 @extends('Template::layouts.master')
 
 @section('content')
-    @php
-        $user = $inbox->sender_id == auth()->id() ? $inbox->receiver : $inbox->sender;
-    @endphp
     <div class="card-area">
-        <div class="row g-0 rounded shadow-sm overflow-hidden bg-white" style="min-height: 500px;">
+        <div class="row g-0 rounded shadow-sm overflow-hidden bg-white"
+            style="min-height: 500px; height: calc(100vh - 160px);">
+
             <div class="col-lg-4 col-xl-3 border-end d-flex flex-column bg-light">
                 <div class="p-3 border-bottom bg-white">
                     <h5 class="m-0 fw-bold text-dark">@lang('Chats')</h5>
@@ -59,7 +58,7 @@
                             <img src="{{ getImage(getFilePath('userProfile') . '/' . @$user->image, isAvatar: true) }}"
                                 class="rounded-circle object-fit-cover" style="width: 42px; height: 42px;" alt="image">
                             <div>
-                                <h6 class="m-0 fw-bold text-dark">{{ $user->username }}</h6>
+                                <h6 class="m-0 fw-bold text-dark text-capitalize">{{ $user->username }}</h6>
                                 <small class="text-success" style="font-size: 11px;"><i class="fas fa-circle fs-small"
                                         style="font-size: 8px;"></i> @lang('Active Thread')</small>
                             </div>
@@ -77,36 +76,32 @@
                         </div>
                     </div>
 
-                    <div class="flex-grow-1 overflow-auto p-4 bg-light custom-chat-thread" id="chat-thread"
+                    <div class="flex-grow-1 overflow-auto p-4 bg-light custom-chat-thread chat-box__thread" id="chat-thread"
                         data-last-chat-id="{{ $lastChatId }}">
                         @include('Template::partials.chat_thread_inbox', ['messages' => $messages])
                     </div>
 
-                    <div class="p-3 border-top bg-white">
+                    <div class="chat-box__footer bg-light p-3 border-top">
                         <form id="chat-form" enctype="multipart/form-data">
                             @csrf
                             <input type="hidden" name="unique_id" value="{{ $inbox->unique_id }}">
                             <input type="hidden" name="receiver_id" value="{{ encrypt($user->id) }}">
 
-                            <div class="d-flex align-items-center gap-2">
-                                <div class="chat-send-file" data-bs-toggle="tooltip" title="Attach a file">
-                                    <label for="file"
-                                        class="m-0 btn btn-light rounded-circle d-flex align-items-center justify-content-center"
-                                        style="width: 42px; height: 42px; cursor: pointer;">
-                                        <i class="fas fa-paperclip text-secondary attachment-icon"></i>
+                            <div class="chat-send-area d-flex align-items-center">
+                                <div class="chat-send-file" data-bs-toggle="tooltip" title="Attach a file"
+                                    data-bs-offset="0,8">
+                                    <label for="file" class="file-label">
+                                        <i class="fas fa-paperclip attachment-icon"></i>
                                     </label>
                                     <input type="file" id="file" name="file" class="d-none"
                                         accept=".jpg, .png, .jpeg, .pdf">
                                 </div>
 
-                                <div class="flex-grow-1">
-                                    <div class="input-group">
+                                <div class="chat-send-field flex-grow-1">
+                                    <div class="input-group input--group">
                                         <input type="text" name="message" id="chat-message-field"
-                                            placeholder="@lang('Type a message...')"
-                                            class="form-control rounded-pill border px-3 shadow-none" style="height: 42px;">
-                                        <button type="submit"
-                                            class="btn btn-primary rounded-pill px-4 ms-2 d-flex align-items-center justify-content-center"
-                                            style="height: 42px; width: 50px;">
+                                            placeholder="@lang('Send a message')" class="form-control form--control">
+                                        <button type="submit" class="btn btn--lg btn--base send-btn">
                                             <i class="fas fa-paper-plane"></i>
                                         </button>
                                     </div>
@@ -123,7 +118,6 @@
                     </div>
                 @endif
             </div>
-
         </div>
     </div>
 @endsection
@@ -140,12 +134,30 @@
         }
 
         .chat-send-area .input--group .form--control {
-            padding-left: 8px;
-            padding-right: 8px;
+            padding-left: 15px;
+            padding-right: 15px;
+            height: 45px;
         }
 
         .chat-send-area .input--group .form--control:focus {
             background-color: #fff;
+            box-shadow: none;
+            border-color: #cbd5e1;
+        }
+
+        .custom-sidebar-scroll::-webkit-scrollbar,
+        .custom-chat-thread::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .custom-sidebar-scroll::-webkit-scrollbar-thumb,
+        .custom-chat-thread::-webkit-scrollbar-thumb {
+            background-color: #cbd5e1;
+            border-radius: 10px;
+        }
+
+        .attached {
+            color: #3a84ff !important;
         }
     </style>
 @endpush
@@ -156,228 +168,196 @@
         (function($) {
             "use strict";
 
-            let userId = Number("{{ auth()->id() }}");
-            Pusher.logToConsole = false;
+            @if ($inbox)
+                let userId = Number("{{ auth()->id() }}");
+                Pusher.logToConsole = false;
 
-            let pusher = new Pusher("{{ gs('pusher_config')?->app_key }}", {
-                cluster: "{{ gs('pusher_config')?->cluster }}",
-                authEndpoint: "{{ route('pusher.auth') }}",
-                auth: {
-                    headers: {
-                        'X-CSRF-Token': "{{ csrf_token() }}"
+                let pusher = new Pusher("{{ gs('pusher_config')?->app_key }}", {
+                    cluster: "{{ gs('pusher_config')?->cluster }}",
+                    authEndpoint: "{{ route('pusher.auth') }}",
+                    auth: {
+                        headers: {
+                            'X-CSRF-Token': "{{ csrf_token() }}"
+                        }
+                    }
+                });
+
+                const pusherConnection = (channelName, eventName, callback) => {
+                    let channel = pusher.subscribe(channelName);
+                    channel.bind('pusher:subscription_succeeded', function() {
+                        channel.bind(eventName, function(data) {
+                            callback(data);
+                        });
+                    });
+                    channel.bind('pusher:subscription_error', function(status) {
+                        console.error(`Subscription error: ${status}`);
+                    });
+                };
+
+                pusherConnection('private-inbox-channel.' + "{{ $inbox->unique_id }}", 'chat-message',
+                    handleChatMessage);
+
+                function handleChatMessage(data) {
+                    if (data.uniqueId === "{{ $inbox->unique_id }}" && data.sender.id !== userId) {
+                        $('.empty-message-box').addClass('d-none');
+
+                        let messageHtml = `
+                            <div class="single-message ${data.sender.id == userId ? 'message--right' : 'message--left'}">
+                                <div class="message-content-outer">
+                                    <div class="message-content">
+                                        <p class="message-text">${data.message ?? ''}</p>
+                                        ${data.attachment ? `
+                                                <div class="message-attachment ${data.message ? '' : 'mt-0'}">
+                                                    <p class=""><a href="${data.attachment}" class="me-3"><i class="fa fa-file"></i> @lang('Attachment')</a></p>
+                                                </div>
+                                                ` : ''}
+                                    </div>
+                                    <span class="message-time d-block text-end mt-2">${data.createdAt}</span>
+                                </div>
+                                <div class="message-author">
+                                    <img src="${data.sender.image}" class="thumb">
+                                </div>
+                            </div>`;
+                        $('.chat-box__thread').append(messageHtml);
+                        scrollToBottom();
                     }
                 }
-            });
 
-            // Helper to establish a Pusher connection
-            const pusherConnection = (channelName, eventName, callback) => {
-                let channel = pusher.subscribe(channelName);
+                $('[data-bs-toggle="tooltip"]').tooltip();
 
-                channel.bind('pusher:subscription_succeeded', function() {
-                    channel.bind(eventName, function(data) {
-                        callback(data);
+                function handleFileAttachment(files) {
+                    const attachmentIcon = $('.chat-send-file');
+                    if (files.length > 0) {
+                        attachmentIcon.find('.attachment-icon').addClass('attached');
+                        attachmentIcon.attr('data-bs-original-title', files[0].name).tooltip('show');
+                        notify('success', 'File attached successfully');
+                    } else {
+                        attachmentIcon.find('.attachment-icon').removeClass('attached');
+                        attachmentIcon.attr('data-bs-original-title', 'Attach a file');
+                    }
+                }
+
+                $('#file').on('change', function() {
+                    handleFileAttachment(this.files);
+                });
+
+                function scrollToBottom() {
+                    var chatThread = document.getElementById('chat-thread');
+                    if (chatThread) chatThread.scrollTop = chatThread.scrollHeight;
+                }
+                scrollToBottom();
+
+                // Form Ajax Request (সম্পূর্ণ ফিক্সড আইডি সিলেক্টর দিয়ে)
+                $('#chat-form').on('submit', function(e) {
+                    e.preventDefault();
+
+                    var formData = new FormData(this);
+                    var hasMessage = $('#chat-message-field').val().trim() !== '';
+                    var hasFile = $('#file')[0].files.length > 0;
+
+                    if (!hasMessage && !hasFile) {
+                        notify('error', '@lang('Please provide a message or attach a file.')');
+                        return;
+                    }
+
+                    $.ajax({
+                        url: "{{ route('user.inbox.message.store') }}",
+                        type: 'POST',
+                        data: formData,
+                        processData: false,
+                        contentType: false,
+                        success: function(response) {
+                            $('.empty-message-box').addClass('d-none');
+                            $('.chat-box__thread').append(response.html);
+
+                            // সঠিক আইডি এলিমেন্ট ক্লিয়ার মেথড
+                            $('#chat-message-field').val('');
+                            $('#file').val('');
+                            $('#chat-form')[0].reset();
+
+                            handleFileAttachment([]);
+                            scrollToBottom();
+                        },
+                        error: function(xhr) {
+                            if (xhr.responseJSON && xhr.responseJSON.error) {
+                                notify('error', xhr.responseJSON.error);
+                            } else {
+                                notify('error', '@lang('An unexpected error occurred. Please try again later.')');
+                            }
+                            console.error(xhr.responseText);
+                        }
                     });
                 });
 
-                channel.bind('pusher:subscription_error', function(status) {
-                    console.error(`Subscription error: ${status}`);
-                });
-            };
-
-            // Subscribe to chat-message events
-            pusherConnection('private-inbox-channel.' + "{{ $inbox->unique_id }}", 'chat-message', handleChatMessage);
-
-            {{-- blade-formatter-disable --}}
-            // Handle incoming chat messages
-            function handleChatMessage(data) {
-                if (data.uniqueId === "{{ $inbox->unique_id }}" && data.sender.id !== userId) {
-                    // Hide empty message box if exists
-                    $('.empty-message-box').addClass('d-none');
-
-                    let messageHtml = `
-                        <div class="single-message ${data.sender.id == userId ? 'message--right' : 'message--left'}">
-                            <div class="message-content-outer">
-                                <div class="message-content">
-                                    <p class="message-text">${data.message ?? ''}</p>
-                                    ${data.attachment ? `
-                                        <div class="message-attachment ${data.message ? '' : 'mt-0'}">
-                                            <p class=""><a href="${data.attachment}" class="me-3"><i class="fa fa-file"></i> @lang('Attachment')</a></p>
-                                        </div>
-                                        ` : ''}
-                                </div>
-                                <span class="message-time d-block text-end mt-2">${data.createdAt}</span>
-                            </div>
-                            <div class="message-author">
-                                <img src="${data.sender.image}" class="thumb">
-                            </div>
-                        </div>`;
-                    $('.chat-box__thread').append(messageHtml);
-                    scrollToBottom();
-                }
-            }
-            {{-- blade-formatter-enable --}}
-
-            // Initialize tooltip
-            $('[data-bs-toggle="tooltip"]').tooltip();
-
-            // Change attachment icon color when file is selected
-            // Handle file attachment UI
-            function handleFileAttachment(files) {
-                const attachmentIcon = $('.chat-send-file');
-                if (files.length > 0) {
-                    attachmentIcon.find('.attachment-icon').addClass('attached');
-                    // Add tooltip with filename
-                    attachmentIcon
-                        .attr('data-bs-original-title', files[0].name)
-                        .tooltip('show');
-                    notify('success', 'File attached successfully');
-                } else {
-                    attachmentIcon.find('.attachment-icon').removeClass('attached');
-                    // Reset tooltip to default
-                    attachmentIcon.attr('data-bs-original-title', 'Attach a file');
-                }
-            }
-
-            // Handle file input change
-            $('#file').on('change', function() {
-                handleFileAttachment(this.files);
-            });
-
-            // Scroll chat to the bottom
-            function scrollToBottom() {
-                var chatThread = document.querySelector('.chat-box__thread');
-                chatThread.scrollTop = chatThread.scrollHeight;
-            }
-
-            // Scroll to bottom on page load
-            scrollToBottom();
-
-            // Handle form submission via Ajax
-            $('#chat-form').on('submit', function(e) {
-                e.preventDefault();
-
-                var formData = new FormData(this);
-                var hasMessage = $('#message').val().trim() !== '';
-                var hasFile = $('#file')[0].files.length > 0;
-
-                if (!hasMessage && !hasFile) {
-                    notify('error', '@lang('Please provide a message or attach a file.')');
-                    return;
-                }
-
-                $.ajax({
-                    url: "{{ route('user.inbox.message.store') }}",
-                    type: 'POST',
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    success: function(response) {
-                        // Hide empty message box if exists
-                        $('.empty-message-box').addClass('d-none');
-
-                        // Append the new message to the chat thread
-                        $('.chat-box__thread').append(response.html);
-
-                        // Clear the message input field and file input
-                        $('#message').val('');
-                        $('#file').val('');
-                        $('#chat-form')[0].reset();
-
-                        // Reset file attachment UI
-                        handleFileAttachment([]);
-
-                        // Scroll to bottom
-                        scrollToBottom();
-                    },
-                    error: function(xhr) {
-                        if (xhr.responseJSON && xhr.responseJSON.error) {
-                            notify('error', xhr.responseJSON.error);
-                        } else {
-                            notify('error', '@lang('An unexpected error occurred. Please try again later.')');
-                        }
-                        console.error(xhr.responseText);
-                    }
-                });
-
-            });
-
-            // Refresh chat messages via Ajax
-            $('.refresh').on('click', function() {
-                $.ajax({
-                    url: "{{ route('user.inbox.messages.refresh', $inbox->unique_id) }}",
-                    type: 'GET',
-                    success: function(response) {
-                        $('.chat-box__thread').html(response.html);
-                        scrollToBottom();
-                    },
-                    error: function(xhr) {
-                        if (xhr.responseJSON && xhr.responseJSON.error) {
-                            notify('error', xhr.responseJSON.error);
-                        } else {
-                            notify('error', '@lang('Failed to refresh messages. Please try again later.')');
-                        }
-                        console.error(xhr.responseText);
-                    }
-                });
-            });
-
-            // Fetch chat messages
-            const chatThread = $('#chat-thread');
-            let isFetching = false; // Flag to prevent multiple AJAX requests
-
-            function fetchChats() {
-                if (isFetching) return; // Prevent multiple AJAX requests
-                isFetching = true; // Set flag when request starts
-
-                const lastChatId = chatThread.find('.single-message:first').data(
-                    'chat-id'); // Get the top visible chat's ID
-                const chatUrl = window.location.href;
-
-                // Save the scroll position relative to the top chat
-                const lastChatElement = chatThread.find(`[data-chat-id="${lastChatId}"]`);
-                const lastChatScrollPosition = lastChatElement.length ? lastChatElement.offset().top - chatThread
-                    .offset().top : 0;
-
-                $.ajax({
-                    url: chatUrl,
-                    type: 'GET',
-                    data: {
-                        last_chat_id: lastChatId // Send the ID of the first message in the chat
-                    },
-                    success: function(response) {
-                        if (response.success) {
-                            // Prepend the new chats to the chat thread
-                            chatThread.prepend(response.html);
-
-                            // Scroll back to the original top chat after new messages are loaded
-                            const newLastChatElement = chatThread.find(`[data-chat-id="${lastChatId}"]`);
-                            if (newLastChatElement.length) {
-                                const newScrollPosition = newLastChatElement.offset().top - chatThread
-                                    .offset().top;
-                                chatThread.scrollTop(chatThread.scrollTop() + newScrollPosition -
-                                    lastChatScrollPosition);
+                $('.refresh').on('click', function() {
+                    $.ajax({
+                        url: "{{ route('user.inbox.messages.refresh', $inbox->unique_id) }}",
+                        type: 'GET',
+                        success: function(response) {
+                            $('.chat-box__thread').html(response.html);
+                            scrollToBottom();
+                        },
+                        error: function(xhr) {
+                            if (xhr.responseJSON && xhr.responseJSON.error) {
+                                notify('error', xhr.responseJSON.error);
+                            } else {
+                                notify('error', '@lang('Failed to refresh messages. Please try again later.')');
                             }
-                        } else if (response.last) {
-                            notify('info', '@lang('No more messages to load.')');
-                            chatThread.off('scroll'); // Remove scroll event if no more chats are available
+                            console.error(xhr.responseText);
                         }
-                    },
-                    error: function() {
-                        notify('error', '@lang('Failed to load older messages. Please try again.')');
-                    },
-                    complete: function() {
-                        isFetching = false; // Reset the flag when the request completes
+                    });
+                });
+
+                const chatThread = $('#chat-thread');
+                let isFetching = false;
+
+                function fetchChats() {
+                    if (isFetching) return;
+                    isFetching = true;
+
+                    const lastChatId = chatThread.find('.single-message:first').data('chat-id');
+                    const chatUrl = window.location.href;
+                    const lastChatElement = chatThread.find(`[data-chat-id="${lastChatId}"]`);
+                    const lastChatScrollPosition = lastChatElement.length ? lastChatElement.offset().top - chatThread
+                        .offset().top : 0;
+
+                    $.ajax({
+                        url: chatUrl,
+                        type: 'GET',
+                        data: {
+                            last_chat_id: lastChatId
+                        },
+                        success: function(response) {
+                            if (response.success) {
+                                chatThread.prepend(response.html);
+                                const newLastChatElement = chatThread.find(
+                                `[data-chat-id="${lastChatId}"]`);
+                                if (newLastChatElement.length) {
+                                    const newScrollPosition = newLastChatElement.offset().top - chatThread
+                                        .offset().top;
+                                    chatThread.scrollTop(chatThread.scrollTop() + newScrollPosition -
+                                        lastChatScrollPosition);
+                                }
+                            } else if (response.last) {
+                                notify('info', '@lang('No more messages to load.')');
+                                chatThread.off('scroll');
+                            }
+                        },
+                        error: function() {
+                            notify('error', '@lang('Failed to load older messages. Please try again.')');
+                        },
+                        complete: function() {
+                            isFetching = false;
+                        }
+                    });
+                }
+
+                chatThread.on('scroll', function() {
+                    if ($(this).scrollTop() === 0 && !isFetching) {
+                        fetchChats();
                     }
                 });
-            }
-
-            // Handle scrolling to the top
-            chatThread.on('scroll', function() {
-                if ($(this).scrollTop() === 0 && !isFetching) {
-                    fetchChats();
-                }
-            });
-
+            @endif
         })(jQuery);
     </script>
 @endpush
