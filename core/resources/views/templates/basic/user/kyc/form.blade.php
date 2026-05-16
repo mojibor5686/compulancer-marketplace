@@ -1,6 +1,6 @@
 @extends('Template::layouts.master')
 @section('content')
-    <div class="container">
+    <div class="containers">
         <div class="row justify-content-center">
             <div class="col-lg-12">
                 <div class="card custom--card">
