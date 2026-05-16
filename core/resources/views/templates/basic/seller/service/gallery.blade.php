@@ -1,73 +1,69 @@
 @extends('Template::layouts.seller_service')
 @section('service')
     <form id="galleryForm">
-        <div class="row gy-4">
-            <!-- Thumbnail Image -->
-            <div class="col-lg-4 col-md-6">
-                <label class="form-label form--label">@lang('Thumbnail Image')</label>
-                <div class="box mb-3 upload-content"
-                    style="background: {{ $service->image ? 'url(' . getImage(getFilePath('service') . '/' . $service->image) . ') center center / cover no-repeat' : '#f9f9f9' }};">
-                    <!-- Dark Overlay -->
-                    <div class="dark-overlay"></div>
+        <!-- Thumbnail Image -->
+        <div class="form--group-lg">
+            <label class="form-label form--label">@lang('Thumbnail Image')</label>
+            <div class="box mb-3 upload-content"
+                style="background: {{ $service->image ? 'url(' . getImage(getFilePath('service') . '/' . $service->image) . ') center center / cover no-repeat' : '#f9f9f9' }};">
+                <!-- Dark Overlay -->
+                <div class="dark-overlay"></div>
 
-                    <div class="upload-options firstUploadOption">
-                        <label class="show-image" for="image-upload">
-                            <span class="upload-content__label show-image-area">
-                                <input class="image-upload" id="image-upload" name="image" type="file"
-                                    accept="image/png, image/jpeg">
-                            </span>
-                        </label>
-                    </div>
+                <div class="upload-options firstUploadOption">
+                    <label class="show-image" for="image-upload">
+                        <span class="upload-content__label show-image-area">
+                            <input class="image-upload" id="image-upload" name="image" type="file"
+                                accept="image/png, image/jpeg">
+                        </span>
+                    </label>
                 </div>
-
-                <!-- File Information for Thumbnail Image -->
-                <small class="mt-3 text-muted text-center d-block">
-                    @lang('Supported Files'): <b>@lang('.png, .jpg, .jpeg')</b> <br>
-                    @lang('Image will be resized into') <b>{{ getFileSize('service') }}px</b>
-                </small>
             </div>
 
-            <!-- Image Gallery -->
-            @php
-                if ($service->extra_image) {
-                    foreach ($service->extra_image as $key => $image) {
-                        $img['id'] = $key;
-                        $img['src'] = getImage(getFilePath('extraImage') . '/' . $image);
-                        $images[] = $img;
-                    }
+            <!-- File Information for Thumbnail Image -->
+            <small class="mt-3 text-muted text-center d-block">
+                @lang('Supported Files'): <b>@lang('.png, .jpg, .jpeg')</b> <br>
+                @lang('Image will be resized into') <b>{{ getFileSize('service') }}px</b>
+            </small>
+        </div>
+
+        <!-- Image Gallery -->
+        @php
+            if ($service->extra_image) {
+                foreach ($service->extra_image as $key => $image) {
+                    $img['id'] = $key;
+                    $img['src'] = getImage(getFilePath('extraImage') . '/' . $image);
+                    $images[] = $img;
                 }
-            @endphp
-            <div class="col-lg-8 col-md-6"
-                @if ($service->extra_image) data-images='@json(@$images)' @endif>
-                <label class="form-label form--label">@lang('Image Gallery')</label>
-                <div class="input-images"></div>
+            }
+        @endphp
+        <div class="form--group-lg" @if ($service->extra_image) data-images='@json(@$images)' @endif>
+            <label class="form-label form--label">@lang('Image Gallery')</label>
+            <div class="input-images"></div>
 
-                <!-- File Information for Image Gallery -->
-                <small class="mt-3 text-muted text-center d-block">
-                    @lang('Supported Files'): <b>@lang('.png, .jpg, .jpeg')</b> <br>
-                    @lang('Maximum 6 images allowed') <br>
-                    @lang('Image will be resized into') <b>{{ getFileSize('extraImage') }}px</b>
-                </small>
+            <!-- File Information for Image Gallery -->
+            <small class="mt-3 text-muted text-center d-block">
+                @lang('Supported Files'): <b>@lang('.png, .jpg, .jpeg')</b> <br>
+                @lang('Maximum 6 images allowed') <br>
+                @lang('Image will be resized into') <b>{{ getFileSize('extraImage') }}px</b>
+            </small>
 
-                <!-- Error Modal -->
-                <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <button type="button" class="close m-3 ms-auto" data-bs-dismiss="modal" aria-label="Close">
-                                <i class="las la-times"></i>
-                            </button>
-                            <div class="modal-body text-center">
-                                <i class="las la-times-circle f-size--100 text--danger mb-15"></i>
-                                <h3 class="text--danger mb-15">@lang('Maximum 6 images are allowed!')</h3>
-                                <p class="mb-15">@lang('The rest of the images you have selected are removed')</p>
-                                <button type="button" class="btn btn--dark"
-                                    data-bs-dismiss="modal">@lang('Continue')</button>
-                            </div>
+            <!-- Error Modal -->
+            <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <button type="button" class="close m-3 ms-auto" data-bs-dismiss="modal" aria-label="Close">
+                            <i class="las la-times"></i>
+                        </button>
+                        <div class="modal-body text-center">
+                            <i class="las la-times-circle f-size--100 text--danger mb-15"></i>
+                            <h3 class="text--danger mb-15">@lang('Maximum 6 images are allowed!')</h3>
+                            <p class="mb-15">@lang('The rest of the images you have selected are removed')</p>
+                            <button type="button" class="btn btn--dark" data-bs-dismiss="modal">@lang('Continue')</button>
                         </div>
                     </div>
                 </div>
-                <!-- End of Error Modal -->
             </div>
+            <!-- End of Error Modal -->
         </div>
 
         <!-- Submit Button -->
