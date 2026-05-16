@@ -35,8 +35,6 @@ class ChatController extends Controller
         $jobBidId = 0;
         $file = null;
 
-
-
         if ($request->type == 'service') {
             $data = Booking::paid()->where('id', decrypt($request->id))
                 ->where('service_id', '!=', 0)

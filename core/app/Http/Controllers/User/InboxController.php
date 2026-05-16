@@ -10,66 +10,70 @@ use App\Models\User;
 use App\Rules\FileTypeValidate;
 use Illuminate\Http\Request;
 
-
 class InboxController extends Controller
 {
-    public function list()
-    {
-        $pageTitle = 'Inbox';
-        $inboxes = Inbox::where('sender_id', auth()->id())
-            ->orWhere('receiver_id', auth()->id())
-            ->latest()
-            ->with(['sender', 'receiver'])
-            ->paginate(getPaginate());
-        return view('Template::user.inbox.index', compact('pageTitle', 'inboxes'));
+public function messages($uniqueId = null)
+{
+    $pageTitle = 'Inbox Messages';
+    
+    $inboxes = Inbox::where('sender_id', auth()->id())
+        ->orWhere('receiver_id', auth()->id())
+        ->latest()
+        ->with(['sender', 'receiver'])
+        ->get();
+
+    if (!$uniqueId && $inboxes->isNotEmpty()) {
+        $uniqueId = $inboxes->first()->unique_id;
     }
 
-    public function messages($uniqueId)
-    {
-        $pageTitle = 'Inbox Messages';
-        $inbox = Inbox::where('unique_id', $uniqueId)
-            ->where(function ($q) {
-                $q->where('sender_id', auth()->id())
-                    ->orWhere('receiver_id', auth()->id());
-            })
-            ->firstOrFail();
+    if (!$uniqueId) {
+        $inbox = null;
+        $messages = collect();
+        $lastChatId = null;
+        return view('Template::user.inbox.messages', compact('pageTitle', 'inboxes', 'inbox', 'messages', 'lastChatId'));
+    }
 
-        if (request()->ajax()) {
-            $lastChatId = request('last_chat_id');
-            $messagesQuery = Message::where('inbox_id', $inbox->id)
-                ->with(['sender', 'receiver'])
-                ->latest();
+    $inbox = Inbox::where('unique_id', $uniqueId)
+        ->where(function ($q) {
+            $q->where('sender_id', auth()->id())
+                ->orWhere('receiver_id', auth()->id());
+        })
+        ->firstOrFail();
 
-            if ($lastChatId) {
-                $messagesQuery->where('id', '<', $lastChatId); // Fetch older messages
-            }
+    if (request()->ajax()) {
+        $lastChatId = request('last_chat_id');
+        $messagesQuery = Message::where('inbox_id', $inbox->id)
+            ->with(['sender', 'receiver'])
+            ->latest();
 
-            $messages = $messagesQuery->latest()->take(10)->get(); // Limit messages to 10 per request
-
-            if ($messages->isEmpty()) {
-                return response()->json(['last' => true]); // No more messages to load
-            }
-
-            $view = view('Template::partials.chat_thread_inbox', compact('messages'))->render();
-
-            return response()->json([
-                'success' => true,
-                'html' => $view,
-            ]);
+        if ($lastChatId) {
+            $messagesQuery->where('id', '<', $lastChatId);
         }
 
-        // Fetch latest 10 messages for initial page load
-        $messages = Message::where('inbox_id', $inbox->id)
-            ->with(['sender', 'receiver'])
-            ->latest()
-            ->take(10)
-            ->get();
+        $messages = $messagesQuery->take(10)->get();
 
-        $lastChatId = $messages->last()->id ?? null; // Get the ID of the last (oldest) fetched message
+        if ($messages->isEmpty()) {
+            return response()->json(['last' => true]);
+        }
 
-        return view('Template::user.inbox.messages', compact('pageTitle', 'inbox', 'messages', 'lastChatId'));
+        $view = view('Template::partials.chat_thread_inbox', compact('messages'))->render();
+
+        return response()->json([
+            'success' => true,
+            'html' => $view,
+        ]);
     }
 
+    $messages = Message::where('inbox_id', $inbox->id)
+        ->with(['sender', 'receiver'])
+        ->latest()
+        ->take(10)
+        ->get();
+
+    $lastChatId = $messages->last()->id ?? null;
+
+    return view('Template::user.inbox.messages', compact('pageTitle', 'inboxes', 'inbox', 'messages', 'lastChatId'));
+}
 
     public function create(Request $request)
     {

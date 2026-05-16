@@ -9,7 +9,7 @@
         </a>
     </li>
     <li class="offcanvas-sidebar-menu__item {{ menuActive('user.inbox*') }}">
-        <a href="{{ route('user.inbox.list') }}" class="offcanvas-sidebar-menu__link">
+        <a href="{{ route('user.inbox.messages') }}" class="offcanvas-sidebar-menu__link">
             <i class="fas fa-paper-plane smart-icon"></i>
             <span>@lang('Massages')</span>
         </a>
