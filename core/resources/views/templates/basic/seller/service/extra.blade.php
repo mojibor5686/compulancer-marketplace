@@ -3,6 +3,11 @@
     <div class="gig-overview">
         <form id="extraServiceForm">
             <div class="gig-overview-space">
+                <!-- Extra Services Label -->
+                <div class="form--group-lg mb-3">
+                    <label class="form-label form--label">@lang('Extra Services')</label>
+                </div>
+
                 <div class="row">
                     <div class="gig-overview__form">
                         @if (count($service->extraServices))
@@ -16,14 +21,15 @@
                                                         value="{{ $extra->id }}">
                                                     <input class="form-control form--control h-45"
                                                         name="extra_service[{{ $loop->index }}][name]" type="text"
-                                                        value="{{ $extra->name }}">
+                                                        value="{{ $extra->name }}" placeholder="@lang('Enter service name')">
                                                 </div>
                                             </div>
                                             <div class="col-lg-4">
                                                 <div class="input-group mb-0">
                                                     <input class="form-control form--control h-45"
                                                         name="extra_service[{{ $loop->index }}][price]" type="text"
-                                                        value="{{ getAmount($extra->price) }}">
+                                                        value="{{ getAmount($extra->price) }}"
+                                                        placeholder="@lang('Enter price')">
                                                     <span class="input-group-text h-45">{{ __(gs('cur_text')) }}</span>
                                                 </div>
                                             </div>
