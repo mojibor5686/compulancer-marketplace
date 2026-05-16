@@ -1,5 +1,5 @@
 <li class="offcanvas-sidebar-menu__item">
-    <i class="fas fa-th-large smart-icon"></i>
+    <i class="fas fa-th-large smart-icons"></i>
     <span class="offcanvas-sidebar-menu__title">@lang('Basic')</span>
 </li>
 <ul id="sidebar-main-menu" class="offcanvas-sidebar-menu">

@@ -6795,8 +6795,16 @@ textarea.form--control {
   color: hsl(var(--white)/0.7);
 }
 
-.offcanvas-sidebar--dashboard .offcanvas-sidebar-menu__link .smart-icon {
+.offcanvas-sidebar--dashboard .offcanvas-sidebar-menu__item .smart-icon {
   font-size: 20px;
+}
+
+.offcanvas-sidebar--dashboard .offcanvas-sidebar-menu__link .smart-icon {
+  font-size: 18px;
+}
+
+.offcanvas-sidebar--dashboard .offcanvas-sidebar-menu__item .span {
+  margin-left: 10px;
 }
 
 .offcanvas-sidebar--dashboard .offcanvas-sidebar-menu__link span {
@@ -6805,7 +6813,7 @@ textarea.form--control {
   display: -webkit-box;
   overflow: hidden;
   text-overflow: ellipsis;
-  margin-left: 10px;
+  margin-left: 5px;
 }
 
 .offcanvas-sidebar--dashboard .offcanvas-sidebar-menu__link svg {
