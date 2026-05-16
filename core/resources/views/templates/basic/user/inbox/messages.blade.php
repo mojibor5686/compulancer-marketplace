@@ -17,18 +17,25 @@
                                 $isActive = isset($inbox) && $inbox->unique_id === $item->unique_id;
                             @endphp
                             <a href="{{ route('user.inbox.messages', $item->unique_id) }}"
-                                class="list-group-item list-group-item-action p-3 d-flex align-items-center gap-3 border-bottom-0 {{ $isActive ? 'bg-white border-start border-primary border-4 fw-semibold' : '' }}"
-                                style="{{ $isActive ? 'border-left: 4px solid var(--bs-primary) !important;' : '' }}">
+                                class="list-group-item list-group-item-action p-3 d-flex align-items-center gap-3 border-0 transition-all {{ $isActive ? 'bg-primary text-white fw-semibold shadow-sm' : '' }}"
+                                style="{{ $isActive ? 'border-left: 4px solid #fff !important; margin-left: 0;' : '' }}">
+
                                 <img src="{{ getImage(getFilePath('userProfile') . '/' . @$sidebarUser->image, isAvatar: true) }}"
-                                    class="rounded-circle object-fit-cover" style="width: 45px; height: 45px;"
+                                    class="rounded-circle object-fit-cover"
+                                    style="width: 48px; height: 48px; {{ $isActive ? 'border: 2px solid rgba(255,255,255,0.6);' : '' }}"
                                     alt="image">
+
                                 <div class="w-100 overflow-hidden">
                                     <div class="d-flex justify-content-between align-items-center mb-1">
-                                        <h6 class="m-0 text-dark text-truncate" style="font-size: 14px;">
-                                            {{ $sidebarUser->username }}</h6>
+                                        <h6 class="m-0 text-truncate text-capitalize {{ $isActive ? 'text-white' : 'text-dark' }}"
+                                            style="font-size: 14px;">
+                                            {{ $sidebarUser->username }}
+                                        </h6>
                                     </div>
-                                    <small class="text-muted d-block text-truncate"
-                                        style="font-size: 12px;">Subject: {{ strLimit($item->subject, 25) }}</small>
+                                    <small class="d-block text-truncate {{ $isActive ? 'text-white-50' : 'text-muted' }}"
+                                        style="font-size: 12px;">
+                                        @lang('Subject'): {{ strLimit($item->subject, 25) }}
+                                    </small>
                                 </div>
                             </a>
                         @empty
@@ -49,9 +56,9 @@
                     <div class="p-3 border-bottom d-flex align-items-center justify-content-between bg-white">
                         <div class="d-flex align-items-center gap-3">
                             <img src="{{ getImage(getFilePath('userProfile') . '/' . @$user->image, isAvatar: true) }}"
-                                class="rounded-circle object-fit-cover" style="width: 42px; height: 42px;" alt="image">
-                            <div>
-                                <h6 class="m-0 fw-bold text-dark">{{ $user->username }}</h6>
+                                class="rounded-circle object-fit-cover" style="width: 48px; height: 48px;" alt="image">
+                            <div class="d-flex flex-column gap-5px">
+                                <h6 class="m-0 fw-bold text-dark text-capitalize">{{ $user->username }}</h6>
                                 <small class="text-success" style="font-size: 11px;"><i class="fas fa-circle fs-small"
                                         style="font-size: 8px;"></i> @lang('Active Thread')</small>
                             </div>
@@ -186,8 +193,8 @@
                             div class = "message-attachment \${data.message ? '' : 'mt-0'}" >
                             <
                             p > < a href = "\${data.attachment}"
-                        class = "me-3" > < i class = "fa fa-file" > < /i> @lang('Attachment')</a > < /p> <
-                        /div>` : ''} <
+                        class = "me-3" > < i class = "fa fa-file" > < /i> @lang('Attachment')</a > < /p> < /
+                        div > ` : ''} <
                     /div> <
                     span class = "message-time d-block text-end mt-2" > \$ {
                         data.createdAt
