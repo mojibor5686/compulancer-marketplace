@@ -146,8 +146,8 @@
 
                                 <div class="user-profile-dropdown-wrapper position-relative py-2">
                                     <div class="user-profile-trigger d-flex align-items-center gap-2 cursor-pointer">
-                                        <img src="https://work.mojibor.com/assets/images/logo_icon/logo.png"
-                                            alt="User Profile" class="rounded-circle object-fit-cover"
+                                        <img src="https://work.mojibor.com/assets/images/avatar.jpg" alt="User Profile"
+                                            class="rounded-circle object-fit-cover"
                                             style="width: 42px; height: 42px; border: 2px solid #e9ecef;">
                                         <div class="user-info-text lh-sm">
                                             <h6 class="m-0 fw-bold text-dark" style="font-size: 14px;">Jen Jav</h6>
@@ -175,10 +175,6 @@
                                                     @lang('My Services')</a>
                                             </li>
                                             <li><a class="hover-menu-link px-3 py-2 d-flex align-items-center gap-2"
-                                                    href="#"><i class="las la-file-alt"></i>
-                                                    @lang('Proposals')</a>
-                                            </li>
-                                            <li><a class="hover-menu-link px-3 py-2 d-flex align-items-center gap-2"
                                                     href="#"><i class="las la-gavel"></i> @lang('Disputes')</a>
                                             </li>
                                             <li><a class="hover-menu-link px-3 py-2 d-flex align-items-center gap-2"
@@ -191,15 +187,8 @@
                                                     href="#"><i class="las la-box"></i> @lang('My Package')</a>
                                             </li>
                                             <li><a class="hover-menu-link px-3 py-2 d-flex align-items-center gap-2"
-                                                    href="#"><i class="las la-wallet"></i>
-                                                    @lang('Wallet')</a>
+                                                    href="#"><i class="las la-user"></i> @lang('My Profile')</a>
                                             </li>
-                                            <li><a class="hover-menu-link px-3 py-2 d-flex align-items-center gap-2"
-                                                    href="#"><i class="las la-user"></i> @lang('Profile')</a>
-                                            </li>
-                                            <li><a class="hover-menu-link px-3 py-2 d-flex align-items-center gap-2"
-                                                    href="#"><i class="las la-shield-alt"></i>
-                                                    @lang('Identity Verification')</a></li>
                                             <li><a class="hover-menu-link px-3 py-2 d-flex align-items-center gap-2"
                                                     href="#"><i class="las la-cog"></i> @lang('Settings')</a>
                                             </li>
