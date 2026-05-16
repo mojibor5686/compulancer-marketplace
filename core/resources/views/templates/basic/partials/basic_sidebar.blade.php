@@ -2,16 +2,16 @@
     <span class="offcanvas-sidebar-menu__title">@lang('Finance & Support')</span>
 </li>
 <ul id="sidebar-main-menu" class="offcanvas-sidebar-menu">
-    <li class="offcanvas-sidebar-menu__item {{ menuActive('user.inbox*') }}">
-        <a href="{{ route('user.inbox.list') }}" class="offcanvas-sidebar-menu__link">
-            <i class="fas fa-inbox smart-icon"></i>
-            <span>@lang('Inbox')</span>
-        </a>
-    </li>
     <li class="offcanvas-sidebar-menu__item {{ menuActive('user.referral.commission') }}">
         <a href="{{ route('user.referral.commission') }}" class="offcanvas-sidebar-menu__link">
             <i class="fas fa-user-friends smart-icon"></i>
             <span>@lang('Referral')</span>
+        </a>
+    </li>
+    <li class="offcanvas-sidebar-menu__item {{ menuActive('user.inbox*') }}">
+        <a href="{{ route('user.inbox.list') }}" class="offcanvas-sidebar-menu__link">
+            <i class="fas fa-inbox smart-icon"></i>
+            <span>@lang('Massages')</span>
         </a>
     </li>
     <li class="offcanvas-sidebar-menu__item {{ menuActive('user.deposit.index') }}">
