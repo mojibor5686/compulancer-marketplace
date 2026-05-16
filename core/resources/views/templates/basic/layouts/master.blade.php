@@ -87,125 +87,132 @@
                         @include('Template::partials.seller_sidebar')
                     @endif
 
-                    <div class="dashboard-topnav d-flex align-items-center justify-content-between w-100 bg-white border-bottom px-4 py-2"
-                        style="height: 70px; z-index: 99;">
+                    <div class="dashboard-content">
+                        <div class="dashboard-topnav d-flex align-items-center justify-content-between w-100 bg-white border-bottom px-4 py-2"
+                            style="height: 70px; z-index: 99;">
 
-                        <div class="topnav-left">
-                            <a href="{{ url('/') }}"
-                                class="text-decoration-none text-dark fw-medium d-flex align-items-center gap-2">
-                                <i class="fas fa-arrow-left fs-6"></i>
-                                <span>@lang('Back to Home')</span>
-                            </a>
-                        </div>
-
-                        <div class="topnav-right d-flex align-items-center gap-4">
-
-                            <div class="search-group d-flex align-items-center border rounded-pill px-3 py-1 bg-light"
-                                style="max-width: 35px; width: 320px; height: 42px;">
-                                <i class="fas fa-search text-secondary me-2"></i>
-                                <input type="text"
-                                    class="form-control border-0 bg-transparent p-0 shadow-none text-dark"
-                                    placeholder="Search" style="font-size: 14px;">
-                                <div class="vr mx-2 text-secondary opacity-25"></div>
-                                <div class="dropdown">
-                                    <a class="dropdown-toggle text-decoration-none text-dark fw-medium pe-2"
-                                        href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"
-                                        style="font-size: 14px;">
-                                        @lang('Freelancers')
-                                    </a>
-                                    <ul class="dropdown-menu dropdown-menu-end shadow-sm border mt-2">
-                                        <li><a class="dropdown-menu__item dropdown-item"
-                                                href="#">@lang('Freelancers')</a></li>
-                                        <li><a class="dropdown-menu__item dropdown-item"
-                                                href="#">@lang('Jobs')</a></li>
-                                        <li><a class="dropdown-menu__item dropdown-item"
-                                                href="#">@lang('Services')</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <div class="notification-box position-relative cursor-pointer">
-                                <a href="#" class="text-dark position-relative">
-                                    <i class="far fa-bell fs-4"></i>
-                                    <span
-                                        class="position-absolute top-0 start-100 translate-middle badge rounded-circle bg-danger d-flex align-items-center justify-content-center p-0"
-                                        style="width: 16px; height: 16px; font-size: 10px; margin-top: 2px;">
-                                        0
-                                    </span>
+                            <div class="topnav-left d-lg-block d-none">
+                                <a href="{{ url('/') }}"
+                                    class="text-decoration-none text-dark fw-medium d-flex align-items-center gap-2">
+                                    <i class="fas fa-arrow-left fs-6"></i>
+                                    <span>@lang('Back to Home')</span>
                                 </a>
                             </div>
 
-                            <div class="user-profile-dropdown-wrapper position-relative py-2">
-                                <div class="user-profile-trigger d-flex align-items-center gap-2 cursor-pointer">
-                                    <img src="https://work.mojibor.com/assets/images/logo_icon/logo.png"
-                                        alt="User Profile" class="rounded-circle object-fit-cover"
-                                        style="width: 42px; height: 42px; border: 2px solid #e9ecef;">
-                                    <div class="user-info-text lh-sm">
-                                        <h6 class="m-0 fw-bold text-dark" style="font-size: 14px;">Jen Jav</h6>
-                                        <small class="text-muted d-block" style="font-size: 11px;">
-                                            @lang('Freelancer') <span class="text-danger fw-semibold">($6,750)</span>
-                                        </small>
+                            <button class="btn btn--base d-lg-none mb-4" type="button" data-toggle="offcanvas-sidebar"
+                                data-target="#dashboard-offcanvas-sidebar">
+                                <span class="d-inline-flex align-items-center justify-content-center gap-2">
+                                    <i class="fas fa-bars"></i>
+                                    <span>@lang('Menu')</span>
+                                </span>
+                            </button>
+
+                            <div class="topnav-right d-flex align-items-center gap-4">
+
+                                <div class="search-group d-flex align-items-center border rounded-pill px-3 py-1 bg-light"
+                                    style="max-width: 35px; width: 320px; height: 42px;">
+                                    <i class="fas fa-search text-secondary me-2"></i>
+                                    <input type="text"
+                                        class="form-control border-0 bg-transparent p-0 shadow-none text-dark"
+                                        placeholder="Search" style="font-size: 14px;">
+                                    <div class="vr mx-2 text-secondary opacity-25"></div>
+                                    <div class="dropdown">
+                                        <a class="dropdown-toggle text-decoration-none text-dark fw-medium pe-2"
+                                            href="#" role="button" data-bs-toggle="dropdown"
+                                            aria-expanded="false" style="font-size: 14px;">
+                                            @lang('Freelancers')
+                                        </a>
+                                        <ul class="dropdown-menu dropdown-menu-end shadow-sm border mt-2">
+                                            <li><a class="dropdown-menu__item dropdown-item"
+                                                    href="#">@lang('Freelancers')</a></li>
+                                            <li><a class="dropdown-menu__item dropdown-item"
+                                                    href="#">@lang('Jobs')</a></li>
+                                            <li><a class="dropdown-menu__item dropdown-item"
+                                                    href="#">@lang('Services')</a></li>
+                                        </ul>
                                     </div>
                                 </div>
 
-                                <div class="custom-hover-menu shadow border rounded bg-white position-absolute end-0 pt-2 pb-2"
-                                    style="width: 230px; top: 100%; transition: all 0.2s ease-in-out; visibility: hidden; opacity: 0; transform: translateY(10px); z-index: 9999;">
-                                    <ul class="list-unstyled m-0 p-0">
-                                        <li class="px-3 py-2 border-bottom mb-1 bg-light">
-                                            <a href="#"
-                                                class="text-decoration-none text-dark fw-bold d-flex align-items-center gap-2"
-                                                style="font-size: 13px;">
-                                                <i class="las la-random text-primary"></i> @lang('Switch Employer')
-                                            </a>
-                                        </li>
-                                        <li><a class="hover-menu-link px-3 py-2 d-flex align-items-center gap-2"
-                                                href="{{ route('user.seller.home') }}"><i
-                                                    class="las la-border-all"></i> @lang('Dashboard')</a></li>
-                                        <li><a class="hover-menu-link px-3 py-2 d-flex align-items-center gap-2"
-                                                href="#"><i class="las la-briefcase"></i> @lang('My Services')</a>
-                                        </li>
-                                        <li><a class="hover-menu-link px-3 py-2 d-flex align-items-center gap-2"
-                                                href="#"><i class="las la-file-alt"></i> @lang('Proposals')</a>
-                                        </li>
-                                        <li><a class="hover-menu-link px-3 py-2 d-flex align-items-center gap-2"
-                                                href="#"><i class="las la-gavel"></i> @lang('Disputes')</a>
-                                        </li>
-                                        <li><a class="hover-menu-link px-3 py-2 d-flex align-items-center gap-2"
-                                                href="#"><i class="las la-sms"></i> @lang('Messages')</a></li>
-                                        <li><a class="hover-menu-link px-3 py-2 d-flex align-items-center gap-2"
-                                                href="#"><i class="las la-user-check"></i>
-                                                @lang('My Following')</a></li>
-                                        <li><a class="hover-menu-link px-3 py-2 d-flex align-items-center gap-2"
-                                                href="#"><i class="las la-box"></i> @lang('My Package')</a></li>
-                                        <li><a class="hover-menu-link px-3 py-2 d-flex align-items-center gap-2"
-                                                href="#"><i class="las la-wallet"></i> @lang('Wallet')</a>
-                                        </li>
-                                        <li><a class="hover-menu-link px-3 py-2 d-flex align-items-center gap-2"
-                                                href="#"><i class="las la-user"></i> @lang('Profile')</a></li>
-                                        <li><a class="hover-menu-link px-3 py-2 d-flex align-items-center gap-2"
-                                                href="#"><i class="las la-shield-alt"></i>
-                                                @lang('Identity Verification')</a></li>
-                                        <li><a class="hover-menu-link px-3 py-2 d-flex align-items-center gap-2"
-                                                href="#"><i class="las la-cog"></i> @lang('Settings')</a></li>
-                                        <li class="border-top mt-1 pt-1"><a
-                                                class="hover-menu-link px-3 py-2 d-flex align-items-center gap-2 text-danger"
-                                                href="#"><i class="las la-sign-out-alt"></i>
-                                                @lang('Logout')</a></li>
-                                    </ul>
+                                <div class="notification-box position-relative cursor-pointer">
+                                    <a href="#" class="text-dark position-relative">
+                                        <i class="far fa-bell fs-4"></i>
+                                        <span
+                                            class="position-absolute top-0 start-100 translate-middle badge rounded-circle bg-danger d-flex align-items-center justify-content-center p-0"
+                                            style="width: 16px; height: 16px; font-size: 10px; margin-top: 2px;">
+                                            0
+                                        </span>
+                                    </a>
+                                </div>
+
+                                <div class="user-profile-dropdown-wrapper position-relative py-2">
+                                    <div class="user-profile-trigger d-flex align-items-center gap-2 cursor-pointer">
+                                        <img src="https://work.mojibor.com/assets/images/logo_icon/logo.png"
+                                            alt="User Profile" class="rounded-circle object-fit-cover"
+                                            style="width: 42px; height: 42px; border: 2px solid #e9ecef;">
+                                        <div class="user-info-text lh-sm">
+                                            <h6 class="m-0 fw-bold text-dark" style="font-size: 14px;">Jen Jav</h6>
+                                            <small class="text-muted d-block" style="font-size: 11px;">
+                                                @lang('Freelancer') <span class="text-danger fw-semibold">($6,750)</span>
+                                            </small>
+                                        </div>
+                                    </div>
+
+                                    <div class="custom-hover-menu shadow border rounded bg-white position-absolute end-0 pt-2 pb-2"
+                                        style="width: 230px; top: 100%; transition: all 0.2s ease-in-out; visibility: hidden; opacity: 0; transform: translateY(10px); z-index: 9999;">
+                                        <ul class="list-unstyled m-0 p-0">
+                                            <li class="px-3 py-2 border-bottom mb-1 bg-light">
+                                                <a href="#"
+                                                    class="text-decoration-none text-dark fw-bold d-flex align-items-center gap-2"
+                                                    style="font-size: 13px;">
+                                                    <i class="las la-random text-primary"></i> @lang('Switch Employer')
+                                                </a>
+                                            </li>
+                                            <li><a class="hover-menu-link px-3 py-2 d-flex align-items-center gap-2"
+                                                    href="{{ route('user.seller.home') }}"><i
+                                                        class="las la-border-all"></i> @lang('Dashboard')</a></li>
+                                            <li><a class="hover-menu-link px-3 py-2 d-flex align-items-center gap-2"
+                                                    href="#"><i class="las la-briefcase"></i>
+                                                    @lang('My Services')</a>
+                                            </li>
+                                            <li><a class="hover-menu-link px-3 py-2 d-flex align-items-center gap-2"
+                                                    href="#"><i class="las la-file-alt"></i>
+                                                    @lang('Proposals')</a>
+                                            </li>
+                                            <li><a class="hover-menu-link px-3 py-2 d-flex align-items-center gap-2"
+                                                    href="#"><i class="las la-gavel"></i> @lang('Disputes')</a>
+                                            </li>
+                                            <li><a class="hover-menu-link px-3 py-2 d-flex align-items-center gap-2"
+                                                    href="#"><i class="las la-sms"></i> @lang('Messages')</a>
+                                            </li>
+                                            <li><a class="hover-menu-link px-3 py-2 d-flex align-items-center gap-2"
+                                                    href="#"><i class="las la-user-check"></i>
+                                                    @lang('My Following')</a></li>
+                                            <li><a class="hover-menu-link px-3 py-2 d-flex align-items-center gap-2"
+                                                    href="#"><i class="las la-box"></i> @lang('My Package')</a>
+                                            </li>
+                                            <li><a class="hover-menu-link px-3 py-2 d-flex align-items-center gap-2"
+                                                    href="#"><i class="las la-wallet"></i>
+                                                    @lang('Wallet')</a>
+                                            </li>
+                                            <li><a class="hover-menu-link px-3 py-2 d-flex align-items-center gap-2"
+                                                    href="#"><i class="las la-user"></i> @lang('Profile')</a>
+                                            </li>
+                                            <li><a class="hover-menu-link px-3 py-2 d-flex align-items-center gap-2"
+                                                    href="#"><i class="las la-shield-alt"></i>
+                                                    @lang('Identity Verification')</a></li>
+                                            <li><a class="hover-menu-link px-3 py-2 d-flex align-items-center gap-2"
+                                                    href="#"><i class="las la-cog"></i> @lang('Settings')</a>
+                                            </li>
+                                            <li class="border-top mt-1 pt-1"><a
+                                                    class="hover-menu-link px-3 py-2 d-flex align-items-center gap-2 text-danger"
+                                                    href="#"><i class="las la-sign-out-alt"></i>
+                                                    @lang('Logout')</a></li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
-
                         </div>
-                    </div>
 
-                    <div class="dashboard-content">
-                        <button class="btn btn--base d-lg-none mb-4" type="button" data-toggle="offcanvas-sidebar"
-                            data-target="#dashboard-offcanvas-sidebar">
-                            <span class="d-inline-flex align-items-center justify-content-center gap-2">
-                                <i class="fas fa-bars"></i>
-                                <span>@lang('Menu')</span>
-                            </span>
-                        </button>
                         @yield('content')
                     </div>
                 </div>
