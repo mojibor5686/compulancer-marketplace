@@ -11,7 +11,7 @@
         </a>
     </div>
 
-    <div class="offcanvas-sidebar__body" data-overlayscrollbars-theme="os-theme-dark" style="padding: 0px;">
+    <div class="offcanvas-sidebar__body" data-overlayscrollbars-theme="os-theme-dark" style="padding-top: 0px;">
         <ul class="offcanvas-sidebar-menu">
             <li class="offcanvas-sidebar-menu__item {{ menuActive('user.seller.home') }}">
                 <a href="{{ route('user.seller.home') }}" class="offcanvas-sidebar-menu__link">
