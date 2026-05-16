@@ -93,8 +93,11 @@
 
                             <div class="topnav-left d-lg-block d-none">
                                 <a href="{{ url('/') }}"
-                                    class="text-decoration-none text-dark fw-medium d-flex align-items-center gap-2 font-size-14 hover-text-primary">
-                                    <i class="fas fa-arrow-left fs-6"></i>
+                                    class="text-decoration-none text-dark fw-medium d-flex align-items-center gap-2 fs-6"
+                                    style="transition: color 0.2s ease;"
+                                    onmouseover="this.style.color='var(--bs-primary)'"
+                                    onmouseout="this.style.color='var(--text-dark)'">
+                                    <i class="fas fa-arrow-left"></i>
                                     <span>@lang('Back to Home')</span>
                                 </a>
                             </div>
