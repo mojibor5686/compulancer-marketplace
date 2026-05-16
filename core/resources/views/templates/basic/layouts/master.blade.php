@@ -130,7 +130,7 @@
                                             style="width: 42px; height: 42px; border: 2px solid #e9ecef;">
                                         <div class="user-info-text lh-sm">
                                             <h6 class="m-0 fw-bold text-dark" style="font-size: 14px;">
-                                                {{ auth()->user()->name }}</h6>
+                                                {{ auth()->user()->firstname }} {{ auth()->user()->lastname }}</h6>
                                             <small class="text-muted d-block" style="font-size: 11px;">
                                                 @lang('Freelancer') <span
                                                     class="text-danger fw-semibold">{{ number_format(auth()->user()->balance, 2) }}</span>
