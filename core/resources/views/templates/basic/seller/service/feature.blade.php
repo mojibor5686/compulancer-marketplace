@@ -3,54 +3,41 @@
     <form id="tagFeatureForm">
         <!-- Search Tag -->
         <div class="form--group-lg">
-            <div class="row align-items-start">
-                <div class="col-lg-3">
-                    <label class="form-label form--label">@lang('Search Tag')</label>
-                </div>
-                <div class="col-lg-9">
-                    <div class="form--group">
-                        <select class="form-control form--control select2-auto-tokenize" name="tag[]" multiple="multiple"
-                            required>
-                            @if (@$service->tag)
-                                @foreach ($service->tag as $option)
-                                    <option value="{{ $option }}" selected>{{ __($option) }}</option>
-                                @endforeach
-                            @endif
-                        </select>
-                        <small class="mt-2">
-                            @lang('Separate multiple keywords by') <code>,</code> (@lang('comma'))
-                            @lang('or') <code>@lang('enter')</code> @lang('key').
-                        </small>
-                        <p class="fs-14 mt-2">
-                            @lang('Please add 3-5 relevant tags that accurately describe your service\'s key features and expertise. These tags help potential clients find your services when searching.')
-                        </p>
-                    </div>
-                </div>
+            <label class="form-label form--label">@lang('Search Tag')</label>
+            <div class="form--group">
+                <select class="form-control form--control select2-auto-tokenize" name="tag[]" multiple="multiple" required>
+                    @if (@$service->tag)
+                        @foreach ($service->tag as $option)
+                            <option value="{{ $option }}" selected>{{ __($option) }}</option>
+                        @endforeach
+                    @endif
+                </select>
+                <small class="mt-2">
+                    @lang('Separate multiple keywords by') <code>,</code> (@lang('comma'))
+                    @lang('or') <code>@lang('enter')</code> @lang('key').
+                </small>
+                <p class="fs-14 mt-2">
+                    @lang('Please add 3-5 relevant tags that accurately describe your service\'s key features and expertise. These tags help potential clients find your services when searching.')
+                </p>
             </div>
         </div>
 
         <!-- Include Feature -->
         <div class="form--group-lg">
-            <div class="row align-items-start">
-                <div class="col-lg-3">
-                    <label class="form-label form--label">@lang('Include Feature')</label>
-                </div>
-                <div class="col-lg-9">
-                    <div class="form--group">
-                        <div class="d-flex gap-3 flex-wrap">
-                            @foreach ($features as $feature)
-                                <div class="form-group custom-check-group">
-                                    <input id="features_{{ $feature->id }}" name="features[]" type="checkbox"
-                                        value="{{ $feature->id }}" @checked($service->features && in_array($feature->id, $service->features))>
-                                    <label for="features_{{ $feature->id }}">{{ __($feature->name) }}</label>
-                                </div>
-                            @endforeach
+            <label class="form-label form--label">@lang('Include Feature')</label>
+            <div class="form--group">
+                <div class="d-flex gap-3 flex-wrap">
+                    @foreach ($features as $feature)
+                        <div class="form-group custom-check-group">
+                            <input id="features_{{ $feature->id }}" name="features[]" type="checkbox"
+                                value="{{ $feature->id }}" @checked($service->features && in_array($feature->id, $service->features))>
+                            <label for="features_{{ $feature->id }}">{{ __($feature->name) }}</label>
                         </div>
-                        <p class="mt-2 fs-14">
-                            @lang('Enhance your service visibility by selecting relevant features. This helps potential buyers discover services that match their specific requirements and preferences.')
-                        </p>
-                    </div>
+                    @endforeach
                 </div>
+                <p class="mt-2 fs-14">
+                    @lang('Enhance your service visibility by selecting relevant features. This helps potential buyers discover services that match their specific requirements and preferences.')
+                </p>
             </div>
         </div>
 
