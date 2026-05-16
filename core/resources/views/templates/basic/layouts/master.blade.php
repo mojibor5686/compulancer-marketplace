@@ -48,6 +48,15 @@
             <div class="w-100 px-0">
                 <div class="dashboard-inner">
 
+                    <div
+                        class="sidebar-brand-wrapper d-flex align-items-center justify-content-between p-3 border-bottom border-secondary">
+                        <a href="#" class="text-decoration-none">
+                            <h4 class="m-0 fw-bold text-white tracking-wide" style="letter-spacing: 1.5px;">
+                                COMPU<span class="text-info">LANCER</span>
+                            </h4>
+                        </a>
+                    </div>
+
                     @if (session('userType') === 'buyer' || (session('userType') === null && request()->routeIs('user.buyer.*')))
                         @include('Template::partials.buyer_sidebar')
                     @else

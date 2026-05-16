@@ -5,10 +5,6 @@
 
     <div class="offcanvas-sidebar__body" data-overlayscrollbars-theme="os-theme-dark">
         <ul class="offcanvas-sidebar-menu">
-            <li class="offcanvas-sidebar-menu__item offcanvas-sidebar-menu__items">
-                <i class="fas fa-user-circle smart-icons"></i>
-                <span class="offcanvas-sidebar-menu__title">@lang('Seller Account')</span>
-            </li>
             <li class="offcanvas-sidebar-menu__item {{ menuActive('user.seller.home') }}">
                 <a href="{{ route('user.seller.home') }}" class="offcanvas-sidebar-menu__link">
                     <i class="fas fa-tachometer-alt smart-icon"></i>

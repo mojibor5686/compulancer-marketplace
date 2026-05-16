@@ -5,9 +5,6 @@
 
     <div class="offcanvas-sidebar__body" data-overlayscrollbars-theme="os-theme-dark">
         <ul class="offcanvas-sidebar-menu">
-            <li class="offcanvas-sidebar-menu__item">
-                <span class="offcanvas-sidebar-menu__title">@lang('Buyer Account')</span>
-            </li>
             <li class="offcanvas-sidebar-menu__item {{ menuActive('user.buyer.home') }}">
                 <a href="{{ route('user.buyer.home') }}" class="offcanvas-sidebar-menu__link">
                     <i class="lab la-buffer"></i>
@@ -42,9 +39,10 @@
             </li>
 
             <!-- Additional Section -->
-            <li class="offcanvas-sidebar-menu__item">
-                <span class="offcanvas-sidebar-menu__title">@lang('Purchase')</span>
+            <li class="offcanvas-sidebar-menu__item offcanvas-sidebar-menu__items">
+                <span class="offcanvas-sidebar-menu__title">@lang('Orders & Hirings')</span>
             </li>
+
             <li class="offcanvas-sidebar-menu__item {{ menuActive('user.buyer.hiring*') }}">
                 <a href="{{ route('user.buyer.hiring.list') }}" class="offcanvas-sidebar-menu__link">
                     <i class="las la-user-secret"></i>
