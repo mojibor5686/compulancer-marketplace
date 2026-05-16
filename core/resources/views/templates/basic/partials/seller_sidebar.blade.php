@@ -43,6 +43,7 @@
             </li>
 
             <li class="offcanvas-sidebar-menu__item offcanvas-sidebar-menu__items">
+                <i class="fas fa-chart-pie smart-icon"></i>
                 <span class="offcanvas-sidebar-menu__title">@lang('Business Insights')</span>
             </li>
 
