@@ -2,14 +2,14 @@
 <html lang="{{ config('app.locale') }}" itemscope itemtype="http://schema.org/WebPage">
 
 <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>{{ gs()->siteName(__($pageTitle ?? '')) }}</title>
     @include('partials.seo')
-    <!-- Bootstrap CSS -->
     <link href="{{ asset('assets/global/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/global/css/all.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="{{ asset('assets/global/css/line-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/global/css/overlayscrollbars.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/global/css/iziToast_custom.css') }}">
@@ -35,7 +35,6 @@
     <a class="scroll-top"><i class="fas fa-angle-double-up"></i></a>
 
 
-    <!-- Scripts -->
     <script src="{{ asset('assets/global/js/jquery-3.7.1.min.js') }}"></script>
     <script src="{{ asset('assets/global/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/global/js/select2.min.js') }}"></script>
