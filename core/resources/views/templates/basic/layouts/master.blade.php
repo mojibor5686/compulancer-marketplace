@@ -93,7 +93,7 @@
 
                             <div class="topnav-left d-lg-block d-none">
                                 <a href="{{ url('/') }}"
-                                    class="text-decoration-none text-dark fw-medium d-flex align-items-center gap-2">
+                                    class="text-decoration-none text-dark fw-medium d-flex align-items-center gap-2 font-size-14 hover-text-primary">
                                     <i class="fas fa-arrow-left fs-6"></i>
                                     <span>@lang('Back to Home')</span>
                                 </a>
@@ -108,30 +108,6 @@
                             </button>
 
                             <div class="topnav-right d-flex align-items-center gap-4">
-
-                                <div class="search-group d-flex align-items-center border rounded-pill px-3 py-1 bg-light"
-                                    style="max-width: 35px; width: 320px; height: 42px;">
-                                    <i class="fas fa-search text-secondary me-2"></i>
-                                    <input type="text"
-                                        class="form-control border-0 bg-transparent p-0 shadow-none text-dark"
-                                        placeholder="Search" style="font-size: 14px;">
-                                    <div class="vr mx-2 text-secondary opacity-25"></div>
-                                    <div class="dropdown">
-                                        <a class="dropdown-toggle text-decoration-none text-dark fw-medium pe-2"
-                                            href="#" role="button" data-bs-toggle="dropdown"
-                                            aria-expanded="false" style="font-size: 14px;">
-                                            @lang('Freelancers')
-                                        </a>
-                                        <ul class="dropdown-menu dropdown-menu-end shadow-sm border mt-2">
-                                            <li><a class="dropdown-menu__item dropdown-item"
-                                                    href="#">@lang('Freelancers')</a></li>
-                                            <li><a class="dropdown-menu__item dropdown-item"
-                                                    href="#">@lang('Jobs')</a></li>
-                                            <li><a class="dropdown-menu__item dropdown-item"
-                                                    href="#">@lang('Services')</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
 
                                 <div class="notification-box position-relative cursor-pointer">
                                     <a href="#" class="text-dark position-relative">

@@ -10,7 +10,7 @@
     </li>
     <li class="offcanvas-sidebar-menu__item {{ menuActive('user.inbox*') }}">
         <a href="{{ route('user.inbox.list') }}" class="offcanvas-sidebar-menu__link">
-            <i class="fas fa-inbox smart-icon"></i>
+            <i class="fas fa-paper-plane smart-icon"></i>
             <span>@lang('Massages')</span>
         </a>
     </li>
@@ -40,14 +40,14 @@
     </li>
     <li class="offcanvas-sidebar-menu__item {{ menuActive('ticket.open') }}">
         <a href="{{ route('ticket.open') }}" class="offcanvas-sidebar-menu__link">
-            <i class="fas fa-plus-circle smart-icon"></i>
-            <span>@lang('New Ticket')</span>
+            <i class="fas fa-comment-medical smart-icon"></i>
+            <span>@lang('Support Ticket')</span>
         </a>
     </li>
     <li class="offcanvas-sidebar-menu__item {{ menuActive(['ticket.index', 'ticket.view']) }}">
         <a href="{{ route('ticket.index') }}" class="offcanvas-sidebar-menu__link">
-            <i class="fas fa-ticket-alt smart-icon"></i>
-            <span>@lang('My Tickets')</span>
+            <i class="fas fa-folder-open smart-icon"></i>
+            <span>@lang('Support History')</span>
         </a>
     </li>
 
