@@ -6709,6 +6709,7 @@ textarea.form--control {
   left: 0;
   max-width: 260px;
   background-color: hsl(var(--black-two));
+  height: stretch;
 }
 
 @media screen and (max-width: 991px) {
@@ -8706,7 +8707,6 @@ textarea.form--control {
   -webkit-box-align: start;
   -ms-flex-align: start;
   align-items: start;
-  gap: 30px;
 }
 
 .dashboard-inner>* {
@@ -8754,6 +8754,7 @@ textarea.form--control {
 
 .dashboard-content {
   max-width: 100%;
+  padding: 24px;
 }
 
 .dashboard-content>*:not(:last-child) {
