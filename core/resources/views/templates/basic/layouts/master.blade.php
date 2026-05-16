@@ -213,7 +213,7 @@
                             </div>
                         </div>
 
-                        <div class="p-24">
+                        <div class="dashboard-main-content">
                             @yield('content')
                         </div>
                     </div>

@@ -8768,10 +8768,13 @@ textarea.form--control {
 
 .dashboard-content {
   max-width: 100%;
+}
+
+.dashboard-main-content {
   padding: 24px;
 }
 
-.dashboard-content>*:not(:last-child) {
+.dashboard-main-content>*:not(:last-child) {
   margin-bottom: 24px;
 }
 
