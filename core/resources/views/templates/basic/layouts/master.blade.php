@@ -129,9 +129,9 @@
                                             class="rounded-circle object-fit-cover"
                                             style="width: 42px; height: 42px; border: 2px solid #e9ecef;">
                                         <div class="user-info-text lh-sm">
-                                            <h6 class="m-0 fw-bold text-dark" style="font-size: 14px;">Jen Jav</h6>
+                                            <h6 class="m-0 fw-bold text-dark" style="font-size: 14px;">{{ auth()->user()->name }}</h6>
                                             <small class="text-muted d-block" style="font-size: 11px;">
-                                                @lang('Freelancer') <span class="text-danger fw-semibold">($6,750)</span>
+                                                @lang('Freelancer') <span class="text-danger fw-semibold">{{ auth()->user()->balance }}</span>
                                             </small>
                                         </div>
                                     </div>
@@ -140,41 +140,46 @@
                                         style="width: 230px; top: 100%; transition: all 0.2s ease-in-out; visibility: hidden; opacity: 0; transform: translateY(10px); z-index: 9999;">
                                         <ul class="list-unstyled m-0 p-0">
                                             <li class="px-3 py-2 border-bottom mb-1 bg-light">
-                                                <a href="#"
-                                                    class="text-decoration-none text-dark fw-bold d-flex align-items-center gap-2"
-                                                    style="font-size: 13px;">
-                                                    <i class="las la-random text-primary"></i> @lang('Switch Employer')
-                                                </a>
+                                                @if (session('userType') === 'buyer' || (session('userType') === null && request()->routeIs('user.buyer.*')))
+                                                    <a href="{{ route('user.seller.home') }}"
+                                                        class="text-decoration-none text-dark fw-bold d-flex align-items-center gap-2"
+                                                        style="font-size: 13px;">
+                                                        <i class="las la-random text-primary"></i> @lang('Switch to Employer')
+                                                    </a>
+                                                @else
+                                                    <a href="{{ route('user.buyer.home') }}"
+                                                        class="text-decoration-none text-dark fw-bold d-flex align-items-center gap-2"
+                                                        style="font-size: 13px;">
+                                                        <i class="las la-random text-primary"></i> @lang('Switch to Buyer')
+                                                    </a>
+                                                @endif
                                             </li>
                                             <li><a class="hover-menu-link px-3 py-2 d-flex align-items-center gap-2"
                                                     href="{{ route('user.seller.home') }}"><i
                                                         class="las la-border-all"></i> @lang('Dashboard')</a></li>
                                             <li><a class="hover-menu-link px-3 py-2 d-flex align-items-center gap-2"
-                                                    href="#"><i class="las la-briefcase"></i>
+                                                    href="{{ route('user.seller.services') }}"><i
+                                                        class="las la-briefcase"></i>
                                                     @lang('My Services')</a>
                                             </li>
                                             <li><a class="hover-menu-link px-3 py-2 d-flex align-items-center gap-2"
-                                                    href="#"><i class="las la-gavel"></i> @lang('Disputes')</a>
+                                                    href="{{ route('user.inbox.list') }}"><i class="las la-sms"></i>
+                                                    @lang('Messages')</a>
                                             </li>
                                             <li><a class="hover-menu-link px-3 py-2 d-flex align-items-center gap-2"
-                                                    href="#"><i class="las la-sms"></i> @lang('Messages')</a>
+                                                    href="{{ route('user.seller.service.index') }}"><i
+                                                        class="las la-box"></i> @lang('My Package')</a>
                                             </li>
                                             <li><a class="hover-menu-link px-3 py-2 d-flex align-items-center gap-2"
-                                                    href="#"><i class="las la-user-check"></i>
-                                                    @lang('My Following')</a></li>
-                                            <li><a class="hover-menu-link px-3 py-2 d-flex align-items-center gap-2"
-                                                    href="#"><i class="las la-box"></i> @lang('My Package')</a>
-                                            </li>
-                                            <li><a class="hover-menu-link px-3 py-2 d-flex align-items-center gap-2"
-                                                    href="#"><i class="las la-user"></i> @lang('My Profile')</a>
-                                            </li>
-                                            <li><a class="hover-menu-link px-3 py-2 d-flex align-items-center gap-2"
-                                                    href="#"><i class="las la-cog"></i> @lang('Settings')</a>
+                                                    href="{{ route('user.profile.setting') }}"><i
+                                                        class="las la-cog"></i> @lang('Settings')</a>
                                             </li>
                                             <li class="border-top mt-1 pt-1"><a
                                                     class="hover-menu-link px-3 py-2 d-flex align-items-center gap-2 text-danger"
-                                                    href="#"><i class="las la-sign-out-alt"></i>
-                                                    @lang('Logout')</a></li>
+                                                    href="{{ route('user.logout') }}"><i
+                                                        class="las la-sign-out-alt"></i>
+                                                    @lang('Logout')</a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
