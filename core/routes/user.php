@@ -120,8 +120,7 @@ Route::middleware('auth')->name('user.')->group(function () {
 
             // Inbox Operation
             Route::controller('InboxController')->prefix('inbox')->name('inbox.')->group(function () {
-                Route::get('list', 'list')->name('list');
-                Route::get('messages/{uniqueId}', 'messages')->name('messages');
+                Route::get('messages/{uniqueId?}', 'messages')->name('messages');
                 Route::post('create', 'create')->name('create');
                 Route::post('message/store', 'storeMessage')->name('message.store');
                 Route::get('messages/refresh/{uniqueId}', 'refreshMessages')->name('messages.refresh');
