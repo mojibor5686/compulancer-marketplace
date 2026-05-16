@@ -28,7 +28,7 @@
                                             {{ $sidebarUser->username }}</h6>
                                     </div>
                                     <small class="text-muted d-block text-truncate"
-                                        style="font-size: 12px;">{{ strLimit($item->subject, 25) }}</small>
+                                        style="font-size: 12px;">Subject: {{ strLimit($item->subject, 25) }}</small>
                                 </div>
                             </a>
                         @empty
