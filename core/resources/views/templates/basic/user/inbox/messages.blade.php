@@ -5,9 +5,52 @@
         $user = $inbox->sender_id == auth()->id() ? $inbox->receiver : $inbox->sender;
     @endphp
     <div class="card-area">
-        <div class="row justify-content-center">
-            <div class="col-xl-12">
-                <div class="card custom--card">
+        <div class="row g-0 rounded shadow-sm overflow-hidden bg-white" style="min-height: 500px;">
+            <div class="col-lg-4 col-xl-3 border-end d-flex flex-column bg-light">
+                <div class="p-3 border-bottom bg-white">
+                    <h5 class="m-0 fw-bold text-dark">@lang('Chats')</h5>
+                </div>
+                <div class="flex-grow-1 overflow-auto custom-sidebar-scroll">
+                    <div class="list-group list-group-flush">
+                        @forelse($inboxes as $item)
+                            @php
+                                $sidebarUser = $item->sender_id == auth()->id() ? $item->receiver : $item->sender;
+                                $isActive = isset($inbox) && $inbox->unique_id === $item->unique_id;
+                            @endphp
+                            <a href="{{ route('user.inbox.messages', $item->unique_id) }}"
+                                class="list-group-item list-group-item-action p-3 d-flex align-items-center gap-3 border-0 transition-all {{ $isActive ? 'text-white fw-semibold shadow-sm' : '' }}"
+                                style="{{ $isActive ? 'background-color: #3a84ff !important; margin-left: 0;' : '' }}">
+
+                                <img src="{{ getImage(getFilePath('userProfile') . '/' . @$sidebarUser->image, isAvatar: true) }}"
+                                    class="rounded-circle object-fit-cover"
+                                    style="width: 48px; height: 48px; {{ $isActive ? 'border: 2px solid rgba(255,255,255,0.6);' : '' }}"
+                                    alt="image">
+
+                                <div class="w-100 overflow-hidden">
+                                    <div class="d-flex justify-content-between align-items-center mb-1">
+                                        <h6 class="m-0 text-truncate text-capitalize {{ $isActive ? 'text-white' : 'text-dark' }}"
+                                            style="font-size: 14px;">
+                                            {{ $sidebarUser->username }}
+                                        </h6>
+                                    </div>
+                                    <small class="d-block text-truncate {{ $isActive ? 'text-white-50' : 'text-muted' }}"
+                                        style="font-size: 12px;">
+                                        @lang('Subject'): {{ strLimit($item->subject, 25) }}
+                                    </small>
+                                </div>
+                            </a>
+                        @empty
+                            <div class="text-center p-4 text-muted">
+                                <i class="las la-comments fs-1 d-block mb-2"></i>
+                                @lang('No active conversations')
+                            </div>
+                        @endforelse
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-8 col-xl-9 d-flex flex-column bg-white">
+                <div class="card custom--card border-0 shadow-none rounded-0">
                     <div class="card-header bg-dark text-white">
                         <div class="d-flex flex-wrap align-items-center justify-content-between gap-2">
                             <div class="chat-author align-items-center">
@@ -42,7 +85,6 @@
                                 'messages' => $messages,
                             ])
                         </div>
-
 
                         <div class="chat-box__footer bg-light p-3">
                             <form id="chat-form" enctype="multipart/form-data">
