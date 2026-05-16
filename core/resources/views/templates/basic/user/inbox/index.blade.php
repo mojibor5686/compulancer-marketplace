@@ -74,27 +74,31 @@
                         @include('Template::partials.chat_thread_inbox', ['messages' => $messages])
                     </div>
 
-                    <div class="chat-box__footer bg-light p-3">
+                    <div class="p-3 border-top bg-white">
                         <form id="chat-form" enctype="multipart/form-data">
                             @csrf
                             <input type="hidden" name="unique_id" value="{{ $inbox->unique_id }}">
                             <input type="hidden" name="receiver_id" value="{{ encrypt($user->id) }}">
 
-                            <div class="chat-send-area d-flex align-items-center">
-                                <div class="chat-send-file" data-bs-toggle="tooltip" title="Attach a file"
-                                    data-bs-offset="0,8">
-                                    <label for="file" class="file-label">
-                                        <i class="fas fa-paperclip attachment-icon"></i>
+                            <div class="d-flex align-items-center gap-2">
+                                <div class="chat-send-file" data-bs-toggle="tooltip" title="Attach a file">
+                                    <label for="file"
+                                        class="m-0 btn btn-light rounded-circle d-flex align-items-center justify-content-center"
+                                        style="width: 42px; height: 42px; cursor: pointer;">
+                                        <i class="fas fa-paperclip text-secondary attachment-icon"></i>
                                     </label>
                                     <input type="file" id="file" name="file" class="d-none"
                                         accept=".jpg, .png, .jpeg, .pdf">
                                 </div>
 
-                                <div class="chat-send-field flex-grow-1">
-                                    <div class="input-group input--group">
+                                <div class="flex-grow-1">
+                                    <div class="input-group">
                                         <input type="text" name="message" id="chat-message-field"
-                                            placeholder="@lang('Send a message')" class="form-control form--control">
-                                        <button type="submit" class="btn btn--lg btn--base send-btn">
+                                            placeholder="@lang('Type a message...')"
+                                            class="form-control rounded-pill border px-3 shadow-none" style="height: 42px;">
+                                        <button type="submit"
+                                            class="btn btn-primary rounded-pill px-4 ms-2 d-flex align-items-center justify-content-center"
+                                            style="height: 42px; width: 50px;">
                                             <i class="fas fa-paper-plane"></i>
                                         </button>
                                     </div>
