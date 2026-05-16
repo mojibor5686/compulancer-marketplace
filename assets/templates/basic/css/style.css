@@ -6766,16 +6766,16 @@ textarea.form--control {
 }
 
 .offcanvas-sidebar--dashboard .offcanvas-sidebar-menu__item.active .offcanvas-sidebar-menu__link {
-  color: hsl(var(--white));
-  background-color: hsl(var(--base));
+  color: hsl(var(--base));
+  background-color: hsl(var(--white));
 }
 
 .offcanvas-sidebar--dashboard .offcanvas-sidebar-menu__item.active .offcanvas-sidebar-menu__link svg {
-  stroke: hsl(var(--white));
+  stroke: hsl(var(--base));
 }
 
 .offcanvas-sidebar--dashboard .offcanvas-sidebar-menu__item.active .offcanvas-sidebar-menu__link svg path {
-  stroke: hsl(var(--white));
+  stroke: hsl(var(--base));
 }
 
 .offcanvas-sidebar--dashboard .offcanvas-sidebar-menu__link {
@@ -6797,6 +6797,7 @@ textarea.form--control {
 
 .offcanvas-sidebar--dashboard .offcanvas-sidebar-menu__item .smart-icon {
   font-size: 20px;
+  color: white;
 }
 
 .offcanvas-sidebar--dashboard .offcanvas-sidebar-menu__link .smart-icon {
