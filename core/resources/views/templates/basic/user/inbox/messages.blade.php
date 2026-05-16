@@ -50,73 +50,78 @@
             </div>
 
             <div class="col-lg-8 col-xl-9 d-flex flex-column bg-white">
-                <div class="card custom--card border-0 shadow-none rounded-0">
-                    <div class="card-header bg-dark text-white">
-                        <div class="d-flex flex-wrap align-items-center justify-content-between gap-2">
-                            <div class="chat-author d-flex align-items-center gap-3">
-                                <div class="thumb">
-                                    <img src="{{ getImage(getFilePath('userProfile') . '/' . @$user->image, isAvatar: true) }}"
-                                        alt="image" class="rounded-circle"
-                                        style="width: 48px; height: 48px; object-fit: cover;">
-                                </div>
-                                <h6 class="mb-0 text-white">{{ $user->username }}</h6>
+                @if ($inbox)
+                    @php
+                        $user = $inbox->sender_id == auth()->id() ? $inbox->receiver : $inbox->sender;
+                    @endphp
+                    <div class="p-3 border-bottom d-flex align-items-center justify-content-between bg-white">
+                        <div class="d-flex align-items-center gap-3">
+                            <img src="{{ getImage(getFilePath('userProfile') . '/' . @$user->image, isAvatar: true) }}"
+                                class="rounded-circle object-fit-cover" style="width: 42px; height: 42px;" alt="image">
+                            <div>
+                                <h6 class="m-0 fw-bold text-dark">{{ $user->username }}</h6>
+                                <small class="text-success" style="font-size: 11px;"><i class="fas fa-circle fs-small"
+                                        style="font-size: 8px;"></i> @lang('Active Thread')</small>
                             </div>
-                            <div class="trade-status flex-shrink-0">
-
-                                @php
-                                    $pusherService = new App\Lib\PusherService();
-                                    $isPusherActive = $pusherService->initializePusher();
-                                @endphp
-
-                                @if (!$isPusherActive)
-                                    <button type="button" class="btn btn--base refresh-btn refresh"
-                                        data-bs-toggle="tooltip" data-bs-placement="top" data-bs-offset="0,8"
-                                        title="@lang('Click here to refresh the chat and get the latest updates')">
-                                        <i class="las la-sync-alt me-2"></i> @lang('Refresh')
-                                    </button>
-                                @endif
-
-                            </div>
+                        </div>
+                        <div class="trade-status">
+                            @php
+                                $pusherService = new App\Lib\PusherService();
+                                $isPusherActive = $pusherService->initializePusher();
+                            @endphp
+                            @if (!$isPusherActive)
+                                <button type="button" class="btn btn-sm btn-outline-secondary refresh">
+                                    <i class="las la-sync-alt"></i> @lang('Refresh')
+                                </button>
+                            @endif
                         </div>
                     </div>
 
-                    <div class="card-body p-0">
-                        <div class="chat-box__thread" id="chat-thread" data-last-chat-id="{{ $lastChatId }}">
-                            @include('Template::partials.chat_thread_inbox', [
-                                'messages' => $messages,
-                            ])
-                        </div>
+                    <div class="flex-grow-1 overflow-auto p-4 bg-light custom-chat-thread" id="chat-thread"
+                        data-last-chat-id="{{ $lastChatId }}">
+                        @include('Template::partials.chat_thread_inbox', ['messages' => $messages])
+                    </div>
 
-                        <div class="chat-box__footer bg-light p-3">
-                            <form id="chat-form" enctype="multipart/form-data">
-                                @csrf
-                                <input type="hidden" name="unique_id" value="{{ $inbox->unique_id }}">
-                                <input type="hidden" name="receiver_id" value="{{ encrypt($user->id) }}">
+                    <div class="p-3 border-top bg-white">
+                        <form id="chat-form" enctype="multipart/form-data">
+                            @csrf
+                            <input type="hidden" name="unique_id" value="{{ $inbox->unique_id }}">
+                            <input type="hidden" name="receiver_id" value="{{ encrypt($user->id) }}">
 
-                                <div class="chat-send-area d-flex align-items-center">
-                                    <div class="chat-send-file" data-bs-toggle="tooltip" title="Attach a file"
-                                        data-bs-offset="0,8">
-                                        <label for="file" class="file-label">
-                                            <i class="fas fa-paperclip attachment-icon"></i>
-                                        </label>
-                                        <input type="file" id="file" name="file" class="d-none"
-                                            accept=".jpg, .png, .jpeg, .pdf">
-                                    </div>
+                            <div class="d-flex align-items-center gap-2">
+                                <div class="chat-send-file" data-bs-toggle="tooltip" title="Attach a file">
+                                    <label for="file"
+                                        class="m-0 btn btn-light rounded-circle d-flex align-items-center justify-content-center"
+                                        style="width: 42px; height: 42px; cursor: pointer;">
+                                        <i class="fas fa-paperclip text-secondary attachment-icon"></i>
+                                    </label>
+                                    <input type="file" id="file" name="file" class="d-none"
+                                        accept=".jpg, .png, .jpeg, .pdf">
+                                </div>
 
-                                    <div class="chat-send-field flex-grow-1">
-                                        <div class="input-group input--group">
-                                            <input type="text" name="message" id="chat-message-field"
-                                                placeholder="@lang('Send a message')" class="form-control form--control">
-                                            <button type="submit" class="btn btn--lg btn--base send-btn">
-                                                <i class="fas fa-paper-plane"></i>
-                                            </button>
-                                        </div>
+                                <div class="flex-grow-1">
+                                    <div class="input-group">
+                                        <input type="text" name="message" id="chat-message-field"
+                                            placeholder="@lang('Type a message...')"
+                                            class="form-control rounded-pill border px-3 shadow-none" style="height: 42px;">
+                                        <button type="submit"
+                                            class="btn btn-primary rounded-pill px-4 ms-2 d-flex align-items-center justify-content-center"
+                                            style="height: 42px; width: 50px;">
+                                            <i class="fas fa-paper-plane"></i>
+                                        </button>
                                     </div>
                                 </div>
-                            </form>
-                        </div>
+                            </div>
+                        </form>
                     </div>
-                </div>
+                @else
+                    <div
+                        class="flex-grow-1 d-flex flex-column align-items-center justify-content-center text-muted bg-light">
+                        <i class="las la-sms" style="font-size: 70px; color: #ced4da;"></i>
+                        <h5 class="mt-3 fw-semibold">@lang('No Conversation Selected')</h5>
+                        <p class="text-center px-4" style="font-size: 13px; max-width: 350px;">@lang('Please choose a user from the chat list on the left to start messaging.')</p>
+                    </div>
+                @endif
             </div>
         </div>
     </div>
