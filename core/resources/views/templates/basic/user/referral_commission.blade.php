@@ -9,22 +9,17 @@
 
             <!-- Referral Link Section -->
             <div class="form--group-lg">
-                <div class="row align-items-center">
-                    <div class="col-lg-3">
-                        <label class="form-label form--label required">@lang('Referral Link')</label>
-                    </div>
-                    <div class="col-lg-9">
-                        <div class="input-group input--group">
-                            <input type="text" class="form-control form--control referralURL"
-                                value="{{ route('home', ['reference' => $user->username]) }}" readonly>
-                            <button type="button" class="input-group-text copytext" id="copyBoard"> <i
-                                    class="fas fa-copy"></i> </button>
-                        </div>
-                        <p class="fs-14 mt-1">
-                            @lang('Share this referral link to invite users. Every time they make a deposit, you will earn a commission of :commission% of total deposit.', ['commission' => gs()->referral_commission])
-                        </p>
-                    </div>
+                <label class="form-label form--label required">@lang('Referral Link')</label>
+                <div class="input-group input--group">
+                    <input type="text" class="form-control form--control referralURL"
+                        value="{{ route('home', ['reference' => $user->username]) }}" readonly>
+                    <button type="button" class="input-group-text copytext" id="copyBoard">
+                        <i class="fas fa-copy"></i>
+                    </button>
                 </div>
+                <p class="fs-14 mt-1">
+                    @lang('Share this referral link to invite users. Every time they make a deposit, you will earn a commission of :commission% of total deposit.', ['commission' => gs()->referral_commission])
+                </p>
             </div>
 
             <!-- Data Tables -->
