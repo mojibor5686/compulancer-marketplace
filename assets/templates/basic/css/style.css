@@ -6803,8 +6803,10 @@ textarea.form--control {
   font-size: 18px;
 }
 
-.offcanvas-sidebar--dashboard .offcanvas-sidebar-menu__item .span {
-  margin-left: 10px;
+.offcanvas-sidebar--dashboard .offcanvas-sidebar-menu__items {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .offcanvas-sidebar--dashboard .offcanvas-sidebar-menu__link span {
@@ -6813,7 +6815,6 @@ textarea.form--control {
   display: -webkit-box;
   overflow: hidden;
   text-overflow: ellipsis;
-  margin-left: 5px;
 }
 
 .offcanvas-sidebar--dashboard .offcanvas-sidebar-menu__link svg {

@@ -1,4 +1,4 @@
-<li class="offcanvas-sidebar-menu__item">
+<li class="offcanvas-sidebar-menu__item offcanvas-sidebar-menu__items">
     <i class="fas fa-th-large smart-icons"></i>
     <span class="offcanvas-sidebar-menu__title">@lang('Basic')</span>
 </li>

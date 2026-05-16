@@ -5,7 +5,7 @@
 
     <div class="offcanvas-sidebar__body" data-overlayscrollbars-theme="os-theme-dark">
         <ul class="offcanvas-sidebar-menu">
-            <li class="offcanvas-sidebar-menu__item">
+            <li class="offcanvas-sidebar-menu__item offcanvas-sidebar-menu__items">
                 <i class="fas fa-user-circle smart-icon"></i>
                 <span class="offcanvas-sidebar-menu__title">@lang('Seller Account')</span>
             </li>
@@ -42,7 +42,7 @@
                 </a>
             </li>
 
-            <li class="offcanvas-sidebar-menu__item">
+            <li class="offcanvas-sidebar-menu__item offcanvas-sidebar-menu__items">
                 <i class="fas fa-chart-line smart-icon"></i>
                 <span class="offcanvas-sidebar-menu__title">@lang('Sales')</span>
             </li>
