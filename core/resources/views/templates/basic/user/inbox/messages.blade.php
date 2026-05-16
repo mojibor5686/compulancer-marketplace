@@ -17,8 +17,8 @@
                                 $isActive = isset($inbox) && $inbox->unique_id === $item->unique_id;
                             @endphp
                             <a href="{{ route('user.inbox.messages', $item->unique_id) }}"
-                                class="list-group-item list-group-item-action p-3 d-flex align-items-center gap-3 border-0 transition-all {{ $isActive ? 'bg-primary text-white fw-semibold shadow-sm' : '' }}"
-                                style="{{ $isActive ? 'border-left: 4px solid #fff !important; margin-left: 0;' : '' }}">
+                                class="list-group-item list-group-item-action p-3 d-flex align-items-center gap-3 border-0 transition-all {{ $isActive ? 'text-white fw-semibold shadow-sm' : '' }}"
+                                style="{{ $isActive ? 'background-color: #0851ca !important; margin-left: 0;' : '' }}">
 
                                 <img src="{{ getImage(getFilePath('userProfile') . '/' . @$sidebarUser->image, isAvatar: true) }}"
                                     class="rounded-circle object-fit-cover"
@@ -32,7 +32,7 @@
                                             {{ $sidebarUser->username }}
                                         </h6>
                                     </div>
-                                    <small class="d-block text-truncate {{ $isActive ? 'text-white-50' : 'text-muted' }}"
+                                    <small class="d-block text-truncate {{ $isActive ? 'text-white' : 'text-muted' }}"
                                         style="font-size: 12px;">
                                         @lang('Subject'): {{ strLimit($item->subject, 25) }}
                                     </small>
