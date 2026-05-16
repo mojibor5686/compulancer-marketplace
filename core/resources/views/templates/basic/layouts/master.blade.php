@@ -98,7 +98,7 @@
                                     onmouseover="this.style.color='var(--bs-primary)'"
                                     onmouseout="this.style.color='var(--text-dark)'">
                                     <i class="fas fa-arrow-left"></i>
-                                    <span>@lang('Back to Home')</span>
+                                    <span style="font-size: 14px;">@lang('Back to Home')</span>
                                 </a>
                             </div>
 
@@ -106,7 +106,7 @@
                                 data-target="#dashboard-offcanvas-sidebar">
                                 <span class="d-inline-flex align-items-center justify-content-center gap-2">
                                     <i class="fas fa-bars"></i>
-                                    <span>@lang('Menu')</span>
+                                    <span style="font-size: 14px;">@lang('Menu')</span>
                                 </span>
                             </button>
 
@@ -133,7 +133,7 @@
                                                 {{ auth()->user()->name }}</h6>
                                             <small class="text-muted d-block" style="font-size: 11px;">
                                                 @lang('Freelancer') <span
-                                                    class="text-danger fw-semibold">{{ auth()->user()->balance }}</span>
+                                                    class="text-danger fw-semibold">{{ number_format(auth()->user()->balance, 2) }}</span>
                                             </small>
                                         </div>
                                     </div>
