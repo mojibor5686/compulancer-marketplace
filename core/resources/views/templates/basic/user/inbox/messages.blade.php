@@ -53,10 +53,11 @@
                 <div class="card custom--card border-0 shadow-none rounded-0">
                     <div class="card-header bg-dark text-white">
                         <div class="d-flex flex-wrap align-items-center justify-content-between gap-2">
-                            <div class="chat-author align-items-center">
+                            <div class="chat-author d-flex align-items-center gap-3">
                                 <div class="thumb">
                                     <img src="{{ getImage(getFilePath('userProfile') . '/' . @$user->image, isAvatar: true) }}"
-                                        alt="image">
+                                        alt="image" class="rounded-circle"
+                                        style="width: 48px; height: 48px; object-fit: cover;">
                                 </div>
                                 <h6 class="mb-0 text-white">{{ $user->username }}</h6>
                             </div>
