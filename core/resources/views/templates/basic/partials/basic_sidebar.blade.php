@@ -1,6 +1,6 @@
 <li class="offcanvas-sidebar-menu__item offcanvas-sidebar-menu__items">
-    <i class="fas fa-th-large smart-icons"></i>
-    <span class="offcanvas-sidebar-menu__title">@lang('Basic')</span>
+    <i class="fas fa-wallet smart-icons"></i>
+    <span class="offcanvas-sidebar-menu__title">@lang('Finance & Support')</span>
 </li>
 <ul id="sidebar-main-menu" class="offcanvas-sidebar-menu">
     <li class="offcanvas-sidebar-menu__item {{ menuActive('user.inbox*') }}">

@@ -43,8 +43,8 @@
             </li>
 
             <li class="offcanvas-sidebar-menu__item offcanvas-sidebar-menu__items">
-                <i class="fas fa-chart-line smart-icon"></i>
-                <span class="offcanvas-sidebar-menu__title">@lang('Sales')</span>
+                <i class="fas fa-briefcase smart-icon"></i>
+                <span class="offcanvas-sidebar-menu__title">@lang('Business Insights')</span>
             </li>
 
             <li class="offcanvas-sidebar-menu__item {{ menuActive('user.seller.booking.service*') }}">
