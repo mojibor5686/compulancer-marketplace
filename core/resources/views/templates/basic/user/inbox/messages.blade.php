@@ -184,29 +184,28 @@
 
                 function handleChatMessage(data) {
                     if (data.uniqueId === "{{ $inbox->unique_id }}" && data.sender.id !== userId) {
+                        let attachmentHtml = '';
+                        if (data.attachment) {
+                            attachmentHtml = `
+                                <div class="message-attachment ${data.message ? '' : 'mt-0'}">
+                                    <p><a href="${data.attachment}" class="me-3"><i class="fa fa-file"></i> @lang('Attachment')</a></p>
+                                </div>`;
+                        }
+
                         let messageHtml = `
-                        <div class="single-message ${data.sender.id == userId ? 'message--right' : 'message--left'}">
-                            <div class="message-content-outer">
-                                <div class="message-content">
-                                    <p class="message-text">${data.message ?? ''}</p>
-                                    \${data.attachment ? ` <
-                            div class = "message-attachment \${data.message ? '' : 'mt-0'}" >
-                            <
-                            p > < a href = "\${data.attachment}"
-                        class = "me-3" > < i class = "fa fa-file" > < /i> @lang('Attachment')</a > < /p> < /
-                        div > ` : ''} <
-                    /div> <
-                    span class = "message-time d-block text-end mt-2" > \$ {
-                        data.createdAt
-                    } < /span> <
-                    /div> <
-                    div class = "message-author" >
-                    <
-                    img src = "\${data.sender.image}"
-                    class = "thumb" >
-                    <
-                    /div> <
-                    /div>`;
+                            <div class="single-message ${data.sender.id == userId ? 'message--right' : 'message--left'}">
+                                <div class="message-content-outer">
+                                    <div class="message-content">
+                                        <p class="message-text">${data.message ?? ''}</p>
+                                        ${attachmentHtml}
+                                    </div>
+                                    <span class="message-time d-block text-end mt-2">${data.createdAt}</span>
+                                </div>
+                                <div class="message-author">
+                                    <img src="${data.sender.image}" class="thumb" />
+                                </div>
+                            </div>`;
+
                         $('#chat-thread').append(messageHtml);
                         scrollToBottom();
                     }
