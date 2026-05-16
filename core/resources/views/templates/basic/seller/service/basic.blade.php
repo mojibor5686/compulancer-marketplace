@@ -93,16 +93,31 @@
             "use strict";
 
             // Initialize NicEdit for rich text areas
-            bkLib.onDomLoaded(function() {
-                $(".nicEdit").each(function(index) {
-                    $(this).attr("id", "nicEditor" + index);
-                    new nicEditor({
-                        fullPanel: true
-                    }).panelInstance('nicEditor' + index, {
-                        hasPanel: true
+            if (typeof bkLib !== 'undefined') {
+                bkLib.onDomLoaded(function() {
+                    $(".nicEdit").each(function(index) {
+                        $(this).attr("id", "nicEditor" + index);
+                        new nicEditor({
+                            fullPanel: true
+                        }).panelInstance('nicEditor' + index, {
+                            hasPanel: true
+                        });
                     });
                 });
-            });
+            } else {
+                $(document).ready(function() {
+                    if (typeof nicEditor !== 'undefined') {
+                        $(".nicEdit").each(function(index) {
+                            $(this).attr("id", "nicEditor" + index);
+                            new nicEditor({
+                                fullPanel: true
+                            }).panelInstance('nicEditor' + index, {
+                                hasPanel: true
+                            });
+                        });
+                    }
+                });
+            }
 
             // Initialize Select2 for category and subcategory dropdowns
             $('.select2').select2({
