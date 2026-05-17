@@ -103,9 +103,9 @@
                                             style="background-color:transparent; border:none; flex-grow:1;">
                                         <div class="chat-send-file btn btn--lg btn--base w-fit" data-bs-toggle="tooltip"
                                             title="Attach a file" data-bs-offset="0,8"
-                                            style="display: inline-flex; align-items: center; justify-content: center; padding: 0.75rem 1rem; min-width: 3.5rem; border-radius: 0.75rem; cursor: pointer;">
+                                            style="display: inline-flex; background: #888888; align-items: center; justify-content: center; padding:14px; height: fit-content; border-radius: 50%; cursor: pointer;">
                                             <label for="file" class="file-label" style="cursor: pointer; margin: 0;">
-                                                <i class="fas fa-paperclip attachment-icon"></i>
+                                                <i class="fas fa-image attachment-icon"></i>
                                             </label>
                                             <input type="file" id="file" name="file" class="d-none"
                                                 accept=".jpg, .png, .jpeg, .pdf">
