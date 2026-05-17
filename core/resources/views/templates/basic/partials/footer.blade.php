@@ -12,7 +12,7 @@
                 <div class="col-lg-6">
                     <h2 class="kwork-footer__title">
                         <img src="{{ siteLogo() }}" alt="Logo" class="work-footer__logo"
-                            style="height: 35px !important;">
+                            style="height: 40px !important;">
                         <div style="margin-top: 12px;">
                             {{ __(@$footerContent->data_values->heading) }}
                         </div>
@@ -113,7 +113,7 @@
     }
 
     .kwork-footer__title {
-        font-size: 34px;
+        font-size: 28px;
         font-weight: 700;
         margin-bottom: 10px;
         color: #222;
