@@ -3,7 +3,8 @@
 @section('content')
     <div class="card-area">
         <div class="row g-0 rounded shadow-sm overflow-hidden bg-white" style="min-height: 500px; height: calc(100vh - 160px);">
-            
+
+            <!-- Left sidebar: Chats list -->
             <div class="col-lg-4 col-xl-3 border-end d-flex flex-column bg-light">
                 <div class="p-3 border-bottom bg-white">
                     <h5 class="m-0 fw-bold text-dark">@lang('Chats')</h5>
@@ -47,6 +48,7 @@
                 </div>
             </div>
 
+            <!-- Right side: Chat thread & footer -->
             <div class="col-lg-8 col-xl-9 d-flex flex-column bg-white">
                 @if ($inbox)
                     @php
@@ -77,7 +79,9 @@
 
                     <div class="flex-grow-1 overflow-auto p-4 bg-light custom-chat-thread chat-box__thread" id="chat-thread"
                         data-last-chat-id="{{ $lastChatId }}">
-                        @include('Template::partials.chat_thread_inbox', ['messages' => $messages])
+                        @include('Template::partials.chat_thread_inbox', [
+                            'messages' => $messages,
+                        ])
                     </div>
 
                     <div class="chat-box__footer bg-light p-3 border-top">
@@ -87,11 +91,13 @@
                             <input type="hidden" name="receiver_id" value="{{ encrypt($user->id) }}">
 
                             <div class="chat-send-area d-flex align-items-center">
-                                <div class="chat-send-file" data-bs-toggle="tooltip" title="Attach a file" data-bs-offset="0,8">
+                                <div class="chat-send-file" data-bs-toggle="tooltip" title="Attach a file"
+                                    data-bs-offset="0,8">
                                     <label for="file" class="file-label">
                                         <i class="fas fa-paperclip attachment-icon"></i>
                                     </label>
-                                    <input type="file" id="file" name="file" class="d-none" accept=".jpg, .png, .jpeg, .pdf">
+                                    <input type="file" id="file" name="file" class="d-none"
+                                        accept=".jpg, .png, .jpeg, .pdf">
                                 </div>
 
                                 <div class="chat-send-field flex-grow-1">
@@ -110,7 +116,9 @@
                     <div class="flex-grow-1 d-flex flex-column align-items-center justify-content-center text-muted bg-light">
                         <i class="las la-sms" style="font-size: 70px; color: #ced4da;"></i>
                         <h5 class="mt-3 fw-semibold">@lang('No Conversation Selected')</h5>
-                        <p class="text-center px-4" style="font-size: 13px; max-width: 350px;">@lang('Please choose a user from the chat list on the left to start messaging.')</p>
+                        <p class="text-center px-4" style="font-size: 13px; max-width: 350px;">
+                            @lang('Please choose a user from the chat list on the left to start messaging.')
+                        </p>
                     </div>
                 @endif
             </div>
@@ -128,25 +136,30 @@
             padding-left: 0;
             padding-right: 0;
         }
+
         .chat-send-area .input--group .form--control {
             padding-left: 15px;
             padding-right: 15px;
             height: 45px;
         }
+
         .chat-send-area .input--group .form--control:focus {
             background-color: #fff;
             box-shadow: none;
             border-color: #cbd5e1;
         }
+
         .custom-sidebar-scroll::-webkit-scrollbar,
         .custom-chat-thread::-webkit-scrollbar {
             width: 5px;
         }
+
         .custom-sidebar-scroll::-webkit-scrollbar-thumb,
         .custom-chat-thread::-webkit-scrollbar-thumb {
             background-color: #cbd5e1;
             border-radius: 10px;
         }
+
         .attached {
             color: #3a84ff !important;
         }
@@ -237,7 +250,7 @@
                 }
                 scrollToBottom();
 
-                // Form Ajax Request (সম্পূর্ণ ফিক্সড আইডি সিলেক্টর দিয়ে)
+                // Form submission via Ajax
                 $('#chat-form').on('submit', function(e) {
                     e.preventDefault();
 
@@ -245,6 +258,7 @@
                     var hasMessage = $('#chat-message-field').val().trim() !== '';
                     var hasFile = $('#file')[0].files.length > 0;
 
+                    // এখানে শুধু একটা .error থাকলেও আলাদা check করে না
                     if (!hasMessage && !hasFile) {
                         notify('error', '@lang('Please provide a message or attach a file.')');
                         return;
@@ -260,7 +274,7 @@
                             $('.empty-message-box').addClass('d-none');
                             $('.chat-box__thread').append(response.html);
 
-                            // সঠিক আইডি এলিমেন্ট ক্লিয়ার মেথড
+                            // সবগুলো ফিল্ড ক্লিয়ার
                             $('#chat-message-field').val('');
                             $('#file').val('');
                             $('#chat-form')[0].reset();
@@ -306,12 +320,12 @@
                     isFetching = true;
 
                     const lastChatId = chatThread.find('.single-message:first').data('chat-id');
-                    const chatUrl = window.location.href;
                     const lastChatElement = chatThread.find(`[data-chat-id="${lastChatId}"]`);
-                    const lastChatScrollPosition = lastChatElement.length ? lastChatElement.offset().top - chatThread.offset().top : 0;
+                    const lastChatScrollPosition = lastChatElement.length ?
+                        lastChatElement.offset().top - chatThread.offset().top : 0;
 
                     $.ajax({
-                        url: chatUrl,
+                        url: window.location.href,
                         type: 'GET',
                         data: { last_chat_id: lastChatId },
                         success: function(response) {
