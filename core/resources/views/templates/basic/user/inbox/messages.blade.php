@@ -88,33 +88,44 @@
                         ])
                     </div>
 
-                    <div class="chat-box__footer bg-light p-3 border-top h-stack">
-                        <form id="chat-form" enctype="multipart/form-data">
-                            @csrf
-                            <input type="hidden" name="unique_id" value="{{ $inbox->unique_id }}">
-                            <input type="hidden" name="receiver_id" value="{{ encrypt($user->id) }}">
+                    <div class="chat-box__footer bg-light p-3 border-top d-flex align-items-center gap-2">
+                        <div class="flex-grow-1 rounded-3 overflow-hidden">
+                            <form id="chat-form" enctype="multipart/form-data">
+                                @csrf
+                                <input type="hidden" name="unique_id" value="{{ $inbox->unique_id }}">
+                                <input type="hidden" name="receiver_id" value="{{ encrypt($user->id) }}">
 
-                            <div class="chat-send-area d-flex align-items-center">
-                                <div class="chat-send-file" data-bs-toggle="tooltip" title="Attach a file"
-                                    data-bs-offset="0,8">
-                                    <label for="file" class="file-label">
-                                        <i class="fas fa-paperclip attachment-icon"></i>
-                                    </label>
-                                    <input type="file" id="file" name="file" class="d-none"
-                                        accept=".jpg, .png, .jpeg, .pdf">
-                                </div>
+                                <div class="chat-send-area d-flex align-items-center">
+                                    <div class="chat-send-file" data-bs-toggle="tooltip" title="@lang('Attach a file')"
+                                        data-bs-offset="0,8">
+                                        <label for="file" class="file-label">
+                                            <i class="fas fa-paperclip attachment-icon"></i>
+                                        </label>
+                                        <input type="file" id="file" name="file" class="d-none"
+                                            accept=".jpg, .png, .jpeg, .pdf">
+                                    </div>
 
-                                <div class="chat-send-field flex-grow-1">
-                                    <div class="input-group input--group">
-                                        <input type="text" name="message" id="chat-message-field"
-                                            placeholder="@lang('Send a message')" class="form-control form--control">
-                                        <button type="submit" class="btn btn--lg btn--base send-btn">
-                                            <i class="fas fa-paper-plane"></i>
-                                        </button>
+                                    <div class="chat-send-field flex-grow-1">
+                                        <div class="input-group input--group">
+                                            <input type="text" name="message" id="chat-message-field"
+                                                placeholder="@lang('Send a message')"
+                                                class="form-control form--control rounded-0 rounded-start">
+
+                                            <!-- Gallery button (fontawesome icon) right side, same box -->
+                                            <button type="button"
+                                                class="btn btn--lg btn--transparent rounded-0 rounded-end" id="gallery-btn">
+                                                <i class="fas fa-images"></i> <!-- gallery icon -->
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
+
+                        <!-- যদি send button আলাদা রাখতে চাও (chat-box__footer এর ডানে) -->
+                        <button type="button" class="btn btn--lg btn--base" id="chat-box-send-btn">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
                     </div>
                 @else
                     <div

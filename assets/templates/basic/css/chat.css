@@ -159,7 +159,7 @@
 
 .single-message.message--left .message-content {
     border: 1px solid hsl(var(--base) / 0.09);
-    background-color: #434343 !important;
+    background-color: #9f9f9f !important;
     margin-left: auto;
 }
 
