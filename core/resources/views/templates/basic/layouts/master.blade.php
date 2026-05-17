@@ -102,7 +102,7 @@
                                 </a>
                             </div>
 
-                            <button class="btn btn--base d-lg-none mb-4" type="button" data-toggle="offcanvas-sidebar"
+                            <button class="btn btn--base d-lg-none" type="button" data-toggle="offcanvas-sidebar"
                                 data-target="#dashboard-offcanvas-sidebar">
                                 <span class="d-inline-flex align-items-center justify-content-center gap-2">
                                     <i class="fas fa-bars"></i>
