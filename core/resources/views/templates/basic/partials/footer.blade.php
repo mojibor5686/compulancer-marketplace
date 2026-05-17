@@ -129,7 +129,7 @@
     }
 
     .kwork-footer__text {
-        font-size: 15px;
+        font-size: 14px;
         line-height: 1.8;
         color: #555;
         margin-bottom: 14px;
@@ -174,7 +174,7 @@
     .kwork-footer__menu a {
         color: #555;
         text-decoration: none;
-        font-size: 15px;
+        font-size: 14px;
         transition: 0.3s;
     }
 
