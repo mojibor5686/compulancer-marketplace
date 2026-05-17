@@ -3863,7 +3863,8 @@ textarea.form--control {
 
 .input--group {
   position: relative;
-  border: 0;
+  border-radius: 4px;
+  border: 1px solid hsl(var(--black)/0.1);
 }
 
 .input--group .form--control {
@@ -3871,8 +3872,6 @@ textarea.form--control {
   padding-right: 5px;
   -webkit-box-shadow: unset;
   box-shadow: unset;
-  background-color: transparent;
-  border: none;
 }
 
 .input--group .input-group-text+.form--control {
@@ -3887,7 +3886,7 @@ textarea.form--control {
 }
 
 .input--group:not(:has([readonly])):not(:has(:disabled)):focus-within {
-  border: none;
+  border: 1px solid hsl(var(--base));
 }
 
 .input--group:has([readonly]) .input-group-text,
