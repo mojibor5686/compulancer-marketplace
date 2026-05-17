@@ -1,6 +1,9 @@
 @extends('Template::layouts.master')
 
 @section('content')
+    @php
+        $user = $inbox->sender_id == auth()->id() ? $inbox->receiver : $inbox->sender;
+    @endphp
     <div class="card-area">
         <div class="row g-0 rounded shadow-sm overflow-hidden bg-white" style="height: calc(100vh - 160px); min-height: 500px;">
             
