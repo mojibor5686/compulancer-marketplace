@@ -83,7 +83,8 @@
                     <input type="text" name="search" placeholder="Find Services..."
                         class="form-control border-0 px-3 py-2 shadow-none" style="font-size: 14px;" />
                     <button type="submit"
-                        class="btn btn-kwork px-4 py-2 rounded-0 d-flex align-items-center justify-content-center">
+                        class="btn btn-kwork px-4 py-2 rounded-0 d-flex align-items-center justify-content-center"
+                        style="height: stretch;">
                         <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke-width="2.5"
                             stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round"
