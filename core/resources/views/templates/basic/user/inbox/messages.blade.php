@@ -95,19 +95,18 @@
                             <input type="hidden" name="receiver_id" value="{{ encrypt($user->id) }}">
 
                             <div class="chat-send-area d-flex align-items-center">
-                                <div class="chat-send-file" data-bs-toggle="tooltip" title="Attach a file"
-                                    data-bs-offset="0,8">
-                                    <label for="file" class="file-label">
-                                        <i class="fas fa-paperclip attachment-icon"></i>
-                                    </label>
-                                    <input type="file" id="file" name="file" class="d-none"
-                                        accept=".jpg, .png, .jpeg, .pdf">
-                                </div>
-
                                 <div class="chat-send-field flex-grow-1">
                                     <div class="input-group input--group">
                                         <input type="text" name="message" id="chat-message-field"
                                             placeholder="@lang('Send a message')" class="form-control form--control">
+                                        <div class="chat-send-file btn btn--lg btn--base" data-bs-toggle="tooltip"
+                                            title="Attach a file" data-bs-offset="0,8">
+                                            <label for="file" class="file-label">
+                                                <i class="fas fa-paperclip attachment-icon"></i>
+                                            </label>
+                                            <input type="file" id="file" name="file" class="d-none"
+                                                accept=".jpg, .png, .jpeg, .pdf">
+                                        </div>
                                         <button type="submit" class="btn btn--lg btn--base send-btn">
                                             <i class="fas fa-paper-plane"></i>
                                         </button>
