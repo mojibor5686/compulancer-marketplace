@@ -17,9 +17,10 @@
                 <div class="message-attachment @if (!$message->message) mt-0 @endif mt-2">
                     @if (in_array(strtolower($extension), $imageExtensions))
                         <div class="chat-image-preview">
-                            <a href="{{ $downloadUrl }}" target="_blank" class="d-block">
-                                <img src="{{ $fileUrl }}" alt="attachment" class="img-fluid rounded"
-                                    style="max-width: 250px; max-height: 200px; object-fit: cover; border: 1px solid #e5e7eb;">
+                            <a href="{{ $downloadUrl }}" target="_blank" class="d-block chat-img-link">
+                                <img src="{{ $fileUrl }}" alt="attachment"
+                                    class="img-fluid rounded chat-responsive-img"
+                                    style="object-fit: cover; border: 1px solid #e5e7eb;">
                             </a>
                         </div>
                     @else
@@ -44,3 +45,20 @@
             class="thumb">
     </div>
 </div>
+<style>
+    .chat-responsive-img {
+        width: 220px;
+        height: 160px;
+    }
+
+    @media (max-width: 575px) {
+        .chat-responsive-img {
+            width: 140px;
+            height: 110px;
+        }
+
+        .chat-img-link {
+            max-width: 100%;
+        }
+    }
+</style>
