@@ -8771,7 +8771,7 @@ textarea.form--control {
 }
 
 .dashboard-main-content {
-  padding: 24px;
+  padding: 14px;
 }
 
 .dashboard-widget-grid {
@@ -8796,11 +8796,19 @@ textarea.form--control {
   .dashboard-widget-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  .dashboard-main-content {
+    padding: 24px;
+  }
 }
 
 @media screen and (min-width: 1200px) {
   .dashboard-widget-grid {
     grid-template-columns: repeat(3, 1fr);
+  }
+
+  .dashboard-main-content {
+    padding: 32px;
   }
 }
 
