@@ -21,7 +21,6 @@
 
 .chat-box__thread {
     padding: 30px 20px 10px;
-    max-height: 550px;
     overflow-y: auto;
 }
 
@@ -160,13 +159,13 @@
 
 .single-message.message--left .message-content {
     border: 1px solid hsl(var(--base) / 0.09);
-    background-color: hsl(var(--base) / 0.03) !important;
+    background-color: #f9f9f9 !important;
     margin-left: auto;
 }
 
 .single-message.message--right .message-content {
     border: 1px solid hsl(var(--base) / 0.09);
-    background-color: hsl(var(--base) / 0.03) !important;
+    background-color: hsl(var(--heading-color));
     margin-left: auto;
 }
 
@@ -191,7 +190,7 @@
 .single-message .message-text {
     font-size: 14px;
     display: block;
-    color: hsl(var(--heading-color));
+    color: hsl(var(--base) / 0.03) !important;
 }
 
 .single-message .message-author {
@@ -356,7 +355,6 @@
 
 .chat-box__thread {
     background-color: hsl(var(--white));
-    max-height: 500px;
     overflow-y: auto;
 }
 
