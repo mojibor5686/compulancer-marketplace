@@ -49,14 +49,14 @@
             </div>
 
             <!-- এর নিচে থেকে তোমার আগের UI আর JS ঠিক যেভাবে আছে রাখো (JS কিছু ই পরিবর্তন করবে না) -->
-            <div class="col-lg-8 col-xl-9 d-flex flex-column bg-white">
+            <div class="col-lg-8 col-xl-9 d-flex flex-column bg-white h-100">
 
                 <!-- এখান থেকে তোমার অরিজিনাল UI শুরু হবে, যেমন কার্ড, chat-box__thread etc. -->
                 @if ($inbox)
                     @php
                         $user = $inbox->sender_id == auth()->id() ? $inbox->receiver : $inbox->sender;
                     @endphp
-                    <div class="p-3 border-bottom d-flex align-items-center justify-content-between bg-white">
+                    <div class="p-3 border-bottom d-flex align-items-center justify-content-between bg-white h-stack">
                         <div class="d-flex align-items-center gap-3">
                             <img src="{{ getImage(getFilePath('userProfile') . '/' . @$user->image, isAvatar: true) }}"
                                 class="rounded-circle object-fit-cover" style="width: 42px; height: 42px;" alt="image">
@@ -88,7 +88,7 @@
                         ])
                     </div>
 
-                    <div class="chat-box__footer bg-light p-3 border-top">
+                    <div class="chat-box__footer bg-light p-3 border-top h-stack">
                         <form id="chat-form" enctype="multipart/form-data">
                             @csrf
                             <input type="hidden" name="unique_id" value="{{ $inbox->unique_id }}">
