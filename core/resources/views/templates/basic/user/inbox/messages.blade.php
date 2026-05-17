@@ -101,17 +101,17 @@
                                         <input type="text" name="message" id="chat-message-field"
                                             placeholder="@lang('Type a message')" class="form-controls form--control"
                                             style="background-color:transparent; border:none; flex-grow:1;">
-                                        <div class="chat-send-file btn btn--lg w-fit" data-bs-toggle="tooltip"
-                                            title="Attach a file" data-bs-offset="0,8"
-                                            style="display: inline-flex; background: #e1e1e1; align-items: center; justify-content: center; padding:14px; height: fit-content; border-radius: 50%; cursor: pointer;">
+                                        <div class="chat-send-file btn w-fit" data-bs-toggle="tooltip" title="Attach a file"
+                                            data-bs-offset="0,8"
+                                            style="display: inline-flex; font-size:11px; background: #e1e1e1; align-items: center; justify-content: center; padding:12px; height: fit-content; border-radius: 50%; cursor: pointer;">
                                             <label for="file" class="file-label" style="cursor: pointer; margin: 0;">
-                                                <i class="fas fa-image attachment-icon"></i>
+                                                <i class="fas fa-images attachment-icon"></i>
                                             </label>
                                             <input type="file" id="file" name="file" class="d-none"
                                                 accept=".jpg, .png, .jpeg, .pdf">
                                         </div>
-                                        <button type="submit" class="btn btn--lg btn--base send-btn"
-                                            style="display: inline-flex; align-items: center; justify-content: center; padding: 0.75rem 1rem; min-width: 3.5rem; border-radius: 0.75rem;">
+                                        <button type="submit" class="btn btn--base send-btn"
+                                            style="display: inline-flex; font-size:16px; align-items: center; justify-content: center; padding: 0.75rem 1rem; min-width: 3.5rem; border-radius: 0.75rem;">
                                             Send
                                         </button>
                                     </div>
