@@ -111,8 +111,8 @@
                                                 accept=".jpg, .png, .jpeg, .pdf">
                                         </div>
                                         <button type="submit" class="btn btn--base send-btn"
-                                            style="display: inline-flex; font-size:16px; align-items: center; justify-content: center; padding: 0.75rem 1rem; min-width: 3.5rem; border-radius: 0.75rem;">
-                                            Send
+                                            style="display: inline-flex; font-size: 16px; align-items: center; justify-content: center; padding: 0.75rem 2.5rem; min-width: 8rem; border-radius: 5rem; background-color: #007bff; color: #ffffff; border: none; font-weight: 500;">
+                                            @lang('Send')
                                         </button>
                                     </div>
                                 </div>
