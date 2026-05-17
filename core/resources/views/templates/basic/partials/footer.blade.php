@@ -4,160 +4,209 @@
     $policyPages = getContent('policy_pages.element', false, null, true);
 @endphp
 
-<footer class="footer bg-img"
-    data-background-image="{{ frontendImage('footer', @$footerContent->data_values->image, '1920x475') }}">
-    <div class="footer-top">
-        <div class="container">
-            <div class="row gy-4">
-                <!-- Footer Logo and Description -->
-                <div class="col-12 col-sm-12 col-lg-3">
-                    <div class="footer-item one">
-                        <a class="footer-logo" href="{{ route('home') }}">
-                            <img src="{{ siteLogo('dark') }}" alt="Logo" />
-                        </a>
+<footer class="footer kwork-footer d-none d-lg-block">
+    <div class="container">
+        <!-- Top Content -->
+        <div class="kwork-footer__top">
+            <div class="row g-4">
+                <div class="col-lg-6">
+                    <h2 class="kwork-footer__title">
+                        {{ __(@$footerContent->data_values->heading ?? 'KWORK Professional Services') }}
+                    </h2>
+                    <p class="kwork-footer__subtitle">
+                        {{ __(@$footerContent->data_values->description ?? 'Getting things done has never been easier.') }}
+                    </p>
 
-                        <p class="footer-item__desc">{{ __(@$footerContent->data_values->description) }}</p>
-                    </div>
+                    <p class="kwork-footer__text">
+                        {{ __(@$footerContent->data_values->top_text_left ?? 'We built our platform to help users find the right services quickly and confidently.') }}
+                    </p>
                 </div>
 
-                <!-- Quick Links Section -->
-                <div class="col-6 col-sm-4 col-lg-2">
-                    <div class="footer-item two">
-                        <h6 class="footer-item__title">@lang('Quick Links')</h6>
-                        <ul class="footer-menu">
-                            <li class="footer-menu__item">
-                                <a class="footer-menu__link" href="{{ route('service') }}">@lang('Services')</a>
-                            </li>
-                            <li class="footer-menu__item">
-                                <a class="footer-menu__link" href="{{ route('software') }}">@lang('Software')</a>
-                            </li>
-                            <li class="footer-menu__item">
-                                <a class="footer-menu__link" href="{{ route('job') }}">@lang('Jobs')</a>
-                            </li>
-                            <li class="footer-menu__item"><a class="footer-menu__link"
-                                    href="{{ route('user.login') }}">@lang('Sign In')</a></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Our Services -->
-                <div class="col-6 col-sm-4 col-lg-2">
-                    <div class="footer-item three">
-                        <h6 class="footer-item__title">@lang('Our Services')</h6>
-                        <ul class="footer-menu">
-                            @foreach ($categories->take(4) as $category)
-                                <li class="footer-menu__item">
-                                    <a class="footer-menu__link"
-                                        href="{{ route('category.wise.product', [slug($category->name), $category->id]) }}">
-                                        {{ __($category->name) }}
-                                    </a>
-                                </li>
-                            @endforeach
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Legal & Support -->
-                <div class="col-6 col-sm-4 col-lg-2">
-                    <div class="footer-item four">
-                        <h6 class="footer-item__title">@lang('Legal & Support')</h6>
-                        <ul class="footer-menu">
-                            @foreach ($policyPages as $policy)
-                                <li class="footer-menu__item">
-                                    <a class="footer-menu__link" href="{{ route('policy.pages', $policy->slug) }}">
-                                        {{ __($policy->data_values->title) }}
-                                    </a>
-                                </li>
-                            @endforeach
-                            <li class="footer-menu__item"><a class="footer-menu__link"
-                                    href="{{ route('contact') }}">@lang('Contact Us')</a></li>
-                            <li class="footer-menu__item"><a class="footer-menu__link"
-                                    href="{{ route('blogs') }}">@lang('Blogs')</a></li>
-
-                        </ul>
-                    </div>
-                </div>
-                <!-- Subscribe Section -->
-                <div class="col-12 col-sm-12 col-lg-3">
-                    <div class="footer-item five">
-                        <h6 class="footer-item__title">{{ __(@$footerContent->data_values->subscribe_heading) }}</h6>
-                        <p class="footer-item__desc">{{ __(@$footerContent->data_values->subscribe_description) }}</p>
-                        <form class="subscribe-form" id="subscribeForm">
-                            <div class="input-group">
-                                <input class="form-control" type="email" placeholder="@lang('Email Address')"
-                                    name="email" id="subscriberEmail" required />
-                                <button class="btn btn--base" type="submit">
-                                    <svg width="31" height="31" viewBox="0 0 31 31" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M11.4314 20.0454L15.8979 15.0773" stroke="white" stroke-width="2"
-                                            stroke-linecap="round" stroke-linejoin="round" />
-                                        <path
-                                            d="M22.5976 7.62511L1.74585 15.8297L11.1123 20.4003L16.6502 29.2293L22.5976 7.62511Z"
-                                            stroke="white" stroke-width="2" stroke-linecap="round"
-                                            stroke-linejoin="round" />
-                                    </svg>
-                                </button>
-                            </div>
-                        </form>
-                    </div>
+                <div class="col-lg-6">
+                    <p class="kwork-footer__text">
+                        {{ __(@$footerContent->data_values->top_text_right ?? 'Need something done fast? Post a request and get offers from talented professionals.') }}
+                    </p>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Footer Bottom -->
-    <div class="footer-bottom">
-        <div class="container">
-            <div class="footer-bottom__wrapper">
-                <p class="footer-bottom__text">{{ __(@$footerContent->data_values->copyright_text) }}</p>
-                <ul class="social-list">
-                    @foreach ($footerElements as $footer)
-                        <li class="social-list__item">
-                            <a href="{{ @$footer->data_values->url }}" class="social-list__link"
-                                target="__blank">@php echo @$footer->data_values->social_icon @endphp</a>
-                        </li>
-                    @endforeach
-                </ul>
+        <!-- Middle Links -->
+        <div class="kwork-footer__middle">
+            <div class="row g-4 align-items-start">
+                <div class="col-lg-3 col-md-6">
+                    <div class="kwork-footer__brand">
+                        <a href="{{ route('home') }}">
+                            <img src="{{ siteLogo('dark') }}" alt="Logo" class="kwork-footer__logo">
+                        </a>
+
+                        <div class="kwork-footer__payments">
+                            <span class="kwork-footer__payment-icon">VISA</span>
+                            <span class="kwork-footer__payment-icon">MC</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="kwork-footer__heading">@lang('About')</h5>
+                    <ul class="kwork-footer__menu">
+                        <li><a href="{{ route('about') }}">@lang('About Us')</a></li>
+                        <li><a href="{{ route('policy.pages', 'terms-of-service') }}">@lang('Terms of Service')</a></li>
+                        <li><a href="{{ route('policy.pages', 'privacy-policy') }}">@lang('Privacy Policy')</a></li>
+                        <li><a href="{{ route('contact') }}">@lang('Contact Us')</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="kwork-footer__heading">@lang('Resources')</h5>
+                    <ul class="kwork-footer__menu">
+                        <li><a href="{{ route('service') }}">@lang('Services')</a></li>
+                        <li><a href="{{ route('software') }}">@lang('Software')</a></li>
+                        <li><a href="{{ route('job') }}">@lang('Jobs')</a></li>
+                        <li><a href="{{ route('blogs') }}">@lang('Blogs')</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="kwork-footer__heading">@lang('Help Center')</h5>
+                    <ul class="kwork-footer__menu">
+                        <li><a href="{{ route('contact') }}">@lang('Contact Support')</a></li>
+                        @foreach ($policyPages->take(3) as $policy)
+                            <li>
+                                <a href="{{ route('policy.pages', $policy->slug) }}">
+                                    {{ __(@$policy->data_values->title) }}
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom -->
+        <div class="kwork-footer__bottom">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <p class="mb-0">
+                        {{ __(@$footerContent->data_values->copyright_text) }}
+                    </p>
+                </div>
+
+                <div class="col-lg-6 text-lg-end">
+                    <ul class="social-list justify-content-lg-end">
+                        @foreach ($footerElements as $footer)
+                            <li class="social-list__item">
+                                <a href="{{ @$footer->data_values->url }}" class="social-list__link" target="__blank">
+                                    @php echo @$footer->data_values->social_icon @endphp
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
 </footer>
+<style>
+    .kwork-footer {
+        background: #fff;
+        color: #222;
+        padding: 70px 0 20px;
+        border-top: 1px solid #e9e9e9;
+    }
 
+    .kwork-footer__top {
+        padding-bottom: 55px;
+    }
 
+    .kwork-footer__title {
+        font-size: 34px;
+        font-weight: 700;
+        margin-bottom: 10px;
+        color: #222;
+    }
 
-@push('script')
-    <script>
-        'use strict';
-        (function($) {
-            $('#subscribeForm').on('submit', function(e) {
-                e.preventDefault(); // Prevent form from submitting normally
+    .kwork-footer__subtitle {
+        font-size: 18px;
+        margin-bottom: 22px;
+        color: #555;
+    }
 
-                var email = $('#subscriberEmail').val();
-                var csrfToken = '{{ csrf_token() }}';
+    .kwork-footer__text {
+        font-size: 15px;
+        line-height: 1.8;
+        color: #555;
+        margin-bottom: 14px;
+    }
 
-                $.ajax({
-                    type: 'POST',
-                    url: '{{ route('subscriber.store') }}',
-                    data: {
-                        email: email,
-                        _token: csrfToken
-                    },
-                    dataType: 'json',
-                    success: function(response) {
-                        if (response.success) {
-                            notify('success', response.success);
-                            $('#subscriberEmail').val(''); // Clear the input field on success
-                        } else {
-                            notify('error', response.error);
-                        }
-                    },
-                    error: function(xhr) {
-                        var errorMessage = xhr.responseJSON ? xhr.responseJSON.message :
-                            '@lang('An error occurred, please try again.')';
-                        notify('error', errorMessage);
-                    }
-                });
-            });
-        })(jQuery);
-    </script>
-@endpush
+    .kwork-footer__middle {
+        padding: 35px 0;
+        border-top: 1px solid #ececec;
+        border-bottom: 1px solid #ececec;
+    }
+
+    .kwork-footer__logo {
+        max-width: 150px;
+        height: auto;
+        margin-bottom: 25px;
+    }
+
+    .kwork-footer__payments {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+    }
+
+    .kwork-footer__payment-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 52px;
+        height: 30px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        font-size: 12px;
+        font-weight: 600;
+        color: #999;
+        background: #fafafa;
+    }
+
+    .kwork-footer__heading {
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 18px;
+        color: #333;
+    }
+
+    .kwork-footer__menu {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .kwork-footer__menu li {
+        margin-bottom: 12px;
+    }
+
+    .kwork-footer__menu a {
+        color: #555;
+        text-decoration: none;
+        font-size: 15px;
+        transition: 0.3s;
+    }
+
+    .kwork-footer__menu a:hover {
+        color: #111;
+    }
+
+    .kwork-footer__bottom {
+        padding-top: 18px;
+        font-size: 14px;
+        color: #777;
+    }
+
+    @media (max-width: 991px) {
+        .kwork-footer {
+            display: none !important;
+        }
+    }
+</style>
