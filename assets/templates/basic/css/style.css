@@ -6792,7 +6792,7 @@ textarea.form--control {
   font-size: 0.9375rem;
   font-weight: 600;
   line-height: 140%;
-  color: hsl(var(--white)/0.7);
+  color: hsl(var(--white));
 }
 
 .offcanvas-sidebar--dashboard .offcanvas-sidebar-menu__item .smart-icons {
