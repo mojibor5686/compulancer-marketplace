@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="card-area">
-        <div class="row g-0 rounded shadow-sm overflow-hidden bg-white" style="min-height: 500px; height: calc(100vh - 160px);">
+        <div class="row g-0 rounded shadow-sm overflow-hidden bg-white" style="height: 90vh;">
 
             <!-- Left sidebar: Chats list (এই অংশ শুধু যোগ করছি, JS কিছু করছি না) -->
             <div class="col-lg-4 col-xl-3 border-end d-flex flex-column bg-light">
@@ -117,7 +117,8 @@
                         </form>
                     </div>
                 @else
-                    <div class="flex-grow-1 d-flex flex-column align-items-center justify-content-center text-muted bg-light">
+                    <div
+                        class="flex-grow-1 d-flex flex-column align-items-center justify-content-center text-muted bg-light">
                         <i class="las la-sms" style="font-size: 70px; color: #ced4da;"></i>
                         <h5 class="mt-3 fw-semibold">@lang('No Conversation Selected')</h5>
                         <p class="text-center px-4" style="font-size: 13px; max-width: 350px;">
@@ -137,6 +138,13 @@
 
 @push('style')
     <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
         .chat-send-area {
             padding-left: 0;
             padding-right: 0;
