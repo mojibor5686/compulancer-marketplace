@@ -3872,6 +3872,7 @@ textarea.form--control {
   -webkit-box-shadow: unset;
   box-shadow: unset;
   background-color: transparent;
+  border: none;
 }
 
 .input--group .input-group-text+.form--control {
