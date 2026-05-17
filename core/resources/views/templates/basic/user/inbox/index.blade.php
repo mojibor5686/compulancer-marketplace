@@ -38,34 +38,28 @@
             @php
                 $user = $inbox->sender_id == auth()->id() ? $inbox->receiver : $inbox->sender;
             @endphp
-            
+
             <div class="col-lg-8 col-xl-9 d-flex flex-column bg-white">
                 <div class="card custom--card">
-                    <div class="card-header bg-dark text-white">
-                        <div class="d-flex flex-wrap align-items-center justify-content-between gap-2">
-                            <div class="chat-author align-items-center">
-                                <div class="thumb">
-                                    <img src="{{ getImage(getFilePath('userProfile') . '/' . @$user->image, isAvatar: true) }}"
-                                        alt="image">
-                                </div>
-                                <h6 class="mb-0 text-white">{{ $user->username }}</h6>
+                    <div class="p-3 border-bottom d-flex align-items-center justify-content-between bg-white">
+                        <div class="d-flex align-items-center gap-3">
+                            <img src="{{ getImage(getFilePath('userProfile') . '/' . @$user->image, isAvatar: true) }}" 
+                                 class="rounded-circle object-fit-cover" style="width: 42px; height: 42px;" alt="image">
+                            <div>
+                                <h6 class="m-0 fw-bold text-dark">{{ $user->username }}</h6>
+                                <small class="text-success" style="font-size: 11px;"><i class="fas fa-circle fs-small" style="font-size: 8px;"></i> @lang('Active Thread')</small>
                             </div>
-                            <div class="trade-status flex-shrink-0">
-
-                                @php
-                                    $pusherService = new App\Lib\PusherService();
-                                    $isPusherActive = $pusherService->initializePusher();
-                                @endphp
-
-                                @if (!$isPusherActive)
-                                    <button type="button" class="btn btn--base refresh-btn refresh"
-                                        data-bs-toggle="tooltip" data-bs-placement="top" data-bs-offset="0,8"
-                                        title="@lang('Click here to refresh the chat and get the latest updates')">
-                                        <i class="las la-sync-alt me-2"></i> @lang('Refresh')
-                                    </button>
-                                @endif
-
-                            </div>
+                        </div>
+                        <div class="trade-status">
+                            @php
+                                $pusherService = new App\Lib\PusherService();
+                                $isPusherActive = $pusherService->initializePusher();
+                            @endphp
+                            @if (!$isPusherActive)
+                                <button type="button" class="btn btn-sm btn-outline-secondary refresh">
+                                    <i class="las la-sync-alt"></i> @lang('Refresh')
+                                </button>
+                            @endif
                         </div>
                     </div>
 
@@ -75,7 +69,6 @@
                                 'messages' => $messages,
                             ])
                         </div>
-
 
                         <div class="chat-box__footer bg-light p-3">
                             <form id="chat-form" enctype="multipart/form-data">
