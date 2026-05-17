@@ -97,6 +97,7 @@
                             <div class="chat-send-area d-flex align-items-center">
                                 <div class="chat-send-field flex-grow-1">
                                     <div class="input-group input--group">
+                                        <i class="fas fa-smile"></i>
                                         <input type="text" name="message" id="chat-message-field"
                                             placeholder="@lang('Send a message')" class="form-control form--control">
                                         <div class="chat-send-file btn btn--lg btn--base" data-bs-toggle="tooltip"
@@ -108,7 +109,7 @@
                                                 accept=".jpg, .png, .jpeg, .pdf">
                                         </div>
                                         <button type="submit" class="btn btn--lg btn--base send-btn">
-                                            <i class="fas fa-paper-plane"></i>
+                                            Sand <i class="fas fa-paper-plane ms-1"></i>
                                         </button>
                                     </div>
                                 </div>
