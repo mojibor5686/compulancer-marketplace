@@ -6,4 +6,3 @@
 
 # Optional: ignore root .env if present
 .env
-assets/admin/push_config.json
