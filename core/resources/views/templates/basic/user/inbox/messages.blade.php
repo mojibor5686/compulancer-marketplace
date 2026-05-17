@@ -5,10 +5,17 @@
         <div class="row g-0 rounded shadow-sm overflow-hidden bg-white" style="height: 87vh;">
 
             <!-- Left sidebar: Chats list (এই অংশ শুধু যোগ করছি, JS কিছু করছি না) -->
-            <div class="col-lg-4 col-xl-3 border-end d-flex flex-column bg-light">
-                <div class="p-3 border-bottom bg-white">
+            <button type="button" class="btn btn-primary shadow-sm chat-sidebar-toggle d-lg-none" id="toggle-chat-sidebar">
+                <i class="las la-comments fs-4"></i>
+            </button>
+
+            <div class="col-lg-4 col-xl-3 border-end d-flex flex-column bg-light chat-sidebar-slider"
+                id="chat-sidebar-wrapper">
+                <div class="p-3 border-bottom bg-white d-flex justify-content-between align-items-center">
                     <h5 class="m-0 fw-bold text-dark">@lang('Chats')</h5>
+                    <button type="button" class="btn-close d-lg-none" id="close-chat-sidebar"></button>
                 </div>
+
                 <div class="flex-grow-1 overflow-auto custom-sidebar-scroll">
                     <div class="list-group list-group-flush">
                         @forelse($inboxes as $item)
@@ -47,6 +54,8 @@
                     </div>
                 </div>
             </div>
+
+            <div class="chat-sidebar-backdrop d-lg-none" id="chat-sidebar-backdrop"></div>
 
             <!-- এর নিচে থেকে তোমার আগের UI আর JS ঠিক যেভাবে আছে রাখো (JS কিছু ই পরিবর্তন করবে না) -->
             <div class="col-lg-8 col-xl-9 d-flex flex-column bg-white h-100">
@@ -179,11 +188,70 @@
         .attached {
             color: #3a84ff !important;
         }
+
+        @media (max-width: 991px) {
+
+            .chat-sidebar-slider {
+                position: fixed;
+                top: 0;
+                left: -300px;
+                width: 300px;
+                height: 100vh;
+                z-index: 1050;
+                transition: left 0.3s ease-in-out;
+                box-shadow: 4px 0 15px rgba(0, 0, 0, 0.1);
+            }
+
+            .chat-sidebar-slider.active {
+                left: 0;
+            }
+
+            .chat-sidebar-toggle {
+                position: fixed;
+                top: 85px;
+                left: 15px;
+                z-index: 1040;
+                border-radius: 50%;
+                width: 50px;
+                height: 50px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .chat-sidebar-backdrop {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                background: rgba(0, 0, 0, 0.4);
+                z-index: 1045;
+                display: none;
+            }
+
+            .chat-sidebar-backdrop.show {
+                display: block;
+            }
+        }
     </style>
 @endpush
 
 @push('script')
     <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#toggle-chat-sidebar, #chat-sidebar-backdrop').on('click', function() {
+                $('#chat-sidebar-wrapper').toggleClass('active');
+                $('#chat-sidebar-backdrop').toggleClass('show');
+            });
+
+            $('#close-chat-sidebar').on('click', function() {
+                $('#chat-sidebar-wrapper').removeClass('active');
+                $('#chat-sidebar-backdrop').removeClass('show');
+            });
+        });
+    </script>
     <script>
         (function($) {
             "use strict";
