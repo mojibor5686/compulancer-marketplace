@@ -125,9 +125,10 @@
 
                                 <div class="user-profile-dropdown-wrapper position-relative py-2">
                                     <div class="user-profile-trigger d-flex align-items-center gap-2 cursor-pointer">
-                                        <img src="https://work.mojibor.com/assets/images/avatar.jpg" alt="User Profile"
-                                            class="rounded-circle object-fit-cover"
-                                            style="width: 42px; height: 42px; border: 2px solid #e9ecef;">
+                                        <div
+                                            style="width: 42px; height: 42px; border: 2px solid #e9ecef; border-radius: 50%; display: flex; align-items: center; justify-content: center; background-color: #f8f9fa;">
+                                            <i class="las la-comments fs-4" style="color:#333"></i>
+                                        </div>
                                         <div class="user-info-text lh-sm">
                                             <h6 class="m-0 fw-bold text-dark" style="font-size: 14px;">
                                                 {{ auth()->user()->firstname }} {{ auth()->user()->lastname }}</h6>
