@@ -159,7 +159,7 @@
 
 .single-message.message--left .message-content {
     border: 1px solid hsl(var(--base) / 0.09);
-    background-color: #f9f9f9 !important;
+    background-color: #434343 !important;
     margin-left: auto;
 }
 
@@ -190,7 +190,7 @@
 .single-message .message-text {
     font-size: 14px;
     display: block;
-    color: hsl(var(--base) / 0.03) !important;
+    color: white;
 }
 
 .single-message .message-author {
