@@ -102,15 +102,17 @@
                                             placeholder="@lang('Type a message')" class="form-controls form--control"
                                             style="background-color:transparent; border:none; flex-grow:1;">
                                         <div class="chat-send-file btn btn--lg btn--base w-fit" data-bs-toggle="tooltip"
-                                            title="Attach a file" data-bs-offset="0,8">
-                                            <label for="file" class="file-label">
+                                            title="Attach a file" data-bs-offset="0,8"
+                                            style="display: inline-flex; align-items: center; justify-content: center; padding: 0.75rem 1rem; min-width: 3.5rem; border-radius: 0.75rem; cursor: pointer;">
+                                            <label for="file" class="file-label" style="cursor: pointer; margin: 0;">
                                                 <i class="fas fa-paperclip attachment-icon"></i>
                                             </label>
                                             <input type="file" id="file" name="file" class="d-none"
                                                 accept=".jpg, .png, .jpeg, .pdf">
                                         </div>
-                                        <button type="submit" class="btn btn--lg btn--base send-btn">
-                                            Sand
+                                        <button type="submit" class="btn btn--lg btn--base send-btn"
+                                            style="display: inline-flex; align-items: center; justify-content: center; padding: 0.75rem 1rem; min-width: 3.5rem; border-radius: 0.75rem;">
+                                            Send
                                         </button>
                                     </div>
                                 </div>
