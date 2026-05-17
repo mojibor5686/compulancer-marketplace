@@ -49,10 +49,10 @@
                 <div class="col-lg-3 col-md-6">
                     <h5 class="kwork-footer__heading">@lang('About')</h5>
                     <ul class="kwork-footer__menu">
-                        <li><a href="{{ route('about') }}">@lang('About Us')</a></li>
-                        <li><a href="{{ route('policy.pages', 'terms-of-service') }}">@lang('Terms of Service')</a></li>
-                        <li><a href="{{ route('policy.pages', 'privacy-policy') }}">@lang('Privacy Policy')</a></li>
-                        <li><a href="{{ route('contact') }}">@lang('Contact Us')</a></li>
+                        <li><a href="">@lang('About Us')</a></li>
+                        <li><a href="">@lang('Terms of Service')</a></li>
+                        <li><a href="">@lang('Privacy Policy')</a></li>
+                        <li><a href="">@lang('Contact Us')</a></li>
                     </ul>
                 </div>
 
