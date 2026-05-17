@@ -2,11 +2,38 @@
     data-chat-id="{{ $message->id }}">
     <div class="message-content-outer">
         <div class="message-content">
-            <p class="message-text">{{ $message->message }}</p>
+            @if ($message->message)
+                <p class="message-text">{{ $message->message }}</p>
+            @endif
+
             @if ($message->file)
-                <div class="message-attachment @if (!$message->message) mt-0 @endif">
-                    <p class=""><a href="{{ route('file.download', [encrypt($message->file), 'messageFile']) }}"
-                            class="me-3"><i class="fa fa-file"></i> @lang('Attachment')</a></p>
+                @php
+                    $extension = pathinfo($message->file, PATHINFO_EXTENSION);
+                    $imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+                    $fileUrl = getImage(getFilePath('messageFile') . '/' . $message->file);
+                    $downloadUrl = route('file.download', [encrypt($message->file), 'messageFile']);
+                @endphp
+
+                <div class="message-attachment @if (!$message->message) mt-0 @endif mt-2">
+                    @if (in_array(strtolower($extension), $imageExtensions))
+                        <div class="chat-image-preview">
+                            <a href="{{ $downloadUrl }}" target="_blank" class="d-block">
+                                <img src="{{ $fileUrl }}" alt="attachment" class="img-fluid rounded"
+                                    style="max-width: 250px; max-height: 200px; object-fit: cover; border: 1px solid #e5e7eb;">
+                            </a>
+                        </div>
+                    @else
+                        <p class="m-0">
+                            <a href="{{ $downloadUrl }}" class="me-3 d-inline-flex align-items-center gap-2">
+                                @if (strtolower($extension) == 'pdf')
+                                    <i class="fas fa-file-pdf text-danger" style="font-size: 18px;"></i>
+                                @else
+                                    <i class="fas fa-file-alt text-secondary" style="font-size: 18px;"></i>
+                                @endif
+                                <span>@lang('Attachment') (.{{ $extension }})</span>
+                            </a>
+                        </p>
+                    @endif
                 </div>
             @endif
         </div>
