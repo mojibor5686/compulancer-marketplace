@@ -11,8 +11,10 @@
             <div class="row g-4">
                 <div class="col-lg-6">
                     <h2 class="kwork-footer__title">
-                        <img src="{{ siteLogo() }}" alt="Logo" class="work-footer__logo">
-                        {{ __(@$footerContent->data_values->heading ?? 'Professional Services') }}
+                        <img src="{{ siteLogo() }}" alt="Logo" class="work-footer__logo" height="40">
+                        <div>
+                            {{ __(@$footerContent->data_values->heading ?? 'Professional Services') }}
+                        </div>
                     </h2>
                     <p class="kwork-footer__subtitle">
                         {{ __(@$footerContent->data_values->description ?? 'Getting things done has never been easier.') }}
@@ -37,12 +39,12 @@
                 <div class="col-lg-3 col-md-6">
                     <div class="kwork-footer__brand">
                         <a href="{{ route('home') }}">
-                            <img src="{{ siteLogo() }}" alt="Logo" class="kwork-footer__logo">
+                            <img src="{{ siteLogo() }}" alt="Logo" class="kwork-footer__logo" height="40">
                         </a>
 
                         <div class="kwork-footer__payments">
-                            <span class="kwork-footer__payment-icon">VISA</span>
-                            <span class="kwork-footer__payment-icon">MC</span>
+                            <img src="https://cdn.kwork.com/images/footer/mastercard.svg" alt="Mastercard">
+                            <img src="https://cdn.kwork.com/images/footer/visa.svg" alt="Visa">
                         </div>
                     </div>
                 </div>
@@ -159,20 +161,7 @@
         gap: 12px;
         align-items: center;
     }
-
-    .kwork-footer__payment-icon {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        min-width: 52px;
-        height: 30px;
-        border: 1px solid #ddd;
-        border-radius: 6px;
-        font-size: 12px;
-        font-weight: 600;
-        color: #999;
-        background: #fafafa;
-    }
+    
 
     .kwork-footer__heading {
         font-size: 20px;
