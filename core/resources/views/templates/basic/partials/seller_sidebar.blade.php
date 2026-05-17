@@ -26,25 +26,25 @@
                     <span>@lang('Create Service')</span>
                 </a>
             </li>
-            <li
+            {{-- <li
                 class="offcanvas-sidebar-menu__item {{ menuActive(['user.seller.software.basic', 'user.seller.software.feature', 'user.seller.software.gallery']) }}">
                 <a href="{{ route('user.seller.software.basic') }}" class="offcanvas-sidebar-menu__link">
                     <i class="fas fa-upload smart-icon"></i>
                     <span>@lang('Sell Software')</span>
                 </a>
-            </li>
+            </li> --}}
             <li class="offcanvas-sidebar-menu__item {{ menuActive('user.seller.service.index') }}">
                 <a href="{{ route('user.seller.service.index') }}" class="offcanvas-sidebar-menu__link">
                     <i class="fas fa-briefcase smart-icon"></i>
                     <span>@lang('Manage Services')</span>
                 </a>
             </li>
-            <li class="offcanvas-sidebar-menu__item {{ menuActive('user.seller.software.index') }}">
+            {{-- <li class="offcanvas-sidebar-menu__item {{ menuActive('user.seller.software.index') }}">
                 <a href="{{ route('user.seller.software.index') }}" class="offcanvas-sidebar-menu__link">
                     <i class="fas fa-laptop-code smart-icon"></i>
                     <span>@lang('Manage Software')</span>
                 </a>
-            </li>
+            </li> --}}
 
             <li class="offcanvas-sidebar-menu__item offcanvas-sidebar-menu__items">
                 <span class="offcanvas-sidebar-menu__title">@lang('Business Insights')</span>
