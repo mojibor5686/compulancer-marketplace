@@ -11,7 +11,8 @@
             <div class="row g-4">
                 <div class="col-lg-6">
                     <h2 class="kwork-footer__title">
-                        {{ __(@$footerContent->data_values->heading ?? 'KWORK Professional Services') }}
+                        <img src="{{ siteLogo() }}" alt="Logo" class="work-footer__logo">
+                        {{ __(@$footerContent->data_values->heading ?? 'Professional Services') }}
                     </h2>
                     <p class="kwork-footer__subtitle">
                         {{ __(@$footerContent->data_values->description ?? 'Getting things done has never been easier.') }}
@@ -36,7 +37,7 @@
                 <div class="col-lg-3 col-md-6">
                     <div class="kwork-footer__brand">
                         <a href="{{ route('home') }}">
-                            <img src="{{ siteLogo('dark') }}" alt="Logo" class="kwork-footer__logo">
+                            <img src="{{ siteLogo() }}" alt="Logo" class="kwork-footer__logo">
                         </a>
 
                         <div class="kwork-footer__payments">
@@ -123,6 +124,9 @@
         font-weight: 700;
         margin-bottom: 10px;
         color: #222;
+        display: flex;
+        align-items: center;
+        gap: 15px;
     }
 
     .kwork-footer__subtitle {
