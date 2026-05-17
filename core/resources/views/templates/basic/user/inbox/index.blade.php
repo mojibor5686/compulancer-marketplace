@@ -1,7 +1,12 @@
 @extends('Template::layouts.master')
+
 @section('content')
+    @php
+        $user = $inbox->sender_id == auth()->id() ? $inbox->receiver : $inbox->sender;
+    @endphp
     <div class="card-area">
-        <div class="row g-0 rounded shadow-sm overflow-hidden bg-white" style="height: calc(100vh - 160px); min-height: 500px;">
+        <div class="row g-0 rounded shadow-sm overflow-hidden bg-white"
+            style="height: calc(100vh - 160px); min-height: 500px;">
             <div class="col-lg-4 col-xl-3 border-end d-flex flex-column bg-light">
                 <div class="p-3 border-bottom bg-white">
                     <h5 class="m-0 fw-bold text-dark">@lang('Chats')</h5>
@@ -13,16 +18,19 @@
                                 $sidebarUser = $item->sender_id == auth()->id() ? $item->receiver : $item->sender;
                                 $isActive = isset($inbox) && $inbox->unique_id === $item->unique_id;
                             @endphp
-                            <a href="{{ route('user.inbox.messages', $item->unique_id) }}" 
-                               class="list-group-item list-group-item-action p-3 d-flex align-items-center gap-3 border-bottom-0 {{ $isActive ? 'bg-white border-start border-primary border-4 fw-semibold' : '' }}" 
-                               style="{{ $isActive ? 'border-left: 4px solid var(--bs-primary) !important;' : '' }}">
-                                <img src="{{ getImage(getFilePath('userProfile') . '/' . @$sidebarUser->image, isAvatar: true) }}" 
-                                     class="rounded-circle object-fit-cover" style="width: 45px; height: 45px;" alt="image">
+                            <a href="{{ route('user.inbox.messages', $item->unique_id) }}"
+                                class="list-group-item list-group-item-action p-3 d-flex align-items-center gap-3 border-bottom-0 {{ $isActive ? 'bg-white border-start border-primary border-4 fw-semibold' : '' }}"
+                                style="{{ $isActive ? 'border-left: 4px solid var(--bs-primary) !important;' : '' }}">
+                                <img src="{{ getImage(getFilePath('userProfile') . '/' . @$sidebarUser->image, isAvatar: true) }}"
+                                    class="rounded-circle object-fit-cover" style="width: 45px; height: 45px;"
+                                    alt="image">
                                 <div class="w-100 overflow-hidden">
                                     <div class="d-flex justify-content-between align-items-center mb-1">
-                                        <h6 class="m-0 text-dark text-truncate" style="font-size: 14px;">{{ $sidebarUser->username }}</h6>
+                                        <h6 class="m-0 text-dark text-truncate" style="font-size: 14px;">
+                                            {{ $sidebarUser->username }}</h6>
                                     </div>
-                                    <small class="text-muted d-block text-truncate" style="font-size: 12px;">{{ strLimit($item->subject, 25) }}</small>
+                                    <small class="text-muted d-block text-truncate"
+                                        style="font-size: 12px;">{{ strLimit($item->subject, 25) }}</small>
                                 </div>
                             </a>
                         @empty
@@ -35,31 +43,33 @@
                 </div>
             </div>
 
-            @php
-                $user = $inbox->sender_id == auth()->id() ? $inbox->receiver : $inbox->sender;
-            @endphp
-
             <div class="col-lg-8 col-xl-9 d-flex flex-column bg-white">
                 <div class="card custom--card">
-                    <div class="p-3 border-bottom d-flex align-items-center justify-content-between bg-white">
-                        <div class="d-flex align-items-center gap-3">
-                            <img src="{{ getImage(getFilePath('userProfile') . '/' . @$user->image, isAvatar: true) }}" 
-                                 class="rounded-circle object-fit-cover" style="width: 42px; height: 42px;" alt="image">
-                            <div>
-                                <h6 class="m-0 fw-bold text-dark">{{ $user->username }}</h6>
-                                <small class="text-success" style="font-size: 11px;"><i class="fas fa-circle fs-small" style="font-size: 8px;"></i> @lang('Active Thread')</small>
+                    <div class="card-header bg-dark text-white">
+                        <div class="d-flex flex-wrap align-items-center justify-content-between gap-2">
+                            <div class="chat-author align-items-center">
+                                <div class="thumb">
+                                    <img src="{{ getImage(getFilePath('userProfile') . '/' . @$user->image, isAvatar: true) }}"
+                                        alt="image">
+                                </div>
+                                <h6 class="mb-0 text-white">{{ $user->username }}</h6>
                             </div>
-                        </div>
-                        <div class="trade-status">
-                            @php
-                                $pusherService = new App\Lib\PusherService();
-                                $isPusherActive = $pusherService->initializePusher();
-                            @endphp
-                            @if (!$isPusherActive)
-                                <button type="button" class="btn btn-sm btn-outline-secondary refresh">
-                                    <i class="las la-sync-alt"></i> @lang('Refresh')
-                                </button>
-                            @endif
+                            <div class="trade-status flex-shrink-0">
+
+                                @php
+                                    $pusherService = new App\Lib\PusherService();
+                                    $isPusherActive = $pusherService->initializePusher();
+                                @endphp
+
+                                @if (!$isPusherActive)
+                                    <button type="button" class="btn btn--base refresh-btn refresh"
+                                        data-bs-toggle="tooltip" data-bs-placement="top" data-bs-offset="0,8"
+                                        title="@lang('Click here to refresh the chat and get the latest updates')">
+                                        <i class="las la-sync-alt me-2"></i> @lang('Refresh')
+                                    </button>
+                                @endif
+
+                            </div>
                         </div>
                     </div>
 
@@ -69,6 +79,7 @@
                                 'messages' => $messages,
                             ])
                         </div>
+
 
                         <div class="chat-box__footer bg-light p-3">
                             <form id="chat-form" enctype="multipart/form-data">

@@ -64,10 +64,8 @@
                         </div>
                     </div>
 
-                    <div class="chat-box__thread" id="chat-thread" data-last-chat-id="{{ $lastChatId }}">
-                        @include('Template::partials.chat_thread_inbox', [
-                                'messages' => $messages,
-                            ])
+                    <div class="flex-grow-1 overflow-auto p-4 bg-light custom-chat-thread" id="chat-thread" data-last-chat-id="{{ $lastChatId }}">
+                        @include('Template::partials.chat_thread_inbox', ['messages' => $messages])
                     </div>
 
                     <div class="p-3 border-top bg-white">
