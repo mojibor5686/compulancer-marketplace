@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="card-area">
-        <div class="row g-0 rounded shadow-sm overflow-hidden bg-white" style="height: 90vh;">
+        <div class="row g-0 rounded shadow-sm overflow-hidden bg-white" style="height: 87vh;">
 
             <!-- Left sidebar: Chats list (এই অংশ শুধু যোগ করছি, JS কিছু করছি না) -->
             <div class="col-lg-4 col-xl-3 border-end d-flex flex-column bg-light">
