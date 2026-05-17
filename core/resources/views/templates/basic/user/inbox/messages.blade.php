@@ -112,7 +112,7 @@
                                             style="background-color:transparent; border:none; flex-grow:1;">
                                         <div class="chat-send-file btn w-fit" data-bs-toggle="tooltip" title="Attach a file"
                                             data-bs-offset="0,8"
-                                            style="display: inline-flex; width: auto; font-size:11px; background: #e1e1e1; align-items: center; justify-content: center; padding:12px; height: fit-content; border-radius: 50%; cursor: pointer;">
+                                            style="display: inline-flex; width: auto !important; font-size:11px; background: #e1e1e1; align-items: center; justify-content: center; padding:12px; height: fit-content; border-radius: 50%; cursor: pointer;">
                                             <label for="file" class="file-label" style="cursor: pointer; margin: 0;">
                                                 <i class="fas fa-images attachment-icon"></i>
                                             </label>
@@ -208,7 +208,7 @@
 
             .chat-sidebar-toggle {
                 position: fixed;
-                top: 85px;
+                top: 50px;
                 left: 15px;
                 z-index: 1040;
                 border-radius: 50%;
