@@ -96,9 +96,11 @@
 
                             <div class="chat-send-area d-flex align-items-center">
                                 <div class="chat-send-field flex-grow-1">
-                                    <div class="input-groups input--groups" style="position: relative;">
+                                    <div class="input-groups input--groups"
+                                        style="position: relative; display:flex; flex-wrap: nowrap; gap: 10px;">
                                         <input type="text" name="message" id="chat-message-field"
-                                            placeholder="@lang('Send a message')" class="form-controls form--control">
+                                            placeholder="@lang('Send a message')" class="form-controls form--control"
+                                            style="background-color:transparent; border:none; flex-grow:1;">
                                         <div class="chat-send-file btn btn--lg btn--base" data-bs-toggle="tooltip"
                                             title="Attach a file" data-bs-offset="0,8">
                                             <label for="file" class="file-label">
