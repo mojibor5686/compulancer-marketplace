@@ -11,23 +11,14 @@
             <div class="row g-4">
                 <div class="col-lg-6">
                     <h2 class="kwork-footer__title">
-                        <img src="{{ siteLogo() }}" alt="Logo" class="work-footer__logo" height="40">
-                        <div>
-                            {{ __(@$footerContent->data_values->heading ?? 'Professional Services') }}
+                        <img src="{{ siteLogo() }}" alt="Logo" class="work-footer__logo"
+                            style="height: 35px !important;">
+                        <div style="margin-top: 12px;">
+                            {{ __(@$footerContent->data_values->heading) }}
                         </div>
                     </h2>
                     <p class="kwork-footer__subtitle">
-                        {{ __(@$footerContent->data_values->description ?? 'Getting things done has never been easier.') }}
-                    </p>
-
-                    <p class="kwork-footer__text">
-                        {{ __(@$footerContent->data_values->top_text_left ?? 'We built our platform to help users find the right services quickly and confidently.') }}
-                    </p>
-                </div>
-
-                <div class="col-lg-6">
-                    <p class="kwork-footer__text">
-                        {{ __(@$footerContent->data_values->top_text_right ?? 'Need something done fast? Post a request and get offers from talented professionals.') }}
+                        {{ __(@$footerContent->data_values->description) }}
                     </p>
                 </div>
             </div>
@@ -161,7 +152,7 @@
         gap: 12px;
         align-items: center;
     }
-    
+
 
     .kwork-footer__heading {
         font-size: 20px;
