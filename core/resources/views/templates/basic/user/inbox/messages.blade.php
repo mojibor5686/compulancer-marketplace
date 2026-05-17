@@ -99,9 +99,9 @@
                                     <div class="input-groups input--groups"
                                         style="position: relative; display:flex; flex-wrap: nowrap; gap: 10px;">
                                         <input type="text" name="message" id="chat-message-field"
-                                            placeholder="@lang('Send a message')" class="form-controls form--control"
+                                            placeholder="@lang('Type a message')" class="form-controls form--control"
                                             style="background-color:transparent; border:none; flex-grow:1;">
-                                        <div class="chat-send-file btn btn--lg btn--base" data-bs-toggle="tooltip"
+                                        <div class="chat-send-file btn btn--lg btn--base w-fit" data-bs-toggle="tooltip"
                                             title="Attach a file" data-bs-offset="0,8">
                                             <label for="file" class="file-label">
                                                 <i class="fas fa-paperclip attachment-icon"></i>
@@ -110,7 +110,7 @@
                                                 accept=".jpg, .png, .jpeg, .pdf">
                                         </div>
                                         <button type="submit" class="btn btn--lg btn--base send-btn">
-                                            Sand <i class="fas fa-paper-plane ms-1"></i>
+                                            Sand
                                         </button>
                                     </div>
                                 </div>
