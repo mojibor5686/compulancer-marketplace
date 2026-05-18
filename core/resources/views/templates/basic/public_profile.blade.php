@@ -61,7 +61,6 @@
                                     <div class="col-xl-3 col-lg-3 mb-30 d-none d-lg-block">
                                         @include('Template::partials.sidebar_profile')
                                     </div>
-
                                     <div class="col-xl-9 col-lg-9 mb-30">
                                         <div class="item-details-area">
                                             @include('Template::partials.basic_card')
