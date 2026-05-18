@@ -61,7 +61,6 @@
         background: #f8f9fa;
         border: 1px solid #e9ecef;
         border-radius: 8px;
-        padding: 5px;
         position: relative;
     }
 
@@ -71,7 +70,7 @@
         align-items: center;
         justify-content: center;
         gap: 8px;
-        padding: 10px 0;
+        padding: 12px 0;
         font-size: 14px;
         font-weight: 600;
         color: #6c757d;
