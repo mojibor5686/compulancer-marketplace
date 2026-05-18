@@ -374,7 +374,6 @@
                         style="font-weight: 500;">Join now</a>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
