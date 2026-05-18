@@ -623,6 +623,25 @@
         });
 
         document.addEventListener('DOMContentLoaded', function() {
+            // লারাভেলের ব্যাকএন্ড থেকে কোনো ভ্যালিডেশন এরর আসলে এই ব্লকটি এক্সিকিউট হবে
+            @if ($errors->any())
+                // সব ওল্ড ডাটা সঠিকভাবে চেক করা হচ্ছে (ব্র্যাকেট সিনট্যাক্স ফিক্স করা হয়েছে)
+                @if (old('firstname') ||
+                        old('lastname') ||
+                        old('email') ||
+                        old('password') ||
+                        old('password_confirmation') ||
+                        old('agree'))
+                    const signUpModal = new bootstrap.Modal(document.getElementById('signUpModal'));
+                    signUpModal.show();
+                @else
+                    const signInModal = new bootstrap.Modal(document.getElementById('signInModal'));
+                    signInModal.show();
+                @endif
+            @endif
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
             const form = document.getElementById('modalSignUpForm');
             if (!form) return;
 
