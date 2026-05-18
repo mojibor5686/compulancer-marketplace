@@ -1,6 +1,6 @@
 @extends('Template::layouts.frontend') @section('content')
     <main class="page-wrapper">
-        <section class="jss-section pt-80 pb-80">
+        <section class="jss-section pt-40 pb-80">
             <div class="container">
                 <section class="kwork-catalog-section py-5 bg-white">
                     <div class="container">
