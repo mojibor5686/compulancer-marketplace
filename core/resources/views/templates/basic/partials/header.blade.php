@@ -22,7 +22,6 @@
         color: #10c469 !important;
     }
 
-    /* Desktop Category Navigation Hover Mega Menu */
     .nav-mega-wrapper .dropdown-mega {
         position: absolute;
         left: 50%;
@@ -623,9 +622,7 @@
         });
 
         document.addEventListener('DOMContentLoaded', function() {
-            // লারাভেলের ব্যাকএন্ড থেকে কোনো ভ্যালিডেশন এরর আসলে এই ব্লকটি এক্সিকিউট হবে
             @if ($errors->any())
-                // সব ওল্ড ডাটা সঠিকভাবে চেক করা হচ্ছে (ব্র্যাকেট সিনট্যাক্স ফিক্স করা হয়েছে)
                 @if (old('firstname') ||
                         old('lastname') ||
                         old('email') ||
@@ -648,7 +645,6 @@
             const securePassword = @json(gs('secure_password') ? true : false);
             const agreeRequired = @json(gs('agree') ? true : false);
 
-            // এরর মেসেজ দেখানোর ও বর্ডার লাল করার হেল্পার ফাংশন
             function showError(input, message) {
                 const parentGroup = input.closest('.col-12, .col-sm-6');
                 const feedback = parentGroup.querySelector('.invalid-feedback');
@@ -661,20 +657,18 @@
                 }
             }
 
-            // এরর মেসেজ রিমুভ ও বর্ডার নরমাল করার ফাংশন
             function clearError(input) {
                 const parentGroup = input.closest('.col-12, .col-sm-6');
                 const feedback = parentGroup.querySelector('.invalid-feedback');
                 const inputGroup = input.closest('.input-group');
 
-                if (inputGroup) inputGroup.style.borderColor = '#dee2e6'; // Default Border Color
+                if (inputGroup) inputGroup.style.borderColor = '#dee2e6';
                 if (feedback) {
                     feedback.textContent = '';
                     feedback.style.display = 'none';
                 }
             }
 
-            // প্রতি ফিল্ডের জন্য আলাদা ভ্যালিডেশন লজিক
             function validateField(input) {
                 const name = input.name;
                 const value = input.value.trim();
@@ -742,7 +736,6 @@
                 return true;
             }
 
-            // রিয়েল-টাইমে টাইপ করার সময় এবং ফোকাস হারালে এরর চেক হবে
             form.querySelectorAll('input').forEach(input => {
                 input.addEventListener('input', () => validateField(input));
                 input.addEventListener('blur', () => validateField(input));
@@ -751,7 +744,6 @@
                 }
             });
 
-            // ফর্ম সাবমিট হওয়ার সময় ফাইনাল চেক
             form.addEventListener('submit', function(e) {
                 let isFormValid = true;
 
@@ -762,7 +754,7 @@
                 });
 
                 if (!isFormValid) {
-                    e.preventDefault(); // কোনো এরর থাকলে ফর্ম সাবমিট হওয়া আটকে দিবে
+                    e.preventDefault();
                     const firstErrorInput = form.querySelector(
                         '.invalid-feedback[style*="display: block"]');
                     if (firstErrorInput) {
