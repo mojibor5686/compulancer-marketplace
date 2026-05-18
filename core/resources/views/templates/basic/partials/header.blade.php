@@ -144,14 +144,13 @@
                         </div>
                     </div>
                 @else
-                    <div class="d-flex align-items-center gap-2 gap-md-3">
+                    <div class="d-none d-lg-flex align-items-center gap-2 gap-md-3">
                         <a href="{{ route('user.login') }}"
                             class="text-secondary font-weight-bold text-decoration-none small">Sign In</a>
                         <a href="{{ route('user.register') }}"
-                            class="d-none d-lg-block btn btn btn-kwork btn-sm px-3 font-weight-bold shadow-sm">Sign
+                            class="btn btn btn-kwork btn-sm px-3 font-weight-bold shadow-sm">Sign
                             Up</a>
-                        <a href="{{ route('service') }}"
-                            class="d-none d-lg-block text-muted text-decoration-none small ps-2">Are you a
+                        <a href="{{ route('service') }}" class="text-muted text-decoration-none small ps-2">Are you a
                             freelancer?</a>
                     </div>
                 @endif
