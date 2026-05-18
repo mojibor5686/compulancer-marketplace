@@ -122,7 +122,7 @@
     }
 </style>
 
-<header class="w-100 bg-white border-bottom sticky-top" style="z-index: 1020;">
+<header class="w-100 bg-white sticky-top" style="z-index: 1020;">
     <div class="container-fluid" style="max-width: 1400px; padding: 0 20px;">
         <div class="d-flex align-items-center justify-content-between py-2 py-lg-3">
 
