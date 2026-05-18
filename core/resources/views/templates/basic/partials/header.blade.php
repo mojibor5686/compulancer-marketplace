@@ -385,7 +385,7 @@
 
                 <div class="text-center small text-secondary mt-2 pb-2">
                     New to Kwork? <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#signUpModal"
-                        class="btn btn-kwork w-100 font-weight-bold py-2">Sign Up</a>
+                        class="text-primary text-decoration-none" style="font-weight: 500;">Sign Up</a>
                 </div>
             </div>
         </div>
