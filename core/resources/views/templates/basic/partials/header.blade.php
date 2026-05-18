@@ -420,7 +420,8 @@
 
                 <div class="modal-body px-4 py-3">
 
-                    <form class="verify-gcaptcha" action="{{ route('user.register') }}" method="POST">
+                    <form id="modalSignUpForm" class="verify-gcaptcha" action="{{ route('user.register') }}"
+                        method="POST" novalidate>
                         @csrf
                         <div class="row g-3">
 
@@ -448,6 +449,8 @@
                                         value="{{ old('firstname') }}" style="font-size: 14px; padding: 12px 0;"
                                         required>
                                 </div>
+                                <div class="invalid-feedback text-danger d-block mt-1 ps-1 small"
+                                    style="display: none;"></div>
                             </div>
 
                             <div class="col-sm-6">
@@ -460,6 +463,8 @@
                                         placeholder="@lang('Last name')" value="{{ old('lastname') }}"
                                         style="font-size: 14px; padding: 12px 0;" required>
                                 </div>
+                                <div class="invalid-feedback text-danger d-block mt-1 ps-1 small"
+                                    style="display: none;"></div>
                             </div>
 
                             <div class="col-12">
@@ -472,6 +477,8 @@
                                         placeholder="@lang('Email Address')" value="{{ old('email') }}"
                                         style="font-size: 14px; padding: 12px 0;" required>
                                 </div>
+                                <div class="invalid-feedback text-danger d-block mt-1 ps-1 small"
+                                    style="display: none;"></div>
                             </div>
 
                             <div class="col-sm-6">
@@ -489,6 +496,8 @@
                                         <i class="fas fa-eye-slash"></i>
                                     </span>
                                 </div>
+                                <div class="invalid-feedback text-danger d-block mt-1 ps-1 small"
+                                    style="display: none;"></div>
                             </div>
 
                             <div class="col-sm-6">
@@ -506,6 +515,8 @@
                                         <i class="fas fa-eye-slash"></i>
                                     </span>
                                 </div>
+                                <div class="invalid-feedback text-danger d-block mt-1 ps-1 small"
+                                    style="display: none;"></div>
                             </div>
 
                             <div class="col-12">
@@ -535,11 +546,14 @@
                                             @endforeach
                                         </label>
                                     </div>
+                                    <div class="invalid-feedback text-danger d-block mt-1 ps-1 small"
+                                        style="display: none;"></div>
                                 </div>
                             @endif
 
                             <div class="col-12 mt-3">
-                                <button type="submit" class="btn btn-kwork w-100 font-weight-bold mb-3"
+                                <button type="submit" id="btnModalSignUp"
+                                    class="btn btn-kwork w-100 font-weight-bold mb-3"
                                     style="font-size: 15px; padding: 12px 0; border-radius: 6px; font-weight: 600;">
                                     @lang('Sign Up')
                                 </button>
@@ -605,6 +619,139 @@
                         }
                     }
                 });
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('modalSignUpForm');
+            if (!form) return;
+
+            const securePassword = @json(gs('secure_password') ? true : false);
+            const agreeRequired = @json(gs('agree') ? true : false);
+
+            // এরর মেসেজ দেখানোর ও বর্ডার লাল করার হেল্পার ফাংশন
+            function showError(input, message) {
+                const parentGroup = input.closest('.col-12, .col-sm-6');
+                const feedback = parentGroup.querySelector('.invalid-feedback');
+                const inputGroup = input.closest('.input-group');
+
+                if (inputGroup) inputGroup.style.borderColor = '#dc3545';
+                if (feedback) {
+                    feedback.textContent = message;
+                    feedback.style.display = 'block';
+                }
+            }
+
+            // এরর মেসেজ রিমুভ ও বর্ডার নরমাল করার ফাংশন
+            function clearError(input) {
+                const parentGroup = input.closest('.col-12, .col-sm-6');
+                const feedback = parentGroup.querySelector('.invalid-feedback');
+                const inputGroup = input.closest('.input-group');
+
+                if (inputGroup) inputGroup.style.borderColor = '#dee2e6'; // Default Border Color
+                if (feedback) {
+                    feedback.textContent = '';
+                    feedback.style.display = 'none';
+                }
+            }
+
+            // প্রতি ফিল্ডের জন্য আলাদা ভ্যালিডেশন লজিক
+            function validateField(input) {
+                const name = input.name;
+                const value = input.value.trim();
+
+                clearError(input);
+
+                if (input.required && !value && input.type !== 'checkbox') {
+                    showError(input, 'This field is required.');
+                    return false;
+                }
+
+                if (name === 'firstname' && value.length < 2) {
+                    showError(input, 'First name must be at least 2 characters.');
+                    return false;
+                }
+
+                if (name === 'lastname' && value.length < 2) {
+                    showError(input, 'Last name must be at least 2 characters.');
+                    return false;
+                }
+
+                if (name === 'email') {
+                    const emailRegex = /^[^\s@]+Box\+*@[^\s@]+\.[^\s@]+$/;
+                    const basicEmailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!basicEmailRegex.test(value)) {
+                        showError(input, 'Please enter a valid email address.');
+                        return false;
+                    }
+                }
+
+                if (name === 'password') {
+                    if (value.length < 6) {
+                        showError(input, 'Password must be at least 6 characters.');
+                        return false;
+                    }
+                    if (securePassword) {
+                        if (!/[A-Z]/.test(value) || !/[a-z]/.test(value)) {
+                            showError(input, 'Password must contain both uppercase and lowercase letters.');
+                            return false;
+                        }
+                        if (!/[0-9]/.test(value)) {
+                            showError(input, 'Password must contain at least one number.');
+                            return false;
+                        }
+                        if (!/[!@#$%^&*(),.?":{}|<>]/.test(value)) {
+                            showError(input, 'Password must contain at least one special character.');
+                            return false;
+                        }
+                    }
+                }
+
+                if (name === 'password_confirmation') {
+                    const passwordVal = form.querySelector('input[name="password"]').value;
+                    if (value !== passwordVal) {
+                        showError(input, 'Confirm password does not match.');
+                        return false;
+                    }
+                }
+
+                if (name === 'agree' && agreeRequired && !input.checked) {
+                    showError(input, 'You must agree with our policies.');
+                    return false;
+                }
+
+                return true;
+            }
+
+            // রিয়েল-টাইমে টাইপ করার সময় এবং ফোকাস হারালে এরর চেক হবে
+            form.querySelectorAll('input').forEach(input => {
+                input.addEventListener('input', () => validateField(input));
+                input.addEventListener('blur', () => validateField(input));
+                if (input.type === 'checkbox') {
+                    input.addEventListener('change', () => validateField(input));
+                }
+            });
+
+            // ফর্ম সাবমিট হওয়ার সময় ফাইনাল চেক
+            form.addEventListener('submit', function(e) {
+                let isFormValid = true;
+
+                form.querySelectorAll('input').forEach(input => {
+                    if (!validateField(input)) {
+                        isFormValid = false;
+                    }
+                });
+
+                if (!isFormValid) {
+                    e.preventDefault(); // কোনো এরর থাকলে ফর্ম সাবমিট হওয়া আটকে দিবে
+                    const firstErrorInput = form.querySelector(
+                        '.invalid-feedback[style*="display: block"]');
+                    if (firstErrorInput) {
+                        firstErrorInput.closest('.col-12, .col-sm-6').scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                }
             });
         });
     </script>
