@@ -110,7 +110,7 @@
                 </form>
             </div>
 
-            <div class="d-flex align-items-center gap-3 desktop-stretch-width">
+            <div class="d-flex align-items-center gap-3 desktop-stretch-width justify-content-end">
                 @if ($isUser || $user)
                     <div class="d-none d-lg-block small font-weight-bold">
                         @if (session('userType') === 'buyer' || (session('userType') === null && request()->routeIs('user.buyer.*')))
