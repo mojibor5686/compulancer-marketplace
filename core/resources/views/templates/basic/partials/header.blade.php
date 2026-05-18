@@ -286,12 +286,12 @@
                                     {{ __($category->name) }}
                                 </a>
 
-                                <div class="dropdown-mega bg-white border rounded-bottom shadow p-4">
-                                    <div class="row">
+                                <div class="dropdown-mega bg-white border rounded shadow p-4">
+                                    <div class="row position-relative">
                                         @foreach ($category->subCategories->chunk(ceil($category->subCategories->count() / 2)) as $chunk)
-                                            <div class="col-6">
-                                                <h6 class="font-weight-bold text-dark border-b pb-1 mb-2"
-                                                    style="font-size: 14px;">
+                                            <div class="col-6 {{ $loop->first ? 'border-end' : 'ps-4' }}">
+                                                <h6 class="font-weight-bold text-dark pb-1 mb-3"
+                                                    style="font-size: 14px; opacity: 0.9;">
                                                     @if ($loop->first)
                                                         @lang('Popular Services')
                                                     @else
@@ -300,10 +300,12 @@
                                                 </h6>
 
                                                 @foreach ($chunk as $subCategory)
-                                                    <a href="{{ route('category.wise.product', [slug($subCategory->name), $subCategory->id]) }}"
-                                                        style="text-transform: capitalize; font-size: 13px; color:#222222;">
-                                                        {{ __($subCategory->name) }}
-                                                    </a>
+                                                    <div class="mb-2">
+                                                        <a href="{{ route('category.wise.product', [slug($subCategory->name), $subCategory->id]) }}"
+                                                            class="mega-menu-link">
+                                                            {{ __($subCategory->name) }}
+                                                        </a>
+                                                    </div>
                                                 @endforeach
                                             </div>
                                         @endforeach
