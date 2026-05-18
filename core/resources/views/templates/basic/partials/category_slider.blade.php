@@ -271,7 +271,7 @@
                     @lang('Buy affordable freelance services <br class="d-none d-md-block"> on the go')
                 </h1>
 
-                <form action="{{ route('service') }}" method="GET" class="hero-search-wrapper mb-3">
+                <form action="{{ route('search') }}" method="GET" class="hero-search-wrapper mb-3">
                     <div class="input-group">
                         <span class="input-group-text bg-white border-end-0 ps-3 text-muted">
                             <i class="fas fa-search search-icon-main"></i>
