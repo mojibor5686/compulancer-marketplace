@@ -306,7 +306,7 @@
                                                 </h6>
 
                                                 @foreach ($chunk as $subCategory)
-                                                    <div class="mb-4">
+                                                    <div class="mb-3">
                                                         <a href="{{ route('category.wise.product', [slug($subCategory->name), $subCategory->id]) }}"
                                                             class="mega-menu-link">
                                                             {{ __($subCategory->name) }}
