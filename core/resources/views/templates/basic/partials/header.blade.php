@@ -68,15 +68,21 @@
     }
 
     .mega-menu-link {
+        text-transform: capitalize;
         font-size: 13px;
-        color: #495057;
+        color: #555555;
         text-decoration: none;
-        display: block;
-        padding: 4px 0;
+        display: inline-block;
+        transition: color 0.2s ease, padding-left 0.2s ease;
     }
 
     .mega-menu-link:hover {
-        color: #10c469;
+        color: #10c469 !important;
+        padding-left: 2px;
+    }
+
+    .border-end {
+        border-right: 1px solid #eaeaea !important;
     }
 
     .auth-toggle-wrapper {
