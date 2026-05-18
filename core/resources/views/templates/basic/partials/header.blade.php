@@ -174,7 +174,7 @@
                     <div class="d-none d-lg-flex align-items-center gap-2 gap-md-3">
                         <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#signInModal"
                             class="text-secondary font-weight-bold text-decoration-none small">Sign In</a>
-                        <a href="{{ route('user.register') }}"
+                        <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#signUpModal"
                             class="btn btn btn-kwork btn-sm px-3 font-weight-bold shadow-sm">Sign
                             Up</a>
                         <a href="{{ route('service') }}" class="text-muted text-decoration-none small ps-2">Are you a
@@ -296,6 +296,8 @@
     </div>
 </div>
 
+<!-- user sign in popup -->
+
 <div class="modal fade" id="signInModal" tabindex="-1" aria-labelledby="signInModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-fullscreen-lg-down"
         style="max-width: 480px; margin-left: auto; margin-right: auto;">
@@ -382,12 +384,198 @@
                 </div>
 
                 <div class="text-center small text-secondary mt-2 pb-2">
-                    New to Kwork? <a href="#" class="text-primary text-decoration-none"
-                        style="font-weight: 500;">Join now</a>
+                    New to Kwork? <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#signUpModal"
+                        class="btn btn-kwork w-100 font-weight-bold py-2">Sign Up</a>
                 </div>
             </div>
         </div>
     </div>
+</div>
+
+<!--user sign up popup-->
+
+<div class="modal fade" id="signUpModal" tabindex="-1" aria-labelledby="signUpModalLabel" aria-hidden="true">
+    @if (gs('registration'))
+        @php
+            $loginRegisterContent = getContent('login_register.content', true);
+            $credentials = gs('socialite_credentials');
+            $socialLoginActive =
+                @$credentials->google->status == Status::ENABLE ||
+                @$credentials->facebook->status == Status::ENABLE ||
+                @$credentials->linkedin->status == Status::ENABLE;
+        @endphp
+
+        <div class="modal-dialog modal-dialog-centered modal-fullscreen-lg-down"
+            style="max-width: 520px; margin-left: auto; margin-right: auto;">
+            <div class="modal-content border-0 shadow-lg" style="border-radius: 12px;">
+
+                <div class="modal-header border-0 pt-4 px-4 pb-2 position-relative">
+                    <h5 class="modal-title font-weight-bold w-100 text-start text-lg-center" id="signUpModalLabel"
+                        style="font-weight: 700; font-size: 22px;">
+                        @lang(@$loginRegisterContent->data_values->register_title)
+                    </h5>
+                    <button type="button" class="btn-close shadow-none position-absolute" data-bs-dismiss="modal"
+                        aria-label="Close" style="top: 24px; right: 24px;"></button>
+                </div>
+
+                <div class="modal-body px-4 py-3">
+
+                    @if ($socialLoginActive)
+                        <div class="d-flex justify-content-center mb-2">
+                            @include('Template::partials.social_login')
+                        </div>
+
+                        <div class="position-relative text-center my-4">
+                            <hr class="text-muted opacity-25">
+                            <span
+                                class="position-absolute top-50 start-50 translate-middle bg-white px-3 text-muted small"
+                                style="font-size: 13px;">
+                                @lang('OR')
+                            </span>
+                        </div>
+                    @endif
+
+                    <form class="verify-gcaptcha" action="{{ route('user.register') }}" method="POST">
+                        @csrf
+                        <div class="row g-3">
+
+                            @if (session()->get('reference') != null)
+                                <div class="col-12">
+                                    <div class="input-group border rounded overflow-hidden bg-white">
+                                        <span class="input-group-text bg-transparent border-0 pe-0 ps-3 text-muted">
+                                            <i class="fas fa-user-friends" style="font-size: 14px;"></i>
+                                        </span>
+                                        <input type="text" name="referBy"
+                                            class="form-control border-0 px-3 shadow-none bg-light"
+                                            value="{{ session()->get('reference') }}" readonly
+                                            style="font-size: 14px; padding: 12px 0;">
+                                    </div>
+                                </div>
+                            @endif
+
+                            <div class="col-sm-6">
+                                <div class="input-group border rounded overflow-hidden bg-white">
+                                    <span class="input-group-text bg-transparent border-0 pe-0 ps-3 text-muted">
+                                        <i class="fas fa-user" style="font-size: 14px;"></i>
+                                    </span>
+                                    <input type="text" name="firstname"
+                                        class="form-control border-0 px-3 shadow-none"
+                                        placeholder="@lang('First name')" value="{{ old('firstname') }}"
+                                        style="font-size: 14px; padding: 12px 0;" required>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="input-group border rounded overflow-hidden bg-white">
+                                    <span class="input-group-text bg-transparent border-0 pe-0 ps-3 text-muted">
+                                        <i class="fas fa-user" style="font-size: 14px;"></i>
+                                    </span>
+                                    <input type="text" name="lastname"
+                                        class="form-control border-0 px-3 shadow-none"
+                                        placeholder="@lang('Last name')" value="{{ old('lastname') }}"
+                                        style="font-size: 14px; padding: 12px 0;" required>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="input-group border rounded overflow-hidden bg-white">
+                                    <span class="input-group-text bg-transparent border-0 pe-0 ps-3 text-muted">
+                                        <i class="fas fa-envelope" style="font-size: 14px;"></i>
+                                    </span>
+                                    <input type="email" name="email"
+                                        class="form-control border-0 px-3 shadow-none checkUser"
+                                        placeholder="@lang('Email Address')" value="{{ old('email') }}"
+                                        style="font-size: 14px; padding: 12px 0;" required>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="input-group border rounded overflow-hidden bg-white position-relative">
+                                    <span class="input-group-text bg-transparent border-0 pe-0 ps-3 text-muted">
+                                        <i class="fas fa-lock" style="font-size: 14px;"></i>
+                                    </span>
+                                    <input type="password" name="password"
+                                        class="form-control border-0 px-3 shadow-none @if (gs('secure_password')) secure-password @endif"
+                                        placeholder="@lang('Password')" style="font-size: 14px; padding: 12px 0;"
+                                        required>
+                                    <span
+                                        class="position-absolute top-50 end-0 translate-middle-y pe-3 text-muted toggle-password"
+                                        style="cursor: pointer; font-size: 14px; z-index: 10;">
+                                        <i class="fas fa-eye-slash"></i>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="input-group border rounded overflow-hidden bg-white position-relative">
+                                    <span class="input-group-text bg-transparent border-0 pe-0 ps-3 text-muted">
+                                        <i class="fas fa-lock" style="font-size: 14px;"></i>
+                                    </span>
+                                    <input type="password" name="password_confirmation"
+                                        class="form-control border-0 px-3 shadow-none"
+                                        placeholder="@lang('Confirm Password')" style="font-size: 14px; padding: 12px 0;"
+                                        required>
+                                    <span
+                                        class="position-absolute top-50 end-0 translate-middle-y pe-3 text-muted toggle-password"
+                                        style="cursor: pointer; font-size: 14px; z-index: 10;">
+                                        <i class="fas fa-eye-slash"></i>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <x-captcha :frontend="true" :isCustom="true" />
+                            </div>
+
+                            @if (gs('agree'))
+                                @php
+                                    $policyPages = getContent('policy_pages.element', orderById: true);
+                                @endphp
+                                <div class="col-12 mt-2">
+                                    <div class="form-check" style="font-size: 13px;">
+                                        <input class="form-check-input shadow-none" id="agreeModal" name="agree"
+                                            type="checkbox" required>
+                                        <label class="form-check-label text-secondary" for="agreeModal"
+                                            style="cursor: pointer;">
+                                            @lang('I agree with')
+                                            @foreach ($policyPages as $policy)
+                                                <a class="text-primary text-decoration-none font-weight-500"
+                                                    target="_blank"
+                                                    href="{{ route('policy.pages', $policy->slug) }}">
+                                                    {{ __($policy->data_values->title) }}
+                                                </a>
+                                                @if (!$loop->last)
+                                                    ,
+                                                @endif
+                                            @endforeach
+                                        </label>
+                                    </div>
+                                </div>
+                            @endif
+
+                            <div class="col-12 mt-3">
+                                <button type="submit" class="btn btn-kwork w-100 font-weight-bold mb-3"
+                                    style="font-size: 15px; padding: 12px 0; border-radius: 6px; font-weight: 600;">
+                                    @lang('Sign Up')
+                                </button>
+
+                                <div class="text-center small text-secondary">
+                                    @lang('Already have an account?')
+                                    <a href="javascript:void(0)" data-bs-dismiss="modal" data-bs-toggle="modal"
+                                        data-bs-target="#signInModal" class="text-primary text-decoration-none"
+                                        style="font-weight: 500;">
+                                        @lang('Sign In')
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    @endif
 </div>
 
 @if (!$isUser)
