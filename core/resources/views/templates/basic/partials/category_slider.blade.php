@@ -3,12 +3,32 @@
         [
             'name' => 'Lilith',
             'role' => 'Web Developer',
-            'image' => 'https://i.ibb.co/6w2fR6V/lilith.png',
+            'image' => 'https://cdn.kwork.com/images/index/banner-user-5.png?ver=6',
         ],
         [
             'name' => 'Eugene',
             'role' => 'Voice Actor',
-            'image' => 'https://i.ibb.co/VvZ6W5C/eugene.png',
+            'image' => 'https://cdn.kwork.com/images/index/banner-user-6.png?ver=6',
+        ],
+        [
+            'name' => 'Lilith',
+            'role' => 'Web Developer',
+            'image' => 'https://cdn.kwork.com/images/index/banner-user-5.png?ver=6',
+        ],
+        [
+            'name' => 'Eugene',
+            'role' => 'Voice Actor',
+            'image' => 'https://cdn.kwork.com/images/index/banner-user-6.png?ver=6',
+        ],
+        [
+            'name' => 'Lilith',
+            'role' => 'Web Developer',
+            'image' => 'https://cdn.kwork.com/images/index/banner-user-5.png?ver=6',
+        ],
+        [
+            'name' => 'Eugene',
+            'role' => 'Voice Actor',
+            'image' => 'https://cdn.kwork.com/images/index/banner-user-6.png?ver=6',
         ],
     ];
     $randomFreelancer = $freelancers[array_rand($freelancers)];
