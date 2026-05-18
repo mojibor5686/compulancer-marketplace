@@ -22,30 +22,10 @@
         color: #10c469 !important;
     }
 
-    .custom-nav-scroll::-webkit-scrollbar {
-        display: none;
-    }
-
-    .custom-nav-scroll {
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-        gap: 5px;
-    }
-
-    .custom-nav-scroll .nav-link {
-        white-space: nowrap;
-        display: inline-block;
-        transition: border-color 0.3s ease, color 0.3s ease;
-    }
-
-    .nav-mega-wrapper {
-        position: relative;
-    }
-
     .nav-mega-wrapper .dropdown-mega {
         position: absolute;
-        top: 100%;
-        left: 0;
+        left: 50%;
+        transform: translateX(-30%);
         width: 550px;
         opacity: 0;
         visibility: hidden;
@@ -56,6 +36,7 @@
     .nav-mega-wrapper:hover .dropdown-mega {
         opacity: 1;
         visibility: visible;
+        margin-top: 0;
     }
 
     .nav-mega-wrapper:hover .nav-link {
@@ -63,10 +44,27 @@
         color: #10c469 !important;
     }
 
+    .nav-mega-wrapper .nav-link {
+        transition: border-color 0.3s ease, color 0.3s ease;
+    }
+
+    .nav-mega-wrapper .dropdown-mega {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 999;
+        min-width: 450px;
+    }
+
+    .nav-mega-wrapper:hover .dropdown-mega {
+        display: block;
+    }
+
     .category-divider {
         color: #dee2e6;
         padding: 0 10px;
-        user-select: none;
     }
 
     .mega-menu-link {
@@ -274,10 +272,10 @@
     @if (!$isUser)
         <div class="d-none d-lg-block border-top bg-white shadow-sm">
             <div class="container-fluid" style="max-width: 1400px;">
-                <nav class="d-flex align-items-center justify-content-start justify-content-lg-center text-secondary py-1 flex-nowrap overflow-x-auto custom-nav-scroll"
-                    style="font-size: 14px; font-weight: 500; white-space: nowrap; -webkit-overflow-scrolling: touch;">
+                <nav class="d-flex align-items-center justify-content-center text-secondary py-1"
+                    style="font-size: 14px; font-weight: 500; overflow-x: hidden;">
 
-                    @foreach ($categories as $category)
+                    @foreach ($categories->inRandomOrder()->take(8) as $category)
                         @if ($category->subCategories && $category->subCategories->count() > 0)
                             <div class="position-relative nav-mega-wrapper">
                                 <a href="#"
