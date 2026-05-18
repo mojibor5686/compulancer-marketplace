@@ -321,19 +321,31 @@
                 <form action="{{ route('user.login') }}" method="POST">
                     @csrf
                     <div class="mb-3">
-                        <input type="text" name="username" style="padding: 12px 0;"
-                            class="form-control px-3 shadow-none" placeholder="Email address or username"
-                            style="font-size: 14px; border-radius: 6px;" required>
+                        <div class="input-group border rounded overflow-hidden bg-white">
+                            <span class="input-group-text bg-transparent border-0 pe-0 ps-3 text-muted">
+                                <i class="fas fa-user" style="font-size: 14px;"></i>
+                            </span>
+                            <input type="text" name="username" class="form-control border-0 px-3 shadow-none"
+                                placeholder="Email address or username" style="font-size: 14px; padding: 12px 0;"
+                                value="{{ old('username') }}" required>
+                        </div>
                     </div>
 
-                    <div class="mb-3 position-relative">
-                        <input type="password" name="password" id="modalPassword" style="padding: 12px 0;"
-                            class="form-control px-3 shadow-none" placeholder="Password"
-                            style="font-size: 14px; border-radius: 6px;" required>
-                        <span class="position-absolute top-50 end-0 translate-middle-y pe-3 text-muted"
-                            style="cursor: pointer; font-size: 14px;">
-                            <i class="ri-eye-line"></i>
-                        </span>
+                    <div class="mb-3">
+                        <div class="input-group border rounded overflow-hidden bg-white position-relative">
+                            <span class="input-group-text bg-transparent border-0 pe-0 ps-3 text-muted">
+                                <i class="fas fa-lock" style="font-size: 14px;"></i>
+                            </span>
+                            <input type="password" name="password" id="modalPassword"
+                                class="form-control border-0 px-3 shadow-none" placeholder="Password"
+                                style="font-size: 14px; padding: 12px 0;" required>
+
+                            <span
+                                class="position-absolute top-50 end-0 translate-middle-y pe-3 text-muted toggle-password"
+                                style="cursor: pointer; font-size: 14px; z-index: 10;">
+                                <i class="fas fa-eye-slash"></i>
+                            </span>
+                        </div>
                     </div>
 
                     <div class="d-flex align-items-center justify-content-between mb-4" style="font-size: 13px;">
