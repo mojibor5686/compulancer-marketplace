@@ -53,7 +53,7 @@
     .nav-mega-wrapper:hover .dropdown-mega {
         opacity: 1;
         visibility: visible;
-        margin-top: 0;
+        transform: translateY(0);
     }
 
     .nav-mega-wrapper:hover .nav-link {
@@ -61,27 +61,10 @@
         color: #3C88EE !important;
     }
 
-    .nav-mega-wrapper .nav-link {
-        transition: border-color 0.3s ease, color 0.3s ease;
-    }
-
-    .nav-mega-wrapper .dropdown-mega {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 999;
-        min-width: 450px;
-    }
-
-    .nav-mega-wrapper:hover .dropdown-mega {
-        display: block;
-    }
-
     .category-divider {
         color: #dee2e6;
-        padding: 0 10px;
+        padding: 0 5px;
+        align-self: center;
     }
 
     .mega-menu-link {
@@ -95,7 +78,7 @@
 
     .mega-menu-link:hover {
         color: #3C88EE !important;
-        padding-left: 2px;
+        padding-left: 4px;
     }
 
     .border-end {
