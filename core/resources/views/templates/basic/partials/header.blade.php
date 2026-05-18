@@ -587,6 +587,133 @@
     @endif
 </div>
 
+@if (auth()->check() && auth()->user()->profile_complete == 0)
+    <div class="modal fade" id="profileCompleteModal" data-bs-backdrop="static" data-bs-keyboard="false"
+        tabindex="-1" aria-labelledby="profileCompleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-fullscreen-lg-down"
+            style="max-width: 550px; margin-left: auto; margin-right: auto;">
+            <div class="modal-content border-0 shadow-lg" style="border-radius: 12px;">
+
+                <div class="modal-header border-0 pt-4 px-4 pb-2 position-relative text-center">
+                    <h5 class="modal-title font-weight-bold w-100" id="profileCompleteModalLabel"
+                        style="font-weight: 700; font-size: 22px;">
+                        @lang('Complete Your Profile')
+                    </h5>
+                </div>
+
+                <div class="modal-body px-4 py-3">
+                    <p class="text-muted text-center small mb-4">Please fill up the remaining details to get full
+                        access to your account.</p>
+
+                    <form id="modalProfileCompleteForm" method="POST" action="{{ route('user.data.submit') }}"
+                        novalidate>
+                        @csrf
+                        <div class="row g-3">
+
+                            <div class="col-12">
+                                <div class="input-group border rounded overflow-hidden bg-white">
+                                    <span class="input-group-text bg-transparent border-0 pe-0 ps-3 text-muted">
+                                        <i class="fas fa-at" style="font-size: 14px;"></i>
+                                    </span>
+                                    <input type="text"
+                                        class="form-control border-0 px-3 shadow-none checkUserComplete"
+                                        name="username" placeholder="@lang('Username')"
+                                        value="{{ old('username') }}" style="font-size: 14px; padding: 12px 0;"
+                                        required />
+                                </div>
+                                <small class="text-danger d-block mt-1 ps-1 usernameExistModal small"
+                                    style="display:none;"></small>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="input-group border rounded overflow-hidden bg-white">
+                                    <span class="input-group-text bg-transparent border-0 pe-0 ps-3 text-muted">
+                                        <i class="fas fa-globe" style="font-size: 14px;"></i>
+                                    </span>
+                                    <select name="country" class="form-select border-0 px-3 shadow-none"
+                                        style="font-size: 14px; padding: 12px 0; height: auto;" required>
+                                        @foreach ($countries as $key => $country)
+                                            <option data-mobile_code="{{ $country->dial_code }}"
+                                                value="{{ $country->country }}" data-code="{{ $key }}">
+                                                {{ __($country->country) }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="input-group border rounded overflow-hidden bg-white">
+                                    <span
+                                        class="input-group-text mobile-code-modal border-0 text-muted bg-transparent ps-3 pe-1"
+                                        style="font-size: 14px;"></span>
+                                    <input type="hidden" name="mobile_code">
+                                    <input type="hidden" name="country_code">
+                                    <input type="number" name="mobile" value="{{ old('mobile') }}"
+                                        class="form-control border-0 px-2 shadow-none checkUserComplete"
+                                        placeholder="@lang('Mobile Number')" style="font-size: 14px; padding: 12px 0;"
+                                        required>
+                                </div>
+                                <small class="text-danger d-block mt-1 ps-1 mobileExistModal small"
+                                    style="display:none;"></small>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="input-group border rounded overflow-hidden bg-white">
+                                    <span class="input-group-text bg-transparent border-0 pe-0 ps-3 text-muted">
+                                        <i class="fas fa-map-marker-alt" style="font-size: 14px;"></i>
+                                    </span>
+                                    <input type="text" class="form-control border-0 px-3 shadow-none"
+                                        name="address" placeholder="@lang('Address')"
+                                        value="{{ old('address') }}">
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="input-group border rounded overflow-hidden bg-white">
+                                    <span class="input-group-text bg-transparent border-0 pe-0 ps-3 text-muted">
+                                        <i class="fas fa-map" style="font-size: 14px;"></i>
+                                    </span>
+                                    <input type="text" class="form-control border-0 px-3 shadow-none"
+                                        name="state" placeholder="@lang('State')" value="{{ old('state') }}">
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="input-group border rounded overflow-hidden bg-white">
+                                    <span class="input-group-text bg-transparent border-0 pe-0 ps-3 text-muted">
+                                        <i class="fas fa-mail-bulk" style="font-size: 14px;"></i>
+                                    </span>
+                                    <input type="text" class="form-control border-0 px-3 shadow-none"
+                                        name="zip" placeholder="@lang('Zip Code')" value="{{ old('zip') }}">
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="input-group border rounded overflow-hidden bg-white">
+                                    <span class="input-group-text bg-transparent border-0 pe-0 ps-3 text-muted">
+                                        <i class="fas fa-city" style="font-size: 14px;"></i>
+                                    </span>
+                                    <input type="text" class="form-control border-0 px-3 shadow-none"
+                                        name="city" placeholder="@lang('City')" value="{{ old('city') }}">
+                                </div>
+                            </div>
+
+                            <div class="col-12 mt-4">
+                                <button type="submit" class="btn btn-kwork w-100 font-weight-bold"
+                                    style="font-size: 15px; padding: 12px 0; border-radius: 6px;">
+                                    @lang('Submit Details')
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+@endif
+
 @if (!$isUser)
     @if (hasSlider())
         <div class="bg-light py-1">
@@ -596,6 +723,92 @@
 @endif
 @push('script')
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            @if (auth()->check() && auth()->user()->profile_complete == 0)
+                const profileCompleteModal = new bootstrap.Modal(document.getElementById('profileCompleteModal'));
+                profileCompleteModal.show();
+            @endif
+
+            const $countrySelect = $('select[name=country]');
+            if ($countrySelect.length) {
+
+                function updateMobileCode() {
+                    const $selected = $countrySelect.find(':selected');
+                    const mobileCode = $selected.data('mobile_code');
+                    const countryCode = $selected.data('code');
+
+                    $('input[name=mobile_code]').val(mobileCode);
+                    $('input[name=country_code]').val(countryCode);
+                    $('.mobile-code-modal').text('+' + mobileCode);
+                }
+
+                updateMobileCode();
+
+                $countrySelect.on('change', function() {
+                    updateMobileCode();
+                    var value = $('[name=mobile]').val();
+                    if (value) checkUserModal(value, 'mobile');
+                });
+            }
+
+            $('.checkUserComplete').on('focusout', function() {
+                var value = $(this).val();
+                var name = $(this).attr('name');
+                if (value) checkUserModal(value, name);
+            });
+
+            function checkUserModal(value, name) {
+                var url = '{{ route('user.checkUser') }}';
+                var token = '{{ csrf_token() }}';
+                var data = {};
+
+                if (name == 'mobile') {
+                    data = {
+                        mobile: value,
+                        mobile_code: $('.mobile-code-modal').text().substr(1),
+                        _token: token
+                    }
+                } else if (name == 'username') {
+                    data = {
+                        username: value,
+                        _token: token
+                    }
+                }
+
+                $.post(url, data, function(response) {
+                    const $feedback = $(`.${response.type}ExistModal`);
+                    const $inputGroup = $(`input[name=${name}]`).closest('.input-group');
+
+                    if (response.data != false) {
+                        $feedback.text(`${response.field} already exists`).show();
+                        $inputGroup.css('border-color', '#dc3545');
+                    } else {
+                        $feedback.text('').hide();
+                        $inputGroup.css('border-color', '#dee2e6');
+                    }
+                });
+            }
+
+            $('#modalProfileCompleteForm').on('submit', function(e) {
+                let isValid = true;
+
+                $(this).find('input[required]').each(function() {
+                    const $inputGroup = $(this).closest('.input-group');
+                    if (!$(this).value().trim()) {
+                        $inputGroup.css('border-color', '#dc3545');
+                        isValid = false;
+                    } else {
+                        $inputGroup.css('border-color', '#dee2e6');
+                    }
+                });
+
+                if (!isValid) {
+                    e.preventDefault();
+                }
+            });
+        });
+
         document.addEventListener('DOMContentLoaded', function() {
             const togglePasswordButtons = document.querySelectorAll('.toggle-password');
 
