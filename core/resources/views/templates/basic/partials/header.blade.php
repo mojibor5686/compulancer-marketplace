@@ -60,7 +60,7 @@
 
 <header class="w-100 bg-white border-bottom sticky-top" style="z-index: 1020;">
     <div class="container-fluid" style="max-width: 1400px; padding: 0 20px;">
-        <div class="d-flex align-items-center justify-content-between py-2 py-lg-3 gap-3">
+        <div class="d-flex align-items-center justify-content-between py-2 py-lg-3">
 
             <div class="d-flex align-items-center justify-content-between justify-content-lg-start w-100 w-lg-auto">
                 <button class="btn btn-link text-dark p-1 d-lg-none shadow-none" type="button" data-bs-toggle="offcanvas"
