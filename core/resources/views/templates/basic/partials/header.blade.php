@@ -62,7 +62,7 @@
     <div class="container-fluid" style="max-width: 1400px; padding: 0 20px;">
         <div class="d-flex align-items-center justify-content-between py-2 py-lg-3 gap-3">
 
-            <div class="d-flex align-items-center gap-2">
+            <div class="d-flex align-items-center justify-content-between justify-content-lg-start gap-2">
                 <button class="btn btn-link text-dark p-1 d-lg-none shadow-none" type="button" data-bs-toggle="offcanvas"
                     data-bs-target="#mobileSidebar" aria-controls="mobileSidebar">
                     <svg class="bi bi-list" width="28" height="28" fill="currentColor" viewBox="0 0 16 16">
