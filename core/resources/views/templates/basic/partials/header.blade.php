@@ -422,6 +422,17 @@
 
                 <div class="modal-body px-4 py-3">
 
+                    <div class="auth-toggle-wrapper mb-4">
+                        <div class="auth-toggle-item active" data-type="buyer">
+                            <i class="fas fa-shopping-bag toggle-icon"></i>
+                            <span>@lang('Buyer')</span>
+                        </div>
+                        <div class="auth-toggle-item" data-type="seller">
+                            <i class="fas fa-store toggle-icon"></i>
+                            <span>@lang('Seller')</span>
+                        </div>
+                    </div>
+
                     <form id="modalSignUpForm" class="verify-gcaptcha" action="{{ route('user.register') }}"
                         method="POST" novalidate>
                         @csrf
@@ -447,9 +458,9 @@
                                         <i class="fas fa-user" style="font-size: 14px;"></i>
                                     </span>
                                     <input type="text" name="firstname"
-                                        class="form-control border-0 px-3 shadow-none" placeholder="@lang('First name')"
-                                        value="{{ old('firstname') }}" style="font-size: 14px; padding: 12px 0;"
-                                        required>
+                                        class="form-control border-0 px-3 shadow-none"
+                                        placeholder="@lang('First name')" value="{{ old('firstname') }}"
+                                        style="font-size: 14px; padding: 12px 0;" required>
                                 </div>
                                 <div class="invalid-feedback text-danger d-block mt-1 ps-1 small"
                                     style="display: none;"></div>
