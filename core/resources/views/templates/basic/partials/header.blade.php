@@ -671,7 +671,8 @@
                             </div>
 
                             <div class="col-sm-6">
-                                <div class="input-group border rounded overflow-hidden bg-white" style="padding: 5px 0">
+                                <div class="input-group border rounded overflow-hidden bg-white"
+                                    style="padding: 5px 0">
                                     <span class="input-group-text bg-transparent border-0 pe-0 ps-3 text-muted">
                                         <i class="fas fa-map" style="font-size: 14px;"></i>
                                     </span>
@@ -681,7 +682,8 @@
                             </div>
 
                             <div class="col-sm-6">
-                                <div class="input-group border rounded overflow-hidden bg-white" style="padding: 5px 0">
+                                <div class="input-group border rounded overflow-hidden bg-white"
+                                    style="padding: 5px 0">
                                     <span class="input-group-text bg-transparent border-0 pe-0 ps-3 text-muted">
                                         <i class="fas fa-mail-bulk" style="font-size: 14px;"></i>
                                     </span>
@@ -691,7 +693,8 @@
                             </div>
 
                             <div class="col-sm-6">
-                                <div class="input-group border rounded overflow-hidden bg-white" style="padding: 5px 0">
+                                <div class="input-group border rounded overflow-hidden bg-white"
+                                    style="padding: 5px 0">
                                     <span class="input-group-text bg-transparent border-0 pe-0 ps-3 text-muted">
                                         <i class="fas fa-city" style="font-size: 14px;"></i>
                                     </span>
