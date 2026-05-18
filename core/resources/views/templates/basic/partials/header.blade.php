@@ -287,7 +287,7 @@
                         @if ($category->subCategories && $category->subCategories->count() > 0)
                             <div class="position-relative nav-mega-wrapper">
                                 <a href="{{ route('category.wise.product', [slug($category->name), $category->id]) }}"
-                                    class="nav-link text-dark px-3 py-2 border-bottom border-2 border-transparent"
+                                    class="nav-link text-dark px-3 py-2 border-bottom border-2 border-white"
                                     style="text-transform: capitalize; font-size: 14px;">
                                     {{ __($category->name) }}
                                 </a>
