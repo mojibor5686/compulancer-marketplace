@@ -148,7 +148,8 @@
                         <a href="{{ route('user.login') }}"
                             class="text-secondary font-weight-bold text-decoration-none small">Sign In</a>
                         <a href="{{ route('user.register') }}"
-                            class="btn btn-kwork btn-sm px-3 font-weight-bold shadow-sm">Sign Up</a>
+                            class="d-none d-lg-block btn btn btn-kwork btn-sm px-3 font-weight-bold shadow-sm">Sign
+                            Up</a>
                         <a href="{{ route('service') }}"
                             class="d-none d-lg-block text-muted text-decoration-none small ps-2">Are you a
                             freelancer?</a>
