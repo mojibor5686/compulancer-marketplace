@@ -93,7 +93,7 @@
     }
 
     .btn-kwork-search {
-        background-color: #10c469 !important;
+        background-color: #3C88EE !important;
         color: #ffffff !important;
         border: none;
         font-weight: 600;
@@ -103,7 +103,7 @@
     }
 
     .btn-kwork-search:hover {
-        background-color: #0eb35f !important;
+        background-color: #3C88EE !important;
     }
 
     .popular-title {
@@ -130,8 +130,8 @@
 
     .tag-link:hover {
         background-color: #ffffff;
-        border-color: #10c469;
-        color: #10c469;
+        border-color: #3C88EE;
+        color: #3C88EE;
     }
 
     .freelancer-image-wrapper {
