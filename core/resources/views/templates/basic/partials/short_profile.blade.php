@@ -22,7 +22,7 @@
 
         @if (!request()->routeIs('job.details'))
             <a href="{{ route('public.profile', $user->username) }}"
-                class="btn kwork-contact-btn w-100 d-flex align-items-center justify-content-center fw-medium py-2 mb-4">
+                class="kwork-contact-btn w-100 d-flex align-items-center justify-content-center fw-medium py-3 mb-4 border rounded text-decoration-none">
                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
                     class="bi bi-send me-2" viewBox="0 0 16 16">
                     <path
