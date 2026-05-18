@@ -46,7 +46,7 @@
 
     .kwork-subtitle {
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        font-size: 15px;
+        font-size: 18px;
         font-weight: 400;
         color: #555555 !important;
         max-width: 650px;
@@ -66,8 +66,8 @@
         }
 
         .kwork-subtitle {
-            font-size: 13px;
-            padding-0 15px;
+            font-size: 16px;
+            padding: 0 15px;
         }
     }
 </style>
