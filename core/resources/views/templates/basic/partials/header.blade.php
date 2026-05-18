@@ -273,9 +273,9 @@
         <div class="d-none d-lg-block border-top bg-white shadow-sm">
             <div class="container-fluid" style="max-width: 1400px;">
                 <nav class="d-flex align-items-center justify-content-center text-secondary py-1"
-                    style="font-size: 14px; font-weight: 500; overflow-x: hidden;">
+                    style="font-size: 14px; font-weight: 500;">
 
-                    @foreach ($categories->shuffle()->take(8) as $category)
+                    @foreach ($categories as $category)
                         @if ($category->subCategories && $category->subCategories->count() > 0)
                             <div class="position-relative nav-mega-wrapper">
                                 <a href="#"
