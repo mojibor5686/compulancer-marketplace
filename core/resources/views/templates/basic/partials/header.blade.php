@@ -140,8 +140,13 @@
                         style="height: 32px; object-fit: contain;" />
                 </a>
 
-                <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#signInModal"
-                    class="d-block d-lg-none text-secondary font-weight-bold text-decoration-none small">Sign In</a>
+                @if (auth()->check())
+                    <span class="text-capitalize mr-2">{{ auth()->user()->username }}</span>
+                @else
+                    <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#signInModal"
+                        class="d-block d-lg-none text-secondary font-weight-bold text-decoration-none small">Sign In</a>
+                @endif
+
             </div>
 
             <div class="d-none d-sm-flex flex-grow-1 mx-3 desktop-stretch-width" style="max-width: 600px;">
@@ -182,7 +187,7 @@
                         </button>
                         <div class="dropdown-menu dropdown-menu-end shadow border-0 mt-2 p-0"
                             style="width: 240px; border-radius: 8px;">
-                            <div class="px-3 py-2.5 bg-light rounded-top border-bottom">
+                            <div class="px-3 py-2 bg-light rounded-top border-bottom">
                                 <div class="font-weight-bold text-dark text-truncate small" style="font-weight: 600;">
                                     {{ @$user->fullname }}</div>
                                 <div class="text-muted text-truncate" style="font-size: 11px;">

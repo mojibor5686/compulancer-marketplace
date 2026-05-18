@@ -93,7 +93,7 @@ class AppServiceProvider extends ServiceProvider
             ],
             function ($view) {
                 $data = [
-                    'categories' => Category::active()->orderBy('name')->get()
+                    'categories' => Category::with('subCategories')->active()->orderBy('name')->get()
                 ];
 
                 if (Auth::check() && Auth::user()->profile_complete == Status::NO) {
