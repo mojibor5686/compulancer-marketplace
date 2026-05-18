@@ -420,14 +420,6 @@
 
                 <div class="modal-body px-4 py-3">
 
-                    <div class="d-flex justify-content-center gap-3 mb-4">
-                        @if ($socialLoginActive)
-                            <div class="d-flex justify-content-center mb-2">
-                                @include('Template::partials.social_login')
-                            </div>
-                        @endif
-                    </div>
-
                     <form class="verify-gcaptcha" action="{{ route('user.register') }}" method="POST">
                         @csrf
                         <div class="row g-3">
@@ -551,6 +543,20 @@
                                     style="font-size: 15px; padding: 12px 0; border-radius: 6px; font-weight: 600;">
                                     @lang('Sign Up')
                                 </button>
+
+                                <div class="position-relative text-center my-4">
+                                    <hr class="text-muted opacity-25">
+                                    <span
+                                        class="position-absolute top-50 start-50 translate-middle bg-white px-3 text-muted small">or</span>
+                                </div>
+
+                                <div class="d-flex justify-content-center gap-3 mb-4">
+                                    @if ($socialLoginActive)
+                                        <div class="d-flex justify-content-center mb-2">
+                                            @include('Template::partials.social_login')
+                                        </div>
+                                    @endif
+                                </div>
 
                                 <div class="text-center small text-secondary">
                                     @lang('Already have an account?')
