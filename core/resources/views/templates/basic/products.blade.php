@@ -25,7 +25,16 @@
                     </div>
                 @endif
 
-                @include('Template::partials.basic_card')
+                <div class="page-content">
+                    <div class="row">
+                        <div class="col-lg-8 col-xl-9 productList">
+                            @include('Template::partials.basic_card')
+                        </div>
+                        <div class="col-lg-4 col-xl-3">
+                            @include('Template::partials.filter')
+                        </div>
+                    </div>
+                </div>
 
             </div>
         </section>
