@@ -295,7 +295,7 @@
                                 <div class="dropdown-mega bg-white border rounded shadow p-4">
                                     <div class="row position-relative">
                                         @foreach ($category->subCategories->chunk(ceil($category->subCategories->count() / 2)) as $chunk)
-                                            <div class="col-6 {{ $loop->first ? 'border-end' : 'ps-4' }}">
+                                            <div class="col-6 {{ $loop->first ? 'border-end' : 'ps-4 pl-4' }}">
                                                 <h6 class="font-weight-bold text-dark pb-1 mb-3"
                                                     style="font-size: 14px; opacity: 0.9;">
                                                     @if ($loop->first)
