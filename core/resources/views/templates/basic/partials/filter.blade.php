@@ -1,8 +1,13 @@
 @php
+    $type = $type ?? (request()->route('type') ?? '');
+
     $activeLevels = \App\Models\Level::active()->get();
-    if ($type == 'service' || $type == 'software') {
+
+    $activeFeatures = collect();
+    if (in_array($type, ['service', 'software'])) {
         $activeFeatures = \App\Models\Feature::active()->orderBy('name')->get();
     }
+
     $skill = request('skill');
 @endphp
 <aside id="jss-offcanvas-sidebar" class="offcanvas-sidebar offcanvas-sidebar--jss">
