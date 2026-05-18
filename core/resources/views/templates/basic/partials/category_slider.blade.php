@@ -155,6 +155,18 @@
         display: block;
     }
 
+    .hero-freelancer-img,
+    .freelancer-info-badge {
+        transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .freelancer-fade-out {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
     .freelancer-info-badge {
         position: absolute;
         bottom: 20px;
@@ -262,12 +274,13 @@
                     @lang('Buy affordable freelance services <br class="d-none d-md-block"> on the go')
                 </h1>
 
-                <form action="#" method="GET" class="hero-search-wrapper mb-3">
+                <form action="{{ route('service') }}" method="GET" class="hero-search-wrapper mb-3">
                     <div class="input-group">
                         <span class="input-group-text bg-white border-end-0 ps-3 text-muted">
                             <i class="fas fa-search search-icon-main"></i>
                         </span>
-                        <input type="text" class="form-control border-start-0 border-end-0 shadow-none ps-2"
+                        <input type="text" name="search"
+                            class="form-control border-start-0 border-end-0 shadow-none ps-2"
                             placeholder='@lang('Try "social media design"')' required>
                         <button class="btn btn-kwork-search px-4 px-md-5" type="submit">
                             @lang('Search')
@@ -285,20 +298,20 @@
             </div>
 
             <div class="col-lg-5 d-none d-lg-block position-relative align-self-end text-center h-100">
-                <div class="freelancer-image-wrapper">
-                    <img src="{{ $randomFreelancer['image'] }}" alt="{{ $randomFreelancer['name'] }}"
-                        class="hero-freelancer-img">
+                <div class="freelancer-image-wrapper" id="heroFreelancerContainer"
+                    data-freelancers="{{ json_encode($freelancers) }}">
 
-                    <div class="freelancer-info-badge">
+                    <img src="{{ $freelancers[0]['image'] }}" alt="{{ $freelancers[0]['name'] }}"
+                        class="hero-freelancer-img" id="jsFreelancerImg">
+
+                    <div class="freelancer-info-badge" id="jsFreelancerBadge">
                         <div class="rating-stars text-warning mb-1">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                                class="fas fa-star"></i><i class="fas fa-star"></i>
                         </div>
                         <p class="freelancer-meta text-white m-0">
-                            <strong>{{ $randomFreelancer['name'] }}</strong>, {{ __($randomFreelancer['role']) }}
+                            <strong id="jsFreelancerName">{{ $freelancers[0]['name'] }}</strong>, <span
+                                id="jsFreelancerRole">{{ __($freelancers[0]['role']) }}</span>
                         </p>
                     </div>
                 </div>
