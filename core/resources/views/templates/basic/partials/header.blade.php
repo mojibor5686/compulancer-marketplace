@@ -366,15 +366,6 @@
                         <div class="d-flex justify-content-center mb-2">
                             @include('Template::partials.social_login')
                         </div>
-
-                        <div class="position-relative text-center my-4">
-                            <hr class="text-muted opacity-25">
-                            <span
-                                class="position-absolute top-50 start-50 translate-middle bg-white px-3 text-muted small"
-                                style="font-size: 13px;">
-                                @lang('OR')
-                            </span>
-                        </div>
                     @endif
                 </div>
 
