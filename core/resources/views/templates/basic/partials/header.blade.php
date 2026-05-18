@@ -39,6 +39,29 @@
         margin-top: 0;
     }
 
+    .nav-mega-wrapper:hover .nav-link {
+        border-bottom-color: #0d6efd !important;
+        color: #0d6efd !important;
+    }
+
+    .nav-mega-wrapper .nav-link {
+        transition: border-color 0.3s ease, color 0.3s ease;
+    }
+
+    .nav-mega-wrapper .dropdown-mega {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 999;
+        min-width: 450px;
+    }
+
+    .nav-mega-wrapper:hover .dropdown-mega {
+        display: block;
+    }
+
     .category-divider {
         color: #dee2e6;
         padding: 0 10px;
