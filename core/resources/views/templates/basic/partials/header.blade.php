@@ -69,7 +69,7 @@
 
     .mega-menu-link {
         text-transform: capitalize;
-        font-size: 13px;
+        font-size: 13.5px;
         color: #555555;
         text-decoration: none;
         display: inline-block;
@@ -306,7 +306,7 @@
                                                 </h6>
 
                                                 @foreach ($chunk as $subCategory)
-                                                    <div class="mb-2">
+                                                    <div class="mb-4">
                                                         <a href="{{ route('category.wise.product', [slug($subCategory->name), $subCategory->id]) }}"
                                                             class="mega-menu-link">
                                                             {{ __($subCategory->name) }}
