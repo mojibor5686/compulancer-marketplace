@@ -75,6 +75,9 @@
                     <img src="{{ siteLogo() }}" alt="Site Logo" class="img-fluid"
                         style="height: 32px; object-fit: contain;" />
                 </a>
+
+                <a href="{{ route('user.login') }}"
+                    class="d-block d-lg-none text-secondary font-weight-bold text-decoration-none small">Sign In</a>
             </div>
 
             <div class="d-none d-sm-flex flex-grow-1 mx-3" style="max-width: 600px;">
