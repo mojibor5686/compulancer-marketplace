@@ -22,15 +22,32 @@
         color: #3C88EE !important;
     }
 
+    .kwork-custom-nav {
+        position: relative;
+    }
+
+    .nav-mega-wrapper {
+        position: static;
+    }
+
+    .nav-mega-wrapper .nav-link {
+        transition: border-color 0.3s ease, color 0.3s ease;
+    }
+
     .nav-mega-wrapper .dropdown-mega {
         position: absolute;
-        left: 50%;
-        transform: translateX(-30%);
-        width: 550px;
+        top: 100%;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        width: 100%;
+        max-width: 580px;
         opacity: 0;
         visibility: hidden;
-        transition: all 0.2s ease-in-out;
+        transform: translateY(10px);
+        transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out, visibility 0.2s;
         z-index: 1050;
+        display: block !important;
     }
 
     .nav-mega-wrapper:hover .dropdown-mega {
@@ -119,6 +136,12 @@
         border-bottom: 2px solid #3C88EE;
         border-bottom-left-radius: 0px;
         border-bottom-right-radius: 0px;
+    }
+
+    @media (max-width: 1200px) {
+        .nav-mega-wrapper .dropdown-mega {
+            max-width: 520px;
+        }
     }
 
     @media (min-width: 992px) {
@@ -278,7 +301,7 @@
     @if (!$isUser)
         <div class="d-none d-lg-block border-top bg-white shadow-sm">
             <div class="container-fluid" style="max-width: 1400px;">
-                <nav class="d-flex align-items-center justify-content-center text-secondary py-1"
+                <nav class="d-flex align-items-center justify-content-center text-secondary py-1 position-relative kwork-custom-nav"
                     style="font-size: 14px; font-weight: 500;">
 
                     @foreach ($categories->sortByDesc(function ($category) {
