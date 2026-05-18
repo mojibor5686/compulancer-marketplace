@@ -97,7 +97,7 @@
                 <form action="{{ route('service') }}" method="GET"
                     class="w-100 d-flex align-items-center border rounded overflow-hidden bg-white">
                     <input type="text" name="search" placeholder="Find Services..."
-                        class="form-control border-0 px-3 py-2.5 shadow-none" style="font-size: 14px;" />
+                        class="form-control border-0 px-3 py-2 shadow-none" style="font-size: 14px;" />
                     <button type="submit"
                         class="btn btn-kwork px-4 py-2 rounded-0 d-flex align-items-center justify-content-center"
                         style="height: stretch;">
