@@ -6,8 +6,8 @@
   --heading-font: "Inter", sans-serif;
   --body-font: "Inter", sans-serif;
   /* Base Color */
-  --base-h: 214;
-  --base-s: 84%;
+  --base-h: 201;
+  --base-s: 99%;
   --base-l: 58%;
   --base: var(--base-h) var(--base-s) var(--base-l);
   --base-d-100: var(--base-h) var(--base-s) calc(var(--base-l) - var(--base-l) * 0.1);
@@ -3149,8 +3149,8 @@ button:focus {
 
 .btn--base {
   color: hsl(var(--white)) !important;
-  border-color: hsl(var(--base)) !important;
-  background-color: hsl(var(--base)) !important;
+  border-color: #3C88EE !important;
+  background-color: #3C88EE !important;
 }
 
 .btn--base.active,
@@ -3158,8 +3158,8 @@ button:focus {
 .btn--base:focus,
 .btn--base:focus-visible {
   color: hsl(var(--white)) !important;
-  border-color: hsl(var(--base-d-200)) !important;
-  background-color: hsl(var(--base-d-200)) !important;
+  border-color: #3C88EE !important;
+  background-color: #3C88EE !important;
 }
 
 .btn--dark {
