@@ -3179,8 +3179,8 @@ button:focus {
 
 
 .btn-outline--base {
-  color: hsl(var(--base)) !important;
-  border-color: hsl(var(--base)) !important;
+  color: #3C88EE !important;
+  border-color: #3C88EE !important;
   background-color: transparent !important;
 }
 
@@ -3189,8 +3189,8 @@ button:focus {
 .btn-outline--base:not(.make-favorite):focus,
 .btn-outline--base:not(.make-favorite):focus-visible {
   color: hsl(var(--white)) !important;
-  border-color: hsl(var(--base)) !important;
-  background-color: hsl(var(--base)) !important;
+  border-color: #3C88EE !important;
+  background-color: #3C88EE !important;
 }
 
 .btn-outline--base.active svg path,
@@ -6941,7 +6941,7 @@ textarea.form--control {
 }
 
 .range-slider .ui-widget-header {
-  background-color: hsl(var(--base));
+  background-color: #3C88EE;
 }
 
 .range-slider .ui-slider-handle {
@@ -6960,7 +6960,7 @@ textarea.form--control {
 .range-slider html .ui-button.ui-state-disabled:hover,
 .range-slider html .ui-button.ui-state-disabled:active {
   border-width: 3px !important;
-  border-color: hsl(var(--base)) !important;
+  border-color: #3C88EE !important;
   background-color: hsl(var(--white)) !important;
   outline: none;
 }

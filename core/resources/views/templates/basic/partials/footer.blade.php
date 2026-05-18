@@ -80,7 +80,7 @@
         <div class="kwork-footer__bottom">
             <div class="row align-items-center">
                 <div class="col-lg-6">
-                    <p class="mb-0" style="font-size: 12px;">
+                    <p class="mb-0" style="font-size: 14px;">
                         {{ __(@$footerContent->data_values->copyright_text) }}
                     </p>
                 </div>
