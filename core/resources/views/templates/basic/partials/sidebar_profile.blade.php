@@ -11,14 +11,14 @@
             <div style="padding: 0 24px 24px 24px; position: relative;">
 
                 <div
-                    style="display: flex; align-items: flex-end; margin-top: -30px; margin-bottom: 24px; position: relative; z-index: 2;">
+                    style="display: flex; align-items: flex-end; margin-top: -8px; margin-bottom: 24px; position: relative; z-index: 2;">
                     <div style="position: relative; margin-right: 16px; flex-shrink: 0;">
                         <img src="{{ getImage(getFilePath('userProfile') . '/' . @$user->image, isAvatar: true) }}"
                             alt="{{ __($user->username) }}"
                             style="width: 65px; height: 65px; border-radius: 50%; object-fit: cover; display: block; border: 3px solid #ffffff; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
                     </div>
                     <div style="padding-bottom: 4px;">
-                        <div style="font-size: 13px; color: #fff; line-height: 1.2; margin-bottom: 2px;">
+                        <div style="font-size: 13px; color: #888; line-height: 1.2; margin-bottom: 2px;">
                             {{ __(@$user->designation ?? 'Freelancer') }}
                         </div>
                         <h5
