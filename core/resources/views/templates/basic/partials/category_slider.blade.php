@@ -8,27 +8,27 @@
         [
             'name' => 'Eugene',
             'role' => 'Voice Actor',
-            'image' => 'https://cdn.kwork.com/images/index/banner-user-6.png?ver=6',
+            'image' => 'https://cdn.kwork.com/images/index/banner-user-6.png?ver=7',
         ],
         [
             'name' => 'Lilith',
             'role' => 'Web Developer',
-            'image' => 'https://cdn.kwork.com/images/index/banner-user-5.png?ver=6',
+            'image' => 'https://cdn.kwork.com/images/index/banner-user-5.png?ver=3',
         ],
         [
             'name' => 'Eugene',
             'role' => 'Voice Actor',
-            'image' => 'https://cdn.kwork.com/images/index/banner-user-6.png?ver=6',
+            'image' => 'https://cdn.kwork.com/images/index/banner-user-6.png?ver=2',
         ],
         [
             'name' => 'Lilith',
             'role' => 'Web Developer',
-            'image' => 'https://cdn.kwork.com/images/index/banner-user-5.png?ver=6',
+            'image' => 'https://cdn.kwork.com/images/index/banner-user-5.png?ver=5',
         ],
         [
             'name' => 'Eugene',
             'role' => 'Voice Actor',
-            'image' => 'https://cdn.kwork.com/images/index/banner-user-6.png?ver=6',
+            'image' => 'https://cdn.kwork.com/images/index/banner-user-6.png?ver=1',
         ],
     ];
     $randomFreelancer = $freelancers[array_rand($freelancers)];
@@ -309,3 +309,39 @@
 
     <div class="hero-bottom-shadow"></div>
 </section>
+@push('script')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const container = document.getElementById('heroFreelancerContainer');
+            if (!container) return;
+
+            const freelancers = JSON.parse(container.getAttribute('data-freelancers'));
+
+            const imgEl = document.getElementById('jsFreelancerImg');
+            const nameEl = document.getElementById('jsFreelancerName');
+            const roleEl = document.getElementById('jsFreelancerRole');
+            const badgeEl = document.getElementById('jsFreelancerBadge');
+
+            let currentIndex = 0;
+
+            setInterval(() => {
+                imgEl.classList.add('freelancer-fade-out');
+                badgeEl.classList.add('freelancer-fade-out');
+
+                setTimeout(() => {
+                    currentIndex = (currentIndex + 1) % freelancers.length;
+                    const nextFreelancer = freelancers[currentIndex];
+
+                    imgEl.src = nextFreelancer.image;
+                    imgEl.alt = nextFreelancer.name;
+                    nameEl.textContent = nextFreelancer.name;
+                    roleEl.textContent = nextFreelancer.role;
+
+                    imgEl.classList.remove('freelancer-fade-out');
+                    badgeEl.classList.remove('freelancer-fade-out');
+                }, 400);
+
+            }, 3000);
+        });
+    </script>
+@endpush
