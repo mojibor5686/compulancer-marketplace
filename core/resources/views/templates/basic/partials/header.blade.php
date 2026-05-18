@@ -372,7 +372,7 @@
                 <div class="position-relative text-center my-4">
                     <hr class="text-muted opacity-25">
                     <span
-                        class="position-absolute top-50 start-50 translate-middle bg-white px-3 text-muted small">or</span>
+                        class="position-absolute top-50 start-50 translate-middle bg-white px-3 text-muted small">OR</span>
                 </div>
 
                 <div class="d-flex justify-content-center gap-3 mb-4">
