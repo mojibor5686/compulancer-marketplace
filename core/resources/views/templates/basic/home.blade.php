@@ -1,6 +1,6 @@
 @extends('Template::layouts.frontend') @section('content')
     <main class="page-wrapper">
-        <section class="jss-section pt-120 pb-80">
+        <section class="jss-section pt-80 pb-80">
             <div class="container">
                 <div class="page-content">
                     <div class="row">
