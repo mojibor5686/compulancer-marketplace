@@ -275,11 +275,14 @@
                 <nav class="d-flex align-items-center justify-content-center text-secondary py-1"
                     style="font-size: 14px; font-weight: 500;">
 
-                    @foreach ($categories as $category)
+                    @foreach ($categories->sortByDesc(function ($category) {
+            return $category->subCategories->count();
+        })->take(7) as $category)
                         @if ($category->subCategories && $category->subCategories->count() > 0)
                             <div class="position-relative nav-mega-wrapper">
                                 <a href="#"
-                                    class="nav-link text-dark px-3 py-2 border-bottom border-2 border-transparent">
+                                    class="nav-link text-dark px-3 py-2 border-bottom border-2 border-transparent"
+                                    style="text-transform: capitalize;">
                                     {{ __($category->name) }}
                                 </a>
 
@@ -297,7 +300,8 @@
                                                 </h6>
 
                                                 @foreach ($chunk as $subCategory)
-                                                    <a href="#" class="mega-menu-link">
+                                                    <a href="#" class="mega-menu-link"
+                                                        style="text-transform: capitalize;">
                                                         {{ __($subCategory->name) }}
                                                     </a>
                                                 @endforeach
@@ -307,7 +311,8 @@
                                 </div>
                             </div>
                         @else
-                            <a href="#" class="nav-link text-dark px-3 py-2">
+                            <a href="#" class="nav-link text-dark px-3 py-2"
+                                style="text-transform: capitalize;">
                                 {{ __($category->name) }}
                             </a>
                         @endif
