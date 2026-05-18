@@ -312,14 +312,14 @@
                 <form action="{{ route('user.login') }}" method="POST">
                     @csrf
                     <div class="mb-3">
-                        <input type="text" name="username" class="form-control px-3 py-2.5 shadow-none"
+                        <input type="text" name="username" class="form-control px-3 py-3 shadow-none"
                             placeholder="Email address or username" style="font-size: 14px; border-radius: 6px;"
                             required>
                     </div>
 
                     <div class="mb-3 position-relative">
                         <input type="password" name="password" id="modalPassword"
-                            class="form-control px-3 py-2.5 shadow-none" placeholder="Password"
+                            class="form-control px-3 py-3 shadow-none" placeholder="Password"
                             style="font-size: 14px; border-radius: 6px;" required>
                         <span class="position-absolute top-50 end-0 translate-middle-y pe-3 text-muted"
                             style="cursor: pointer; font-size: 14px;">
