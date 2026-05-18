@@ -18,16 +18,16 @@
                             style="width: 65px; height: 65px; border-radius: 50%; object-fit: cover; display: block; border: 3px solid #ffffff; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
                     </div>
                     <div style="padding-bottom: 4px;">
-                        <div style="font-size: 13px; color: #888888; line-height: 1.2; margin-bottom: 2px;">
+                        <div style="font-size: 13px; color: #fff; line-height: 1.2; margin-bottom: 2px;">
                             {{ __(@$user->designation ?? 'Freelancer') }}
                         </div>
                         <h5
                             style="font-size: 16px; font-weight: 600; color: #222222; margin: 0 0 2px 0; font-family: sans-serif; line-height: 1.2;">
                             {{ __($user->username) }}
                         </h5>
-                        <div style="display: flex; align-items: center; font-size: 12px; color: #888888;">
+                        <div style="display: flex; align-items: center; font-size: 12px; color: #888888=;">
                             <span
-                                style="height: 7px; width: 7px; background-color: #e0e0e0; border-radius: 50%; display: inline-block; margin-right: 5px;"></span>
+                                style="height: 7px; width: 7px; background-color: red; border-radius: 50%; display: inline-block; margin-right: 5px;"></span>
                             @lang('Offline')
                         </div>
                     </div>
