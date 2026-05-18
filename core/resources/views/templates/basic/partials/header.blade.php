@@ -56,6 +56,19 @@
     .mega-menu-link:hover {
         color: #10c469;
     }
+
+    @media (min-width: 992px) {
+        .desktop-stretch-width {
+            width: stretch !important;
+            width: -webkit-fill-available !important;
+            width: -moz-available !important;
+        }
+
+        .desktop-stretch-height {
+            height: stretch !important;
+            height: -webkit-fill-available !important;
+        }
+    }
 </style>
 
 <header class="w-100 bg-white border-bottom sticky-top" style="z-index: 1020;">
@@ -80,7 +93,7 @@
                     class="d-block d-lg-none text-secondary font-weight-bold text-decoration-none small">Sign In</a>
             </div>
 
-            <div class="d-none d-sm-flex flex-grow-1 mx-3" style="max-width: 600px;">
+            <div class="d-none d-sm-flex flex-grow-1 mx-3 desktop-stretch-width" style="max-width: 600px;">
                 <form action="{{ route('service') }}" method="GET"
                     class="w-100 d-flex align-items-center border rounded overflow-hidden bg-white">
                     <input type="text" name="search" placeholder="Find Services..."
@@ -97,7 +110,7 @@
                 </form>
             </div>
 
-            <div class="d-flex align-items-center gap-3">
+            <div class="d-flex align-items-center gap-3 desktop-stretch-width">
                 @if ($isUser || $user)
                     <div class="d-none d-lg-block small font-weight-bold">
                         @if (session('userType') === 'buyer' || (session('userType') === null && request()->routeIs('user.buyer.*')))
