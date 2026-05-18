@@ -51,8 +51,9 @@ class AppServiceProvider extends ServiceProvider
             }
         }
 
-
+        // গ্লোবাল ভিউ শেয়ার মেথড (ক্যাটাগরি ডেটা এখন যেকোনো ব্লেড ফাইল থেকে সরাসরি অ্যাক্সেস পাবে)
         $viewShare['emptyMessage'] = 'Data not found';
+        $viewShare['categories']   = Category::with('subCategories')->active()->orderBy('name')->get();
         view()->share($viewShare);
 
 
@@ -85,6 +86,7 @@ class AppServiceProvider extends ServiceProvider
             ]);
         });
 
+        // আপনার পুরানো ভিউ কম্পোজার থেকে categories ডাটাটি বাদ দিয়ে শুধুমাত্র কান্ট্রি ডাটা রাখা হলো
         view()->composer(
             [
                 "Template::partials.filter",
@@ -92,9 +94,7 @@ class AppServiceProvider extends ServiceProvider
                 "Template::partials.header"
             ],
             function ($view) {
-                $data = [
-                    'categories' => Category::with('subCategories')->active()->orderBy('name')->get()
-                ];
+                $data = [];
 
                 if (Auth::check() && Auth::user()->profile_complete == Status::NO) {
                     $info = json_decode(json_encode(getIpInfo()), true);
