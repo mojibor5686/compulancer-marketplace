@@ -397,3 +397,34 @@
         </div>
     @endif
 @endif
+@push('script')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const togglePasswordButtons = document.querySelectorAll('.toggle-password');
+
+            togglePasswordButtons.forEach(function(button) {
+                button.addEventListener('click', function() {
+                    const passwordInput = this.closest('.position-relative').querySelector('input');
+
+                    if (passwordInput) {
+                        const type = passwordInput.getAttribute('type') === 'password' ? 'text' :
+                            'password';
+                        passwordInput.setAttribute('type', type);
+
+                        const icon = this.querySelector('i');
+
+                        if (icon) {
+                            if (type === 'password') {
+                                icon.classList.remove('fa-eye');
+                                icon.classList.add('fa-eye-slash');
+                            } else {
+                                icon.classList.remove('fa-eye-slash');
+                                icon.classList.add('fa-eye');
+                            }
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+@endpush
