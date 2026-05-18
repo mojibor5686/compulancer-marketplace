@@ -300,8 +300,8 @@
                                                 </h6>
 
                                                 @foreach ($chunk as $subCategory)
-                                                    <a href="#"
-                                                        style="text-transform: capitalize; font-size: 13px;">
+                                                    <a href="{{ route('category.wise.product', [slug($subCategory->name), $subCategory->id]) }}"
+                                                        style="text-transform: capitalize; font-size: 13px; color:#222222;">
                                                         {{ __($subCategory->name) }}
                                                     </a>
                                                 @endforeach
