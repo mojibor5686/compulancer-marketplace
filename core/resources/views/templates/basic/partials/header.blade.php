@@ -275,7 +275,7 @@
                 <nav class="d-flex align-items-center justify-content-center text-secondary py-1"
                     style="font-size: 14px; font-weight: 500; overflow-x: hidden;">
 
-                    @foreach ($categories->inRandomOrder()->take(8) as $category)
+                    @foreach ($categories->shuffle()->take(8) as $category)
                         @if ($category->subCategories && $category->subCategories->count() > 0)
                             <div class="position-relative nav-mega-wrapper">
                                 <a href="#"
