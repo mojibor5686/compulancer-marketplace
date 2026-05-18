@@ -40,8 +40,8 @@
     }
 
     .nav-mega-wrapper:hover .nav-link {
-        border-bottom-color: #0d6efd !important;
-        color: #0d6efd !important;
+        border-bottom-color: #10c469 !important;
+        color: #10c469 !important;
     }
 
     .nav-mega-wrapper .nav-link {
