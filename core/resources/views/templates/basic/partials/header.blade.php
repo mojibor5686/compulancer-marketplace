@@ -4,22 +4,22 @@
 
 <style>
     .bg-kwork-green {
-        bg-color: #10c469 !important;
+        bg-color: #3C88EE !important;
     }
 
     .btn-kwork {
-        background-color: #10c469 !important;
-        border-color: #10c469 !important;
+        background-color: #3C88EE !important;
+        border-color: #3C88EE !important;
         color: #fff !important;
     }
 
     .btn-kwork:hover {
-        background-color: #0eb35f !important;
-        border-color: #0eb35f !important;
+        background-color: #3C88EE !important;
+        border-color: #3C88EE !important;
     }
 
     .text-kwork-green {
-        color: #10c469 !important;
+        color: #3C88EE !important;
     }
 
     .nav-mega-wrapper .dropdown-mega {
@@ -40,8 +40,8 @@
     }
 
     .nav-mega-wrapper:hover .nav-link {
-        border-bottom-color: #10c469 !important;
-        color: #10c469 !important;
+        border-bottom-color: #3C88EE !important;
+        color: #3C88EE !important;
     }
 
     .nav-mega-wrapper .nav-link {
@@ -77,7 +77,7 @@
     }
 
     .mega-menu-link:hover {
-        color: #10c469 !important;
+        color: #3C88EE !important;
         padding-left: 2px;
     }
 
@@ -114,9 +114,9 @@
 
     .auth-toggle-item.active {
         background: #ffffff;
-        color: #28a745;
+        color: #3C88EE;
         box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);
-        border-bottom: 2px solid #28a745;
+        border-bottom: 2px solid #3C88EE;
         border-bottom-left-radius: 0px;
         border-bottom-right-radius: 0px;
     }

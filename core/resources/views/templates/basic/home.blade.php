@@ -62,7 +62,7 @@
         }
 
         .btn-signup {
-            background-color: #28c76f;
+            background-color: #3C88EE;
             color: #ffffff;
             font-weight: 600;
             padding: 14px 35px;
@@ -74,10 +74,10 @@
         }
 
         .btn-signup:hover {
-            background-color: #21a35c;
+            background-color: #3C88EE;
             color: #fff;
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(40, 199, 111, 0.3);
+            box-shadow: 0 6px 20px rgba(60, 136, 238, 0.3);
         }
 
         .kwork-catalog-section {
@@ -153,13 +153,13 @@
 
         .catalog-card-item:hover {
             background-color: #ffffff;
-            border-color: #10c469;
+            border-color: #3C88EE;
             transform: translateY(-4px);
-            box-shadow: 0 8px 20px rgba(16, 196, 105, 0.08);
+            box-shadow: 0 8px 20px rgba(60, 136, 238, 0.08);
         }
 
         .catalog-card-item:hover .catalog-name {
-            color: #10c469;
+            color: #3C88EE;
         }
 
         .catalog-card-item:hover .catalog-img {
