@@ -69,7 +69,7 @@
 
     .mega-menu-link {
         text-transform: capitalize;
-        font-size: 13.5px;
+        font-size: 14px;
         color: #555555;
         text-decoration: none;
         display: inline-block;
