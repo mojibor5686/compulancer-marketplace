@@ -28,29 +28,26 @@
         align-items: center;
         justify-content: center;
         flex-wrap: wrap;
-        /* স্ক্রিন ছোট হলে বা জুম করলে ন্যাভ আইটেমগুলো নিচে সুন্দরভাবে নামবে */
+        position: relative;
     }
 
-    /* ২. প্রতিটি ক্যাটাগরি র‍্যাপার (এখানেই আসল ফিক্স) */
+    /* ২. প্রতিটি ক্যাটাগরি র‍্যাপার */
     .nav-mega-wrapper {
         position: relative;
-        /* আবার রিলেটিভ করা হলো, তবে ইন্টেলিজেন্ট পজিশন সহ */
+        /* এখানে রিলেটিভ রাখতেই হবে, যেন ড্রপডাউন প্যারেন্ট ক্যাটাগরির পজিশন ট্র্যাক করতে পারে */
     }
 
     .nav-mega-wrapper .nav-link {
         transition: border-color 0.3s ease, color 0.3s ease;
         white-space: nowrap;
-        /* ক্যাটাগরির নাম যেন ভেঙে দুই লাইনে না যায় */
     }
 
-    /* ৩. মেগা ড্রপডাউন বক্স (উইডথ ও কলাম ফিক্সড লক) */
+    /* ৩. মেগা ড্রপডাউন বক্স (বেস কনফিগারেশন) */
     .nav-mega-wrapper .dropdown-mega {
         position: absolute;
         top: 100%;
-        left: 0;
-        /* ডিফল্ট বাম দিক থেকে ওপেন হবে */
-        width: 460px;
-        /* ফিক্সড স্ট্যান্ডার্ড উইডথ, যাতে ভেতরের টেক্সট কখনো চ্যাপ্টা না হয় */
+        width: 480px;
+        /* মেগা মেনুর জন্য স্ট্যান্ডার্ড ফিক্সড উইডথ */
         opacity: 0;
         visibility: hidden;
         transform: translateY(10px);
@@ -59,20 +56,40 @@
         background: #ffffff;
     }
 
-    /* ৪. ইন্টেলিজেন্ট পজিশনিং (স্মার্ট ফিক্স)
-       ন্যাভের শেষের দিকের (যেমন ৫, ৬, ৭ নম্বর) ক্যাটাগরিগুলোর ড্রপডাউন যেন ডানের স্ক্রিনের বাইরে না যায়,
-       সেজন্য সেগুলো ডান দিক ঘেঁষে (Right Aligned) ওপেন হবে */
-    .nav-mega-wrapper:nth-child(n+9) .dropdown-mega {
+    /* =========================================================================
+       ৪. আপনার দেওয়া লজিক অনুযায়ী স্মার্ট পজিশনিং (মাস্টার ফিক্স)
+       ========================================================================= */
+
+    /* প্রথম ৩টি ক্যাটাগরির ড্রপডাউন তাদের ক্যাটাগরির শুরু (Left: 0) থেকে শুরু হবে এবং ডানে বাড়বে */
+    .nav-mega-wrapper:nth-child(-n+5) .dropdown-mega {
+        left: 0;
+        right: auto;
+    }
+
+    /* শেষের ৩টি ক্যাটাগরির ড্রপডাউন তাদের ক্যাটাগরির শেষ (Right: 0) থেকে শুরু হবে এবং বামে বাড়বে */
+    .nav-mega-wrapper:nth-child(n+7) .dropdown-mega {
         left: auto;
         right: 0;
     }
 
-    /* নোট: লুপের ভেতর ডিভাইডার '|' থাকার কারণে n+9 দিয়ে শেষের ৩টি মেইন ক্যাটাগরিকে টার্গেট করা হয়েছে */
+    /* মাঝখানের ক্যাটাগরিটির ড্রপডাউন একদম সেন্টারে ব্যালেন্স থাকবে */
+    .nav-mega-wrapper:nth-child(6) .dropdown-mega {
+        left: 50%;
+        transform: translateX(-50%) translateY(10px);
+    }
+
+    .nav-mega-wrapper:nth-child(6):hover .dropdown-mega {
+        transform: translateX(-50%) translateY(0);
+    }
 
     /* ৫. হোভার অ্যাকশন */
     .nav-mega-wrapper:hover .dropdown-mega {
         opacity: 1;
         visibility: visible;
+    }
+
+    /* মাঝখানের আইটেম বাদে বাকিগুলোর জন্য হোভার ট্রান্সফর্ম */
+    .nav-mega-wrapper:not(:nth-child(6)):hover .dropdown-mega {
         transform: translateY(0);
     }
 
@@ -81,7 +98,7 @@
         color: #3C88EE !important;
     }
 
-    /* ৬. ভেতরের লিঙ্ক ও ডিভাইডার স্টাইল */
+    /* ৬. অন্যান্য এলিমেন্ট স্টাইল */
     .category-divider {
         color: #dee2e6;
         padding: 0 8px;
@@ -96,10 +113,8 @@
         text-decoration: none;
         display: block;
         white-space: nowrap;
-        /* সাব-ক্যাটাগরির নামও যেন চ্যাপ্টা হয়ে ভেঙে না যায় */
         overflow: hidden;
         text-overflow: ellipsis;
-        /* নাম খুব বেশি বড় হলে কেটে ৩টি ডট (...) দেখাবে */
         transition: color 0.2s ease, padding-left 0.2s ease;
     }
 
@@ -108,7 +123,6 @@
         padding-left: 4px;
     }
 
-    /* মেগা মেনুর ভেতরের হেডিং */
     .dropdown-mega h6 {
         white-space: nowrap;
     }
@@ -323,7 +337,7 @@
             return $category->subCategories->count();
         })->take(7) as $category)
                         @if ($category->subCategories && $category->subCategories->count() > 0)
-                            <div class="position-relative nav-mega-wrapper">
+                            <div class="nav-mega-wrapper">
                                 <a href="{{ route('category.wise.product', [slug($category->name), $category->id]) }}"
                                     class="nav-link text-dark px-3 py-2 border-bottom border-2 border-white"
                                     style="text-transform: capitalize; font-size: 14px;">
