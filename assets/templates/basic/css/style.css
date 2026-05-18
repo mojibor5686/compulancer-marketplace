@@ -4311,14 +4311,14 @@ textarea.form--control {
 .jss--card .card-user-info__name:hover,
 .jss--card .card-user-info__name:focus {
   outline: none;
-  color: hsl(var(--base));
+  color: #3C88EE;
 }
 
 .jss--card .card-price {
   font-size: 1.25rem;
   font-weight: 600;
   line-height: 130%;
-  color: hsl(var(--base));
+  color: #3C88EE;
 }
 
 @media screen and (max-width: 767px) {
