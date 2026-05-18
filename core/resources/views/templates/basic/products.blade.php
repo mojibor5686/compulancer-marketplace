@@ -25,54 +25,6 @@
                     </div>
                 @endif
 
-                <div class="page-top">
-                    <div class="page-top__wrapper">
-                        <ul class="nav nav-tabs custom--tab" role="tablist">
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link {{ $maxKey == 'service' ? 'active' : '' }}" data-bs-toggle="tab"
-                                    data-bs-target="#service" type="button" role="tab"
-                                    aria-selected="{{ $maxKey == 'service' ? 'true' : 'false' }}">
-                                    @lang('Services')
-                                </button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link {{ $maxKey == 'software' ? 'active' : '' }}" data-bs-toggle="tab"
-                                    data-bs-target="#software" type="button" role="tab"
-                                    aria-selected="{{ $maxKey == 'software' ? 'true' : 'false' }}">
-                                    @lang('Softwares')
-                                </button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link {{ $maxKey == 'job' ? 'active' : '' }}" data-bs-toggle="tab"
-                                    data-bs-target="#job" type="button" role="tab"
-                                    aria-selected="{{ $maxKey == 'job' ? 'true' : 'false' }}">
-                                    @lang('Jobs')
-                                </button>
-                            </li>
-                        </ul>
-
-                        <div class="layout-toggle-btns">
-                            <button class="layout-toggle-btn grid-layout active" type="button">
-                                @include('Template::partials.icons.grid')
-                            </button>
-                            <button class="layout-toggle-btn list-layout" type="button">
-                                @include('Template::partials.icons.list')
-                            </button>
-                        </div>
-
-                        <form class="search-form" action="{{ route('search') }}" method="GET">
-                            <div class="input-group">
-                                <input class="form-control form--control" name="search" type="text"
-                                    placeholder="@lang('Search...')" value="{{ old('search', request('search')) }}" />
-                                <button class="btn btn--base" type="submit">
-                                    <i class="fas fa-search"></i>
-                                </button>
-                            </div>
-                        </form>
-
-                    </div>
-                </div>
-
                 @include('Template::partials.basic_card')
 
             </div>
