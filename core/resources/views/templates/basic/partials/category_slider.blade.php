@@ -21,31 +21,6 @@
             'image' => 'https://cdn.kwork.com/images/index/banner-user-2.png?ver=3',
         ],
         [
-            'name' => 'Maxim',
-            'role' => 'Copywriter',
-            'image' => 'https://cdn.kwork.com/images/index/banner-user-3.png?ver=4',
-        ],
-        [
-            'name' => 'Elena',
-            'role' => 'SMM Manager',
-            'image' => 'https://cdn.kwork.com/images/index/banner-user-4.png?ver=5',
-        ],
-        [
-            'name' => 'Michael',
-            'role' => 'Video Editor',
-            'image' => 'https://cdn.kwork.com/images/index/banner-user-7.png?ver=1',
-        ],
-        [
-            'name' => 'Olivia',
-            'role' => 'UI/UX Designer',
-            'image' => 'https://cdn.kwork.com/images/index/banner-user-8.png?ver=2',
-        ],
-        [
-            'name' => 'Daniel',
-            'role' => 'App Developer',
-            'image' => 'https://cdn.kwork.com/images/index/banner-user-9.png?ver=4',
-        ],
-        [
             'name' => 'Amelia',
             'role' => '3D Artist',
             'image' => 'https://cdn.kwork.com/images/index/banner-user-10.png?ver=3',
