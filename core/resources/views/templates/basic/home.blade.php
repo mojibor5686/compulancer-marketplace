@@ -137,7 +137,7 @@
 
         .catalog-img {
             max-height: 100%;
-            max-width: 75px;
+            max-width: 85px;
             object-fit: contain;
             transition: transform 0.25s ease;
         }
