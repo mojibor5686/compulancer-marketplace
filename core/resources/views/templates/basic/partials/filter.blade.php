@@ -326,26 +326,23 @@
                         url.searchParams.set('skill', '{{ @$skill }}');
                     @endif
 
-                    // Display loader, hide current product list
                     $('.productListCol').addClass('d-none');
                     $('.productListLoader').removeClass('d-none');
                     $('.empty-message-box').addClass('d-none');
 
-                    // Perform AJAX request
                     $.ajax({
                         url: url.toString(),
                         type: 'GET',
                         success: function(data) {
                             if (firstLoad && data.priceRange) {
                                 firstLoad =
-                                    false; // Ensure the slider is set only on the first load
+                                    false;
                                 initializeSlider(data.priceRange[0], data.priceRange[1]);
                             }
 
                             $('.productList').html(data.html);
 
                             {{-- blade-formatter-disable --}}
-                            // Construct results message based on pagination data
                             let resultsText = '';
                             if (data.pagination) {
                                 if (data.pagination.total > 0) {
@@ -377,18 +374,13 @@
                             $('.productListCol').addClass('d-none');
                             $('.productListLoader').removeClass('d-none');
 
-                            // Retry
                             setTimeout(function() {
                                 performAjaxRequest(page);
                             }, 500);
                         }
                     });
-
-
-
                 }
 
-                // Event bindings
                 $('.sortBy').on('change', function() {
                     performAjaxRequest();
                 });
@@ -436,7 +428,6 @@
 
                 }
 
-                // Intercept pagination link clicks
                 $(document).on('click', '.pagination a', function(e) {
                     e.preventDefault();
                     let page = $(this).attr('href').split('page=')[1];
