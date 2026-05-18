@@ -275,45 +275,48 @@
                 <nav class="d-flex align-items-center justify-content-center text-secondary py-1"
                     style="font-size: 14px; font-weight: 500;">
 
-                    <div class="position-relative nav-mega-wrapper">
-                        <a href="{{ route('service') }}"
-                            class="nav-link text-dark px-3 py-2 border-bottom border-2 border-transparent">
-                            Design
-                        </a>
-                        <div class="dropdown-mega bg-white border rounded-bottom shadow p-4">
-                            <div class="row">
-                                <div class="col-6">
-                                    <h6 class="font-weight-bold text-dark border-b pb-1 mb-2"
-                                        style="font-size: 14px;">Popular Design</h6>
-                                    <a href="#" class="mega-menu-link">Logo Design</a>
-                                    <a href="#" class="mega-menu-link">Brand Identity</a>
-                                    <a href="#" class="mega-menu-link">Business Cards</a>
-                                    <a href="#" class="mega-menu-link">Web & Mobile Design</a>
-                                </div>
-                                <div class="col-6">
-                                    <h6 class="font-weight-bold text-dark border-b pb-1 mb-2"
-                                        style="font-size: 14px;">Graphics & Marketing</h6>
-                                    <a href="#" class="mega-menu-link">Web Banners & Icons</a>
-                                    <a href="#" class="mega-menu-link">Vector Tracing</a>
-                                    <a href="#" class="mega-menu-link">3D Graphics</a>
-                                    <a href="#" class="mega-menu-link">NFT Art</a>
+                    @foreach ($categories as $category)
+                        @if ($category->subCategories && $category->subCategories->count() > 0)
+                            <div class="position-relative nav-mega-wrapper">
+                                <a href="#"
+                                    class="nav-link text-dark px-3 py-2 border-bottom border-2 border-transparent">
+                                    {{ __($category->name) }}
+                                </a>
+
+                                <div class="dropdown-mega bg-white border rounded-bottom shadow p-4">
+                                    <div class="row">
+                                        @foreach ($category->subCategories->chunk(ceil($category->subCategories->count() / 2)) as $chunk)
+                                            <div class="col-6">
+                                                <h6 class="font-weight-bold text-dark border-b pb-1 mb-2"
+                                                    style="font-size: 14px;">
+                                                    @if ($loop->first)
+                                                        @lang('Popular Services')
+                                                    @else
+                                                        @lang('More Categories')
+                                                    @endif
+                                                </h6>
+
+                                                @foreach ($chunk as $subCategory)
+                                                    <a href="#" class="mega-menu-link">
+                                                        {{ __($subCategory->name) }}
+                                                    </a>
+                                                @endforeach
+                                            </div>
+                                        @endforeach
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
+                        @else
+                            <a href="#" class="nav-link text-dark px-3 py-2">
+                                {{ __($category->name) }}
+                            </a>
+                        @endif
 
-                    <span class="category-divider">|</span>
-                    <a href="{{ route('software') }}" class="nav-link text-dark px-3 py-2">Development & IT</a>
-                    <span class="category-divider">|</span>
-                    <a href="#" class="nav-link text-dark px-3 py-2">Writing & Translations</a>
-                    <span class="category-divider">|</span>
-                    <a href="#" class="nav-link text-dark px-3 py-2">SEO & Web Traffic</a>
-                    <span class="category-divider">|</span>
-                    <a href="#" class="nav-link text-dark px-3 py-2">Digital Marketing & SMM</a>
-                    <span class="category-divider">|</span>
-                    <a href="#" class="nav-link text-dark px-3 py-2">Audio & Video</a>
-                    <span class="category-divider">|</span>
-                    <a href="{{ route('job') }}" class="nav-link text-dark px-3 py-2">Business & Lifestyle</a>
+                        @if (!$loop->last)
+                            <span class="category-divider">|</span>
+                        @endif
+                    @endforeach
+
                 </nav>
             </div>
         </div>
