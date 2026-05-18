@@ -11,27 +11,49 @@
             'image' => 'https://cdn.kwork.com/images/index/banner-user-6.png?ver=7',
         ],
         [
-            'name' => 'Lilith',
-            'role' => 'Web Developer',
-            'image' => 'https://cdn.kwork.com/images/index/banner-user-5.png?ver=3',
+            'name' => 'Alexander',
+            'role' => 'SEO Specialist',
+            'image' => 'https://cdn.kwork.com/images/index/banner-user-1.png?ver=2',
         ],
         [
-            'name' => 'Eugene',
-            'role' => 'Voice Actor',
-            'image' => 'https://cdn.kwork.com/images/index/banner-user-6.png?ver=2',
+            'name' => 'Sophia',
+            'role' => 'Graphic Designer',
+            'image' => 'https://cdn.kwork.com/images/index/banner-user-2.png?ver=3',
         ],
         [
-            'name' => 'Lilith',
-            'role' => 'Web Developer',
-            'image' => 'https://cdn.kwork.com/images/index/banner-user-5.png?ver=5',
+            'name' => 'Maxim',
+            'role' => 'Copywriter',
+            'image' => 'https://cdn.kwork.com/images/index/banner-user-3.png?ver=4',
         ],
         [
-            'name' => 'Eugene',
-            'role' => 'Voice Actor',
-            'image' => 'https://cdn.kwork.com/images/index/banner-user-6.png?ver=1',
+            'name' => 'Elena',
+            'role' => 'SMM Manager',
+            'image' => 'https://cdn.kwork.com/images/index/banner-user-4.png?ver=5',
+        ],
+        [
+            'name' => 'Michael',
+            'role' => 'Video Editor',
+            'image' => 'https://cdn.kwork.com/images/index/banner-user-7.png?ver=1',
+        ],
+        [
+            'name' => 'Olivia',
+            'role' => 'UI/UX Designer',
+            'image' => 'https://cdn.kwork.com/images/index/banner-user-8.png?ver=2',
+        ],
+        [
+            'name' => 'Daniel',
+            'role' => 'App Developer',
+            'image' => 'https://cdn.kwork.com/images/index/banner-user-9.png?ver=4',
+        ],
+        [
+            'name' => 'Amelia',
+            'role' => '3D Artist',
+            'image' => 'https://cdn.kwork.com/images/index/banner-user-10.png?ver=3',
         ],
     ];
-    $randomFreelancer = $freelancers[array_rand($freelancers)];
+
+    $shuffledFreelancers = collect($freelancers)->shuffle()->all();
+    $initialFreelancer = $shuffledFreelancers[0];
 @endphp
 <style>
     .kwork-hero-section {
