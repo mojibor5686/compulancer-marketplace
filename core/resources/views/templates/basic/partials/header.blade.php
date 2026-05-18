@@ -22,34 +22,54 @@
         color: #3C88EE !important;
     }
 
+    /* ১. মেইন ন্যাভ কন্টেইনার */
     .kwork-custom-nav {
-        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        /* স্ক্রিন ছোট হলে বা জুম করলে ন্যাভ আইটেমগুলো নিচে সুন্দরভাবে নামবে */
     }
 
+    /* ২. প্রতিটি ক্যাটাগরি র‍্যাপার (এখানেই আসল ফিক্স) */
     .nav-mega-wrapper {
-        position: static;
+        position: relative;
+        /* আবার রিলেটিভ করা হলো, তবে ইন্টেলিজেন্ট পজিশন সহ */
     }
 
     .nav-mega-wrapper .nav-link {
         transition: border-color 0.3s ease, color 0.3s ease;
+        white-space: nowrap;
+        /* ক্যাটাগরির নাম যেন ভেঙে দুই লাইনে না যায় */
     }
 
+    /* ৩. মেগা ড্রপডাউন বক্স (উইডথ ও কলাম ফিক্সড লক) */
     .nav-mega-wrapper .dropdown-mega {
         position: absolute;
         top: 100%;
         left: 0;
-        right: 0;
-        margin: 0 auto;
-        width: 100%;
-        max-width: 580px;
+        /* ডিফল্ট বাম দিক থেকে ওপেন হবে */
+        width: 460px;
+        /* ফিক্সড স্ট্যান্ডার্ড উইডথ, যাতে ভেতরের টেক্সট কখনো চ্যাপ্টা না হয় */
         opacity: 0;
         visibility: hidden;
         transform: translateY(10px);
-        transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out, visibility 0.2s;
+        transition: opacity 0.15s ease-in-out, transform 0.15s ease-in-out, visibility 0.15s;
         z-index: 1050;
-        display: block !important;
+        background: #ffffff;
     }
 
+    /* ৪. ইন্টেলিজেন্ট পজিশনিং (স্মার্ট ফিক্স)
+       ন্যাভের শেষের দিকের (যেমন ৫, ৬, ৭ নম্বর) ক্যাটাগরিগুলোর ড্রপডাউন যেন ডানের স্ক্রিনের বাইরে না যায়,
+       সেজন্য সেগুলো ডান দিক ঘেঁষে (Right Aligned) ওপেন হবে */
+    .nav-mega-wrapper:nth-child(n+9) .dropdown-mega {
+        left: auto;
+        right: 0;
+    }
+
+    /* নোট: লুপের ভেতর ডিভাইডার '|' থাকার কারণে n+9 দিয়ে শেষের ৩টি মেইন ক্যাটাগরিকে টার্গেট করা হয়েছে */
+
+    /* ৫. হোভার অ্যাকশন */
     .nav-mega-wrapper:hover .dropdown-mega {
         opacity: 1;
         visibility: visible;
@@ -61,10 +81,12 @@
         color: #3C88EE !important;
     }
 
+    /* ৬. ভেতরের লিঙ্ক ও ডিভাইডার স্টাইল */
     .category-divider {
         color: #dee2e6;
-        padding: 0 5px;
+        padding: 0 8px;
         align-self: center;
+        user-select: none;
     }
 
     .mega-menu-link {
@@ -72,13 +94,23 @@
         font-size: 14px;
         color: #555555;
         text-decoration: none;
-        display: inline-block;
+        display: block;
+        white-space: nowrap;
+        /* সাব-ক্যাটাগরির নামও যেন চ্যাপ্টা হয়ে ভেঙে না যায় */
+        overflow: hidden;
+        text-overflow: ellipsis;
+        /* নাম খুব বেশি বড় হলে কেটে ৩টি ডট (...) দেখাবে */
         transition: color 0.2s ease, padding-left 0.2s ease;
     }
 
     .mega-menu-link:hover {
         color: #3C88EE !important;
         padding-left: 4px;
+    }
+
+    /* মেগা মেনুর ভেতরের হেডিং */
+    .dropdown-mega h6 {
+        white-space: nowrap;
     }
 
     .border-end {
@@ -284,14 +316,14 @@
     @if (!$isUser)
         <div class="d-none d-lg-block border-top bg-white shadow-sm">
             <div class="container-fluid" style="max-width: 1400px;">
-                <nav class="d-flex align-items-center justify-content-center text-secondary py-1 position-relative kwork-custom-nav"
+                <nav class="d-flex align-items-center justify-content-center text-secondary py-1 kwork-custom-nav"
                     style="font-size: 14px; font-weight: 500;">
 
                     @foreach ($categories->sortByDesc(function ($category) {
             return $category->subCategories->count();
         })->take(7) as $category)
                         @if ($category->subCategories && $category->subCategories->count() > 0)
-                            <div class="nav-mega-wrapper">
+                            <div class="position-relative nav-mega-wrapper">
                                 <a href="{{ route('category.wise.product', [slug($category->name), $category->id]) }}"
                                     class="nav-link text-dark px-3 py-2 border-bottom border-2 border-white"
                                     style="text-transform: capitalize; font-size: 14px;">
@@ -314,7 +346,8 @@
                                                 @foreach ($chunk as $subCategory)
                                                     <div class="mb-3">
                                                         <a href="{{ route('subcategory.wise.product', [slug($subCategory->name), $subCategory->id]) }}"
-                                                            class="mega-menu-link">
+                                                            class="mega-menu-link"
+                                                            title="{{ __($subCategory->name) }}">
                                                             {{ __($subCategory->name) }}
                                                         </a>
                                                     </div>
