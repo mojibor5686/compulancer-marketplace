@@ -280,7 +280,7 @@
         })->take(7) as $category)
                         @if ($category->subCategories && $category->subCategories->count() > 0)
                             <div class="position-relative nav-mega-wrapper">
-                                <a href="#"
+                                <a href="{{ route('category.wise.product', [slug($category->name), $category->id]) }}"
                                     class="nav-link text-dark px-3 py-2 border-bottom border-2 border-transparent"
                                     style="text-transform: capitalize; font-size: 14px;">
                                     {{ __($category->name) }}
@@ -300,7 +300,7 @@
                                                 </h6>
 
                                                 @foreach ($chunk as $subCategory)
-                                                    <a href="#" class="mega-menu-link"
+                                                    <a href="{{ route('category.wise.product', [slug($subCategory->name), $subCategory->id]) }}"
                                                         style="text-transform: capitalize; font-size: 13px;">
                                                         {{ __($subCategory->name) }}
                                                     </a>
@@ -311,7 +311,8 @@
                                 </div>
                             </div>
                         @else
-                            <a href="#" class="nav-link text-dark px-3 py-2"
+                            <a href="{{ route('category.wise.product', [slug($category->name), $category->id]) }}"
+                                class="nav-link text-dark px-3 py-2"
                                 style="text-transform: capitalize; font-size: 14px;">
                                 {{ __($category->name) }}
                             </a>
