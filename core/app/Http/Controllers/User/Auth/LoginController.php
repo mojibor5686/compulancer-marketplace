@@ -11,174 +11,167 @@ use Status;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
-class LoginController extends Controller
-{
+class LoginController extends Controller {
     use AuthenticatesUsers;
 
     protected $username;
 
-    public function __construct()
-    {
+    public function __construct() {
         parent::__construct();
         $this->username = $this->findUsername();
     }
 
-    public function showLoginForm()
-    {
-        $pageTitle = "Login";
+    public function showLoginForm() {
+        $pageTitle = 'Login';
         Intended::identifyRoute();
-        return view('Template::user.auth.login', compact('pageTitle'));
+        return view( 'Template::user.auth.login', compact( 'pageTitle' ) );
     }
 
     /**
-     * Normal Login (Form Submission)
-     */
-    public function login(Request $request)
-    {
-        $this->validateLogin($request);
+    * Normal Login ( Form Submission )
+    */
 
-        if (!verifyCaptcha()) {
-            $notify[] = ['error', 'Invalid captcha provided'];
-            return back()->withNotify($notify);
+    public function login( Request $request ) {
+        $this->validateLogin( $request );
+
+        if ( !verifyCaptcha() ) {
+            $notify[] = [ 'error', 'Invalid captcha provided' ];
+            return back()->withNotify( $notify );
         }
 
-        if ($this->hasTooManyLoginAttempts($request)) {
-            $this->fireLockoutEvent($request);
-            return $this->sendLockoutResponse($request);
+        if ( $this->hasTooManyLoginAttempts( $request ) ) {
+            $this->fireLockoutEvent( $request );
+            return $this->sendLockoutResponse( $request );
         }
 
-        if ($this->attemptLogin($request)) {
-            return $this->sendLoginResponse($request);
+        if ( $this->attemptLogin( $request ) ) {
+            return $this->sendLoginResponse( $request );
         }
 
-        $this->incrementLoginAttempts($request);
+        $this->incrementLoginAttempts( $request );
         Intended::reAssignSession();
 
-        return $this->sendFailedLoginResponse($request);
+        return $this->sendFailedLoginResponse( $request );
     }
 
     /**
-     * AJAX Login (Handles Login via AJAX Request)
-     */
-    public function loginAjax(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
+    * AJAX Login ( Handles Login via AJAX Request )
+    */
+
+    public function loginAjax( Request $request ) {
+        $validator = Validator::make( $request->all(), [
             'username' => 'required|string',
             'password' => 'required|string',
-        ]);
+        ] );
 
-        if ($validator->fails()) {
-            return response()->json([
+        if ( $validator->fails() ) {
+            return response()->json( [
                 'success' => false,
                 'error' => $validator->errors()->first(),
-                'captcha' => view('Template::partials.captcha')->render()
-            ], 422);
+                'captcha' => view( 'Template::partials.captcha' )->render()
+            ], 422 );
         }
 
-        if (!verifyCaptcha()) {
-            return response()->json([
+        if ( !verifyCaptcha() ) {
+            return response()->json( [
                 'success' => false,
                 'error' => 'Invalid captcha provided',
-                'captcha' => view('Template::partials.captcha')->render()
-            ], 400);
+                'captcha' => view( 'Template::partials.captcha' )->render()
+            ], 400 );
         }
 
-        if ($this->hasTooManyLoginAttempts($request)) {
-            return response()->json([
+        if ( $this->hasTooManyLoginAttempts( $request ) ) {
+            return response()->json( [
                 'success' => false,
                 'error' => 'Too many login attempts. Please try again later.',
-                'captcha' => view('Template::partials.captcha')->render()
-            ], 429);
+                'captcha' => view( 'Template::partials.captcha' )->render()
+            ], 429 );
         }
 
-        if (Auth::attempt([
-            filter_var($request->username, FILTER_VALIDATE_EMAIL) ? 'email' : 'username' => $request->username,
+        if ( Auth::attempt( [
+            filter_var( $request->username, FILTER_VALIDATE_EMAIL ) ? 'email' : 'username' => $request->username,
             'password' => $request->password
-        ], $request->remember)) {
-            return response()->json(['success' => true], 200);
+        ], $request->remember ) ) {
+            return response()->json( [ 'success' => true ], 200 );
         }
 
-        return response()->json([
+        return response()->json( [
             'success' => false,
             'error' => 'Invalid login credentials.',
-            'captcha' => view('Template::partials.captcha')->render()
-        ], 401);
+            'captcha' => view( 'Template::partials.captcha' )->render()
+        ], 401 );
     }
 
-
     /**
-     * Determine login field (email or username)
-     */
-    public function findUsername()
-    {
-        $login = request()->input('username');
-        $fieldType = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
-        request()->merge([$fieldType => $login]);
+    * Determine login field ( email or username )
+    */
+
+    public function findUsername() {
+        $login = request()->input( 'username' );
+        $fieldType = filter_var( $login, FILTER_VALIDATE_EMAIL ) ? 'email' : 'username';
+        request()->merge( [ $fieldType => $login ] );
         return $fieldType;
     }
 
-    public function username()
-    {
+    public function username() {
         return $this->username;
     }
 
-    protected function validateLogin($request)
-    {
+    protected function validateLogin( $request ) {
 
-        $validator = Validator::make($request->all(), [
+        $validator = Validator::make( $request->all(), [
             $this->username() => 'required|string',
             'password' => 'required|string',
-        ]);
-        if ($validator->fails()) {
+        ] );
+        if ( $validator->fails() ) {
             Intended::reAssignSession();
             $validator->validate();
         }
     }
 
-    public function logout()
-    {
+    public function logout() {
         $this->guard()->logout();
         request()->session()->invalidate();
 
-        $notify[] = ['success', 'You have been logged out.'];
-        return to_route('user.login')->withNotify($notify);
+        $notify[] = [ 'success', 'You have been logged out.' ];
+        return redirect( '/' )->withNotify( $notify );
     }
 
     /**
-     * Handle user login tracking (IP, device info)
-     */
-    public function authenticated(Request $request, $user)
-    {
+    * Handle user login tracking ( IP, device info )
+    */
+
+    public function authenticated( Request $request, $user ) {
         $user->tv = $user->ts == Status::VERIFIED ? Status::UNVERIFIED : Status::VERIFIED;
         $user->save();
 
         $ip = getRealIP();
-        $exist = UserLogin::where('user_ip', $ip)->first();
+        $exist = UserLogin::where( 'user_ip', $ip )->first();
 
         $userLogin = new UserLogin();
-        if ($exist) {
+        if ( $exist ) {
             $userLogin->longitude = $exist->longitude;
             $userLogin->latitude = $exist->latitude;
             $userLogin->city = $exist->city;
             $userLogin->country_code = $exist->country_code;
             $userLogin->country = $exist->country;
         } else {
-            $info = json_decode(json_encode(getIpInfo()), true);
-            $userLogin->longitude =  isset($info['long']) ? implode(',',$info['long']) : '';
-            $userLogin->latitude =  isset($info['lat']) ? implode(',',$info['lat']) : '';
-            $userLogin->city =  isset($info['city']) ? implode(',',$info['city']) : '';
-            $userLogin->country_code = isset($info['code']) ? implode(',',$info['code']) : '';
-            $userLogin->country =  isset($info['country']) ? implode(',',$info['country']) : '';
+            $info = json_decode( json_encode( getIpInfo() ), true );
+            $userLogin->longitude =  isset( $info[ 'long' ] ) ? implode( ',', $info[ 'long' ] ) : '';
+            $userLogin->latitude =  isset( $info[ 'lat' ] ) ? implode( ',', $info[ 'lat' ] ) : '';
+            $userLogin->city =  isset( $info[ 'city' ] ) ? implode( ',', $info[ 'city' ] ) : '';
+            $userLogin->country_code = isset( $info[ 'code' ] ) ? implode( ',', $info[ 'code' ] ) : '';
+            $userLogin->country =  isset( $info[ 'country' ] ) ? implode( ',', $info[ 'country' ] ) : '';
         }
 
         $userAgent = osBrowser();
         $userLogin->user_id = $user->id;
         $userLogin->user_ip = $ip;
-        $userLogin->browser = isset($userAgent['browser']) ? $userAgent['browser'] : '';
-        $userLogin->os = isset($userAgent['os_platform']) ? $userAgent['os_platform'] : '';
+        $userLogin->browser = isset( $userAgent[ 'browser' ] ) ? $userAgent[ 'browser' ] : '';
+        $userLogin->os = isset( $userAgent[ 'os_platform' ] ) ? $userAgent[ 'os_platform' ] : '';
         $userLogin->save();
 
         $redirection = Intended::getRedirection();
-        return $redirection ? $redirection : to_route('user.home');
+        return $redirection ? $redirection : to_route( 'user.home' );
     }
 }
