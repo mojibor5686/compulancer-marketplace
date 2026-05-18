@@ -6,8 +6,8 @@
   --heading-font: "Inter", sans-serif;
   --body-font: "Inter", sans-serif;
   /* Base Color */
-  --base-h: 201;
-  --base-s: 99%;
+  --base-h: 214;
+  --base-s: 84%;
   --base-l: 58%;
   --base: var(--base-h) var(--base-s) var(--base-l);
   --base-d-100: var(--base-h) var(--base-s) calc(var(--base-l) - var(--base-l) * 0.1);
