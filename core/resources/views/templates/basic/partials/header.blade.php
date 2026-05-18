@@ -70,12 +70,15 @@
     }
 
     @media (max-width: 991.98px) {
-        #signInModal .modal-content {
+
+        #signInModal .modal-content,
+        #signUpModal .modal-content {
             border-radius: 0px !important;
             height: 100%;
         }
 
-        #signInModal .modal-header {
+        #signInModal .modal-header,
+        #signUpModal .modal-header {
             padding-top: 30px !important;
         }
     }
