@@ -181,7 +181,7 @@
                             aria-expanded="false" data-bs-display="static">
                             <img src="{{ getImage(getFilePath('userProfile') . '/' . $user->image, isAvatar: true) }}"
                                 alt="User Avatar" class="rounded-circle border"
-                                style="width: 38px; height: 38px; object-fit: cover;" />
+                                style="width: 42px; height: 42px; object-fit: cover;" />
                         </button>
                         <div class="dropdown-menu dropdown-menu-end shadow border-0 mt-2 p-0"
                             style="width: 240px; border-radius: 8px;">
@@ -306,8 +306,9 @@
     <div class="offcanvas-body px-3 py-4">
         @guest
             <div class="d-flex flex-column gap-2 mb-4">
-                <a href="{{ route('user.register') }}" class="btn btn-kwork w-100 font-weight-bold py-2">Sign Up</a>
-                <a href="{{ route('user.login') }}"
+                <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#signUpModal"
+                    class="btn btn-kwork w-100 font-weight-bold py-2">Sign Up</a>
+                <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#signInModal"
                     class="btn btn-light w-100 font-weight-bold border text-secondary py-2">Sign In</a>
             </div>
         @endguest
