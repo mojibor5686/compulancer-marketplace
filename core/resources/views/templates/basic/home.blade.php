@@ -2,7 +2,7 @@
     <main class="page-wrapper">
         <section class="jss-section pt-40 pb-80">
             <div class="container">
-                <section class="kwork-catalog-section py-5 bg-white">
+                <section class="kwork-catalog-section py-5">
                     <div class="container">
                         <h2 class="catalog-main-title mb-4">@lang("Explore Kwork's Evergrowing Catalog")</h2>
 
