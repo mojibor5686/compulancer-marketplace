@@ -3,7 +3,7 @@
     <main class="page-wrapper pt-0">
         <section class="category pt-80 pb-80">
             <div class="container">
-                @if (request()->routeIs('category.wise.product'))
+                {{-- @if (request()->routeIs('category.wise.product'))
                     <div class="category2-slider">
                         @foreach ($category->subCategories as $subcategory)
                             <div class="category2-slider__slide">
@@ -23,7 +23,7 @@
                             </div>
                         @endforeach
                     </div>
-                @endif
+                @endif --}}
 
                 <div class="page-top">
                     <div class="page-top__wrapper">

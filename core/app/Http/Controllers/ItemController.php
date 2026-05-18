@@ -142,14 +142,12 @@ class ItemController extends Controller
         $pageTitle = $category->name;
         $items = $this->getItems('category_id', $category->id, 'checkSubCategory');
 
-        // Calculate counts for each item type
         $counts = [
             'service' => count($items['service']),
             'software' => count($items['software']),
             'job' => count($items['job']),
         ];
 
-        // Find the key with the maximum count
         $maxKey = array_keys($counts, max($counts))[0];
 
 
@@ -171,14 +169,12 @@ class ItemController extends Controller
         $items = $this->getItems('sub_category_id', $subcategory->id, 'checkCategory');
         $isSubcat = True;
 
-        // Calculate counts for each item type
         $counts = [
             'service' => count($items['service']),
             'software' => count($items['software']),
             'job' => count($items['job']),
         ];
 
-        // Find the key with the maximum count
         $maxKey = array_keys($counts, max($counts))[0];
 
         return view('Template::products', compact('pageTitle', 'subcategory', 'items', 'isSubcat', 'maxKey'));
