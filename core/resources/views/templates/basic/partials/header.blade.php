@@ -56,6 +56,43 @@
         color: #10c469;
     }
 
+    .auth-toggle-wrapper {
+        display: flex;
+        background: #f8f9fa;
+        border: 1px solid #e9ecef;
+        border-radius: 8px;
+        padding: 5px;
+        position: relative;
+    }
+
+    .auth-toggle-item {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 10px 0;
+        font-size: 14px;
+        font-weight: 600;
+        color: #6c757d;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border-radius: 6px;
+    }
+
+    .toggle-icon {
+        font-size: 15px;
+    }
+
+    .auth-toggle-item.active {
+        background: #ffffff;
+        color: #28a745;
+        box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.05);
+        border-bottom: 2px solid #28a745;
+        border-bottom-left-radius: 0px;
+        border-bottom-right-radius: 0px;
+    }
+
     @media (min-width: 992px) {
         .desktop-stretch-width {
             width: stretch !important;
@@ -72,12 +109,14 @@
     @media (max-width: 991.98px) {
 
         #signInModal .modal-content,
+        #profileCompleteModal .modal-content,
         #signUpModal .modal-content {
             border-radius: 0px !important;
             height: 100%;
         }
 
         #signInModal .modal-header,
+        #profileCompleteModal .modal-header,
         #signUpModal .modal-header {
             padding-top: 30px !important;
         }
@@ -738,6 +777,17 @@
 @endif
 @push('script')
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggleItems = document.querySelectorAll('.auth-toggle-item');
+
+            toggleItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    document.querySelector('.auth-toggle-item.active').classList.remove('active');
+                    this.classList.add('active');
+                });
+            });
+        });
+
         document.addEventListener('DOMContentLoaded', function() {
 
             @if (auth()->check() && auth()->user()->profile_complete == 0)
