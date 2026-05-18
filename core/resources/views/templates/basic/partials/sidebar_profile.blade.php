@@ -11,7 +11,7 @@
             <div style="padding: 0 24px 24px 24px; position: relative;">
 
                 <div
-                    style="display: flex; align-items: flex-end; margin-top: -8px; margin-bottom: 24px; position: relative; z-index: 2;">
+                    style="display: flex; align-items: flex-end; margin-top: -5px; margin-bottom: 24px; position: relative; z-index: 2;">
                     <div style="position: relative; margin-right: 16px; flex-shrink: 0;">
                         <img src="{{ getImage(getFilePath('userProfile') . '/' . @$user->image, isAvatar: true) }}"
                             alt="{{ __($user->username) }}"
