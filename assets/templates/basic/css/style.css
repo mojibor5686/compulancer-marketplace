@@ -3538,13 +3538,13 @@ button:focus {
 }
 
 .badge--base {
-  color: hsl(var(--base));
+  color: #3C88EE;
   background-color: hsl(var(--base-l-800));
 }
 
 .badge--base.badge--solid {
   color: hsl(var(--white));
-  background-color: hsl(var(--base));
+  background-color: #3C88EE;
 }
 
 .badge--primary {
