@@ -164,9 +164,8 @@
                 </a>
 
                 @if (auth()->check())
-                    <a href="{{ route('user.profile') }}"
-                        class="d-block d-lg-none text-secondary font-weight-bold text-decoration-none small">My
-                        Profile</a>
+                    <a href=""
+                        class="d-block d-lg-none text-secondary font-weight-bold text-decoration-none small"></a>
                 @else
                     <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#signInModal"
                         class="d-block d-lg-none text-secondary font-weight-bold text-decoration-none small">Sign In</a>
