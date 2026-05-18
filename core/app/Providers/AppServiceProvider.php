@@ -92,11 +92,20 @@ class AppServiceProvider extends ServiceProvider
                 "Template::partials.header"
             ],
             function ($view) {
-                $view->with([
-                    'categories' => Category::active()
-                        ->orderBy('name')
-                        ->get()
-                ]);
+                $data = [
+                    'categories' => Category::active()->orderBy('name')->get()
+                ];
+
+                if (Auth::check() && Auth::user()->profile_complete == Status::NO) {
+                    $info = json_decode(json_encode(getIpInfo()), true);
+                    $data['mobileCode'] = isset($info['code']) ? implode(',', $info['code']) : '';
+                    $data['countries']  = json_decode(file_get_contents(resource_path('views/partials/country.json')));
+                } else {
+                    $data['mobileCode'] = '';
+                    $data['countries']  = [];
+                }
+
+                $view->with($data);
             }
         );
 
