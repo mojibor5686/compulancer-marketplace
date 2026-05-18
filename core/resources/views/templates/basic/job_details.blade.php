@@ -1,7 +1,7 @@
 @extends('Template::layouts.frontend')
 @section('content')
     <main class="page-wrapper">
-        <section class="jss-details py-120">
+        <section class="jss-details py-40">
             <div class="container">
                 <div class="row gy-5">
                     <!-- Main Content -->
