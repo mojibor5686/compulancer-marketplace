@@ -291,7 +291,7 @@
             return $category->subCategories->count();
         })->take(7) as $category)
                         @if ($category->subCategories && $category->subCategories->count() > 0)
-                            <div class="position-relative nav-mega-wrapper">
+                            <div class="nav-mega-wrapper">
                                 <a href="{{ route('category.wise.product', [slug($category->name), $category->id]) }}"
                                     class="nav-link text-dark px-3 py-2 border-bottom border-2 border-white"
                                     style="text-transform: capitalize; font-size: 14px;">
@@ -299,9 +299,9 @@
                                 </a>
 
                                 <div class="dropdown-mega bg-white border rounded shadow p-4">
-                                    <div class="row position-relative">
+                                    <div class="row">
                                         @foreach ($category->subCategories->chunk(ceil($category->subCategories->count() / 2)) as $chunk)
-                                            <div class="col-6 {{ $loop->first ? 'border-end' : 'ps-4 pl-4' }}">
+                                            <div class="col-6 {{ $loop->first ? 'border-end' : 'ps-4' }}">
                                                 <h6 class="font-weight-bold text-dark pb-1 mb-3"
                                                     style="font-size: 14px; opacity: 0.9;">
                                                     @if ($loop->first)
@@ -336,7 +336,6 @@
                             <span class="category-divider">|</span>
                         @endif
                     @endforeach
-
                 </nav>
             </div>
         </div>
