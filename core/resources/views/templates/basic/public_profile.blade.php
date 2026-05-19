@@ -147,8 +147,7 @@
         }
 
         .custom--tab .nav-link.active {
-            color: #3C88EE !important;
-            border-bottom: 2px solid #3C88EE !important;
+            color: #ffffff !important;
             border-radius: 0 !important;
         }
 
