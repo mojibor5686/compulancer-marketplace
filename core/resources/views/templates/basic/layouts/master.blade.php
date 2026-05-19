@@ -112,6 +112,16 @@
 
                             <div class="topnav-right d-flex align-items-center gap-4">
 
+                                <div class="topnav-left d-lg-block d-none">
+                                    <a href="{{ route('user.inbox.messages') }}"
+                                        class="text-decoration-none text-dark fw-medium d-flex align-items-center gap-2 fs-6"
+                                        style="transition: color 0.2s ease;"
+                                        onmouseover="this.style.color='var(--bs-primary)'"
+                                        onmouseout="this.style.color='var(--text-dark)'">
+                                        <span style="font-size: 14px;">@lang('Massage')</span>
+                                    </a>
+                                </div>
+
                                 <div class="notification-box position-relative cursor-pointer">
                                     <a href="#" class="text-dark position-relative">
                                         <i class="far fa-bell fs-4"></i>
@@ -147,7 +157,7 @@
                                                     <a href="{{ route('user.seller.home') }}"
                                                         class="text-decoration-none text-dark fw-bold d-flex align-items-center gap-2"
                                                         style="font-size: 13px;">
-                                                        <i class="las la-random text-primary"></i> @lang('Switch to Employer')
+                                                        <i class="las la-random text-primary"></i> @lang('Switch to Seller')
                                                     </a>
                                                 @else
                                                     <a href="{{ route('user.buyer.home') }}"
