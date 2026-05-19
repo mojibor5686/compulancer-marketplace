@@ -1,6 +1,6 @@
 <article class="card jss--card jss--card-{{ $type }}"
     style="background: #ffffff !important; border: 1px solid #eef2f5 !important; border-radius: 4px !important; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04) !important; overflow: hidden !important; display: flex !important; flex-direction: column !important; height: 100% !important; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important; position: relative !important;">
-
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@600;700;800&display=swap" rel="stylesheet">
     <div
         style="position: relative !important; display: block !important; width: 100% !important; aspect-ratio: 16 / 10 !important; overflow: hidden !important; background: #f8f9fa !important;">
         <a href="{{ route("$type.details", [slug($product->name), $product->id]) }}"
@@ -67,8 +67,7 @@
                     <span
                         style="display: inline-flex !important; align-items: center !important; gap: 4px !important; font-weight: 800 !important; color: #23c366 !important; font-size: 16px !important;">
                         <span
-                            style="font-size: 15px !important; font-weight: 600 !important; margin-right: 1px !important;">৳</span>
-
+                            style="font-family: 'Roboto', sans-serif !important; font-size: 15px !important; font-weight: 600 !important; margin-right: 1px !important;">৳</span>
                         {{ number_format($product->price, 2) }}
                     </span>
                     <span
