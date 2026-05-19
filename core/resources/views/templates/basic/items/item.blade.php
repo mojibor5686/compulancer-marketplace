@@ -27,7 +27,7 @@
                     <div
                         style="display: flex !important; flex-direction: column !important; line-height: 1.2 !important;">
                         <span
-                            style="font-size: 13px !important; font-weight: 700 !important; color: #404145 !important;">
+                            style="font-size: 13px text-transform: capitalize; !important; font-weight: 700 !important; color: #404145 !important;">
                             {{ $product->user ? $product->user->username : $product->username ?? 'babsmart_' }}
                         </span>
                         <span
@@ -47,7 +47,7 @@
             </div>
 
             <h6
-                style="margin: 0 0 16px 0 !important; font-size: 14px !important; font-weight: 400 !important; line-height: 1.4 !important; height: 38px !important; overflow: hidden !important; display: -webkit-box !important; -webkit-line-clamp: 2 !important; -webkit-box-orient: vertical !important;">
+                style="margin: 0 0 16px 0 !important; text-transform: capitalize; font-size: 14px !important; font-weight: 400 !important; line-height: 1.4 !important; height: 38px !important; overflow: hidden !important; display: -webkit-box !important; -webkit-line-clamp: 2 !important; -webkit-box-orient: vertical !important;">
                 <a href="{{ route("$type.details", [slug($product->name), $product->id]) }}"
                     style="color: #404145 !important; text-decoration: none !important; display: block !important; transition: color 0.1s ease !important;"
                     onmouseover="this.style.color='#3C88EE'" onmouseout="this.style.color='#404145'">
@@ -61,8 +61,11 @@
 
             <div
                 style="text-align: right !important; display: flex !important; flex-direction: row !important; justify-content: space-between; line-height: 1.1 !important;">
-                <span
-                    style="display: block !important; font-size: 10px !important; color: #74767e !important; text-transform: uppercase !important; font-weight: 600 !important; letter-spacing: 0.3px !important; margin-bottom: 2px !important;">@lang('Starting at')</span>
+                <div>
+                    <span>$500</span>
+                    <span
+                        style="display: block !important; font-size: 10px !important; color: #74767e !important; text-transform: uppercase !important; font-weight: 600 !important; letter-spacing: 0.3px !important; margin-bottom: 2px !important;">@lang('Starting at')</span>
+                </div>
                 <span style="color: #2b2b2b !important; font-size: 16px !important; font-weight: 700 !important;">
                     <x-item view="item-footer-right" :product="$product" :type="$type" />
                 </span>
