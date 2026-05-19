@@ -64,7 +64,13 @@
                 style="text-align: right !important; display: flex !important; flex-direction: row !important; justify-content: space-between; line-height: 1.1 !important;">
                 <div
                     style="display: flex; flex-direction: column; justify-content: start; align-items: baseline; gap:5px;">
-                    <span style="font-weight: 800; color:#23c366">$500</span>
+                    <span
+                        style="display: inline-flex !important; align-items: center !important; gap: 4px !important; font-weight: 800 !important; color: #23c366 !important; font-size: 16px !important;">
+                        <span
+                            style="font-size: 15px !important; font-weight: 600 !important; margin-right: 1px !important;">৳</span>
+
+                        {{ number_format($product->price, 2) }}
+                    </span>
                     <span
                         style="display: block !important; font-size: 10px !important; color: #74767e !important; text-transform: uppercase !important; font-weight: 600 !important; letter-spacing: 0.3px !important; margin-bottom: 2px !important;">@lang('Starting at')</span>
                 </div>
