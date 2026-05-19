@@ -22,12 +22,13 @@
                 <div style="display: flex !important; align-items: center !important; gap: 8px !important;">
                     <img src="{{ $product->user && $product->user->image ? getImage(getFilePath('userProfile') . '/' . $product->user->image) : asset('assets/images/default.png') }}"
                         alt="Seller"
-                        style="width: 28px !important; height: 28px !important; border-radius: 50% !important; object-fit: cover !important; display: block !important; border: 1px solid #e1e4e6 !important;">
+                        style="width: 32px !important; height: 32px !important; border-radius: 50% !important; object-fit: cover !important; display: block !important; border: 1px solid #e1e4e6 !important;">
 
                     <div
                         style="display: flex !important; flex-direction: column !important; line-height: 1.2 !important;">
                         <span
-                            style="font-size: 13px text-transform: capitalize; !important; font-weight: 700 !important; color: #404145 !important;">
+                            style="font-size: 13px !important; text-transform: capitalize !important; font-weight: 700 !important; color: #404145 !important; display: block !important; max-width: 110px !important; white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important;"
+                            title="{{ $product->user ? $product->user->username : $product->username ?? 'babsmart_' }}">
                             {{ $product->user ? $product->user->username : $product->username ?? 'babsmart_' }}
                         </span>
                         <span
