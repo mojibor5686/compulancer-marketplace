@@ -338,35 +338,45 @@
 
             .step-arrow-down {
                 position: absolute;
-                width: 160px;
-                height: 60px;
-                bottom: -30px;
-                right: -80px;
+                width: 133px;
+                height: 57px;
+                top: 45px;
+                right: -65px;
                 background-image: url("https://cdn.kwork.com/images/index/steps-choose-arrow.svg?ver=2");
                 background-repeat: no-repeat;
+                background-size: contain;
                 z-index: 1;
             }
 
             .step-arrow-up {
                 position: absolute;
-                width: 160px;
-                height: 60px;
-                top: -20px;
-                right: -80px;
+                width: 132px;
+                height: 57px;
+                top: 10px;
+                right: -65px;
                 background-image: url("https://cdn.kwork.com/images/index/steps-pay-arrow.svg?ver=2");
                 background-repeat: no-repeat;
+                background-size: contain;
                 z-index: 1;
             }
 
             .step-arrow-loop {
                 position: absolute;
-                width: 200px;
-                height: 110px;
-                bottom: -60px;
-                left: -100px;
+                width: 270px;
+                height: 112px;
+                top: 75px;
+                left: -135px;
                 background-image: url("https://cdn.kwork.com/images/index/steps-result-arrow.svg?ver=2");
                 background-repeat: no-repeat;
+                background-size: contain;
                 z-index: 1;
+            }
+
+            @media (min-width: 1200px) {
+                .row.justify-content-center {
+                    max-width: 1140px;
+                    margin: 0 auto;
+                }
             }
         </style>
     @endpush
