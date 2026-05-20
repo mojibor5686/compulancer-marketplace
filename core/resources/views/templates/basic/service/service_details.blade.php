@@ -1,9 +1,5 @@
 @extends('Template::layouts.frontend')
 @section('content')
-    @php
-        $forLoadMoreReviewId = $user->id;
-    @endphp
-
     <style>
         .kwork-hero-section {
             display: none
