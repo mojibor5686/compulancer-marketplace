@@ -22,7 +22,6 @@
         color: #3C88EE !important;
     }
 
-    /* ১. মেইন ন্যাভ কন্টেইনার */
     .kwork-custom-nav {
         display: flex;
         align-items: center;
@@ -31,10 +30,8 @@
         position: relative;
     }
 
-    /* ২. প্রতিটি ক্যাটাগরি র‍্যাপার */
     .nav-mega-wrapper {
         position: relative;
-        /* এখানে রিলেটিভ রাখতেই হবে, যেন ড্রপডাউন প্যারেন্ট ক্যাটাগরির পজিশন ট্র্যাক করতে পারে */
     }
 
     .nav-mega-wrapper .nav-link {
@@ -42,12 +39,10 @@
         white-space: nowrap;
     }
 
-    /* ৩. মেগা ড্রপডাউন বক্স (বেস কনফিগারেশন) */
     .nav-mega-wrapper .dropdown-mega {
         position: absolute;
         top: 100%;
         width: 480px;
-        /* মেগা মেনুর জন্য স্ট্যান্ডার্ড ফিক্সড উইডথ */
         opacity: 0;
         visibility: hidden;
         transform: translateY(10px);
@@ -56,23 +51,16 @@
         background: #ffffff;
     }
 
-    /* =========================================================================
-       ৪. আপনার দেওয়া লজিক অনুযায়ী স্মার্ট পজিশনিং (মাস্টার ফিক্স)
-       ========================================================================= */
-
-    /* প্রথম ৩টি ক্যাটাগরির ড্রপডাউন তাদের ক্যাটাগরির শুরু (Left: 0) থেকে শুরু হবে এবং ডানে বাড়বে */
     .nav-mega-wrapper:nth-child(-n+5) .dropdown-mega {
         left: 0;
         right: auto;
     }
 
-    /* শেষের ৩টি ক্যাটাগরির ড্রপডাউন তাদের ক্যাটাগরির শেষ (Right: 0) থেকে শুরু হবে এবং বামে বাড়বে */
     .nav-mega-wrapper:nth-child(n+7) .dropdown-mega {
         left: auto;
         right: 0;
     }
 
-    /* মাঝখানের ক্যাটাগরিটির ড্রপডাউন একদম সেন্টারে ব্যালেন্স থাকবে */
     .nav-mega-wrapper:nth-child(6) .dropdown-mega {
         left: 50%;
         transform: translateX(-50%) translateY(10px);
@@ -82,13 +70,11 @@
         transform: translateX(-50%) translateY(0);
     }
 
-    /* ৫. হোভার অ্যাকশন */
     .nav-mega-wrapper:hover .dropdown-mega {
         opacity: 1;
         visibility: visible;
     }
 
-    /* মাঝখানের আইটেম বাদে বাকিগুলোর জন্য হোভার ট্রান্সফর্ম */
     .nav-mega-wrapper:not(:nth-child(6)):hover .dropdown-mega {
         transform: translateY(0);
     }
@@ -98,7 +84,6 @@
         color: #3C88EE !important;
     }
 
-    /* ৬. অন্যান্য এলিমেন্ট স্টাইল */
     .category-divider {
         color: #dee2e6;
         padding: 0 8px;
