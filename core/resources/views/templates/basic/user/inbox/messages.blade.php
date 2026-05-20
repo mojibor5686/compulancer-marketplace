@@ -284,7 +284,10 @@
             };
 
             // Subscribe to chat-message events
-            pusherConnection('private-inbox-channel.' + "{{ $inbox->unique_id }}", 'chat-message', handleChatMessage);
+            @if ($inbox)
+                pusherConnection('private-inbox-channel.' + "{{ $inbox->unique_id }}", 'chat-message',
+                    handleChatMessage);
+            @endif
 
             {{-- blade-formatter-disable --}}
             // Handle incoming chat messages
@@ -403,7 +406,7 @@
             // Refresh chat messages via Ajax
             $('.refresh').on('click', function() {
                 $.ajax({
-                    url: "{{ route('user.inbox.messages.refresh', $inbox->unique_id) }}",
+                    url: "{{ $inbox ? route('user.inbox.messages.refresh', $inbox->unique_id) : '#' }}",
                     type: 'GET',
                     success: function(response) {
                         $('.chat-box__thread').html(response.html);
