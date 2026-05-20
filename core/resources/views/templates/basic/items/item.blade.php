@@ -20,7 +20,7 @@
                 style="display: flex !important; align-items: center !important; justify-content: space-between !important; margin-bottom: 12px !important; padding-bottom: 2px !important;">
 
                 <div onclick="window.open('{{ route('public.profile', ['username' => $product->user->username, 'contact' => 'true']) }}', '_blank')"
-                    style="display: flex !important; align-items: center !important; gap: 8px !important;">
+                    style="display: flex !important; align-items: center !important; gap: 8px !important; cursor: pointer !important;">
                     <img src="{{ $product->user && $product->user->image ? getImage(getFilePath('userProfile') . '/' . $product->user->image) : asset('assets/images/default.png') }}"
                         alt="Seller"
                         style="width: 32px !important; height: 32px !important; border-radius: 50% !important; object-fit: cover !important; display: block !important; border: 1px solid #e1e4e6 !important;">
