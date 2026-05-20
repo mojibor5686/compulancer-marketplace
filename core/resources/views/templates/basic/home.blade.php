@@ -353,7 +353,7 @@
                 height: 60px;
                 top: -20px;
                 right: -80px;
-                background-image: url("data:https://cdn.kwork.com/images/index/steps-pay-arrow.svg?ver=2");
+                background-image: url("https://cdn.kwork.com/images/index/steps-pay-arrow.svg?ver=2");
                 background-repeat: no-repeat;
                 z-index: 1;
             }
