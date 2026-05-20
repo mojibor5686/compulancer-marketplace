@@ -279,15 +279,12 @@
 
                 let firstLoad = true;
 
-                // Function to perform AJAX request for filtering and pagination
                 function performAjaxRequest(page = 1) {
                     let url = new URL("{{ route('filter') }}");
 
-                    // Set page parameter
                     url.searchParams.set('page', page);
 
 
-                    // Get sorting value from the select dropdown
                     let sortValue = $('.sortBy').val();
                     if (sortValue) {
                         url.searchParams.set('sorting', sortValue);
@@ -295,17 +292,14 @@
                         url.searchParams.delete('sorting');
                     }
 
-                    // Add level filters to URL parameters
                     $('input[name="level[]"]:checked').each(function() {
                         url.searchParams.append('level[]', $(this).val());
                     });
 
-                    // Add feature filters to URL parameters
                     $('input[name="feature[]"]:checked').each(function() {
                         url.searchParams.append('feature[]', $(this).val());
                     });
 
-                    // Set or update price filter
                     let priceRange = $('#price').val();
                     if (priceRange) {
                         url.searchParams.set('price', priceRange);
