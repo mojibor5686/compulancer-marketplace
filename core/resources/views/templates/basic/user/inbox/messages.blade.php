@@ -118,7 +118,7 @@
                                                 accept=".jpg, .png, .jpeg, .pdf">
                                         </div>
                                         <button type="submit" class="btn send-btn"
-                                            style="display: inline-flex; font-size: 16px; align-items: center; justify-content: center; padding: 0.75rem 2.5rem; min-width: 8rem; border-radius: 5rem; background-color: #3a84ff !important; color: #ffffff; border: none; font-weight: 500;">
+                                            style="display: inline-flex; font-size: 20px; align-items: center; justify-content: center; padding: 0.75rem; width: 3.5rem; height: 3.5rem; border-radius: 50%; background-color: #3a84ff !important; color: #ffffff; border: none; font-weight: 500; transition: transform 0.2s ease;">
                                             <i class="las la-paper-plane"></i>
                                         </button>
                                     </div>
@@ -207,7 +207,7 @@
             .chat-sidebar-toggle {
                 position: fixed;
                 top: 50%;
-                left: 20px;
+                left: 10px;
                 transform: translateY(-50%);
                 z-index: 1040;
                 border-radius: 50%;
