@@ -18,6 +18,7 @@
 
             <form action="{{ route('user.inbox.create') }}" method="POST">
                 @csrf
+
                 <input name="receiver_id" type="hidden" value="{{ encrypt($user->id) }}">
 
                 <div class="modal-body" style="padding: 24px;">

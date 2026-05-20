@@ -284,8 +284,6 @@
                                 </div>
                             @endif
 
-                            @include('Template::partials.contact_modal')
-
                             <!-- Short Profile Widget -->
                             <div class="jss-details-sidebar__block">
                                 @include('Template::partials.short_profile', [
@@ -300,6 +298,8 @@
             </div>
             <!-- End of container -->
         </section>
+
+        @include('Template::partials.contact_modal', ['user' => $productDetails->user])
 
         @php
             // ব্লেড ফাইলের ভেতরেই ডাইনামিকালি রিলেটেড সার্ভিস কুয়েরি করা হলো
