@@ -24,8 +24,8 @@
                                     <span style="color: #222222; font-weight: 500;">@lang('New Logo')</span>
                                 </nav>
 
-                                <h1 class="kwork-gig-title mb-1"
-                                    style="font-size: 32px; font-weight: 700; color: #222222; line-height: 1.25; letter-spacing: -0.5px;">
+                                <h1 class="kwork-gig-title mb-1 fs-3 fs-lg-1"
+                                    style="font-weight: 700; color: #222222; line-height: 1.25; letter-spacing: -0.5px;">
                                     {{ __($productDetails->title ?? 'I will do unique, modern and professional business logo design') }}
                                 </h1>
 
