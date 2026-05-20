@@ -378,6 +378,232 @@
         </style>
     @endpush
 
+    <section class="solutions-section"
+        style="background-color: #ffffff; padding: 80px 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+        <div class="container">
+            <div class="row align-items-center">
+
+                <div class="col-lg-6 col-12 order-1">
+                    <h2 class="solutions-heading">
+                        @lang('Intelligent business solutions for entrepreneurs')
+                    </h2>
+
+                    <div class="solutions-list mt-4">
+                        <div class="solution-item d-flex align-items-start gap-3">
+                            <div class="check-icon-box">
+                                <i class="las la-check"></i>
+                            </div>
+                            <div>
+                                <h4 class="item-title">@lang('Scaling Made Easy')</h4>
+                                <p class="item-desc">@lang('Find professional talent to boost your conversion, sales, and traffic.')</p>
+                            </div>
+                        </div>
+
+                        <div class="solution-item d-flex align-items-start gap-3">
+                            <div class="check-icon-box">
+                                <i class="las la-check"></i>
+                            </div>
+                            <div>
+                                <h4 class="item-title">@lang('Outsource & Save (up to 87%!)')</h4>
+                                <p class="item-desc">@lang('Dramatically reduce your expenses with fixed-price freelance services for every budget.')</p>
+                            </div>
+                        </div>
+
+                        <div class="solution-item d-flex align-items-start gap-3">
+                            <div class="check-icon-box">
+                                <i class="las la-check"></i>
+                            </div>
+                            <div>
+                                <h4 class="item-title">@lang('Focus on Priorities')</h4>
+                                <p class="item-desc">@lang('Spend up to 75% less time on business tasks and focus on what really matters for growth.')</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-12 order-2 mt-4 mt-lg-0">
+                    <div class="video-block-wrapper">
+                        <div class="video-poster-layer"
+                            style="background-image: url('https://cdn.kwork.com/images/index/video-preview.jpg');">
+                            <div class="video-overlay">
+                                <div class="video-logo-text">KWORK<span
+                                        style="display:block; font-size:10px; font-weight:400; letter-spacing:2px; color:#ddd;">PROFESSIONAL
+                                        SERVICES</span></div>
+
+                                <button class="play-trigger-btn" data-bs-toggle="modal" data-bs-target="#kworkVideoModal">
+                                    <i class="las la-play"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <div class="modal fade" id="kworkVideoModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content" style="background: transparent; border: none;">
+                <div class="modal-header border-0 p-0 justify-content-end">
+                    <button type="button" class="btn-close btn-close-white mb-2" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-0">
+                    <div class="ratio ratio-16x9" style="border-radius: 16px; overflow: hidden;">
+                        <video controls id="kworkVideo">
+                            <source src="YOUR_VIDEO_FILE_PATH_HERE.mp4" type="video/mp4">
+                            @lang('Your browser does not support the video tag.')
+                        </video>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @push('style')
+        <style>
+            .solutions-heading {
+                font-size: 28px;
+                font-weight: 700;
+                color: #222222;
+                line-height: 1.3;
+                letter-spacing: -0.5px;
+                max-width: 480px;
+            }
+
+            .solution-item {
+                margin-bottom: 28px;
+            }
+
+            .solution-item:last-child {
+                margin-bottom: 0;
+            }
+
+            .check-icon-box {
+                color: #1dbf73;
+                font-size: 18px;
+                font-weight: 900;
+                margin-top: 2px;
+            }
+
+            .item-title {
+                font-size: 16px;
+                font-weight: 700;
+                color: #222222;
+                margin-bottom: 6px;
+            }
+
+            .item-desc {
+                font-size: 14px;
+                color: #555555;
+                line-height: 1.5;
+                margin: 0;
+                max-width: 440px;
+            }
+
+            .video-block-wrapper {
+                position: relative;
+                width: 100%;
+                padding-top: 56.25%;
+                border-radius: 16px;
+                overflow: hidden;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            }
+
+            .video-poster-layer {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+            }
+
+            .video-overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.15);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .video-logo-text {
+                position: absolute;
+                text-align: center;
+                color: #ffffff;
+                font-size: 32px;
+                font-weight: 800;
+                letter-spacing: 4px;
+                opacity: 0.9;
+                pointer-events: none;
+                user-select: none;
+            }
+
+            .play-trigger-btn {
+                width: 70px;
+                height: 70px;
+                background: rgba(0, 0, 0, 0.5);
+                border: 2px solid rgba(255, 255, 255, 0.7);
+                border-radius: 50%;
+                color: #ffffff;
+                font-size: 28px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                z-index: 3;
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                padding-left: 5px;
+            }
+
+            .play-trigger-btn:hover {
+                background: rgba(0, 0, 0, 0.7);
+                transform: scale(1.1);
+                border-color: #ffffff;
+            }
+
+            @media (max-width: 991px) {
+                .solutions-heading {
+                    font-size: 24px;
+                    max-width: 100%;
+                }
+
+                .solutions-section {
+                    padding: 40px 0;
+                }
+
+                .video-block-wrapper {
+                    margin-top: 15px;
+                }
+
+                .video-logo-text {
+                    font-size: 24px;
+                }
+
+                .play-trigger-btn {
+                    width: 55px;
+                    height: 55px;
+                    font-size: 22px;
+                }
+            }
+        </style>
+    @endpush
+
+    @push('script')
+        <script>
+            document.getElementById('kworkVideoModal').addEventListener('hidden.bs.modal', function() {
+                document.getElementById('kworkVideo').pause();
+            });
+        </script>
+    @endpush
+
     <section class="cta-section">
         <div class="container">
             <div class="row justify-content-center">
