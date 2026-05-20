@@ -678,11 +678,11 @@
             }
 
             .portfolio-slider-section .swiper-button-prev {
-                left: 50px;
+                left: -20px;
             }
 
             .portfolio-slider-section .swiper-button-next {
-                right: 50px;
+                right: -20px;
             }
         </style>
     @endpush
