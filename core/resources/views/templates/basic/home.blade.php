@@ -442,6 +442,271 @@
         </div>
     </section>
 
+    @push('style')
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+        <style>
+            .portfolio-slider-section {
+                background-color: #ffffff;
+                padding: 60px 0;
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                position: relative;
+            }
+
+            .section-title {
+                font-size: 24px;
+                font-weight: 700;
+                color: #222222;
+                margin-bottom: 30px;
+                letter-spacing: -0.5px;
+            }
+
+            .slider-relative-wrapper {
+                position: relative;
+                padding: 0 40px;
+            }
+
+            .portfolio-card {
+                background: #ffffff;
+                border: 1px solid #eef1f3;
+                border-radius: 12px;
+                overflow: hidden;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+                height: 100%;
+            }
+
+            .portfolio-card:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+            }
+
+            .portfolio-img-box {
+                width: 100%;
+                height: 200px;
+                overflow: hidden;
+                background-color: #f7f9fa;
+            }
+
+            .portfolio-img-box img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+            .card-footer-profile {
+                padding: 14px 16px;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                border-top: 1px solid #f4f6f8;
+                background-color: #ffffff;
+            }
+
+            .freelancer-avatar {
+                width: 36px;
+                height: 36px;
+                border-radius: 50%;
+                object-fit: cover;
+            }
+
+            .freelancer-info {
+                font-size: 13px;
+                color: #555555;
+            }
+
+            .freelancer-info span {
+                color: #999999;
+            }
+
+            .freelancer-link {
+                color: #0073ec;
+                text-decoration: none;
+                font-weight: 600;
+                transition: color 0.2s;
+            }
+
+            .freelancer-link:hover {
+                text-decoration: underline;
+                color: #0056b3;
+            }
+
+            .portfolio-slider-section .swiper-button-next,
+            .portfolio-slider-section .swiper-button-prev {
+                width: 40px;
+                height: 40px;
+                background: #ffffff;
+                border: 1px solid #e4e8eb;
+                border-radius: 50%;
+                color: #333333;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+                transition: all 0.2s ease;
+            }
+
+            .portfolio-slider-section .swiper-button-next:after,
+            .portfolio-slider-section .swiper-button-prev:after {
+                font-size: 14px;
+                font-weight: bold;
+            }
+
+            .portfolio-slider-section .swiper-button-next:hover,
+            .portfolio-slider-section .swiper-button-prev:hover {
+                background: #f7f9fa;
+                color: #0073ec;
+                border-color: #ccd4da;
+            }
+
+            .portfolio-slider-section .swiper-button-prev {
+                left: 0px;
+            }
+
+            .portfolio-slider-section .swiper-button-next {
+                right: 0px;
+            }
+        </style>
+    @endpush
+
+    <section class="portfolio-slider-section">
+        <div class="container-fluid" style="max-width: 1280px; padding: 0 30px;">
+
+            <h2 class="section-title">@lang('Get inspired with projects created by our freelancers')</h2>
+
+            <div class="slider-relative-wrapper">
+                <div class="swiper portfolioSwiper">
+                    <div class="swiper-wrapper">
+
+                        <div class="swiper-slide">
+                            <div class="portfolio-card">
+                                <div class="portfolio-img-box">
+                                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500&auto=format&fit=crop&q=60"
+                                        alt="Project">
+                                </div>
+                                <div class="card-footer-profile">
+                                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop&q=60"
+                                        class="freelancer-avatar" alt="Avatar">
+                                    <div class="freelancer-info">
+                                        <span>@lang('Freelancer:')</span> <a href="#"
+                                            class="freelancer-link">allnayu</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <div class="portfolio-card">
+                                <div class="portfolio-img-box">
+                                    <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?w=500&auto=format&fit=crop&q=60"
+                                        alt="Project">
+                                </div>
+                                <div class="card-footer-profile">
+                                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=60"
+                                        class="freelancer-avatar" alt="Avatar">
+                                    <div class="freelancer-info">
+                                        <span>@lang('Freelancer:')</span> <a href="#"
+                                            class="freelancer-link">Mariichka</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <div class="portfolio-card">
+                                <div class="portfolio-img-box">
+                                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&auto=format&fit=crop&q=60"
+                                        alt="Project">
+                                </div>
+                                <div class="card-footer-profile">
+                                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=60"
+                                        class="freelancer-avatar" alt="Avatar">
+                                    <div class="freelancer-info">
+                                        <span>@lang('Freelancer:')</span> <a href="#"
+                                            class="freelancer-link">ValentynM</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <div class="portfolio-card">
+                                <div class="portfolio-img-box">
+                                    <img src="https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=500&auto=format&fit=crop&q=60"
+                                        alt="Project">
+                                </div>
+                                <div class="card-footer-profile">
+                                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&auto=format&fit=crop&q=60"
+                                        class="freelancer-avatar" alt="Avatar">
+                                    <div class="freelancer-info">
+                                        <span>@lang('Freelancer:')</span> <a href="#"
+                                            class="freelancer-link">Vazillo_design</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <div class="portfolio-card">
+                                <div class="portfolio-img-box">
+                                    <img src="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=500&auto=format&fit=crop&q=60"
+                                        alt="Project">
+                                </div>
+                                <div class="card-footer-profile">
+                                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&auto=format&fit=crop&q=60"
+                                        class="freelancer-avatar" alt="Avatar">
+                                    <div class="freelancer-info">
+                                        <span>@lang('Freelancer:')</span> <a href="#"
+                                            class="freelancer-link">Alex_DevSoft</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="swiper-slide">
+                            <div class="portfolio-card">
+                                <div class="portfolio-img-box">
+                                    <img src="https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?w=500&auto=format&fit=crop&q=60"
+                                        alt="Project">
+                                </div>
+                                <div class="card-footer-profile">
+                                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&auto=format&fit=crop&q=60"
+                                        class="freelancer-avatar" alt="Avatar">
+                                    <div class="freelancer-info">
+                                        <span>@lang('Freelancer:')</span> <a href="#"
+                                            class="freelancer-link">Sara_Studio</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+            </div>
+
+        </div>
+    </section>
+
+    @push('script')
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                var swiper = new Swiper(".portfolioSwiper", {
+                    slidesPerView: 4,
+                    spaceBetween: 24,
+                    loop: true,
+                    autoplay: {
+                        delay: 4000,
+                        disableOnInteraction: false,
+                    },
+                    navigation: {
+                        nextEl: ".swiper-button-next",
+                        prevEl: ".swiper-button-prev",
+                    },
+                });
+            });
+        </script>
+    @endpush
+
     <div class="modal fade" id="kworkVideoModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content" style="background: transparent; border: none;">
