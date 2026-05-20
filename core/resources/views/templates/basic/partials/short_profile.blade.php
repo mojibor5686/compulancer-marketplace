@@ -1,7 +1,8 @@
 @if (@$user)
     <div class="kwork-profile-card bg-white border rounded p-4 mb-4">
 
-        <div class="d-flex align-items-center mb-4">
+        <a href="{{ route('public.profile', $user->username) }}"
+            class="kwork-header-profile-link d-flex align-items-center mb-4 text-decoration-none">
             <div class="position-relative me-3">
                 <img class="kwork-avatar rounded-circle object-fit-cover"
                     src="{{ getImage(getFilePath('userProfile') . '/' . @$user->image, isAvatar: true) }}"
@@ -18,7 +19,7 @@
                     <span class="status-dot me-1"></span> @lang('Offline')
                 </div>
             </div>
-        </div>
+        </a>
 
         @if (!request()->routeIs('job.details'))
             <a href="{{ route('public.profile', $user->username) }}"
@@ -36,7 +37,7 @@
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <span class="kwork-info-label">@lang("Seller's rating")</span>
                 <span class="kwork-info-value fw-semibold d-flex align-items-center">
-                    <span class="kwork-star-icon me-1">★</span> 5.0
+                    <span class="kwork-star-icon me-1">★</span> <span class="rating-number-value">5.0</span>
                 </span>
             </div>
 
@@ -49,9 +50,12 @@
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <span class="kwork-info-label">@lang('2 total reviews')</span>
                 <span class="kwork-info-value d-flex align-items-center gap-2">
-                    <span class="d-flex align-items-center"><span class="review-dot bg-success me-1"></span>
-                        {{ $user->total_review ?? 0 }}</span>
-                    <span class="d-flex align-items-center"><span class="review-dot bg-danger me-1"></span> 0</span>
+                    <span class="d-flex align-items-center review-count-green">
+                        <span class="review-dot bg-success me-1"></span>{{ $user->total_review ?? 0 }}
+                    </span>
+                    <span class="d-flex align-items-center review-count-red">
+                        <span class="review-dot bg-danger me-1"></span>0
+                    </span>
                 </span>
             </div>
 
@@ -73,3 +77,47 @@
         </div>
     </div>
 @endif
+
+@push('style')
+    <style>
+        .kwork-header-profile-link {
+            cursor: pointer;
+            display: flex;
+            transition: opacity 0.2s ease;
+        }
+
+        .kwork-header-profile-link:hover {
+            opacity: 0.85;
+        }
+
+        .kwork-header-profile-link:hover .kwork-seller-name {
+            color: #0073ec !important;
+        }
+
+        .kwork-star-icon {
+            color: #ff9800 !important;
+            font-size: 16px;
+        }
+
+        .rating-number-value {
+            color: #ff4500 !important;
+        }
+
+        .review-count-green {
+            color: #1dbf73 !important;
+            font-weight: 600;
+        }
+
+        .review-count-red {
+            color: #f44336 !important;
+            font-weight: 600;
+        }
+
+        .review-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+    </style>
+@endpush
