@@ -237,7 +237,7 @@
             align-items: center;
             justify-content: center;
             gap: 8px;
-            background-color: #14a800;
+            background-color: #3C88EE;
             border: none;
             color: #ffffff;
             border-radius: 50px;
@@ -251,8 +251,8 @@
         }
 
         .modern-msg-btn:hover {
-            background-color: #108a00;
-            box-shadow: 0 6px 16px rgba(20, 168, 0, 0.25);
+            background-color: #3C88EE;
+            box-shadow: 0 6px 16px rgba(60, 136, 238, 0.25);
         }
 
         /* স্ট্যাটিস্টিকস আইটেম রো */
@@ -323,7 +323,7 @@
         .active-status-badge {
             height: 16px;
             width: 16px;
-            background-color: #14a800;
+            background-color: #3C88EE;
             border: 3px solid #ffffff;
             border-radius: 50%;
             position: absolute;
@@ -343,7 +343,7 @@
         .user-designation {
             font-size: 16px;
             font-weight: 600;
-            color: #14a800;
+            color: #3C88EE;
             margin: 0 0 16px 0;
         }
 
@@ -368,12 +368,12 @@
 
         .meta-tag.success {
             background-color: #eaf7ec;
-            color: #14a800;
+            color: #3C88EE;
             border-color: #d2f1d7;
         }
 
         .pro-badge {
-            background: #108a00;
+            background: #3C88EE;
             color: #ffffff;
             font-size: 11px;
             font-weight: 700;
@@ -404,7 +404,7 @@
             left: 0;
             width: 40px;
             height: 3px;
-            background: #14a800;
+            background: #3C88EE;
             border-radius: 2px;
         }
 
@@ -448,10 +448,10 @@
         }
 
         .custom-capsule-tabs .nav-link.active {
-            background: #14a800 !important;
+            background: #3C88EE !important;
             color: #ffffff !important;
-            border-color: #14a800 !important;
-            box-shadow: 0 4px 12px rgba(20, 168, 0, 0.2) !important;
+            border-color: #3C88EE !important;
+            box-shadow: 0 4px 12px rgba(60, 136, 238, 0.2) !important;
         }
 
         /* ভিউ টগল বাটন */
