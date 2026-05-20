@@ -1,9 +1,12 @@
 @php
-    $activeLevels = \App\Models\Level::active()->get();
-    if ($type == 'service' || $type == 'software') {
-        $activeFeatures = \App\Models\Feature::active()->orderBy('name')->get();
+    $activeLevels = \App\Models\Level::active()->get() ?? collect();
+
+    $activeFeatures = collect();
+    if (isset($type) && in_array($type, ['service', 'software'])) {
+        $activeFeatures = \App\Models\Feature::active()->orderBy('name')->get() ?? collect();
     }
-    $skill = request('skill');
+
+    $skill = request('skill') ?? null;
 @endphp
 <aside id="jss-offcanvas-sidebar" class="offcanvas-sidebar offcanvas-sidebar--jss">
     <button type="button" class="btn--close">
