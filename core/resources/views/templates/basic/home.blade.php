@@ -388,7 +388,8 @@
                 <div class="swiper portfolioSwiper">
                     <div class="swiper-wrapper">
                         @forelse($product_all as $product)
-                            <div class="swiper-slide">
+                            <a href="{{ route('service.details', [slug($product->name), $product->id]) }}"
+                                class="swiper-slide">
                                 <div class="portfolio-card">
                                     <div class="portfolio-img-box">
                                         <img src="{{ getImage(getFilePath('service') . '/' . $product->image, getFileSize($type)) }}"
@@ -413,7 +414,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </a>
                         @empty
                             <div class="swiper-slide">
                                 <div class="text-center text-muted py-4">
