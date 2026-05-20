@@ -11,7 +11,7 @@
                 <div class="row gy-5">
                     <div class="col-lg-8">
                         <div class="jss-details-main bg--white">
-                            <div class="kwork-detail-header mb-4"
+                            <div class="kwork-detail-header mb-3"
                                 style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
                                 <nav class="kwork-breadcrumb d-flex align-items-center gap-2 mb-3"
                                     style="font-size: 14px; color: #777777;">
