@@ -118,6 +118,18 @@
                             <div class="topnav-right d-flex align-items-center gap-4">
 
                                 <div class="topnav-left">
+                                    <a href="{{ route('user.seller.booking.service.list') }}"
+                                        class="text-decoration-none text-dark fw-medium d-flex align-items-center gap-2 fs-6 position-relative"
+                                        style="transition: color 0.2s ease;"
+                                        onmouseover="this.style.color='var(--bs-primary)'"
+                                        onmouseout="this.style.color='var(--text-dark)'">
+                                        <i class="las la-shopping-bag"
+                                            style="font-size: 18px; color: currentColor;"></i>
+                                        <span style="font-size: 14px;">@lang('Order')</span>
+                                    </a>
+                                </div>
+
+                                <div class="topnav-left">
                                     <a href="{{ route('user.inbox.messages') }}"
                                         class="text-decoration-none text-dark fw-medium d-flex align-items-center gap-2 fs-6 position-relative"
                                         style="transition: color 0.2s ease;"
@@ -130,18 +142,6 @@
                                             style="width: 16px; height: 16px; font-size: 10px; margin-top: -2px; margin-left: 2px;">
                                             {{ $unreadMessagesCount }}
                                         </span>
-                                    </a>
-                                </div>
-
-                                <div class="topnav-left">
-                                    <a href="{{ route('user.seller.booking.service.list') }}"
-                                        class="text-decoration-none text-dark fw-medium d-flex align-items-center gap-2 fs-6 position-relative"
-                                        style="transition: color 0.2s ease;"
-                                        onmouseover="this.style.color='var(--bs-primary)'"
-                                        onmouseout="this.style.color='var(--text-dark)'">
-                                        <i class="las la-shopping-bag"
-                                            style="font-size: 18px; color: currentColor;"></i>
-                                        <span style="font-size: 14px;">@lang('Order')</span>
                                     </a>
                                 </div>
 
@@ -196,7 +196,8 @@
                                                     </a>
                                                 @endif
 
-                                                <h6 class="m-0 fw-bold text-dark" style="font-size: 14px;">
+                                                <h6 class="m-2 fw-bold text-dark d-lg-none d-block"
+                                                    style="font-size: 14px;">
                                                     {{ auth()->user()->firstname }} {{ auth()->user()->lastname }}
                                                 </h6>
                                             </li>
