@@ -117,7 +117,7 @@
 
                             <div class="topnav-right d-flex align-items-center gap-4">
 
-                                <div class="topnav-left d-lg-block d-none">
+                                <div class="topnav-left">
                                     <a href="{{ route('user.inbox.messages') }}"
                                         class="text-decoration-none text-dark fw-medium d-flex align-items-center gap-2 fs-6 position-relative"
                                         style="transition: color 0.2s ease;"
@@ -130,6 +130,18 @@
                                             style="width: 16px; height: 16px; font-size: 10px; margin-top: -2px; margin-left: 2px;">
                                             {{ $unreadMessagesCount }}
                                         </span>
+                                    </a>
+                                </div>
+
+                                <div class="topnav-left">
+                                    <a href="{{ route('user.seller.booking.service.list') }}"
+                                        class="text-decoration-none text-dark fw-medium d-flex align-items-center gap-2 fs-6 position-relative"
+                                        style="transition: color 0.2s ease;"
+                                        onmouseover="this.style.color='var(--bs-primary)'"
+                                        onmouseout="this.style.color='var(--text-dark)'">
+                                        <i class="las la-shopping-bag"
+                                            style="font-size: 18px; color: currentColor;"></i>
+                                        <span style="font-size: 14px;">@lang('Order')</span>
                                     </a>
                                 </div>
 
@@ -156,7 +168,7 @@
                                                 <i class="las la-user fs-4" style="color:#555"></i>
                                             @endif
                                         </div>
-                                        <div class="user-info-text lh-sm">
+                                        <div class="user-info-text lh-sm d-none d-md-block">
                                             <h6 class="m-0 fw-bold text-dark" style="font-size: 14px;">
                                                 {{ auth()->user()->firstname }} {{ auth()->user()->lastname }}</h6>
                                             <small class="text-muted d-block" style="font-size: 11px;">
@@ -183,6 +195,10 @@
                                                         <i class="las la-random text-primary"></i> @lang('Switch to Buyer')
                                                     </a>
                                                 @endif
+
+                                                <h6 class="m-0 fw-bold text-dark" style="font-size: 14px;">
+                                                    {{ auth()->user()->firstname }} {{ auth()->user()->lastname }}
+                                                </h6>
                                             </li>
                                             <li><a class="hover-menu-link px-3 py-2 d-flex align-items-center gap-2"
                                                     href="{{ route('user.seller.home') }}"><i
