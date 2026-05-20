@@ -379,7 +379,7 @@
         </style>
     @endpush
 
-    <section class="portfolio-slider-section">
+    <section class="portfolio-slider-section d-none d-lg-block">
         <div class="container-fluid" style="max-width: 1280px; padding: 0 30px;">
 
             <h2 class="section-title">@lang('Get inspired with projects created by our freelancers')</h2>
