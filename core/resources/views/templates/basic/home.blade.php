@@ -391,7 +391,7 @@
                             <div class="swiper-slide">
                                 <div class="portfolio-card">
                                     <div class="portfolio-img-box">
-                                        <img src="{{ getImage(getFilePath('service') . '/' . $product->image) }}"
+                                        <img src="{{ getImage(getFilePath('service') . '/' . $product->image, getFileSize($type)) }}"
                                             alt="{{ __($product->title) }}">
                                     </div>
 
