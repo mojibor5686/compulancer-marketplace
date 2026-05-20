@@ -2,7 +2,6 @@
     <main class="page-wrapper">
         <section class="jss-section pt-40 pb-80">
             <div class="container">
-                @include('Template::partials.top_filter')
                 <section class="kwork-catalog-section py-5">
                     <div class="container">
                         <h2 class="catalog-main-title mb-4">@lang("Explore Kwork's Evergrowing Catalog")</h2>
@@ -28,6 +27,7 @@
                     </div>
                 </section>
                 <div class="page-content">
+                    @include('Template::partials.top_filter')
                     <div class="row">
                         <div class="col-lg-8 col-xl-9 productList"> @include('Template::partials.product_list') </div>
                         <div class="col-lg-4 col-xl-3">
