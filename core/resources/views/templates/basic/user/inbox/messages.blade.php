@@ -4,13 +4,13 @@
     <div class="card-area">
         <div class="row g-0 rounded shadow-sm overflow-hidden bg-white" style="height: 87vh;">
 
-            <!-- Left sidebar: Chats list (এই অংশ শুধু যোগ করছি, JS কিছু করছি না) -->
             <button type="button" class="btn btn-primary shadow-sm chat-sidebar-toggle d-lg-none" id="toggle-chat-sidebar">
                 <i class="las la-comments fs-4"></i>
             </button>
 
             <div class="col-lg-4 col-xl-3 border-end d-flex flex-column bg-light chat-sidebar-slider"
                 id="chat-sidebar-wrapper">
+
                 <div class="p-3 border-bottom bg-white d-flex justify-content-between align-items-center">
                     <h5 class="m-0 fw-bold text-dark">@lang('Chats')</h5>
                     <button type="button" class="btn-close d-lg-none" id="close-chat-sidebar"></button>
@@ -57,10 +57,8 @@
 
             <div class="chat-sidebar-backdrop d-lg-none" id="chat-sidebar-backdrop"></div>
 
-            <!-- এর নিচে থেকে তোমার আগের UI আর JS ঠিক যেভাবে আছে রাখো (JS কিছু ই পরিবর্তন করবে না) -->
             <div class="col-lg-8 col-xl-9 d-flex flex-column bg-white h-100">
 
-                <!-- এখান থেকে তোমার অরিজিনাল UI শুরু হবে, যেমন কার্ড, chat-box__thread etc. -->
                 @if ($inbox)
                     @php
                         $user = $inbox->sender_id == auth()->id() ? $inbox->receiver : $inbox->sender;
@@ -121,7 +119,7 @@
                                         </div>
                                         <button type="submit" class="btn send-btn"
                                             style="display: inline-flex; font-size: 16px; align-items: center; justify-content: center; padding: 0.75rem 2.5rem; min-width: 8rem; border-radius: 5rem; background-color: #3a84ff !important; color: #ffffff; border: none; font-weight: 500;">
-                                            @lang('Send')
+                                            <i class="las la-paper-plane"></i>
                                         </button>
                                     </div>
                                 </div>
@@ -208,8 +206,9 @@
 
             .chat-sidebar-toggle {
                 position: fixed;
-                top: 50px;
-                left: 15px;
+                top: 50%;
+                left: 20px;
+                transform: translateY(-50%);
                 z-index: 1040;
                 border-radius: 50%;
                 width: 50px;
