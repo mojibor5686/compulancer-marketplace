@@ -142,7 +142,7 @@
                                                                             id="extra_service_{{ $key }}"
                                                                             data-id="{{ $extraService->id }}"
                                                                             data-key="{{ $key }}"
-                                                                            data-price="{{ showAmount($extraService->price, currencyFormat: false) }}"
+                                                                            data-price="{{ number_format($extraService->price, 0, '.', '') }}"
                                                                             value="{{ $extraService->id }}">
                                                                         <label class="custom-checkbox-label"
                                                                             for="extra_service_{{ $key }}">{{ $extraService->name }}</label>
@@ -150,7 +150,7 @@
                                                                 </div>
                                                                 <div class="right">
                                                                     <span
-                                                                        class="value">{{ showAmount($extraService->price) }}</span>
+                                                                        class="value">{{ number_format($extraService->price, 0) }}</span>
                                                                 </div>
                                                             </div>
                                                         @empty
@@ -459,7 +459,7 @@
                 "use strict";
 
                 let quantity = 1;
-                let servicePrice = parseFloat('{{ showAmount($productDetails->price, currencyFormat: false) }}');
+                let servicePrice = parseFloat('{{ number_format($productDetails->price, 0, '.', '') }}');
                 let extraService = 0;
                 let extraServicesArray = [];
 

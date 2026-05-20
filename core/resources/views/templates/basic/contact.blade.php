@@ -5,10 +5,10 @@
         $contactElements = getContent('contact.element', false, null, true);
     @endphp
 
-    <main class="page-wrapper pb-80 main-contact-wrapper">
+    <main class="page-wrapper pt-80 pb-80 main-contact-wrapper">
         <div class="container">
 
-            <div class="row g-5 align-items-stretch">
+            <div class="row g-5 align-items-stretch" style="margin-top: 40px;">
                 <div class="col-lg-7 d-flex">
                     <div class="latest-contact-card w-100">
                         <form class="contact-form verify-gcaptcha" method="POST">
