@@ -27,7 +27,8 @@
                                     style="width: 110px; height: 110px; border-radius: 4px; object-fit: cover; display: block; border: 1px solid #eef2f5; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
                             </div>
                             <div style="flex-grow: 1;">
-                                <h3 style="font-size: 22px; font-weight: 700; color: #222222; margin: 0 0 6px 0;">
+                                <h3
+                                    style="font-size: 22px; font-weight: 700; color: #222222; margin: 0 0 6px 0; text-transform: capitalize;">
                                     {{ __($user->username) }}
                                 </h3>
                                 <h5 style="font-size: 15px; font-weight: 600; color: #10c469; margin: 0 0 12px 0;">

@@ -396,25 +396,44 @@
         <div class="list-group list-group-flush border-top pt-2">
             <a href="{{ route('home') }}"
                 class="list-group-item list-group-item-action border-0 px-2 py-2.5 d-flex align-items-center text-secondary small">
-                <i class="ri-home-4-line me-3 fs-5 text-muted"></i> To Homepage
+                <i class="ri-home-4-line me-3 fs-5 text-muted"></i> @lang('Home')
             </a>
+
             <a href="{{ route('service') }}"
                 class="list-group-item list-group-item-action border-0 px-2 py-2.5 d-flex align-items-center justify-content-between text-secondary small">
                 <div class="d-flex align-items-center">
-                    <i class="ri-grid-line me-3 fs-5 text-muted"></i> Browse Categories
+                    <i class="ri-briefcase-line me-3 fs-5 text-muted"></i> @lang('Service')
                 </div>
                 <i class="ri-arrow-right-s-line text-muted"></i>
             </a>
+
+            <a href="{{ route('software') }}"
+                class="list-group-item list-group-item-action border-0 px-2 py-2.5 d-flex align-items-center justify-content-between text-secondary small">
+                <div class="d-flex align-items-center">
+                    <i class="ri-terminal-window-line me-3 fs-5 text-muted"></i> @lang('Software')
+                </div>
+                <i class="ri-arrow-right-s-line text-muted"></i>
+            </a>
+
+            <a href="{{ route('job') }}"
+                class="list-group-item list-group-item-action border-0 px-2 py-2.5 d-flex align-items-center justify-content-between text-secondary small">
+                <div class="d-flex align-items-center">
+                    <i class="ri-search-eye-line me-3 fs-5 text-muted"></i> @lang('Jobs')
+                </div>
+                <i class="ri-arrow-right-s-line text-muted"></i>
+            </a>
+
             <a href="{{ route('blogs') }}"
                 class="list-group-item list-group-item-action border-0 px-2 py-2.5 d-flex align-items-center justify-content-between text-secondary small">
                 <div class="d-flex align-items-center">
-                    <i class="ri-compass-3-line me-3 fs-5 text-muted"></i> @lang('Blogs')
+                    <i class="ri-article-line me-3 fs-5 text-muted"></i> @lang('Blog')
                 </div>
                 <i class="ri-arrow-right-s-line text-muted"></i>
             </a>
+
             <a href="{{ route('contact') }}"
                 class="list-group-item list-group-item-action border-0 px-2 py-2.5 d-flex align-items-center text-secondary small">
-                <i class="ri-customer-service-2-line me-3 fs-5 text-muted"></i> @lang('Help & Contact')
+                <i class="ri-customer-service-2-line me-3 fs-5 text-muted"></i> @lang('Contact')
             </a>
         </div>
     </div>
@@ -508,8 +527,9 @@
                 </div>
 
                 <div class="text-center small text-secondary mt-2 pb-2">
-                    New to Kwork? <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#signUpModal"
-                        class="text-primary text-decoration-none" style="font-weight: 500;">Sign Up</a>
+                    New to compulancer? <a href="javascript:void(0)" data-bs-toggle="modal"
+                        data-bs-target="#signUpModal" class="text-primary text-decoration-none"
+                        style="font-weight: 500;">Sign Up</a>
                 </div>
             </div>
         </div>

@@ -808,7 +808,9 @@
                 <div class="col-lg-8">
                     <h2 class="cta-title">Start saving with freelance services today</h2>
                     <p class="cta-subtitle">Speed, quality, and affordability: you can have it all!</p>
-                    <a href="#" class="btn btn-signup">Sign up for Free</a>
+                    <a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#signUpModal"
+                        class="btn btn-signup">Sign
+                        up for Free</a>
                 </div>
             </div>
         </div>
