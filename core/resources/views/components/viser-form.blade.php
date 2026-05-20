@@ -45,7 +45,7 @@
             @elseif($data->type == 'checkbox')
                 <select class="form-select form--control select2-basic" name="{{ $data->label }}[]" multiple
                     @if ($data->is_required == 'required') required @endif>
-                    <option value="">@lang('Select One')</option>
+                    <option selected disabled>@lang('Select One')</option>
                     @foreach ($data->options as $option)
                         <option value="{{ $option }}" @selected(is_array(old($data->label)) && in_array($option, old($data->label)))>{{ __($option) }}</option>
                     @endforeach
@@ -53,7 +53,7 @@
             @elseif($data->type == 'radio')
                 <select class="form-select form--control select2-basic" data-minimum-results-for-search="-1"
                     name="{{ $data->label }}" @if ($data->is_required == 'required') required @endif>
-                    <option value="">@lang('Select One')</option>
+                    <option selected disabled>@lang('Select One')</option>
                     @foreach ($data->options as $option)
                         <option value="{{ $option }}" @selected($option == old($data->label))>{{ __($option) }}</option>
                     @endforeach
