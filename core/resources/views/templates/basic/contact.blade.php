@@ -8,15 +8,6 @@
     <main class="page-wrapper pt-5 pb-5 bg-fafafa">
         <section class="contact-section">
             <div class="container">
-                <div class="text-center mb-5 max-w-700 mx-auto">
-                    <h2 class="fw-bold text-dark tracking-tight mb-2" style="font-size: 32px;">
-                        {{ __(@$contactContent->data_values->heading ?? 'Get in touch with us') }}
-                    </h2>
-                    <p class="text-muted fs-6">
-                        {{ __(@$contactContent->data_values->sub_heading ?? 'We would love to hear from you. Our team is always here to chat.') }}
-                    </p>
-                </div>
-
                 <div class="row g-4 justify-content-between">
                     <div class="col-lg-7">
                         <div class="modern-contact-card">
