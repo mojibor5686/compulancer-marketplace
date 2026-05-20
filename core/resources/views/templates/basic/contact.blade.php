@@ -5,308 +5,410 @@
         $contactElements = getContent('contact.element', false, null, true);
     @endphp
 
-    <main class="page-wrapper pt-5 pb-5 bg-fafafa">
-        <section class="contact-section">
-            <div class="container">
-                <div class="row g-4 justify-content-between">
-                    <div class="col-lg-7">
-                        <div class="modern-contact-card">
-                            <div class="card-header-custom mb-4">
-                                <h4 class="fw-semibold text-dark mb-1">
-                                    {{ __(@$contactContent->data_values->form_heading ?? 'Send us a message') }}
-                                </h4>
-                                <p class="text-muted small mb-0">
-                                    {{ __(@$contactContent->data_values->form_sub_heading ?? 'Keep it professional, our agents respond within 24 hours.') }}
-                                </p>
-                            </div>
+    <main class="page-wrapper pt-80 pb-80 main-contact-wrapper">
+        <div class="container">
+            <div class="text-center mb-5 max-w-700 mx-auto">
+                <span class="badge rounded-pill bg-theme-light text-theme fw-semibold px-3 py-2 mb-3">
+                    @lang('Get in Touch')
+                </span>
+                <h2 class="fw-bold text-dark tracking-tight main-title">
+                    {{ __(@$contactContent->data_values->form_heading ?? 'Let’s Start a Conversation') }}
+                </h2>
+                <p class="text-muted sub-title">
+                    {{ __(@$contactContent->data_values->form_sub_heading ?? 'Have a question or looking to collaborate? Drop us a message.') }}
+                </p>
+            </div>
 
-                            <form class="contact-form verify-gcaptcha" method="POST">
-                                @csrf
-                                <div class="row g-3">
-                                    <div class="col-sm-6">
-                                        <label class="modern-label required" for="name">@lang('Full name')</label>
-                                        <input class="form-control modern-input" name="name" type="text"
+            <div class="row g-5 align-items-stretch">
+                <div class="col-lg-7 d-flex">
+                    <div class="latest-contact-card w-100">
+                        <form class="contact-form verify-gcaptcha" method="POST">
+                            @csrf
+                            <div class="row g-4">
+                                <div class="col-sm-6">
+                                    <div class="input-glow-group">
+                                        <label class="latest-label required" for="name">@lang('Full name')</label>
+                                        <input class="form-control latest-input" name="name" type="text"
                                             value="{{ old('name', @$user->fullname) }}" placeholder="@lang('e.g. John Doe')"
                                             @if ($user && $user->profile_complete) readonly @endif required>
                                     </div>
-                                    <div class="col-sm-6">
-                                        <label class="modern-label required" for="email">@lang('Email Address')</label>
-                                        <input class="form-control modern-input" name="email" type="email"
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="input-glow-group">
+                                        <label class="latest-label required" for="email">@lang('Email Address')</label>
+                                        <input class="form-control latest-input" name="email" type="email"
                                             value="{{ old('email', @$user->email) }}" placeholder="@lang('e.g. john@example.com')"
                                             @readonly(@$user) required>
                                     </div>
-                                    <div class="col-sm-12">
-                                        <label class="modern-label required" for="subject">@lang('Subject')</label>
-                                        <input class="form-control modern-input" name="subject" type="text"
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="input-glow-group">
+                                        <label class="latest-label required" for="subject">@lang('Subject')</label>
+                                        <input class="form-control latest-input" name="subject" type="text"
                                             value="{{ old('subject') }}" placeholder="@lang('What is this regarding?')" required>
                                     </div>
-                                    <div class="col-sm-12">
-                                        <label class="modern-label required" for="message">@lang('Message')</label>
-                                        <textarea class="form-control modern-input" name="message" rows="5" placeholder="@lang('Describe your inquiry in detail...')" required>{{ old('message') }}</textarea>
-                                    </div>
-
-                                    <div class="col-sm-12 my-2">
-                                        <x-captcha frontend="true" isCustom="true" />
-                                    </div>
-
-                                    <div class="col-sm-12 mt-4">
-                                        <button class="btn modern-submit-btn w-100" type="submit">
-                                            @lang('Send Message') <i class="ri-send-plane-fill ms-2"></i>
-                                        </button>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="input-glow-group">
+                                        <label class="latest-label required" for="message">@lang('Message')</label>
+                                        <textarea class="form-control latest-input" name="message" rows="5" placeholder="@lang('Describe your inquiry in detail...')" required>{{ old('message') }}</textarea>
                                     </div>
                                 </div>
-                            </form>
-                        </div>
+
+                                <div class="col-sm-12 my-2">
+                                    <x-captcha frontend="true" isCustom="true" />
+                                </div>
+
+                                <div class="col-sm-12 mt-4">
+                                    <button class="btn latest-submit-btn w-100" type="submit">
+                                        <span>@lang('Send Message')</span>
+                                        <i class="ri-send-plane-fill ms-2"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
+                </div>
 
-                    <div class="col-lg-4">
-                        <div class="modern-info-panel">
-                            <ul class="modern-info-list m-0 p-0 list-unstyled">
+                <div class="col-lg-5 d-flex">
+                    <div class="latest-info-panel w-100">
+                        <div class="panel-header mb-4">
+                            <h4 class="fw-bold text-white mb-2">@lang('Contact Information')</h4>
+                            <p class="text-white-50 small m-0">@lang('Reach out to us directly through any of these channels.')</p>
+                        </div>
 
-                                @if (@$contactContent->data_values->address)
-                                    <li class="info-card-item">
-                                        <div class="info-icon-wrapper address-bg">
-                                            @include('Template::partials.icons.address')
-                                        </div>
-                                        <div class="info-content">
-                                            <span class="info-label">@lang('Our Office')</span>
-                                            <p class="info-value">{{ __(@$contactContent->data_values->address) }}</p>
-                                        </div>
-                                    </li>
-                                @endif
+                        <div class="info-cards-stack">
+                            @if (@$contactContent->data_values->address)
+                                <div class="premium-info-card">
+                                    <div class="premium-icon-box">
+                                        @include('Template::partials.icons.address')
+                                    </div>
+                                    <div class="premium-text-box">
+                                        <span class="premium-label">@lang('Our Office')</span>
+                                        <p class="premium-value">{{ __(@$contactContent->data_values->address) }}</p>
+                                    </div>
+                                </div>
+                            @endif
 
-                                @if (@$contactContent->data_values->email)
-                                    <li class="info-card-item">
-                                        <div class="info-icon-wrapper email-bg">
-                                            @include('Template::partials.icons.email')
-                                        </div>
-                                        <div class="info-content">
-                                            <span class="info-label">@lang('Email Us')</span>
-                                            <p class="info-value">
-                                                <a href="mailto:{{ __(@$contactContent->data_values->email) }}"
-                                                    class="info-link">
-                                                    {{ __(@$contactContent->data_values->email) }}
-                                                </a>
-                                            </p>
-                                        </div>
-                                    </li>
-                                @endif
+                            @if (@$contactContent->data_values->email)
+                                <div class="premium-info-card">
+                                    <div class="premium-icon-box">
+                                        @include('Template::partials.icons.email')
+                                    </div>
+                                    <div class="premium-text-box">
+                                        <span class="premium-label">@lang('Email Us')</span>
+                                        <p class="premium-value">
+                                            <a href="mailto:{{ __(@$contactContent->data_values->email) }}"
+                                                class="premium-link">
+                                                {{ __(@$contactContent->data_values->email) }}
+                                            </a>
+                                        </p>
+                                    </div>
+                                </div>
+                            @endif
 
-                                @if (@$contactContent->data_values->contact)
-                                    <li class="info-card-item">
-                                        <div class="info-icon-wrapper phone-bg">
-                                            @include('Template::partials.icons.contact')
-                                        </div>
-                                        <div class="info-content">
-                                            <span class="info-label">@lang('Call Support')</span>
-                                            <p class="info-value">
-                                                <a href="tel:{{ __(@$contactContent->data_values->contact) }}"
-                                                    class="info-link">
-                                                    {{ __(@$contactContent->data_values->contact) }}
-                                                </a>
-                                            </p>
-                                        </div>
-                                    </li>
-                                @endif
+                            @if (@$contactContent->data_values->contact)
+                                <div class="premium-info-card">
+                                    <div class="premium-icon-box">
+                                        @include('Template::partials.icons.contact')
+                                    </div>
+                                    <div class="premium-text-box">
+                                        <span class="premium-label">@lang('Call Support')</span>
+                                        <p class="premium-value">
+                                            <a href="tel:{{ __(@$contactContent->data_values->contact) }}"
+                                                class="premium-link">
+                                                {{ __(@$contactContent->data_values->contact) }}
+                                            </a>
+                                        </p>
+                                    </div>
+                                </div>
+                            @endif
 
-                                @if (@$contactContent->data_values->fax)
-                                    <li class="info-card-item">
-                                        <div class="info-icon-wrapper fax-bg">
-                                            @include('Template::partials.icons.fax')
-                                        </div>
-                                        <div class="info-content">
-                                            <span class="info-label">@lang('Fax Machine')</span>
-                                            <p class="info-value text-dark fw-medium">
-                                                {{ __(@$contactContent->data_values->fax) }}</p>
-                                        </div>
-                                    </li>
-                                @endif
-                            </ul>
+                            @if (@$contactContent->data_values->fax)
+                                <div class="premium-info-card">
+                                    <div class="premium-icon-box">
+                                        @include('Template::partials.icons.fax')
+                                    </div>
+                                    <div class="premium-text-box">
+                                        <span class="premium-label">@lang('Fax Machine')</span>
+                                        <p class="premium-value text-white-50 fw-medium">
+                                            {{ __(@$contactContent->data_values->fax) }}
+                                        </p>
+                                    </div>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
     </main>
 @endsection
 
 @push('style')
     <style>
-        /* প্রফেশনাল প্ল্যাটফর্ম ব্যাকগ্রাউন্ড কালার */
-        .bg-fafafa {
-            background-color: #f7f9fa !important;
+        /* মডার্ন গ্লোবাল সেটিংস */
+        .main-contact-wrapper {
+            background: radial-gradient(circle at 10% 20%, rgba(234, 241, 253, 0.6) 0%, rgba(255, 255, 255, 1) 90.1%) !important;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        .pt-80 {
+            padding-top: 80px;
+        }
+
+        .pb-80 {
+            padding-bottom: 80px;
         }
 
         .max-w-700 {
             max-width: 700px;
         }
 
-        .tracking-tight {
-            letter-spacing: -0.6px;
+        .bg-theme-light {
+            background-color: rgba(60, 136, 238, 0.1) !important;
         }
 
-        /* কন্টাক্ট কার্ড */
-        .modern-contact-card {
+        .text-theme {
+            color: #3C88EE !important;
+        }
+
+        .main-title {
+            font-size: 36px;
+            letter-spacing: -1px;
+            color: #1e293b !important;
+        }
+
+        .sub-title {
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        /* লেটেস্ট ও প্রিমিয়াম ফর্ম কার্ড ডিজাইন */
+        .latest-contact-card {
             background: #ffffff;
-            border: 1px solid #e4e6eb;
-            border-radius: 16px;
-            padding: 40px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+            border: 1px solid rgba(60, 136, 238, 0.12);
+            border-radius: 24px;
+            padding: 45px;
+            box-shadow: 0 10px 40px -10px rgba(60, 136, 238, 0.06), 0 1px 3px rgba(0, 0, 0, 0.02);
+            transition: all 0.3s ease;
         }
 
-        /* স্মার্ট ইনপুট ফিল্ড ও লেবেল সিস্টেম */
-        .modern-label {
-            font-size: 14px;
+        .latest-contact-card:hover {
+            box-shadow: 0 20px 50px -15px rgba(60, 136, 238, 0.12);
+        }
+
+        .latest-label {
+            font-size: 13px;
             font-weight: 600;
-            color: #222222;
-            margin-bottom: 6px;
-            display: inline-block;
+            color: #475569;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        .modern-label.required::after {
+        .latest-label.required::after {
             content: " *";
-            color: #ec2222;
+            color: #ef4444;
         }
 
-        .modern-input {
-            border: 1px solid #cbd5e1 !important;
-            border-radius: 8px !important;
-            padding: 12px 16px !important;
+        .latest-input {
+            border: 1.5px solid #e2e8f0 !important;
+            border-radius: 12px !important;
+            padding: 14px 18px !important;
             font-size: 14px !important;
-            color: #333333 !important;
-            background-color: #ffffff !important;
-            transition: all 0.2s ease-in-out !important;
+            color: #1e293b !important;
+            background-color: #f8fafc !important;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
         }
 
-        /* থিম কালার ফোকাস বর্ডার (#3C88EE) */
-        .modern-input:focus {
+        .latest-input::placeholder {
+            color: #94a3b8 !important;
+        }
+
+        /* ইনপুট ফিল্ডে হোভার ও ফোকাস গ্লো ইফেক্ট */
+        .latest-input:hover {
+            border-color: #cbd5e1 !important;
+            background-color: #ffffff !important;
+        }
+
+        .latest-input:focus {
             border-color: #3C88EE !important;
-            box-shadow: 0 0 0 4px rgba(60, 136, 238, 0.15) !important;
+            background-color: #ffffff !important;
+            box-shadow: 0 0 0 4px rgba(60, 136, 238, 0.12) !important;
             outline: none !important;
         }
 
-        textarea.modern-input {
+        textarea.latest-input {
             resize: none;
         }
 
-        /* থিম কালার সাবমিট বাটন (#3C88EE) */
-        .modern-submit-btn {
-            background-color: #3C88EE !important;
+        /* প্রিমিয়াম সাবমিট বাটন অ্যানিমেশন */
+        .latest-submit-btn {
+            background: linear-gradient(135deg, #3C88EE 0%, #1e70dd 100%) !important;
             color: #ffffff !important;
             font-weight: 600 !important;
-            padding: 14px 24px !important;
-            border-radius: 8px !important;
+            padding: 16px 30px !important;
+            border-radius: 12px !important;
             border: none !important;
-            font-size: 15px !important;
-            transition: all 0.2s ease !important;
-        }
-
-        /* বাটন হোভার ইফেক্ট (সামান্য ডার্ক ব্লু) */
-        .modern-submit-btn:hover {
-            background-color: #2a72d4 !important;
-            color: #ffffff !important;
-            box-shadow: 0 4px 12px rgba(60, 136, 238, 0.2) !important;
-        }
-
-        /* ডান পাশের মডার্ন ইনফো প্যানেল */
-        .modern-info-panel {
-            background: transparent;
-        }
-
-        .info-card-item {
-            background: #ffffff;
-            border: 1px solid #e4e6eb;
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.01);
-            transition: transform 0.2s ease;
-        }
-
-        .info-card-item:hover {
-            transform: translateY(-2px);
-        }
-
-        /* মিনিমাল আইকন কন্টেইনার্স */
-        .info-icon-wrapper {
-            width: 44px;
-            height: 44px;
-            border-radius: 10px;
+            font-size: 16px !important;
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-shrink: 0;
+            transition: all 0.3s ease !important;
+            box-shadow: 0 4px 15px rgba(60, 136, 238, 0.3) !important;
         }
 
-        .info-icon-wrapper svg {
-            width: 20px;
-            height: 20px;
+        .latest-submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(60, 136, 238, 0.45) !important;
+            opacity: 0.95;
         }
 
-        /* আইকন ব্যাকগ্রাউন্ড থিম কালার রিলেটেড ব্লু ও অন্যান্য */
-        .address-bg {
-            background-color: #eaf2fd;
-            color: #3C88EE;
+        .latest-submit-btn:active {
+            transform: translateY(0);
         }
 
-        .email-bg {
-            background-color: #ecfdf5;
-            color: #059669;
-        }
-
-        .phone-bg {
-            background-color: #fff7ed;
-            color: #ea580c;
-        }
-
-        .fax-bg {
-            background-color: #f1f5f9;
-            color: #475569;
-        }
-
-        /* টেক্সট ও লিংক ফরমেটিং */
-        .info-content {
+        /* ডান পাশের প্রিমিয়াম গ্রেডিয়েন্ট ইনফো প্যানেল */
+        .latest-info-panel {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%) !important;
+            border-radius: 24px;
+            padding: 45px;
+            color: #ffffff;
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.15);
             display: flex;
             flex-direction: column;
         }
 
-        .info-label {
-            font-size: 12px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: #64748b;
-            margin-bottom: 2px;
-            display: block;
+        .info-cards-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-top: auto;
+            margin-bottom: auto;
         }
 
-        .info-value {
+        /* গ্লাস মরফিজম ইনফো কার্ড */
+        .premium-info-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .premium-info-card:hover {
+            background: rgba(255, 255, 255, 0.07);
+            border-color: rgba(60, 136, 238, 0.4);
+            transform: translateX(5px);
+        }
+
+        /* আইকন বক্স ডিজাইন */
+        .premium-icon-box {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            background: rgba(60, 136, 238, 0.15);
+            color: #3C88EE;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            border: 1px solid rgba(60, 136, 238, 0.25);
+            transition: all 0.3s ease;
+        }
+
+        .premium-info-card:hover .premium-icon-box {
+            background: #3C88EE;
+            color: #ffffff;
+            box-shadow: 0 0 15px rgba(60, 136, 238, 0.5);
+        }
+
+        .premium-icon-box svg {
+            width: 22px;
+            height: 22px;
+            fill: currentColor;
+        }
+
+        /* টেক্সট কন্টেন্ট */
+        .premium-text-box {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .premium-label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #94a3b8;
+            margin-bottom: 4px;
+        }
+
+        .premium-value {
             font-size: 15px;
-            color: #1e293b;
+            color: #f1f5f9;
             font-weight: 500;
             margin: 0;
             line-height: 1.4;
         }
 
-        .info-link {
-            color: #1e293b;
+        .premium-link {
+            color: #f1f5f9;
             text-decoration: none;
             transition: color 0.2s ease;
         }
 
-        /* টেক্সট লিংক হোভার থিম কালার (#3C88EE) */
-        .info-link:hover {
+        .premium-link:hover {
             color: #3C88EE;
-            text-decoration: underline;
         }
 
-        /* রেসপনসিভ হ্যান্ডলার */
-        @media (max-width: 767.98px) {
-            .modern-contact-card {
-                padding: 24px;
+        /* ডেস্কটপ ও মোবাইলের জন্য নিখুঁত রেসপনসিভ মিডিয়া কুয়েরি */
+        @media (max-width: 991.98px) {
+            .pt-80 {
+                padding-top: 40px;
+            }
+
+            .pb-80 {
+                padding-bottom: 40px;
+            }
+
+            .main-title {
+                font-size: 28px;
+            }
+
+            .latest-contact-card,
+            .latest-info-panel {
+                padding: 30px;
+                border-radius: 20px;
+            }
+
+            .premium-info-card {
+                padding: 16px;
+            }
+        }
+
+        @media (max-width: 575.98px) {
+
+            .latest-contact-card,
+            .latest-info-panel {
+                padding: 20px;
+            }
+
+            .premium-info-card {
+                gap: 14px;
+            }
+
+            .premium-icon-box {
+                width: 42px;
+                height: 42px;
+            }
+
+            .premium-value {
+                font-size: 13px;
             }
         }
     </style>
