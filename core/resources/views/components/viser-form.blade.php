@@ -43,33 +43,20 @@
                     @endforeach
                 </select>
             @elseif($data->type == 'checkbox')
-                <div class="form--group">
-                    <div class="d-flex gap-3 flex-wrap">
-                        @foreach ($data->options as $option)
-                            <div class="form-group custom-check-group">
-                                <input id="{{ $data->label }}_{{ titleToKey($option) }}"
-                                    name="{{ $data->label }}[]" type="checkbox" value="{{ $option }}"
-                                    @checked($option == old($data->label))>
-                                <label
-                                    for="{{ $data->label }}_{{ titleToKey($option) }}">{{ $option }}</label>
-                            </div>
-                        @endforeach
-                    </div>
-                    <div class="checkbox-required-error text--danger"></div>
-                </div>
+                <select class="form-select form--control select2-basic" name="{{ $data->label }}[]" multiple
+                    @if ($data->is_required == 'required') required @endif>
+                    @foreach ($data->options as $option)
+                        <option value="{{ $option }}" @selected(is_array(old($data->label)) && in_array($option, old($data->label)))>{{ __($option) }}</option>
+                    @endforeach
+                </select>
             @elseif($data->type == 'radio')
-                <div class="form--group">
-                    <div class="d-flex gap-3 flex-wrap">
-                        @foreach ($data->options as $option)
-                            <div class="form-group custom-check-group">
-                                <input id="{{ $data->label }}_{{ titleToKey($option) }}" name="{{ $data->label }}"
-                                    type="radio" value="{{ $option }}" @checked($option == old($data->label))>
-                                <label
-                                    for="{{ $data->label }}_{{ titleToKey($option) }}">{{ $option }}</label>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
+                <select class="form-select form--control select2-basic" data-minimum-results-for-search="-1"
+                    name="{{ $data->label }}" @if ($data->is_required == 'required') required @endif>
+                    <option value="">@lang('Select One')</option>
+                    @foreach ($data->options as $option)
+                        <option value="{{ $option }}" @selected($option == old($data->label))>{{ __($option) }}</option>
+                    @endforeach
+                </select>
             @elseif($data->type == 'file')
                 <div class="custom-file-wrapper">
                     <div class="custom-file">
