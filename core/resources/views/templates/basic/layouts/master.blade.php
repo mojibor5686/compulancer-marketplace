@@ -118,10 +118,11 @@
                                         style="transition: color 0.2s ease;"
                                         onmouseover="this.style.color='var(--bs-primary)'"
                                         onmouseout="this.style.color='var(--text-dark)'">
+                                        <i class="las la-comments" style="font-size: 18px; color: currentColor;"></i>
                                         <span style="font-size: 14px;">@lang('Massage')</span>
                                         <span
                                             class="position-absolute top-0 start-100 translate-middle badge rounded-circle bg-danger d-flex align-items-center justify-content-center p-0"
-                                            style="width: 16px; height: 16px; font-size: 10px; margin-top: -2px;">
+                                            style="width: 16px; height: 16px; font-size: 10px; margin-top: -2px; margin-left: 2px;">
                                             0
                                         </span>
                                     </a>
@@ -141,8 +142,14 @@
                                 <div class="user-profile-dropdown-wrapper position-relative py-2">
                                     <div class="user-profile-trigger d-flex align-items-center gap-2 cursor-pointer">
                                         <div
-                                            style="width: 42px; height: 42px; border: 2px solid #e9ecef; border-radius: 50%; display: flex; align-items: center; justify-content: center; background-color: #f8f9fa;">
-                                            <i class="las la-comments fs-4" style="color:#333"></i>
+                                            style="width: 42px; height: 42px; border: 2px solid #e9ecef; border-radius: 50%; display: flex; align-items: center; justify-content: center; background-color: #f8f9fa; overflow: hidden !important;">
+                                            @if (auth()->user()->image)
+                                                <img src="{{ getImage(getFilePath('userProfile') . '/' . auth()->user()->image, isAvatar: true) }}"
+                                                    alt="{{ auth()->user()->username }}"
+                                                    style="width: 100% !important; height: 100% !important; object-fit: cover !important; display: block !important;">
+                                            @else
+                                                <i class="las la-user fs-4" style="color:#555"></i>
+                                            @endif
                                         </div>
                                         <div class="user-info-text lh-sm">
                                             <h6 class="m-0 fw-bold text-dark" style="font-size: 14px;">
