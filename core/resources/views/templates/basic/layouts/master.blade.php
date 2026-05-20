@@ -110,6 +110,12 @@
                                 </span>
                             </button>
 
+                            @php
+                                $unreadMessagesCount = \App\Models\Message::where('receiver_id', auth()->id())
+                                    ->where('is_read', 0)
+                                    ->count();
+                            @endphp
+
                             <div class="topnav-right d-flex align-items-center gap-4">
 
                                 <div class="topnav-left d-lg-block d-none">
@@ -123,7 +129,7 @@
                                         <span
                                             class="position-absolute top-0 start-100 translate-middle badge rounded-circle bg-danger d-flex align-items-center justify-content-center p-0"
                                             style="width: 16px; height: 16px; font-size: 10px; margin-top: -2px; margin-left: 2px;">
-                                            0
+                                            {{ $unreadMessagesCount }}
                                         </span>
                                     </a>
                                 </div>

@@ -40,6 +40,11 @@ public function messages($uniqueId = null)
         })
         ->firstOrFail();
 
+    Message::where('inbox_id', $inbox->id)
+        ->where('receiver_id', auth()->id())
+        ->where('is_read', 0)
+        ->update(['is_read' => 1]);    
+
     if (request()->ajax()) {
         $lastChatId = request('last_chat_id');
         $messagesQuery = Message::where('inbox_id', $inbox->id)
@@ -128,7 +133,6 @@ public function messages($uniqueId = null)
         return back()->withNotify($notify);
     }
 
-    // New method for storing messages via Ajax
     public function storeMessage(Request $request)
     {
         $validator = validator($request->all(), [
@@ -190,14 +194,12 @@ public function messages($uniqueId = null)
             'uniqueId' => $inbox->unique_id
         ]);
 
-        // Render the new message partial
         $messageHtml = view('Template::partials.single_message', compact('message'))->render();
 
         return response()->json(['html' => $messageHtml], 200);
     }
 
 
-    // New method for refreshing messages via Ajax
     public function refreshMessages($uniqueId)
     {
         $inbox = Inbox::where('unique_id', $uniqueId)
