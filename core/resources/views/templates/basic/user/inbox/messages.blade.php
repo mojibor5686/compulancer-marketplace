@@ -292,7 +292,7 @@
             {{-- blade-formatter-disable --}}
             // Handle incoming chat messages
             function handleChatMessage(data) {
-                if (data.uniqueId === "{{ $inbox->unique_id }}" && data.sender.id !== userId) {
+                if (data.uniqueId === "{{ @$inbox->unique_id }}" && data.sender.id !== userId) {
                     // Hide empty message box if exists
                     $('.empty-message-box').addClass('d-none');
 
