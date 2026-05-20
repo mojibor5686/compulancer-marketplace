@@ -342,7 +342,7 @@
                 height: 60px;
                 bottom: -30px;
                 right: -80px;
-                background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 162 58' fill='none'%3E%3Cpath d='M1 1C30 35 110 55 155 15' stroke='%23b2eccf' stroke-width='2' stroke-dasharray='4 4'/%3E%3Cpath d='M155 15L146 12M155 15L153 24' stroke='%23b2eccf' stroke-width='2'/%3E%3C/svg%3E");
+                background-image: url("https://cdn.kwork.com/images/index/steps-choose-arrow.svg?ver=2");
                 background-repeat: no-repeat;
                 z-index: 1;
             }
@@ -364,7 +364,7 @@
                 height: 110px;
                 bottom: -60px;
                 left: -100px;
-                background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 210 100' fill='none'%3E%3Cpath d='M10 10C50 90 160 90 190 20' stroke='%23b2eccf' stroke-width='2'/%3E%3Cpath d='M190 20L181 22M190 20L195 29' stroke='%23b2eccf' stroke-width='2'/%3E%3C/svg%3E");
+                background-image: url("https://cdn.kwork.com/images/index/steps-result-arrow.svg?ver=2");
                 background-repeat: no-repeat;
                 z-index: 1;
             }
