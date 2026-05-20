@@ -6,7 +6,7 @@
         }
     </style>
     <main class="page-wrapper">
-        <section class="jss-details py-35">
+        <section class="jss-details py-50">
             <div class="container">
                 <div class="row gy-5">
                     <div class="col-lg-8">
@@ -30,7 +30,7 @@
                                 </h1>
 
                                 <div
-                                    class="kwork-gig-meta d-flex align-items-center flex-wrap justify-content-between border-bottom pb-4">
+                                    class="kwork-gig-meta d-flex align-items-center flex-wrap justify-content-between pb-4">
                                     <div class="d-flex align-items-center flex-wrap gap-2">
                                         <div class="d-flex align-items-center gap-2 me-2">
                                             <img src="{{ getImage(getFilePath('userProfile') . '/' . @$productDetails->user->image, isAvatar: true) }}"
