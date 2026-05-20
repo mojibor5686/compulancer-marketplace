@@ -6,7 +6,7 @@
         }
     </style>
     <main class="page-wrapper">
-        <section class="jss-details py-80">
+        <section class="jss-details py-20">
             <div class="container">
                 <div class="row gy-5">
                     <div class="col-lg-8">
