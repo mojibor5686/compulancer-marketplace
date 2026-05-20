@@ -387,109 +387,40 @@
             <div class="slider-relative-wrapper">
                 <div class="swiper portfolioSwiper">
                     <div class="swiper-wrapper">
+                        @forelse($product_all as $product)
+                            <div class="swiper-slide">
+                                <div class="portfolio-card">
+                                    <div class="portfolio-img-box">
+                                        <img src="{{ getImage(getFilePath('service') . '/' . $product->image) }}"
+                                            alt="{{ __($product->title) }}">
+                                    </div>
 
-                        <div class="swiper-slide">
-                            <div class="portfolio-card">
-                                <div class="portfolio-img-box">
-                                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=500&auto=format&fit=crop&q=60"
-                                        alt="Project">
-                                </div>
-                                <div class="card-footer-profile">
-                                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop&q=60"
-                                        class="freelancer-avatar" alt="Avatar">
-                                    <div class="freelancer-info">
-                                        <span>@lang('Freelancer:')</span> <a href="#"
-                                            class="freelancer-link">allnayu</a>
+                                    <div class="card-footer-profile">
+                                        <img src="{{ getImage(getFilePath('userProfile') . '/' . @$product->user->image, isAvatar: true) }}"
+                                            class="freelancer-avatar" alt="Avatar">
+
+                                        <div class="freelancer-info">
+                                            <span>@lang('Freelancer:')</span>
+
+                                            @if ($product->user)
+                                                <a href="{{ route('public.profile', $product->user->username) }}"
+                                                    class="freelancer-link">
+                                                    {{ __($product->user->username) }}
+                                                </a>
+                                            @else
+                                                <span class="text-muted">@lang('Unknown')</span>
+                                            @endif
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="swiper-slide">
-                            <div class="portfolio-card">
-                                <div class="portfolio-img-box">
-                                    <img src="https://images.unsplash.com/photo-1626785774573-4b799315345d?w=500&auto=format&fit=crop&q=60"
-                                        alt="Project">
-                                </div>
-                                <div class="card-footer-profile">
-                                    <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=60"
-                                        class="freelancer-avatar" alt="Avatar">
-                                    <div class="freelancer-info">
-                                        <span>@lang('Freelancer:')</span> <a href="#"
-                                            class="freelancer-link">Mariichka</a>
-                                    </div>
+                        @empty
+                            <div class="swiper-slide">
+                                <div class="text-center text-muted py-4">
+                                    @lang('No portfolios available.')
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="swiper-slide">
-                            <div class="portfolio-card">
-                                <div class="portfolio-img-box">
-                                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&auto=format&fit=crop&q=60"
-                                        alt="Project">
-                                </div>
-                                <div class="card-footer-profile">
-                                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&auto=format&fit=crop&q=60"
-                                        class="freelancer-avatar" alt="Avatar">
-                                    <div class="freelancer-info">
-                                        <span>@lang('Freelancer:')</span> <a href="#"
-                                            class="freelancer-link">ValentynM</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="swiper-slide">
-                            <div class="portfolio-card">
-                                <div class="portfolio-img-box">
-                                    <img src="https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=500&auto=format&fit=crop&q=60"
-                                        alt="Project">
-                                </div>
-                                <div class="card-footer-profile">
-                                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&auto=format&fit=crop&q=60"
-                                        class="freelancer-avatar" alt="Avatar">
-                                    <div class="freelancer-info">
-                                        <span>@lang('Freelancer:')</span> <a href="#"
-                                            class="freelancer-link">Vazillo_design</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="swiper-slide">
-                            <div class="portfolio-card">
-                                <div class="portfolio-img-box">
-                                    <img src="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=500&auto=format&fit=crop&q=60"
-                                        alt="Project">
-                                </div>
-                                <div class="card-footer-profile">
-                                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&auto=format&fit=crop&q=60"
-                                        class="freelancer-avatar" alt="Avatar">
-                                    <div class="freelancer-info">
-                                        <span>@lang('Freelancer:')</span> <a href="#"
-                                            class="freelancer-link">Alex_DevSoft</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="swiper-slide">
-                            <div class="portfolio-card">
-                                <div class="portfolio-img-box">
-                                    <img src="https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?w=500&auto=format&fit=crop&q=60"
-                                        alt="Project">
-                                </div>
-                                <div class="card-footer-profile">
-                                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&auto=format&fit=crop&q=60"
-                                        class="freelancer-avatar" alt="Avatar">
-                                    <div class="freelancer-info">
-                                        <span>@lang('Freelancer:')</span> <a href="#"
-                                            class="freelancer-link">Sara_Studio</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
+                        @endforelse
                     </div>
                 </div>
 
