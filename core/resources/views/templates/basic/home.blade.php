@@ -224,6 +224,153 @@
         }
     </style>
 
+    <section class="how-it-works-section"
+        style="background-color: #f7f9fa; padding: 80px 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+        <div class="container">
+
+            <div class="row mb-5">
+                <div class="col-12 text-center text-lg-start">
+                    <h2
+                        style="font-size: 28px; font-weight: 700; color: #222222; margin-bottom: 8px; letter-spacing: -0.5px;">
+                        @lang('Discover how easy it is to get things done')
+                    </h2>
+                    <p style="font-size: 16px; color: #404145; font-weight: 500; margin: 0;">
+                        @lang('Perfect for your personal and business goals!')
+                    </p>
+                </div>
+            </div>
+
+            <div class="row justify-content-center" style="position: relative;">
+
+                <div class="col-xl-4 col-lg-4 col-md-6 mb-4 position-relative text-center">
+                    <div class="step-arrow-down d-none d-lg-block"></div>
+
+                    <div class="step-card-wrapper">
+                        <div class="icon-circle-box">
+                            <i class="las la-search-dollar"></i>
+                        </div>
+                        <h4 class="step-title">@lang('Find a freelancer')</h4>
+                        <p class="step-desc">
+                            @lang('Explore thousands of professional services for every budget.')
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-xl-4 col-lg-4 col-md-6 mb-4 position-relative text-center">
+                    <div class="step-arrow-up d-none d-lg-block"></div>
+
+                    <div class="step-card-wrapper">
+                        <div class="icon-circle-box">
+                            <i class="las la-handshake"></i>
+                        </div>
+                        <h4 class="step-title">@lang('Shop with confidence')</h4>
+                        <p class="step-desc">
+                            @lang("Always know prices and deadlines upfront. Your payment isn't released until you approve the work.")
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-xl-4 col-lg-4 col-md-6 mb-4 position-relative text-center">
+                    <div class="step-arrow-loop d-none d-lg-block"></div>
+
+                    <div class="step-card-wrapper">
+                        <div class="icon-circle-box">
+                            <i class="las la-award"></i>
+                        </div>
+                        <h4 class="step-title">@lang('Get quality results')</h4>
+                        <p class="step-desc">
+                            @lang('Our 100% Money Back Guarantee ensures top-quality work delivered on time or your money back.')
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    @push('style')
+        <style>
+            .step-card-wrapper {
+                padding: 0 25px;
+                z-index: 2;
+                position: relative;
+            }
+
+            .icon-circle-box {
+                width: 110px;
+                height: 110px;
+                background: #ffffff;
+                border-radius: 50%;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                margin-bottom: 24px;
+                box-shadow: 0 10px 30px rgba(60, 136, 238, 0.12);
+                border: 1px solid rgba(60, 136, 238, 0.05);
+                position: relative;
+                transition: transform 0.3s ease;
+            }
+
+            .icon-circle-box:hover {
+                transform: translateY(-5px);
+            }
+
+            .icon-circle-box i {
+                font-size: 42px;
+                color: #0073ec;
+            }
+
+            .step-title {
+                font-size: 18px;
+                font-weight: 700;
+                color: #222222;
+                margin-bottom: 12px;
+            }
+
+            .step-desc {
+                font-size: 14px;
+                color: #555555;
+                line-height: 1.6;
+                max-width: 290px;
+                margin: 0 auto;
+            }
+
+            .step-arrow-down {
+                position: absolute;
+                width: 160px;
+                height: 60px;
+                bottom: -30px;
+                right: -80px;
+                background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 162 58' fill='none'%3E%3Cpath d='M1 1C30 35 110 55 155 15' stroke='%23b2eccf' stroke-width='2' stroke-dasharray='4 4'/%3E%3Cpath d='M155 15L146 12M155 15L153 24' stroke='%23b2eccf' stroke-width='2'/%3E%3C/svg%3E");
+                background-repeat: no-repeat;
+                z-index: 1;
+            }
+
+            .step-arrow-up {
+                position: absolute;
+                width: 160px;
+                height: 60px;
+                top: -20px;
+                right: -80px;
+                background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 162 58' fill='none'%3E%3Cpath d='M1 57C30 23 110 3 155 43' stroke='%23b2eccf' stroke-width='2' stroke-dasharray='4 4'/%3E%3Cpath d='M155 43L153 34M155 43L146 46' stroke='%23b2eccf' stroke-width='2'/%3E%3C/svg%3E");
+                background-repeat: no-repeat;
+                z-index: 1;
+            }
+
+            .step-arrow-loop {
+                position: absolute;
+                width: 200px;
+                height: 110px;
+                bottom: -60px;
+                left: -100px;
+                background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 210 100' fill='none'%3E%3Cpath d='M10 10C50 90 160 90 190 20' stroke='%23b2eccf' stroke-width='2'/%3E%3Cpath d='M190 20L181 22M190 20L195 29' stroke='%23b2eccf' stroke-width='2'/%3E%3C/svg%3E");
+                background-repeat: no-repeat;
+                z-index: 1;
+            }
+        </style>
+    @endpush
+
     <section class="cta-section">
         <div class="container">
             <div class="row justify-content-center">
