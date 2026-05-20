@@ -114,11 +114,16 @@
 
                                 <div class="topnav-left d-lg-block d-none">
                                     <a href="{{ route('user.inbox.messages') }}"
-                                        class="text-decoration-none text-dark fw-medium d-flex align-items-center gap-2 fs-6"
+                                        class="text-decoration-none text-dark fw-medium d-flex align-items-center gap-2 fs-6 position-relative"
                                         style="transition: color 0.2s ease;"
                                         onmouseover="this.style.color='var(--bs-primary)'"
                                         onmouseout="this.style.color='var(--text-dark)'">
                                         <span style="font-size: 14px;">@lang('Massage')</span>
+                                        <span
+                                            class="position-absolute top-0 start-100 translate-middle badge rounded-circle bg-danger d-flex align-items-center justify-content-center p-0"
+                                            style="width: 16px; height: 16px; font-size: 10px; margin-top: 2px;">
+                                            0
+                                        </span>
                                     </a>
                                 </div>
 
