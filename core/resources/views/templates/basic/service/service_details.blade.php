@@ -270,15 +270,17 @@
                                                 @lang('Do you have any special requirements?')
                                             </h5>
                                         </div>
-                                        <div class="widget-card__body">
-                                            <a class="btn btn--lg btn--base w-100"
-                                                href="{{ route('public.profile', ['username' => $productDetails->user->username, 'contact' => 'true']) }}">
-                                                @lang('Contact Now')
+                                        <div class="widget-card__body" data-bs-toggle="modal"
+                                            data-bs-target="#contactModal">
+                                            <a class="btn btn--lg btn--base w-100" href="#">
+                                                @lang('Message Now')
                                             </a>
                                         </div>
                                     </div>
                                 </div>
                             @endif
+
+                            @include('Template::partials.contact_modal')
 
                             <!-- Short Profile Widget -->
                             <div class="jss-details-sidebar__block">
