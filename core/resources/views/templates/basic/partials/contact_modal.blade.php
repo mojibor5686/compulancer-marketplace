@@ -8,7 +8,7 @@
                 style="background: #ffffff; border-bottom: 1px solid #edf1f4; padding: 20px 24px; display: flex; align-items: center; justify-content: space-between;">
                 <h5 class="modal-title"
                     style="font-size: 18px; font-weight: 700; color: #1d1e20; display: inline-flex; align-items: center; gap: 8px;">
-                    <i class="ri-chat-smile-3-line" style="color: #14a800; font-size: 22px;"></i> @lang('Start New Conversation')
+                    <i class="ri-chat-smile-3-line" style="color: #3C88EE; font-size: 22px;"></i> @lang('Start New Conversation')
                 </h5>
                 <button type="button" class="btn-close-custom" data-bs-dismiss="modal" aria-label="Close"
                     style="background: #f4f6f8; border: none; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #5e6267; cursor: pointer; transition: all 0.2s;">
@@ -50,7 +50,7 @@
                 <div class="modal-footer"
                     style="background: #f8fafc; border-top: 1px solid #edf1f4; padding: 16px 24px;">
                     <button type="submit" class="btn btn--base w-100 btn--lg modern-submit-btn"
-                        style="width: 100%; background-color: #14a800; border: none; color: #ffffff; border-radius: 50px; font-size: 15px; font-weight: 600; padding: 12px 24px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.2s ease-in-out; box-shadow: 0 4px 12px rgba(20, 168, 0, 0.15);">
+                        style="width: 100%; background-color: #3C88EE; border: none; color: #ffffff; border-radius: 50px; font-size: 15px; font-weight: 600; padding: 12px 24px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.2s ease-in-out; box-shadow: 0 4px 12px rgba(60, 136, 238, 0.15);">
                         <i class="ri-send-plane-fill"></i> @lang('Send Message')
                     </button>
                 </div>
@@ -62,15 +62,14 @@
 
 @push('style')
     <style>
-        /* 🎨 ইনপুট ও বাটনের জন্য ইন্টারেক্টিভ হোভার ইফেক্ট */
         .modern-input:focus {
-            border-color: #14a800 !important;
-            box-shadow: 0 0 0 4px rgba(20, 168, 0, 0.08) !important;
+            border-color: #3C88EE !important;
+            box-shadow: 0 0 0 4px rgba(60, 136, 238, 0.1) !important;
         }
 
         .modern-submit-btn:hover {
-            background-color: #108a00 !important;
-            box-shadow: 0 6px 16px rgba(20, 168, 0, 0.25) !important;
+            background-color: #3C88EE !important;
+            box-shadow: 0 6px 16px rgba(60, 136, 238, 0.25) !important;
         }
 
         .btn-close-custom:hover {
