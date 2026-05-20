@@ -7,7 +7,7 @@
                     {{-- Sorting Dropdown Form --}}
                     <select class="form-select form--select select2-basic sortBy" name="sorting"
                         data-minimum-results-for-search="-1">
-                        <option value="">@lang('Sort By (Default)')</option>
+                        <option value="">@lang('Sort By')</option>
                         <option value="high">@lang('Higher to Lower')</option>
                         <option value="low">@lang('Lower to Higher')</option>
                     </select>
