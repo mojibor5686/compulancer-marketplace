@@ -113,6 +113,11 @@
                                 $unreadMessagesCount = \App\Models\Message::where('receiver_id', auth()->id())
                                     ->where('is_read', 0)
                                     ->count();
+
+                                $myordersCount = 0;
+                                if (auth()->check()) {
+                                    $myordersCount = \App\Models\Booking::where('buyer_id', auth()->id())->count();
+                                }
                             @endphp
 
                             <div class="topnav-right d-flex align-items-center gap-4">
@@ -126,6 +131,11 @@
                                         <i class="las la-shopping-bag"
                                             style="font-size: 18px; color: currentColor;"></i>
                                         <span style="font-size: 14px;">@lang('Order')</span>
+                                        <span
+                                            class="position-absolute top-0 start-100 translate-middle badge rounded-circle bg-danger d-flex align-items-center justify-content-center p-0"
+                                            style="width: 16px; height: 16px; font-size: 10px; margin-top: -2px; margin-left: 2px;">
+                                            {{ $myordersCount }}
+                                        </span>
                                     </a>
                                 </div>
 

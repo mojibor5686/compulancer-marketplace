@@ -51,9 +51,9 @@ class AppServiceProvider extends ServiceProvider
             }
         }
 
-        // গ্লোবাল ভিউ শেয়ার মেথড (ক্যাটাগরি ডেটা এখন যেকোনো ব্লেড ফাইল থেকে সরাসরি অ্যাক্সেস পাবে)
         $viewShare['emptyMessage'] = 'Data not found';
         $viewShare['categories']   = Category::with('subCategories')->active()->orderBy('name')->get();
+        $viewShare['products']     = Service::active()->latest()->get() ?? collect();
         view()->share($viewShare);
 
 
@@ -86,7 +86,6 @@ class AppServiceProvider extends ServiceProvider
             ]);
         });
 
-        // আপনার পুরানো ভিউ কম্পোজার থেকে categories ডাটাটি বাদ দিয়ে শুধুমাত্র কান্ট্রি ডাটা রাখা হলো
         view()->composer(
             [
                 "Template::partials.filter",
