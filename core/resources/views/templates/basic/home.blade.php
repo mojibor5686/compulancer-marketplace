@@ -342,7 +342,6 @@
                 height: 57px;
                 top: 45px;
                 right: -65px;
-                background-image: url("https://cdn.kwork.com/images/index/steps-choose-arrow.svg?ver=2");
                 background-repeat: no-repeat;
                 background-size: contain;
                 z-index: 1;
@@ -354,7 +353,6 @@
                 height: 57px;
                 top: 10px;
                 right: -65px;
-                background-image: url("https://cdn.kwork.com/images/index/steps-pay-arrow.svg?ver=2");
                 background-repeat: no-repeat;
                 background-size: contain;
                 z-index: 1;
@@ -366,7 +364,6 @@
                 height: 112px;
                 top: 75px;
                 left: -135px;
-                background-image: url("https://cdn.kwork.com/images/index/steps-result-arrow.svg?ver=2");
                 background-repeat: no-repeat;
                 background-size: contain;
                 z-index: 1;
