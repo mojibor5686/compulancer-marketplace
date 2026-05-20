@@ -214,7 +214,7 @@
                                                     href="{{ route('user.seller.home') }}"><i
                                                         class="las la-border-all"></i> @lang('Dashboard')</a></li>
                                             <li><a class="hover-menu-link px-3 py-2 d-flex align-items-center gap-2"
-                                                    href="{{ route('user.inbox.messages') }}"><i
+                                                    href="{{ route('user.inbox.messages', ['uniqueId' => 0]) }}"><i
                                                         class="las la-sms"></i>
                                                     @lang('Messages')</a>
                                             </li>
