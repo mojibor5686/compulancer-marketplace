@@ -500,7 +500,7 @@
     </section>
 
     <section class="solutions-section"
-        style="background-color: #ffffff; padding: 80px 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+        style="background-color: #ffffff; padding: 80px 0; padding-top:40px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
         <div class="container">
             <div class="row align-items-center">
 
