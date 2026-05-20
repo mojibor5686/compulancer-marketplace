@@ -146,7 +146,6 @@
                                         onmouseover="this.style.color='var(--bs-primary)'"
                                         onmouseout="this.style.color='var(--text-dark)'">
                                         <i class="las la-comments" style="font-size: 18px; color: currentColor;"></i>
-                                        <span style="font-size: 14px;">@lang('Massage')</span>
                                         <span
                                             class="position-absolute top-0 start-100 translate-middle badge rounded-circle bg-danger d-flex align-items-center justify-content-center p-0"
                                             style="width: 16px; height: 16px; font-size: 10px; margin-top: -2px; margin-left: 2px;">
