@@ -584,7 +584,7 @@
 
             .slider-relative-wrapper {
                 position: relative;
-                padding: 0 40px;
+                padding: 0px;
             }
 
             .portfolio-card {
@@ -678,11 +678,11 @@
             }
 
             .portfolio-slider-section .swiper-button-prev {
-                left: 0px;
+                left: 50px;
             }
 
             .portfolio-slider-section .swiper-button-next {
-                right: 0px;
+                right: 50px;
             }
         </style>
     @endpush
