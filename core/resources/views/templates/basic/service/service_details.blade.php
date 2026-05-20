@@ -11,6 +11,75 @@
                 <div class="row gy-5">
                     <div class="col-lg-8">
                         <div class="jss-details-main bg--white">
+                            <div class="kwork-detail-header mb-4"
+                                style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+                                <nav class="kwork-breadcrumb d-flex align-items-center gap-2 mb-3"
+                                    style="font-size: 14px; color: #777777;">
+                                    <a href="#"
+                                        style="color: #777777; text-decoration: none; transition: color 0.2s;">{{ __(@$productDetails->category->name ?? 'Design') }}</a>
+                                    <span style="font-size: 11px; color: #b5b5b5;"><i class="las la-angle-right"></i></span>
+                                    <a href="#"
+                                        style="color: #777777; text-decoration: none; transition: color 0.2s;">{{ __(@$productDetails->subCategory->name ?? 'Logo Design') }}</a>
+                                    <span style="font-size: 11px; color: #b5b5b5;"><i class="las la-angle-right"></i></span>
+                                    <span style="color: #222222; font-weight: 500;">@lang('New Logo')</span>
+                                </nav>
+
+                                <h1 class="kwork-gig-title mb-3"
+                                    style="font-size: 32px; font-weight: 700; color: #222222; line-height: 1.25; letter-spacing: -0.5px;">
+                                    {{ __($productDetails->title ?? 'I will do unique, modern and professional business logo design') }}
+                                </h1>
+
+                                <div
+                                    class="kwork-gig-meta d-flex align-items-center flex-wrap justify-content-between border-bottom pb-4">
+                                    <div class="d-flex align-items-center flex-wrap gap-2">
+                                        <div class="d-flex align-items-center gap-2 me-2">
+                                            <img src="{{ getImage(getFilePath('userProfile') . '/' . @$productDetails->user->image, isAvatar: true) }}"
+                                                class="rounded-circle object-fit-cover" width="24" height="24"
+                                                alt="avatar">
+                                            <a href="{{ route('public.profile', @$productDetails->user->username) }}"
+                                                style="font-size: 15px; font-weight: 600; color: #555555; text-decoration: none; transition: color 0.2s;"
+                                                onmouseover="this.style.color='#0073ec'"
+                                                onmouseout="this.style.color='#555555'">
+                                                {{ __(@$productDetails->user->username ?? 'Mobi_designs') }}
+                                            </a>
+                                        </div>
+
+                                        <div class="d-flex align-items-center me-2">
+                                            <div class="kwork-stars me-1"
+                                                style="color: #ff9800; font-size: 14px; letter-spacing: -1px;">
+                                                <i class="las la-star"></i><i class="las la-star"></i><i
+                                                    class="las la-star"></i><i class="las la-star"></i><i
+                                                    class="las la-star"></i>
+                                            </div>
+                                            <span style="font-size: 14px; font-weight: 600; color: #ff4500;">5.0</span>
+                                        </div>
+
+                                        <div style="font-size: 14px; color: #777777;">
+                                            <span style="color: #b5b5b5; margin-right: 5px;">•</span>
+                                            <a href="#jss-details-tab-3" class="review-link-trigger"
+                                                style="color: #777777; text-decoration: underline;">
+                                                {{ $productDetails->reviews_count ?? 3 }} @lang('reviews')
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex align-items-center gap-2 mt-2 mt-sm-0">
+                                        <button
+                                            class="btn d-flex align-items-center gap-1 border rounded px-3 py-1.5 bg-white shadow-sm-hover"
+                                            style="font-size: 14px; color: #555555; border-color: #e4e8eb !important; height: 36px;">
+                                            <span style="font-size: 14px; font-weight: 500; color: #222;">45</span>
+                                            <i class="lar la-heart" style="font-size: 16px; margin-left: 2px;"></i>
+                                        </button>
+                                        <button
+                                            class="btn d-flex align-items-center justify-content-center border rounded bg-white shadow-sm-hover"
+                                            style="border-color: #e4e8eb !important; width: 36px; height: 36px; color: #a9ae injection;">
+                                            <i class="las la-exclamation-triangle"
+                                                style="font-size: 18px; color: #999;"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
                             @include('Template::items.details.banner', ['type' => 'service'])
 
                             <!-- Hidden Block (if any content is needed) -->
