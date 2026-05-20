@@ -1,20 +1,25 @@
 @php
     $activeLevels = \App\Models\Level::active()->get() ?? collect();
+    $categories = $categories ?? collect();
+
+    $type = $type ?? '';
 
     $activeFeatures = collect();
-    if (isset($type) && in_array($type, ['service', 'software'])) {
+    if (!empty($type) && in_array($type, ['service', 'software'])) {
         $activeFeatures = \App\Models\Feature::active()->orderBy('name')->get() ?? collect();
     }
 
+    $levels = $levels ?? [];
+    $features = $features ?? [];
     $skill = request('skill') ?? null;
 @endphp
+
 <aside id="jss-offcanvas-sidebar" class="offcanvas-sidebar offcanvas-sidebar--jss">
     <button type="button" class="btn--close">
         <i class="fas fa-times"></i>
     </button>
 
     <div class="offcanvas-sidebar__body">
-        <!-- Categories Section -->
         <div class="offcanvas-sidebar-block">
             <div class="offcanvas-sidebar-block__header">
                 <span class="offcanvas-sidebar-block__title">@lang('Categories')</span>
@@ -22,20 +27,26 @@
             <div class="offcanvas-sidebar-block__content" data-toggle="overflow-content"
                 data-target="#offcanvas-sidebar-block-btn-1">
                 <ul class="offcanvas-sidebar-list">
-                    @foreach ($categories as $category)
-                        <li class="offcanvas-sidebar-list__item">
-                            <a class="offcanvas-sidebar-list__link"
-                                href="{{ route('category.wise.product', [slug($category->name), $category->id]) }}">
-                                <svg width="8" height="9" viewBox="0 0 8 9" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M7.32079 4.33948L0.278356 0.262272C0.221281 0.229277 0.15048 0.229277 0.092658 0.262272C0.0355829 0.295266 0 0.356424 0 0.422759V8.57716C0 8.64351 0.0355829 8.70467 0.092658 8.73765C0.121204 8.75396 0.153451 8.76248 0.185316 8.76248C0.217563 8.76248 0.249445 8.75433 0.278356 8.73765L7.32079 4.66044C7.37787 4.62708 7.41309 4.56592 7.41309 4.49995C7.41309 4.43398 7.37787 4.37246 7.32079 4.33948Z"
-                                        fill="#757575" />
-                                </svg>
-                                <span>{{ __($category->name) }}</span>
-                            </a>
+                    @if ($categories->count() > 0)
+                        @foreach ($categories as $category)
+                            <li class="offcanvas-sidebar-list__item">
+                                <a class="offcanvas-sidebar-list__link"
+                                    href="{{ route('category.wise.product', [slug($category->name), $category->id]) }}">
+                                    <svg width="8" height="9" viewBox="0 0 8 9" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M7.32079 4.33948L0.278356 0.262272C0.221281 0.229277 0.15048 0.229277 0.092658 0.262272C0.0355829 0.295266 0 0.356424 0 0.422759V8.57716C0 8.64351 0.0355829 8.70467 0.092658 8.73765C0.121204 8.75396 0.153451 8.76248 0.185316 8.76248C0.217563 8.76248 0.249445 8.75433 0.278356 8.73765L7.32079 4.66044C7.37787 4.62708 7.41309 4.56592 7.41309 4.49995C7.41309 4.43398 7.37787 4.37246 7.32079 4.33948Z"
+                                            fill="#757575" />
+                                    </svg>
+                                    <span>{{ __($category->name) }}</span>
+                                </a>
+                            </li>
+                        @endforeach
+                    @else
+                        <li class="offcanvas-sidebar-list__item text-muted ps-3" style="font-size: 13px;">
+                            @lang('No categories found')
                         </li>
-                    @endforeach
+                    @endif
                 </ul>
             </div>
             <button id="offcanvas-sidebar-block-btn-1" class="offcanvas-sidebar-block__btn" type="button">
@@ -44,26 +55,32 @@
             </button>
         </div>
 
-        <!-- Filter by Level Section -->
         <form action="{{ route('filter') }}" method="GET">
             <input name="type" type="hidden" value="{{ $type }}">
+
             <div class="offcanvas-sidebar-block">
                 <div class="offcanvas-sidebar-block__header">
                     <span class="offcanvas-sidebar-block__title">@lang('Filter by Level')</span>
                 </div>
                 <div class="offcanvas-sidebar-block__content">
                     <ul class="offcanvas-sidebar-list">
-                        @foreach ($activeLevels as $level)
-                            <li class="offcanvas-sidebar-list__item">
-                                <div class="form-check form--check">
-                                    <input class="form-check-input" id="level-{{ $level->id }}" name="level[]"
-                                        type="checkbox" value="{{ $level->id }}"
-                                        @if (!empty($levels) && in_array($level->id, $levels)) checked @endif>
-                                    <label class="form-check-label"
-                                        for="level-{{ $level->id }}">{{ __(ucFirst($level->name)) }}</label>
-                                </div>
+                        @if ($activeLevels->count() > 0)
+                            @foreach ($activeLevels as $level)
+                                <li class="offcanvas-sidebar-list__item">
+                                    <div class="form-check form--check">
+                                        <input class="form-check-input" id="level-{{ $level->id }}" name="level[]"
+                                            type="checkbox" value="{{ $level->id }}"
+                                            @if (is_array($levels) && in_array($level->id, $levels)) checked @endif>
+                                        <label class="form-check-label"
+                                            for="level-{{ $level->id }}">{{ __(ucFirst($level->name)) }}</label>
+                                    </div>
+                                </li>
+                            @endforeach
+                        @else
+                            <li class="offcanvas-sidebar-list__item text-muted ps-3" style="font-size: 13px;">
+                                @lang('No levels available')
                             </li>
-                        @endforeach
+                        @endif
                     </ul>
                 </div>
                 <button id="offcanvas-sidebar-block-btn-2" class="offcanvas-sidebar-block__btn" type="button">
@@ -72,25 +89,31 @@
                 </button>
             </div>
 
-            <!-- Features Section (conditional) -->
-            @if ($type == 'service' || $type == 'software')
+            @if (!empty($type) && ($type == 'service' || $type == 'software'))
                 <div class="offcanvas-sidebar-block">
                     <div class="offcanvas-sidebar-block__header">
                         <span class="offcanvas-sidebar-block__title">@lang('Features')</span>
                     </div>
                     <div class="offcanvas-sidebar-block__content">
                         <ul class="offcanvas-sidebar-list">
-                            @foreach ($activeFeatures as $feature)
-                                <li class="offcanvas-sidebar-list__item">
-                                    <div class="form-check form--check">
-                                        <input class="form-check-input" id="feature-{{ $feature->id }}"
-                                            name="feature[]" type="checkbox" value="{{ $feature->id }}"
-                                            @if (!empty($features) && in_array($feature->id, $features)) checked @endif>
-                                        <label class="form-check-label"
-                                            for="feature-{{ $feature->id }}">{{ __($feature->name) }}</label>
-                                    </div>
+                            @if ($activeFeatures->count() > 0)
+                                @foreach ($activeFeatures as $feature)
+                                    <li class="offcanvas-sidebar-list__item">
+                                        <div class="form-check form--check">
+                                            <input class="form-check-input" id="feature-{{ $feature->id }}"
+                                                name="feature[]" type="checkbox" value="{{ $feature->id }}"
+                                                @if (is_array($features) && in_array($feature->id, $features)) checked @endif>
+                                            <label class="form-check-label"
+                                                for="feature-{{ $feature->id }}">{{ __($feature->name) }}</label>
+                                        </div>
+                                    </li>
+                                    Maroon
+                                @endforeach
+                            @else
+                                <li class="offcanvas-sidebar-list__item text-muted ps-3" style="font-size: 13px;">
+                                    @lang('No features found')
                                 </li>
-                            @endforeach
+                            @endif
                         </ul>
                     </div>
                     <button id="offcanvas-sidebar-block-btn-3" class="offcanvas-sidebar-block__btn" type="button">
@@ -106,8 +129,11 @@
                 </span>
                 <div class="offcanvas-sidebar-block__content overflow-visible">
                     <div class="price-filter">
-                        <div class="range-slider" data-min="{{ $priceRange[0] ?? 1 }}"
-                            data-max="{{ $priceRange[1] ?? 100 }}" data-min-default="25" data-max-default="50"></div>
+                        <div class="range-slider" data-min="{{ isset($priceRange[0]) ? $priceRange[0] : 1 }}"
+                            data-max="{{ isset($priceRange[1]) ? $priceRange[1] : 100 }}"
+                            data-min-default="{{ isset($priceRange[0]) ? $priceRange[0] : 25 }}"
+                            data-max-default="{{ isset($priceRange[1]) ? $priceRange[1] : 50 }}">
+                        </div>
                         <div class="price-filter__wrapper">
                             <input id="price" name="price" type="text" readonly="" />
                         </div>
@@ -117,7 +143,6 @@
         </form>
     </div>
 </aside>
-
 
 @push('script')
     <script>

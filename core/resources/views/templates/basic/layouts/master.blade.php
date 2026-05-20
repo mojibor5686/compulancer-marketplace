@@ -104,9 +104,8 @@
 
                             <button class="btn btn--base d-lg-none" type="button" data-toggle="offcanvas-sidebar"
                                 data-target="#dashboard-offcanvas-sidebar">
-                                <span class="d-inline-flex align-items-center justify-content-center gap-2">
+                                <span class="d-inline-flex align-items-center justify-content-center">
                                     <i class="fas fa-bars"></i>
-                                    <span style="font-size: 14px;">@lang('Menu')</span>
                                 </span>
                             </button>
 
