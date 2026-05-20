@@ -26,7 +26,8 @@
 
                             <div class="profile-meta-details">
                                 <div class="d-flex align-items-center gap-2 flex-wrap mb-1">
-                                    <h2 class="user-fullname m-0">{{ __($user->username) }}</h2>
+                                    <h2 class="user-fullname m-0" style="text-transform: capitalize;">
+                                        {{ __($user->username) }}</h2>
                                     <span class="pro-badge"><i class="ri-checkbox-circle-fill"></i> @lang('Pro Verified')</span>
                                 </div>
                                 <h5 class="user-designation">{{ __(@$user->designation ?? 'Top Rated Freelancer') }}</h5>
