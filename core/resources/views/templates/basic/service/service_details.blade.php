@@ -24,13 +24,12 @@
                                     <span style="color: #222222; font-weight: 500;">@lang('New Logo')</span>
                                 </nav>
 
-                                <h1 class="kwork-gig-title mb-3"
+                                <h1 class="kwork-gig-title mb-1"
                                     style="font-size: 32px; font-weight: 700; color: #222222; line-height: 1.25; letter-spacing: -0.5px;">
                                     {{ __($productDetails->title ?? 'I will do unique, modern and professional business logo design') }}
                                 </h1>
 
-                                <div
-                                    class="kwork-gig-meta d-flex align-items-center flex-wrap justify-content-between pb-4">
+                                <div class="kwork-gig-meta d-flex align-items-center flex-wrap justify-content-between">
                                     <div class="d-flex align-items-center flex-wrap gap-2">
                                         <div class="d-flex align-items-center gap-2 me-2">
                                             <img src="{{ getImage(getFilePath('userProfile') . '/' . @$productDetails->user->image, isAvatar: true) }}"
