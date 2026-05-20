@@ -7,17 +7,6 @@
 
     <main class="page-wrapper pt-80 pb-80 main-contact-wrapper">
         <div class="container">
-            <div class="text-center mb-5 max-w-700 mx-auto">
-                <span class="badge rounded-pill bg-theme-light text-theme fw-semibold px-3 py-2 mb-3">
-                    @lang('Get in Touch')
-                </span>
-                <h2 class="fw-bold text-dark tracking-tight main-title">
-                    {{ __(@$contactContent->data_values->form_heading ?? 'Let’s Start a Conversation') }}
-                </h2>
-                <p class="text-muted sub-title">
-                    {{ __(@$contactContent->data_values->form_sub_heading ?? 'Have a question or looking to collaborate? Drop us a message.') }}
-                </p>
-            </div>
 
             <div class="row g-5 align-items-stretch">
                 <div class="col-lg-7 d-flex">
