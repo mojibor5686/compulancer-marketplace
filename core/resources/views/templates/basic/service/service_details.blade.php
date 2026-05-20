@@ -292,7 +292,110 @@
             </div>
             <!-- End of container -->
         </section>
+
+        @php
+            // ব্লেড ফাইলের ভেতরেই ডাইনামিকালি রিলেটেড সার্ভিস কুয়েরি করা হলো
+            $relatedServices = \App\Models\Service::active()
+                ->where('category_id', $productDetails->category_id)
+                ->where('id', '!=', $productDetails->id) // বর্তমান সার্ভিসটি বাদ থাকবে
+                ->with(['user', 'category'])
+                ->latest()
+                ->take(4) // টপ ৪টি রিলেটেড সার্ভিস শো করবে
+                ->get();
+        @endphp
+
+        @if ($relatedServices->isNotEmpty())
+            <section class="related-services-section pb-5 pt-4 bg-light border-top">
+                <div class="container">
+                    <div class="mb-4">
+                        <h4 class="fw-bold text-dark m-0">@lang('Related Services You May Like')</h4>
+                        <p class="text-muted small m-0">@lang('Handpicked services from the same category.')</p>
+                    </div>
+
+                    <div class="row g-4">
+                        @foreach ($relatedServices as $service)
+                            <div class="col-sm-6 col-md-4 col-lg-3">
+                                <div
+                                    class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden bg-white transition-all hover-translate-y">
+                                    <div class="position-relative overflow-hidden" style="padding-top: 56.25%;">
+                                        <img src="{{ getImage(getFilePath('service') . '/' . $service->image) }}"
+                                            class="position-absolute top-0 start-0 w-100 h-100 object-fit-cover"
+                                            alt="{{ __($service->title) }}">
+                                    </div>
+
+                                    <div class="card-body p-3 d-flex flex-column justify-content-between">
+                                        <div>
+                                            <div class="d-flex align-items-center gap-2 mb-2">
+                                                <img src="{{ getImage(getFilePath('userProfile') . '/' . @$service->user->image, isAvatar: true) }}"
+                                                    class="rounded-circle object-fit-cover" width="20" height="20"
+                                                    alt="avatar">
+                                                <a href="{{ route('public.profile', @$service->user->username) }}"
+                                                    class="text-decoration-none text-secondary fw-semibold small text-truncate max-w-150">
+                                                    {{ __(@$service->user->username) }}
+                                                </a>
+                                            </div>
+
+                                            <h6 class="card-title line-clamp-2 mb-3">
+                                                <a href="{{ route('service.details', [slug($service->title), $service->id]) }}"
+                                                    class="text-decoration-none text-dark fw-bold small-title-link">
+                                                    {{ __($service->title) }}
+                                                </a>
+                                            </h6>
+                                        </div>
+
+                                        <div class="d-flex align-items-center justify-content-between pt-2 border-top">
+                                            <div class="d-flex align-items-center gap-1 text-warning small">
+                                                <i class="las la-star"></i>
+                                                <span class="text-dark fw-bold">5.0</span>
+                                            </div>
+                                            <div class="text-end">
+                                                <span class="text-muted d-block"
+                                                    style="font-size: 10px; text-transform: uppercase;">@lang('Starting At')</span>
+                                                <span
+                                                    class="fw-bold text-primary">{{ gs('cur_sym') }}{{ showAmount($service->price, currencyFormat: false) }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+            </section>
+        @endif
     </main>
+    <style>
+        .hover-translate-y {
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+
+        .hover-translate-y:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08) !important;
+        }
+
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            height: 38px;
+            line-height: 1.4;
+        }
+
+        .small-title-link {
+            color: #222;
+            transition: color 0.2s;
+        }
+
+        .small-title-link:hover {
+            color: #0073ec;
+        }
+
+        .max-w-150 {
+            max-width: 150px;
+        }
+    </style>
 @endsection
 
 @push('script')
