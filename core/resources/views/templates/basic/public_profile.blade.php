@@ -14,54 +14,101 @@
         <div class="container position-relative" style="z-index: 10;">
             <div class="row">
 
-                <div class="col-xl-8 col-lg-8 mb-4">
+                <div class="col-12 mb-4">
                     <div class="modern-profile-card">
 
-                        <div class="profile-header-wrapper">
-                            <div class="avatar-container">
-                                <img src="{{ getImage(getFilePath('userProfile') . '/' . @$user->image, isAvatar: true) }}"
-                                    alt="{{ __($user->username) }}" class="profile-main-avatar">
-                                <span class="active-status-badge"></span>
+                        <div class="profile-main-grid-layout">
+
+                            <div class="profile-left-details">
+                                <div class="profile-header-wrapper">
+                                    <div class="avatar-container">
+                                        <img src="{{ getImage(getFilePath('userProfile') . '/' . @$user->image, isAvatar: true) }}"
+                                            alt="{{ __($user->username) }}" class="profile-main-avatar">
+                                        <span class="active-status-badge"></span>
+                                    </div>
+
+                                    <div class="profile-meta-details">
+                                        <div class="d-flex align-items-center gap-2 flex-wrap mb-1">
+                                            <h2 class="user-fullname m-0" style="text-transform: capitalize;">
+                                                {{ __($user->username) }}</h2>
+                                            <span class="pro-badge"><i class="ri-checkbox-circle-fill"></i>
+                                                @lang('Pro Verified')</span>
+                                        </div>
+                                        <h5 class="user-designation">{{ __(@$user->designation ?? 'Top Rated Freelancer') }}
+                                        </h5>
+
+                                        <div class="user-tags-row">
+                                            <span class="meta-tag">
+                                                <i class="ri-map-pin-2-fill text-danger"></i>
+                                                {{ __(@$user->address->country ?? 'Global') }}
+                                            </span>
+                                            <span class="meta-tag">
+                                                <i class="ri-calendar-todo-fill text-primary"></i> @lang('Member since')
+                                                {{ showDateTime($user->created_at, 'Y') }}
+                                            </span>
+                                            <span class="meta-tag success">
+                                                <i class="ri-focus-3-line"></i> @lang('Available Now')
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="about-me-section">
+                                    <h4 class="section-block-title">
+                                        <span>@lang('Professional Overview')</span>
+                                    </h4>
+                                    <p class="about-description">
+                                        {{ __($user->about_me ?? 'No professional description available yet.') }}
+                                    </p>
+                                </div>
                             </div>
 
-                            <div class="profile-meta-details">
-                                <div class="d-flex align-items-center gap-2 flex-wrap mb-1">
-                                    <h2 class="user-fullname m-0" style="text-transform: capitalize;">
-                                        {{ __($user->username) }}</h2>
-                                    <span class="pro-badge"><i class="ri-checkbox-circle-fill"></i> @lang('Pro Verified')</span>
-                                </div>
-                                <h5 class="user-designation">{{ __(@$user->designation ?? 'Top Rated Freelancer') }}</h5>
+                            @if (@$user)
+                                <div class="profile-right-stats-panel">
+                                    <div class="stats-action-wrapper">
+                                        @auth
+                                            <button class="modern-msg-btn contactBtn" data-bs-toggle="modal"
+                                                data-bs-target="#contactModal">
+                                                <i class="ri-send-plane-fill"></i> @lang('Message Me')
+                                            </button>
+                                        @else
+                                            <button type="button" class="modern-msg-btn contactBtn" data-bs-toggle="modal"
+                                                data-bs-target="#loginModal">
+                                                <i class="ri-send-plane-fill"></i> @lang('Message Me')
+                                            </button>
+                                        @endauth
+                                    </div>
 
-                                <div class="user-tags-row">
-                                    <span class="meta-tag">
-                                        <i class="ri-map-pin-2-fill text-danger"></i>
-                                        {{ __(@$user->address->country ?? 'Global') }}
-                                    </span>
-                                    <span class="meta-tag">
-                                        <i class="ri-calendar-todo-fill text-primary"></i> @lang('Member since')
-                                        {{ showDateTime($user->created_at, 'Y') }}
-                                    </span>
-                                    <span class="meta-tag success">
-                                        <i class="ri-focus-3-line"></i> @lang('Available Now')
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
+                                    <div class="modern-stats-list">
+                                        <div class="stats-item">
+                                            <span class="stats-label"><i class="ri-star-fill text-warning"></i>
+                                                @lang("Seller's rating")</span>
+                                            <span class="stats-value fw-bold">
+                                                5.0 <span
+                                                    class="review-count-bracket">({{ $user->total_review ?? 0 }})</span>
+                                            </span>
+                                        </div>
 
-                        <div class="about-me-section">
-                            <h4 class="section-block-title">
-                                <span>@lang('Professional Overview')</span>
-                            </h4>
-                            <p class="about-description">
-                                {{ __($user->about_me ?? 'No professional description available yet.') }}
-                            </p>
+                                        <div class="stats-item">
+                                            <span class="stats-label"><i class="ri-checkbox-circle-line text-success"></i>
+                                                @lang('Completed orders')</span>
+                                            <span
+                                                class="stats-value">{{ $user->services()->active()->count() + $user->softwares()->active()->count() }}</span>
+                                        </div>
+
+                                        <div class="stats-item">
+                                            <span class="stats-label"><i class="ri-git-merge-line text-primary"></i>
+                                                @lang('Orders in progress')</span>
+                                            <span
+                                                class="stats-value text-primary fw-bold">{{ $user->jobBids()->inprogress()->count() }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+
                         </div>
 
                     </div>
-                </div>
-
-                <div class="col-xl-4 col-lg-4 mb-4">
-                    @include('Template::partials.sidebar_profile')
                 </div>
 
             </div>
@@ -72,8 +119,8 @@
                         <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 w-100">
                             <ul class="nav nav-pills custom-capsule-tabs" role="tablist">
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link {{ $maxKey == 'service' ? 'active' : '' }}" data-bs-toggle="tab"
-                                        data-bs-target="#service" type="button" role="tab">
+                                    <button class="nav-link {{ $maxKey == 'service' ? 'active' : '' }}"
+                                        data-bs-toggle="tab" data-bs-target="#service" type="button" role="tab">
                                         <i class="ri-briefcase-line me-2"></i>@lang('Services')
                                     </button>
                                 </li>
@@ -158,7 +205,7 @@
             background: linear-gradient(180deg, rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.4) 100%);
         }
 
-        /* মডার্ন প্রোফাইল মেইন কার্ড */
+        /* মডার্ন প্রোফাইল মেইন কার্ড লেআউট */
         .modern-profile-card {
             background-color: #ffffff;
             border: 1px solid #e4e8ec;
@@ -166,7 +213,86 @@
             padding: 35px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.02);
             margin-top: -100px;
-            /* কভারের উপর ফ্লোটিং লুক দেওয়ার জন্য */
+        }
+
+        /* গ্রিড আর্কিটেকচার ২ কলাম */
+        .profile-main-grid-layout {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .profile-right-stats-panel {
+            background: #f8fafc;
+            border: 1px solid #eef2f6;
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        /* মডার্ন মেসেজ বাটন */
+        .modern-msg-btn {
+            width: 100%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background-color: #14a800;
+            border: none;
+            color: #ffffff;
+            border-radius: 50px;
+            font-size: 15px;
+            font-weight: 600;
+            padding: 12px 24px;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(20, 168, 0, 0.15);
+        }
+
+        .modern-msg-btn:hover {
+            background-color: #108a00;
+            box-shadow: 0 6px 16px rgba(20, 168, 0, 0.25);
+        }
+
+        /* স্ট্যাটিস্টিকস আইটেম রো */
+        .modern-stats-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .stats-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            padding-bottom: 10px;
+            border-bottom: 1px dashed #e2e8f0;
+        }
+
+        .stats-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .stats-label {
+            color: #5e6267;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .stats-value {
+            color: #1d1e20;
+            font-weight: 700;
+        }
+
+        .review-count-bracket {
+            color: #94a3b8;
+            font-weight: 400;
+            font-size: 12px;
         }
 
         /* অবতার কন্টেইনার ফ্লোটিং ইফেক্ট */
@@ -189,7 +315,6 @@
             width: 130px;
             height: 130px;
             border-radius: 50% !important;
-            /* ফুল সার্কেল মডার্ন অবতার */
             object-fit: cover;
             border: 5px solid #ffffff;
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
@@ -199,7 +324,6 @@
             height: 16px;
             width: 16px;
             background-color: #14a800;
-            /* Upwork Green */
             border: 3px solid #ffffff;
             border-radius: 50%;
             position: absolute;
@@ -291,7 +415,7 @@
             margin: 0;
         }
 
-        /* 🌟 ফিল্টার ও ট্যাব অ্যাকশন বার ডিজাইন */
+        /* ফিল্টার ও ট্যাব অ্যাকশন বার ডিজাইন */
         .modern-action-bar {
             background: #ffffff;
             border: 1px solid #e4e8ec;
@@ -315,7 +439,6 @@
             color: #5e6267 !important;
             background: #ffffff !important;
             border-radius: 50px !important;
-            /* ক্যাপসুল শেপ */
             transition: all 0.2s ease-in-out !important;
         }
 
@@ -326,7 +449,6 @@
 
         .custom-capsule-tabs .nav-link.active {
             background: #14a800 !important;
-            /* আপওয়ার্ক প্রিমিয়াম গ্রিন */
             color: #ffffff !important;
             border-color: #14a800 !important;
             box-shadow: 0 4px 12px rgba(20, 168, 0, 0.2) !important;
@@ -364,6 +486,13 @@
         }
 
         /* মোবাইল রেসপনসিভ হ্যান্ডলার */
+        @media (max-width: 991.98px) {
+            .profile-main-grid-layout {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+        }
+
         @media (max-width: 767.98px) {
             .profile-header-wrapper {
                 flex-direction: column;
