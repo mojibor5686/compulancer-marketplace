@@ -302,61 +302,114 @@
                 ->latest()
                 ->take(4) // টপ ৪টি রিলেটেড সার্ভিস শো করবে
                 ->get();
+
+            $type = 'service'; // রাউট এবং ফাইল পাথের জন্য টাইপ ফিক্সড রাখা হলো
         @endphp
 
         @if ($relatedServices->isNotEmpty())
-            <section class="related-services-section pb-5 pt-4 bg-light border-top">
+            <section class="related-services-section pb-5 pt-5 bg-light border-top">
                 <div class="container">
                     <div class="mb-4">
-                        <h4 class="fw-bold text-dark m-0">@lang('Related Services You May Like')</h4>
+                        <h4 class="fw-bold text-dark m-0"
+                            style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+                            @lang('Related Services You May Like')
+                        </h4>
                         <p class="text-muted small m-0">@lang('Handpicked services from the same category.')</p>
                     </div>
 
                     <div class="row g-4">
-                        @foreach ($relatedServices as $service)
+                        @foreach ($relatedServices as $product)
                             <div class="col-sm-6 col-md-4 col-lg-3">
-                                <div
-                                    class="card h-100 border-0 shadow-sm rounded-4 overflow-hidden bg-white transition-all hover-translate-y">
-                                    <div class="position-relative overflow-hidden" style="padding-top: 56.25%;">
-                                        <img src="{{ getImage(getFilePath('service') . '/' . $service->image) }}"
-                                            class="position-absolute top-0 start-0 w-100 h-100 object-fit-cover"
-                                            alt="{{ __($service->title) }}">
+
+                                <article class="card jss--card jss--card-{{ $type }}"
+                                    style="background: #ffffff !important; border: 1px solid #eef2f5 !important; border-radius: 4px !important; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04) !important; overflow: hidden !important; display: flex !important; flex-direction: column !important; height: 100% !important; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important; position: relative !important;">
+                                    <link
+                                        href="https://fonts.googleapis.com/css2?family=Roboto:wght=600;700;800&display=swap"
+                                        rel="stylesheet">
+
+                                    <div
+                                        style="position: relative !important; display: block !important; width: 100% !important; aspect-ratio: 16 / 10 !important; overflow: hidden !important; background: #f8f9fa !important;">
+                                        <a href="{{ route("$type.details", [slug($product->name ?? $product->title), $product->id]) }}"
+                                            style="display: block !important; width: 100% !important; height: 100% !important;">
+                                            <img src="{{ getImage(getFilePath($type) . '/' . $product->image, getFileSize($type)) }}"
+                                                alt="{{ $product->name ?? $product->title }}"
+                                                style="width: 100% !important; height: 100% !important; object-fit: cover !important; display: block !important;">
+                                        </a>
                                     </div>
 
-                                    <div class="card-body p-3 d-flex flex-column justify-content-between">
-                                        <div>
-                                            <div class="d-flex align-items-center gap-2 mb-2">
-                                                <img src="{{ getImage(getFilePath('userProfile') . '/' . @$service->user->image, isAvatar: true) }}"
-                                                    class="rounded-circle object-fit-cover" width="20" height="20"
-                                                    alt="avatar">
-                                                <a href="{{ route('public.profile', @$service->user->username) }}"
-                                                    class="text-decoration-none text-secondary fw-semibold small text-truncate max-w-150">
-                                                    {{ __(@$service->user->username) }}
-                                                </a>
+                                    <div
+                                        style="padding: 12px 16px !important; display: flex !important; flex-direction: column !important; flex-grow: 1 !important; justify-content: space-between !important; background: #ffffff !important;">
+                                        <div style="width: 100% !important;">
+
+                                            <div
+                                                style="display: flex !important; align-items: center !important; justify-content: space-between !important; margin-bottom: 12px !important; padding-bottom: 2px !important;">
+                                                <div onclick="window.open('{{ route('public.profile', ['username' => @$product->user->username, 'contact' => 'true']) }}', '_blank')"
+                                                    style="display: flex !important; align-items: center !important; gap: 8px !important; cursor: pointer !important;">
+                                                    <img src="{{ $product->user && $product->user->image ? getImage(getFilePath('userProfile') . '/' . $product->user->image) : asset('assets/images/default.png') }}"
+                                                        alt="Seller"
+                                                        style="width: 32px !important; height: 32px !important; border-radius: 50% !important; object-fit: cover !important; display: block !important; border: 1px solid #e1e4e6 !important;">
+
+                                                    <div
+                                                        style="display: flex !important; flex-direction: column !important; line-height: 1.2 !important;">
+                                                        <span
+                                                            style="font-size: 13px !important; text-transform: capitalize !important; font-weight: 700 !important; color: #404145 !important; display: block !important; max-width: 110px !important; white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important;"
+                                                            title="{{ $product->user ? $product->user->username : $product->username ?? 'babsmart_' }}">
+                                                            {{ $product->user ? $product->user->username : $product->username ?? 'babsmart_' }}
+                                                        </span>
+                                                        <span
+                                                            style="font-size: 11px !important; color: #74767e !important; font-weight: 400 !important; text-transform: capitalize;">
+                                                            {{ __($type) }}
+                                                        </span>
+                                                    </div>
+                                                </div>
+
+                                                <div
+                                                    style="display: flex !important; align-items: center !important; gap: 3px !important; font-size: 12px !important; font-weight: 700 !important; color: #ffb33e !important;">
+                                                    <span
+                                                        style="font-size: 14px !important; line-height: 1 !important;">★</span>
+                                                    <span
+                                                        style="color: #404145 !important;">{{ $product->rating ?? '4.9' }}</span>
+                                                    <span
+                                                        style="color: #b5b6ba !important; font-weight: 400 !important; font-size: 11px !important;">({{ $product->reviews_count ?? '29' }})</span>
+                                                </div>
                                             </div>
 
-                                            <h6 class="card-title line-clamp-2 mb-3">
-                                                <a href="{{ route('service.details', [slug($service->title), $service->id]) }}"
-                                                    class="text-decoration-none text-dark fw-bold small-title-link">
-                                                    {{ __($service->title) }}
+                                            <h6
+                                                style="margin: 0 0 16px 0 !important; text-transform: capitalize; font-size: 14px !important; font-weight: 400 !important; line-height: 1.4 !important; height: 38px !important; overflow: hidden !important; display: -webkit-box !important; -webkit-line-clamp: 2 !important; -webkit-box-orient: vertical !important;">
+                                                <a href="{{ route("$type.details", [slug($product->name ?? $product->title), $product->id]) }}"
+                                                    style="color: #404145 !important; text-decoration: none !important; display: block !important; transition: color 0.1s ease !important;"
+                                                    onmouseover="this.style.color='#3C88EE'"
+                                                    onmouseout="this.style.color='#404145'">
+                                                    {{ __($product->name ?? $product->title) }}
                                                 </a>
                                             </h6>
                                         </div>
 
-                                        <div class="d-flex align-items-center justify-content-between pt-2 border-top">
-                                            <div class="d-flex align-items-center gap-1 text-warning small">
-                                                <i class="las la-star"></i>
-                                                <span class="text-dark fw-bold">5.0</span>
-                                            </div>
-                                            <div class="text-end">
-                                                <span class="text-muted d-block"
-                                                    style="font-size: 10px; text-transform: uppercase;">@lang('Starting At')</span>
+                                        <div
+                                            style="border-top: 1px solid #e4e5e7 !important; padding-top: 10px !important; width: 100% !important; background: #ffffff !important; margin-top: auto !important;">
+                                            <div
+                                                style="text-align: right !important; display: flex !important; flex-direction: row !important; justify-content: space-between; line-height: 1.1 !important;">
+                                                <div
+                                                    style="display: flex; flex-direction: column; justify-content: start; align-items: baseline; gap:5px;">
+                                                    <span
+                                                        style="display: inline-flex !important; align-items: center !important; gap: 4px !important; font-weight: 800 !important; color: #23c366 !important; font-size: 16px !important;">
+                                                        <span
+                                                            style="font-family: 'Roboto', sans-serif !important; font-size: 15px !important; font-weight: 600 !important; margin-right: 1px !important;">৳</span>
+                                                        {{ number_format($product->price, 2) }}
+                                                    </span>
+                                                    <span
+                                                        style="display: block !important; font-size: 10px !important; color: #74767e !important; text-transform: uppercase !important; font-weight: 600 !important; letter-spacing: 0.3px !important; margin-bottom: 2px !important;">@lang('Starting at')</span>
+                                                </div>
                                                 <span
-                                                    class="fw-bold text-primary">{{ gs('cur_sym') }}{{ showAmount($service->price, currencyFormat: false) }}</span>
+                                                    style="color: #2b2b2b !important; font-size: 16px !important; font-weight: 700 !important;">
+                                                    <x-item view="item-footer-right" :product="$product" :type="$type" />
+                                                </span>
                                             </div>
                                         </div>
+
                                     </div>
-                                </div>
+                                </article>
+
                             </div>
                         @endforeach
                     </div>
