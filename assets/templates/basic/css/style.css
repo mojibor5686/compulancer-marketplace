@@ -915,7 +915,6 @@ ol {
 }
 
 .page-top {
-  border-bottom: 1px solid hsl(var(--black)/0.1);
   padding-bottom: 24px;
 }
 
