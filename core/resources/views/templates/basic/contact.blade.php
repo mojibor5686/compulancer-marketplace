@@ -145,7 +145,7 @@
             letter-spacing: -0.6px;
         }
 
-        /* ফাইভার/আপওয়ার্ক আর্কিটেকচার কন্টাক্ট কার্ড */
+        /* কন্টাক্ট কার্ড */
         .modern-contact-card {
             background: #ffffff;
             border: 1px solid #e4e6eb;
@@ -178,10 +178,10 @@
             transition: all 0.2s ease-in-out !important;
         }
 
+        /* থিম কালার ফোকাস বর্ডার (#3C88EE) */
         .modern-input:focus {
-            border-color: #108a00 !important;
-            /* Upwork Green Focus */
-            box-shadow: 0 0 0 4px rgba(16, 138, 0, 0.1) !important;
+            border-color: #3C88EE !important;
+            box-shadow: 0 0 0 4px rgba(60, 136, 238, 0.15) !important;
             outline: none !important;
         }
 
@@ -189,21 +189,23 @@
             resize: none;
         }
 
-        /* সাবমিট বাটন (Upwork/Fiverr Standard Premium Green) */
+        /* থিম কালার সাবমিট বাটন (#3C88EE) */
         .modern-submit-btn {
-            background-color: #108a00 !important;
+            background-color: #3C88EE !important;
             color: #ffffff !important;
             font-weight: 600 !important;
             padding: 14px 24px !important;
             border-radius: 8px !important;
             border: none !important;
             font-size: 15px !important;
-            transition: background 0.2s ease !important;
+            transition: all 0.2s ease !important;
         }
 
+        /* বাটন হোভার ইফেক্ট (সামান্য ডার্ক ব্লু) */
         .modern-submit-btn:hover {
-            background-color: #14a800 !important;
+            background-color: #2a72d4 !important;
             color: #ffffff !important;
+            box-shadow: 0 4px 12px rgba(60, 136, 238, 0.2) !important;
         }
 
         /* ডান পাশের মডার্ন ইনফো প্যানেল */
@@ -218,7 +220,7 @@
             padding: 20px;
             margin-bottom: 16px;
             display: flex;
-            align-items: flex-start;
+            align-items: center;
             gap: 16px;
             box-shadow: 0 2px 12px rgba(0, 0, 0, 0.01);
             transition: transform 0.2s ease;
@@ -244,10 +246,10 @@
             height: 20px;
         }
 
-        /* আইকনগুলোর জন্য সফ্ট মেটেরিয়াল কালার প্যালেট */
+        /* আইকন ব্যাকগ্রাউন্ড থিম কালার রিলেটেড ব্লু ও অন্যান্য */
         .address-bg {
-            background-color: #eef2ff;
-            color: #4f46e5;
+            background-color: #eaf2fd;
+            color: #3C88EE;
         }
 
         .email-bg {
@@ -268,7 +270,7 @@
         /* টেক্সট ও লিংক ফরমেটিং */
         .info-content {
             display: flex;
-            flex-column: column;
+            flex-direction: column;
         }
 
         .info-label {
@@ -295,8 +297,9 @@
             transition: color 0.2s ease;
         }
 
+        /* টেক্সট লিংক হোভার থিম কালার (#3C88EE) */
         .info-link:hover {
-            color: #108a00;
+            color: #3C88EE;
             text-decoration: underline;
         }
 
