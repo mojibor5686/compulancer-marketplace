@@ -7,7 +7,8 @@
                     <div class="section-inner">
                         <div class="item-section">
                             <div class="container">
-                                <form class="row justify-content-center mb-30-none" action="{{route('user.service.add.booking', $service->id)}}" method="POST">
+                                <form class="row justify-content-center mb-30-none"
+                                    action="{{ route('user.service.add.booking', $service->id) }}" method="POST">
                                     @csrf
                                     <div class="col-xl-9 col-lg-9 mb-30">
                                         <div class="item-details-area">
@@ -16,19 +17,21 @@
                                                     <x-item view="item-thumb" :product="$service" type="service" />
                                                     <div class="item-card-content">
                                                         <div class="item-card-content-top">
-                                                             <x-item view="item-top-left" :product="$service" type="service" />
+                                                            <x-item view="item-top-left" :product="$service" type="service" />
                                                             <div class="right d-flex flex-wrap align-items-center">
                                                                 <select class="select me-3" name="service_qty" required>
-                                                                    @for($i = 1; $i <= ($service->max_order_qty ?: 1); $i++)
-                                                                        <option value="{{$i}}">{{$i}}</option>
+                                                                    @for ($i = 1; $i <= ($service->max_order_qty ?: 1); $i++)
+                                                                        <option value="{{ $i }}">
+                                                                            {{ $i }}</option>
                                                                     @endfor
                                                                 </select>
                                                                 <div class="item-amount">
-                                                                    {{showAmount($service->price)}}
+                                                                    {{ showAmount($service->price) }}
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <h3 class="item-card-title"><span>{{__($service->name)}}</span></h3>
+                                                        <h3 class="item-card-title"><span>{{ __($service->name) }}</span>
+                                                        </h3>
                                                     </div>
                                                     <div class="item-card-footer">
                                                         <x-item view="item-footer-left" :product="$service" type="service" />
@@ -43,16 +46,25 @@
                                                     </div>
                                                     <div class="service-card-body">
                                                         <div class="service-card-form">
-                                                            @foreach($extraServices as $key => $extraService)
+                                                            @foreach ($extraServices as $key => $extraService)
                                                                 <div class="form-row">
                                                                     <div class="left">
                                                                         <div class="form-group custom-check-group">
-                                                                            <input class="extraServices" type="checkbox" name="extra_services[]" id="{{$key}}" data-id="{{$extraService->id}}" data-key="{{$key}}" data-price="{{getAmount($extraService->price)}}" value="{{$extraService->id}}" class="extraService">
-                                                                            <label for="{{$key}}">{{__($extraService->name)}}</label>
+                                                                            <input class="extraServices" type="checkbox"
+                                                                                name="extra_services[]"
+                                                                                id="{{ $key }}"
+                                                                                data-id="{{ $extraService->id }}"
+                                                                                data-key="{{ $key }}"
+                                                                                data-price="{{ getAmount($extraService->price) }}"
+                                                                                value="{{ $extraService->id }}"
+                                                                                class="extraService">
+                                                                            <label
+                                                                                for="{{ $key }}">{{ __($extraService->name) }}</label>
                                                                         </div>
                                                                     </div>
                                                                     <div class="right">
-                                                                        <span class="value">{{showAmount($extraService->price)}}</span>
+                                                                        <span
+                                                                            class="value">{{ showAmount($extraService->price) }}</span>
                                                                     </div>
                                                                 </div>
                                                             @endforeach
@@ -77,30 +89,34 @@
                                                 <ul class="details-list">
                                                     <li><span>@lang('Service Price'):</span>
                                                         <div class="order-price-tags">
-                                                            <span>{{gs('cur_sym')}}</span><span id="servicePrice">{{showAmount($service->price, currencyFormat:false)}}</span>
+                                                            <span>{{ gs('cur_sym') }}</span><span
+                                                                id="servicePrice">{{ showAmount($service->price, currencyFormat: false) }}</span>
                                                         </div>
                                                     </li>
                                                     <li><span>@lang('Extras Service'):</span>
                                                         <div class="order-price-tags">
-                                                            <span>{{gs('cur_sym')}}</span><span id="extraServicePrice">0.00</span>
+                                                            <span>{{ gs('cur_sym') }}</span><span
+                                                                id="extraServicePrice">0.00</span>
                                                         </div>
                                                     </li>
                                                     <li><span>@lang('Quantity'):</span>
                                                         <span id="quantity">1</span>
                                                     </li>
                                                 </ul>
-                                                <div class="total-price-area d-flex flex-wrap align-items-center justify-content-between">
+                                                <div
+                                                    class="total-price-area d-flex flex-wrap align-items-center justify-content-between">
                                                     <div class="left">
                                                         <h4 class="title">@lang('Total Price') :</h4>
                                                     </div>
                                                     <div class="right">
                                                         <h4 class="title">
-                                                            {{gs('cur_sym')}}<span id="totalPrice">{{showAmount($service->price, currencyFormat:false)}}</span>
+                                                            {{ gs('cur_sym') }}<span
+                                                                id="totalPrice">{{ showAmount($service->price, currencyFormat: false) }}</span>
                                                         </h4>
                                                     </div>
                                                 </div>
                                                 <div class="widget-btn mt-20">
-                                                    <button  type="submit" class="btn--base w-100">
+                                                    <button type="submit" class="btn--base w-100">
                                                         <i class="las la-sign-in-alt"></i> @lang('Proceed')
                                                     </button>
                                                 </div>
@@ -122,24 +138,24 @@
 
 @push('script')
     <script>
-        (function($){
+        (function($) {
             "use strict";
 
-            var totalPrice     = '{{getAmount($service->price)}}';
-            var servicePrice   = parseFloat('{{getAmount($service->price)}}');
-            var extraService   = 0;
+            var totalPrice = '{{ getAmount($service->price) }}';
+            var servicePrice = parseFloat('{{ getAmount($service->price) }}');
+            var extraService = 0;
 
             $('[name=service_qty]').on('change', function() {
                 var quantity = $(this).val();
-                servicePrice = parseFloat(parseFloat ('{{getAmount($service->price)}}' * quantity));
+                servicePrice = parseFloat(parseFloat('{{ getAmount($service->price) }}' * quantity));
                 $('#quantity').text(quantity);
                 $('#servicePrice').text(parseFloat(servicePrice).toFixed(2));
 
                 totalPriceCalculation(servicePrice, extraService);
             });
 
-            $('.extraServices').on('change', function () {
-                var key   = $(this).data('key');
+            $('.extraServices').on('change', function() {
+                var key = $(this).data('key');
                 var price = $(this).data('price');
 
                 if ($(`#${key}`).is(":checked")) {

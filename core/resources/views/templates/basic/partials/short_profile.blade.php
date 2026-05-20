@@ -9,10 +9,12 @@
                     alt="@lang('user-profile-image')" width="60" height="60">
             </div>
             <div>
-                <div class="kwork-meta-text text-muted mb-0" style="font-size: 14px; line-height: 1.2;">
+                <div class="kwork-meta-text text-muted mb-0"
+                    style="font-size: 14px; line-height: 1.2; text-transform: capitalize;">
                     {{ __(@$user->designation ?? 'Freelancer') }}
                 </div>
-                <h5 class="kwork-seller-name fw-semibold my-1" style="font-size: 16px; color: #222;">
+                <h5 class="kwork-seller-name fw-semibold my-1"
+                    style="font-size: 16px; color: #222; text-transform: capitalize;">
                     {{ __(@$user->username) }}
                 </h5>
                 <div class="d-flex align-items-center kwork-status text-muted" style="font-size: 13px;">

@@ -21,7 +21,6 @@
                                     <a href="#"
                                         style="color: #777777; text-decoration: none; transition: color 0.2s;">{{ __(@$productDetails->subCategory->name ?? 'Logo Design') }}</a>
                                     <span style="font-size: 11px; color: #b5b5b5;"><i class="las la-angle-right"></i></span>
-                                    <span style="color: #222222; font-weight: 500;">@lang('New Logo')</span>
                                 </nav>
 
                                 <h1 class="kwork-gig-title mb-1 fs-3 fs-lg-1"
@@ -242,14 +241,14 @@
 
                                             @auth
                                                 <button type="submit" class="mt-4 btn btn--lg btn--base w-100">
-                                                    @lang('Book Now')
+                                                    @lang('Order Now')
                                                     ({{ gs('cur_sym') }}<span
                                                         class="totalPrice">{{ showAmount($productDetails->price, currencyFormat: false) }}</span>)
                                                 </button>
                                             @else
                                                 <button type="button" class="mt-4 btn btn--lg btn--base w-100"
                                                     data-bs-toggle="modal" data-bs-target="#loginModal">
-                                                    @lang('Book Now')
+                                                    @lang('Order Now')
                                                     ({{ gs('cur_sym') }}<span
                                                         class="totalPrice">{{ showAmount($productDetails->price, currencyFormat: false) }}</span>)
                                                 </button>
