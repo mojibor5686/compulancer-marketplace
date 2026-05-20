@@ -213,13 +213,15 @@
                                                 <li class="info-list-item">
                                                     <span class="info-list-item__label">@lang('Service Price')</span>
                                                     <span class="info-list-item__value">{{ gs('cur_sym') }}<span
-                                                            class="servicePrice">{{ showAmount($productDetails->price, currencyFormat: false) }}</span></span>
+                                                            class="servicePrice">{{ number_format($productDetails->price, 0, '.', ',') }}</span></span>
                                                 </li>
                                                 <li
                                                     class="info-list-item {{ $extraServices->count() > 0 ? '' : 'd-none' }}">
                                                     <span class="info-list-item__label">@lang('Extras Service')</span>
-                                                    <span class="info-list-item__value">{{ gs('cur_sym') }}<span
-                                                            class="extraServicePrice">0.00</span></span>
+                                                    <span class="info-list-item__value">
+                                                        {{ gs('cur_sym') }}<span
+                                                            class="servicePrice">{{ number_format($productDetails->price, 0, '.', ',') }}</span>
+                                                    </span>
                                                 </li>
                                                 <li class="info-list-item">
                                                     <span class="info-list-item__label">@lang('Quantity')</span>
@@ -243,14 +245,14 @@
                                                 <button type="submit" class="mt-4 btn btn--lg btn--base w-100">
                                                     @lang('Order Now')
                                                     ({{ gs('cur_sym') }}<span
-                                                        class="totalPrice">{{ showAmount($productDetails->price, currencyFormat: false) }}</span>)
+                                                        class="totalPrice">{{ number_format($productDetails->price, 0, '.', ',') }}</span>)
                                                 </button>
                                             @else
                                                 <button type="button" class="mt-4 btn btn--lg btn--base w-100"
                                                     data-bs-toggle="modal" data-bs-target="#loginModal">
                                                     @lang('Order Now')
                                                     ({{ gs('cur_sym') }}<span
-                                                        class="totalPrice">{{ showAmount($productDetails->price, currencyFormat: false) }}</span>)
+                                                        class="totalPrice">{{ number_format($productDetails->price, 0, '.', ',') }}</span>)
                                                 </button>
                                             @endauth
 
