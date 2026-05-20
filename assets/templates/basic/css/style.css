@@ -841,7 +841,7 @@ ol {
 }
 
 .page-wrapper:not(:has(> .blogs, > .blog-detail, > .category, > .contact, > .dashboard)) {
-  padding-top: 50px;
+  padding-top: 0px;
 }
 
 .page-wrapper:has(> .dashboard) {
