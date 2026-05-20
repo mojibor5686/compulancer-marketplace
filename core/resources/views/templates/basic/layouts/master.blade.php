@@ -140,7 +140,7 @@
                                 </div>
 
                                 <div class="topnav-left">
-                                    <a href="{{ route('user.inbox.messages') }}"
+                                    <a href="{{ route('user.inbox.messages', ['uniqueId' => 0]) }}"
                                         class="text-decoration-none text-dark fw-medium d-flex align-items-center gap-2 fs-6 position-relative"
                                         style="transition: color 0.2s ease;"
                                         onmouseover="this.style.color='var(--bs-primary)'"
