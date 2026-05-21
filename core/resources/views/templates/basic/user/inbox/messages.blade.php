@@ -105,9 +105,6 @@
                                 <div class="chat-send-field flex-grow-1">
                                     <div class="input-groups input--groups"
                                         style="position: relative; display:flex; flex-wrap: nowrap; gap: 10px;">
-                                        <input type="text" name="message" id="chat-message-field"
-                                            placeholder="@lang('Type a message')" class="form-controls form--control"
-                                            style="background-color:transparent; border:none; flex-grow:1;">
                                         <div class="chat-send-file btn w-fit" data-bs-toggle="tooltip" title="Attach a file"
                                             data-bs-offset="0,8"
                                             style="display: inline-flex; width: auto !important; font-size:11px; background: #e1e1e1; align-items: center; justify-content: center; padding:12px; height: fit-content; border-radius: 50%; cursor: pointer;">
@@ -117,6 +114,9 @@
                                             <input type="file" id="file" name="file" class="d-none"
                                                 accept=".jpg, .png, .jpeg, .pdf">
                                         </div>
+                                        <input type="text" name="message" id="chat-message-field"
+                                            placeholder="@lang('Type a message')" class="form-controls form--control"
+                                            style="background-color:transparent; border:none; flex-grow:1;">
                                         <button type="submit" class="btn send-btn"
                                             style="display: inline-flex; font-size: 20px; align-items: center; justify-content: center; padding: 0.75rem 2.5rem; min-width: 6rem; border-radius: 5rem; background-color: #3a84ff !important; color: #ffffff; border: none; font-weight: 500;">
                                             <i class="las la-paper-plane"></i>
