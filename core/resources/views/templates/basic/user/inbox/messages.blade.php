@@ -101,26 +101,35 @@
                             <input type="hidden" name="unique_id" value="{{ $inbox->unique_id }}">
                             <input type="hidden" name="receiver_id" value="{{ encrypt($user->id) }}">
 
-                            <div class="chat-send-area d-flex align-items-center">
-                                <div class="chat-send-field flex-grow-1">
-                                    <div class="input-groups input--groups"
-                                        style="position: relative; display:flex; flex-wrap: nowrap; gap: 10px;">
-                                        <div class="chat-send-file btn w-fit" data-bs-toggle="tooltip" title="Attach a file"
-                                            data-bs-offset="0,8"
-                                            style="display: inline-flex; width: auto !important; font-size:11px; background: #e1e1e1; align-items: center; justify-content: center; padding:12px; height: fit-content; border-radius: 50%; cursor: pointer;">
-                                            <label for="file" class="file-label" style="cursor: pointer; margin: 0;">
-                                                <i class="fas fa-images attachment-icon"></i>
-                                            </label>
-                                            <input type="file" id="file" name="file" class="d-none"
-                                                accept=".jpg, .png, .jpeg, .pdf">
+                            <div class="chat-send-area">
+                                <div class="chat-send-field w-100">
+                                    <div class="d-flex flex-column-reverse flex-md-row gap-3 alignment-wrapper">
+
+                                        <div class="flex-grow-1 w-100">
+                                            <input type="text" name="message" id="chat-message-field"
+                                                placeholder="@lang('Type a message')" class="form-controls form--control w-100"
+                                                style="height: 48px; border-radius: 6px; padding: 0 15px; border: 1px solid #cbd5e1;">
                                         </div>
-                                        <input type="text" name="message" id="chat-message-field"
-                                            placeholder="@lang('Type a message')" class="form-controls form--control"
-                                            style="background-color:transparent; border:none; flex-grow:1;">
-                                        <button type="submit" class="btn send-btn"
-                                            style="display: inline-flex; font-size: 20px; align-items: center; justify-content: center; padding: 0.75rem 2.5rem; min-width: 6rem; border-radius: 5rem; background-color: #3a84ff !important; color: #ffffff; border: none; font-weight: 500;">
-                                            <i class="las la-paper-plane"></i>
-                                        </button>
+
+                                        <div
+                                            class="d-flex align-items-center justify-content-between flex-md-row gap-2 custom-btn-group">
+
+                                            <div class="chat-send-file btn w-fit m-0" data-bs-toggle="tooltip"
+                                                title="Attach a file" data-bs-offset="0,8"
+                                                style="display: inline-flex; width: 48px !important; font-size:11px; background: #e1e1e1; align-items: center; justify-content: center; padding:12px; height: 48px !important; border-radius: 50%; cursor: pointer;">
+                                                <label for="file" class="file-label"
+                                                    style="cursor: pointer; margin: 0;">
+                                                    <i class="fas fa-images attachment-icon"></i>
+                                                </label>
+                                                <input type="file" id="file" name="file" class="d-none"
+                                                    accept=".jpg, .png, .jpeg, .pdf">
+                                            </div>
+
+                                            <button type="submit" class="btn send-btn m-0"
+                                                style="display: inline-flex; font-size: 18px; align-items: center; justify-content: center; height: 48px; padding: 0 2rem; min-width: 6rem; border-radius: 5rem; background-color: #3a84ff !important; color: #ffffff; border: none; font-weight: 500;">
+                                                <i class="las la-paper-plane"></i>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -160,18 +169,6 @@
             padding-right: 0;
         }
 
-        .chat-send-area .input--group .form--control {
-            padding-left: 15px;
-            padding-right: 15px;
-            height: 45px;
-        }
-
-        .chat-send-area .input--group .form--control:focus {
-            background-color: #fff;
-            box-shadow: none;
-            border-color: #cbd5e1;
-        }
-
         .custom-sidebar-scroll::-webkit-scrollbar,
         .custom-chat-thread::-webkit-scrollbar {
             width: 5px;
@@ -187,8 +184,47 @@
             color: #3a84ff !important;
         }
 
-        @media (max-width: 991px) {
+        @media (max-width: 767px) {
+            .alignment-wrapper {
+                flex-direction: column-reverse !important;
+            }
 
+            .custom-btn-group {
+                width: 100% !important;
+                display: flex !important;
+                flex-direction: row !important;
+                justify-content: space-between !important;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .alignment-wrapper {
+                flex-direction: row !important;
+                align-items: center !important;
+                background: #fff;
+                border: 1px solid #cbd5e1;
+                border-radius: 30px;
+                padding: 4px 6px 4px 12px;
+            }
+
+            .custom-btn-group {
+                flex-direction: row-reverse !important;
+                gap: 10px !important;
+            }
+
+            #chat-message-field {
+                border: none !important;
+                padding: 0 !important;
+                height: 40px !important;
+            }
+
+            #chat-message-field:focus {
+                outline: none !important;
+                box-shadow: none !important;
+            }
+        }
+
+        @media (max-width: 991px) {
             .chat-sidebar-slider {
                 position: fixed;
                 top: 0;
