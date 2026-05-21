@@ -35,11 +35,17 @@
             </a>
         @endif
 
+        @php
+            $userAvgRating =
+                $user->total_review > 0 ? number_format($user->total_rating / $user->total_review, 1) : '0.0';
+        @endphp
+
         <div class="kwork-info-divider pt-3 border-top">
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <span class="kwork-info-label">@lang("Seller's rating")</span>
                 <span class="kwork-info-value fw-semibold d-flex align-items-center">
-                    <span class="kwork-star-icon me-1">★</span> <span class="rating-number-value">5.0</span>
+                    <span class="kwork-star-icon me-1">★</span>
+                    <span class="rating-number-value">{{ $userAvgRating }}</span>
                 </span>
             </div>
 
@@ -50,12 +56,12 @@
             </div>
 
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <span class="kwork-info-label">@lang('2 total reviews')</span>
+                <span class="kwork-info-label">{{ $user->total_review }} @lang('total reviews')</span>
                 <span class="kwork-info-value d-flex align-items-center gap-2">
-                    <span class="d-flex align-items-center review-count-green">
-                        <span class="review-dot bg-success me-1"></span>{{ $user->total_review ?? 0 }}
+                    <span class="d-flex align-items-center review-count-green" title="@lang('Positive Reviews')">
+                        <span class="review-dot bg-success me-1"></span>{{ $user->total_review }}
                     </span>
-                    <span class="d-flex align-items-center review-count-red">
+                    <span class="d-flex align-items-center review-count-red" title="@lang('Negative Reviews')">
                         <span class="review-dot bg-danger me-1"></span>0
                     </span>
                 </span>
