@@ -108,7 +108,7 @@
                                         <div class="flex-grow-1 w-100">
                                             <input type="text" name="message" id="chat-message-field"
                                                 placeholder="@lang('Type a message')" class="form-controls form--control w-100"
-                                                style="height: 48px; border-radius: 6px; padding: 0 15px; border: 1px solid #cbd5e1;">
+                                                style="height: 48px; border-radius: 6px; padding: 0 15px; border:none;">
                                         </div>
 
                                         <div
