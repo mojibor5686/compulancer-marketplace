@@ -73,7 +73,7 @@
                                             </button>
                                         @else
                                             <button type="button" class="modern-msg-btn contactBtn" data-bs-toggle="modal"
-                                                data-bs-target="#loginModal">
+                                                data-bs-target="#signInModal">
                                                 <i class="ri-send-plane-fill"></i> @lang('Message Me')
                                             </button>
                                         @endauth
