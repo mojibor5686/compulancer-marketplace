@@ -114,6 +114,11 @@
                                         <div
                                             class="d-flex align-items-center justify-content-between flex-md-row gap-2 custom-btn-group">
 
+                                            <button type="submit" class="btn send-btn m-0"
+                                                style="display: inline-flex; font-size: 18px; align-items: center; justify-content: center; height: 48px; padding: 0 2rem; min-width: 6rem; border-radius: 5rem; background-color: #3a84ff !important; color: #ffffff; border: none; font-weight: 500;">
+                                                <i class="las la-paper-plane"></i>
+                                            </button>
+
                                             <div class="chat-send-file btn w-fit m-0" data-bs-toggle="tooltip"
                                                 title="Attach a file" data-bs-offset="0,8"
                                                 style="display: inline-flex; width: 48px !important; font-size:11px; background: #e1e1e1; align-items: center; justify-content: center; padding:12px; height: 48px !important; border-radius: 50%; cursor: pointer;">
@@ -124,11 +129,6 @@
                                                 <input type="file" id="file" name="file" class="d-none"
                                                     accept=".jpg, .png, .jpeg, .pdf">
                                             </div>
-
-                                            <button type="submit" class="btn send-btn m-0"
-                                                style="display: inline-flex; font-size: 18px; align-items: center; justify-content: center; height: 48px; padding: 0 2rem; min-width: 6rem; border-radius: 5rem; background-color: #3a84ff !important; color: #ffffff; border: none; font-weight: 500;">
-                                                <i class="las la-paper-plane"></i>
-                                            </button>
                                         </div>
                                     </div>
                                 </div>
