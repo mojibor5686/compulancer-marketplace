@@ -79,12 +79,19 @@
                                         @endauth
                                     </div>
 
+                                    @php
+                                        $profileAvgRating =
+                                            $user->total_review > 0
+                                                ? number_format($user->total_rating / $user->total_review, 1)
+                                                : '0.0';
+                                    @endphp
+
                                     <div class="modern-stats-list">
                                         <div class="stats-item">
                                             <span class="stats-label"><i class="ri-star-fill text-warning"></i>
                                                 @lang("Seller's rating")</span>
                                             <span class="stats-value fw-bold">
-                                                5.0 <span
+                                                {{ $profileAvgRating }} <span
                                                     class="review-count-bracket">({{ $user->total_review ?? 0 }})</span>
                                             </span>
                                         </div>
