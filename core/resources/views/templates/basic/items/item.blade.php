@@ -39,12 +39,19 @@
                     </div>
                 </div>
 
+                @php
+                    $cardAvgRating =
+                        $product->total_review > 0
+                            ? number_format($product->total_rating / $product->total_review, 1)
+                            : '0.0';
+                @endphp
+
                 <div
                     style="display: flex !important; align-items: center !important; gap: 3px !important; font-size: 12px !important; font-weight: 700 !important; color: #ffb33e !important;">
                     <span style="font-size: 14px !important; line-height: 1 !important;">★</span>
-                    <span style="color: #404145 !important;">{{ $product->rating ?? '4.9' }}</span>
+                    <span style="color: #404145 !important;">{{ $cardAvgRating }}</span>
                     <span
-                        style="color: #b5b6ba !important; font-weight: 400 !important; font-size: 11px !important;">({{ $product->reviews_count ?? '29' }})</span>
+                        style="color: #b5b6ba !important; font-weight: 400 !important; font-size: 11px !important;">({{ $product->total_review }})</span>
                 </div>
             </div>
 
