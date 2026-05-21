@@ -4,7 +4,7 @@
             <div class="container">
                 <section class="kwork-catalog-section py-5">
                     <div class="container">
-                        <h2 class="catalog-main-title mb-4">@lang("Explore Kwork's Evergrowing Catalog")</h2>
+                        <h2 class="catalog-main-title mb-4">@lang("Explore Compulancer Work's Evergrowing Catalog")</h2>
 
                         <div class="row g-3 justify-content-center catalog-grid">
                             @foreach ($categories as $category)

@@ -21,9 +21,14 @@
             'image' => 'https://cdn.kwork.com/images/index/banner-user-2.png?ver=3',
         ],
         [
-            'name' => 'Amelia',
-            'role' => '3D Artist',
-            'image' => 'https://cdn.kwork.com/images/index/banner-user-10.png?ver=3',
+            'name' => 'Sakib',
+            'role' => 'It Specialist',
+            'image' => '/assets/images/sakib.jpeg',
+        ],
+        [
+            'name' => 'Alomgir',
+            'role' => 'Consultant Support',
+            'image' => '/assets/images/sakib.jpeg',
         ],
     ];
 
