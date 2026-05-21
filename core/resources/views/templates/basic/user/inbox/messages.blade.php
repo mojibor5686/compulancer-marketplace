@@ -192,7 +192,7 @@
             .custom-btn-group {
                 width: 100% !important;
                 display: flex !important;
-                flex-direction: row !important;
+                flex-direction: row-reverse !important;
                 justify-content: space-between !important;
             }
         }
