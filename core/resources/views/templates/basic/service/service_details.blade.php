@@ -28,6 +28,17 @@
                                     {{ __($productDetails->title ?? 'I will do unique, modern and professional business logo design') }}
                                 </h1>
 
+                                @php
+                                    $mainAvgRating =
+                                        $productDetails->total_review > 0
+                                            ? number_format(
+                                                $productDetails->total_rating / $productDetails->total_review,
+                                                1,
+                                            )
+                                            : '0.0';
+                                    $mainStars = round($mainAvgRating);
+                                @endphp
+
                                 <div class="kwork-gig-meta d-flex align-items-center flex-wrap justify-content-between">
                                     <div class="d-flex align-items-center flex-wrap gap-2">
                                         <div class="d-flex align-items-center gap-2 me-2">
@@ -45,18 +56,23 @@
                                         <div class="d-flex align-items-center me-2">
                                             <div class="kwork-stars me-1"
                                                 style="color: #ff9800; font-size: 14px; letter-spacing: -1px;">
-                                                <i class="las la-star"></i><i class="las la-star"></i><i
-                                                    class="las la-star"></i><i class="las la-star"></i><i
-                                                    class="las la-star"></i>
+                                                @for ($i = 1; $i <= 5; $i++)
+                                                    @if ($i <= $mainStars)
+                                                        <i class="las la-star"></i>
+                                                    @else
+                                                        <i class="lar la-star"></i>
+                                                    @endif
+                                                @endfor
                                             </div>
-                                            <span style="font-size: 14px; font-weight: 600; color: #ff4500;">5.0</span>
+                                            <span
+                                                style="font-size: 14px; font-weight: 600; color: #ff4500;">{{ $mainAvgRating }}</span>
                                         </div>
 
                                         <div style="font-size: 14px; color: #777777;">
                                             <span style="color: #b5b5b5; margin-right: 5px;">•</span>
                                             <a href="#jss-details-tab-3" class="review-link-trigger"
                                                 style="color: #777777; text-decoration: underline;">
-                                                {{ $productDetails->reviews_count ?? 3 }} @lang('reviews')
+                                                {{ $productDetails->total_review }} @lang('reviews')
                                             </a>
                                         </div>
                                     </div>
@@ -65,7 +81,8 @@
                                         <button
                                             class="btn d-flex align-items-center gap-1 border rounded px-3 py-1.5 bg-white shadow-sm-hover"
                                             style="font-size: 14px; color: #555555; border-color: #e4e8eb !important; height: 36px;">
-                                            <span style="font-size: 14px; font-weight: 500; color: #222;">45</span>
+                                            <span
+                                                style="font-size: 14px; font-weight: 500; color: #222;">{{ $productDetails->favorite ?? 0 }}</span>
                                             <i class="lar la-heart" style="font-size: 16px; margin-left: 2px;"></i>
                                         </button>
                                         <button
@@ -367,14 +384,23 @@
                                                     </div>
                                                 </div>
 
+                                                @php
+                                                    $cardAvgRating =
+                                                        $product->total_review > 0
+                                                            ? number_format(
+                                                                $product->total_rating / $product->total_review,
+                                                                1,
+                                                            )
+                                                            : '0.0';
+                                                @endphp
+
                                                 <div
                                                     style="display: flex !important; align-items: center !important; gap: 3px !important; font-size: 12px !important; font-weight: 700 !important; color: #ffb33e !important;">
                                                     <span
                                                         style="font-size: 14px !important; line-height: 1 !important;">★</span>
+                                                    <span style="color: #404145 !important;">{{ $cardAvgRating }}</span>
                                                     <span
-                                                        style="color: #404145 !important;">{{ $product->rating ?? '4.9' }}</span>
-                                                    <span
-                                                        style="color: #b5b6ba !important; font-weight: 400 !important; font-size: 11px !important;">({{ $product->reviews_count ?? '29' }})</span>
+                                                        style="color: #b5b6ba !important; font-weight: 400 !important; font-size: 11px !important;">({{ $product->total_review }})</span>
                                                 </div>
                                             </div>
 
