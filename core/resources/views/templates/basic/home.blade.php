@@ -26,27 +26,31 @@
                         </div>
                     </div>
                 </section>
+
                 <div class="page-content">
                     <div class="card-top-action-bar"
                         style="display: flex !important; align-items: center !important; justify-content: space-between !important; padding: 12px 16px !important; border-bottom: 1px solid #eef2f5 !important; background: #fafbfc !important; flex-wrap: wrap !important; gap: 10px !important;">
 
-                        <div class="top-bar-left-buttons"
-                            style="display: flex !important; align-items: center !important; gap: 6px !important;">
-                            <a href="javascript:void(0)"
-                                style="font-size: 12px !important; font-weight: 600 !important; padding: 5px 12px !important; border-radius: 20px !important; text-decoration: none !important; transition: all 0.2s !important; 
-                {{ $type == 'service' ? 'background: #3a84ff !important; color: #fff !important;' : 'background: #eef2f5 !important; color: #475569 !important;' }}">
+                        <div class="top-bar-left-buttons nav nav-pills" role="tablist"
+                            style="display: inline-flex !important; align-items: center !important; gap: 6px !important; border: none !important;">
+
+                            <button class="nav-link {{ !isset($type) || $type == 'service' ? 'active' : '' }}"
+                                data-bs-toggle="tab" data-bs-target="#catalog-service" type="button" role="tab"
+                                style="font-size: 12px !important; font-weight: 600 !important; padding: 6px 16px !important; border-radius: 20px !important; border: none !important; transition: all 0.2s !important;">
                                 @lang('Services')
-                            </a>
-                            <a href="javascript:void(0)"
-                                style="font-size: 12px !important; font-weight: 600 !important; padding: 5px 12px !important; border-radius: 20px !important; text-decoration: none !important; transition: all 0.2s !important; 
-                {{ $type == 'job' ? 'background: #3a84ff !important; color: #fff !important;' : 'background: #eef2f5 !important; color: #475569 !important;' }}">
+                            </button>
+
+                            <button class="nav-link {{ @$type == 'job' ? 'active' : '' }}" data-bs-toggle="tab"
+                                data-bs-target="#catalog-job" type="button" role="tab"
+                                style="font-size: 12px !important; font-weight: 600 !important; padding: 6px 16px !important; border-radius: 20px !important; border: none !important; transition: all 0.2s !important;">
                                 @lang('Jobs')
-                            </a>
-                            <a href="javascript:void(0)"
-                                style="font-size: 12px !important; font-weight: 600 !important; padding: 5px 12px !important; border-radius: 20px !important; text-decoration: none !important; transition: all 0.2s !important; 
-                {{ $type == 'software' ? 'background: #3a84ff !important; color: #fff !important;' : 'background: #eef2f5 !important; color: #475569 !important;' }}">
+                            </button>
+
+                            <button class="nav-link {{ @$type == 'software' ? 'active' : '' }}" data-bs-toggle="tab"
+                                data-bs-target="#catalog-software" type="button" role="tab"
+                                style="font-size: 12px !important; font-weight: 600 !important; padding: 6px 16px !important; border-radius: 20px !important; border: none !important; transition: all 0.2s !important;">
                                 @lang('Softwares')
-                            </a>
+                            </button>
                         </div>
 
                         <div class="page-top__right">
@@ -68,9 +72,30 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+
+                    <div class="row mt-3">
                         <div class="col-lg-8 col-xl-9 productList">
-                            @include('Template::partials.product_list') </div>
+
+                            <div class="tab-content" id="catalogTabContent">
+
+                                <div class="tab-pane fade {{ !isset($type) || $type == 'service' ? 'show active' : '' }}"
+                                    id="catalog-service" role="tabpanel">
+                                    @include('Template::partials.product_list', ['type' => 'service'])
+                                </div>
+
+                                <div class="tab-pane fade {{ @$type == 'job' ? 'show active' : '' }}" id="catalog-job"
+                                    role="tabpanel">
+                                    @include('Template::partials.product_list', ['type' => 'job'])
+                                </div>
+
+                                <div class="tab-pane fade {{ @$type == 'software' ? 'show active' : '' }}"
+                                    id="catalog-software" role="tabpanel">
+                                    @include('Template::partials.product_list', ['type' => 'software'])
+                                </div>
+
+                            </div>
+
+                        </div>
                         <div class="col-lg-4 col-xl-3">
                             @include('Template::partials.filter')
                         </div>
