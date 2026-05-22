@@ -387,7 +387,11 @@
             <div class="slider-relative-wrapper">
                 <div class="swiper portfolioSwiper">
                     <div class="swiper-wrapper">
-                        @forelse($product_all as $product)
+                        @php
+                            $product_servies = \App\Models\Service::with('user')->latest()->take(12)->get();
+                            dd($product_servies);
+                        @endphp
+                        @forelse($product_servies as $product)
                             <a href="{{ route('service.details', [slug($product->name), $product->id]) }}"
                                 class="swiper-slide">
                                 <div class="portfolio-card">
