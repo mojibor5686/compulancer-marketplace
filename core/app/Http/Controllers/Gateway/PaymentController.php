@@ -13,6 +13,8 @@ use App\Models\User;
 use App\Traits\BookingOrder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
+// লগিং সিস্টেমের জন্য ফাসাদ যুক্ত করা হলো
 
 class PaymentController extends Controller {
     use BookingOrder;
@@ -27,7 +29,6 @@ class PaymentController extends Controller {
 }
 
 public function depositInsert( Request $request,  $orderNumber = null ) {
-    // ভ্যালিডেশন থেকে currency রিকোয়ারমেন্ট তুলে নেওয়া হয়েছে কারণ এটি ফিক্সড BDT/UddoktaPay বা Wallet
     $request->validate( [
         'amount'   => 'required|numeric|gt:0',
         'gateway'  => 'required',
@@ -48,7 +49,7 @@ public function depositInsert( Request $request,  $orderNumber = null ) {
     }
 
     // ===  ===  ===  ===  ===  ===  ===  ===  ===  ===  ===  ===  ===  ===
-    // ১. অ্যাকাউন্ট ব্যালেন্স ( Wallet ) প্রсеস
+    // ১. অ্যাকাউন্ট ব্যালেন্স ( Wallet ) প্রসেস
     // ===  ===  ===  ===  ===  ===  ===  ===  ===  ===  ===  ===  ===  ===
     if ( $request->gateway == 'wallet' ) {
 
@@ -64,6 +65,7 @@ public function depositInsert( Request $request,  $orderNumber = null ) {
                 static::bookingTransactionCreate($booking, $user);
                 static::clearSessionData();
             } catch (\Exception $e) {
+                Log::error('Wallet Payment Exception: ' . $e->getMessage());
                 $notify[] = ['error', 'Something went wrong'];
                 return back()->withNotify($notify);
             }
@@ -76,10 +78,12 @@ public function depositInsert( Request $request,  $orderNumber = null ) {
         // ==========================================
         if ($request->gateway == 'uddoktapay') {
             
-            // প্রথমে বুকিং তৈরি করে নেওয়া হচ্ছে যাতে ট্র্যাকিং ডাটাবেজে থাকে
+            Log::info('--- UddoktaPay Payment Initiate Start ---', ['user_id' => $user->id, 'amount' => $request->amount]);
+
             if ($orderNumber) {
                 try {
                     if (!$orderDetails || $orderDetails['orderNumber'] != $orderNumber) {
+                        Log::warning('UddoktaPay Order booking not found in session', ['order_number' => $orderNumber]);
                         $notify[] = ['error', 'Order booking not found!'];
                         return to_route('home')->withNotify($notify);
                     }
@@ -91,19 +95,19 @@ public function depositInsert( Request $request,  $orderNumber = null ) {
                     }
                     $bookingId = $bookingCreate->id;
                 } catch (\Exception $e) {
+                    Log::error('UddoktaPay Booking Exception: ' . $e->getMessage());
                     $notify[] = ['error', 'Something went wrong during booking'];
                     return back()->withNotify($notify);
                 }
             }
 
-            // নতুন বা ট্র্যাকিং ডিপোজিট রেকর্ড তৈরি
             $trx = $orderNumber ? $orderNumber : getTrx();
             
             $deposit                  = new Deposit();
             $deposit->user_id         = $user->id;
             $deposit->order_number    = $orderNumber;
             $deposit->booking_id      = $bookingId;
-            $deposit->method_code     = 9999; // UddoktaPay এর জন্য কাস্টম ট্র্যাকিং কোড
+            $deposit->method_code     = 9999; 
             $deposit->method_currency = 'BDT';
             $deposit->amount          = $request->amount;
             $deposit->charge          = 0;
@@ -116,11 +120,9 @@ public function depositInsert( Request $request,  $orderNumber = null ) {
             $deposit->failed_url      = $failUrl;
             $deposit->save();
 
-            // .env ফাইল থেকে ডাইনামিকভাবে ডেটা নেওয়া হচ্ছে
             $apiKey  = '982d381360a69d419689740d9f2e26ce36fb7a50'; 
             $apiLink = 'https://sandbox.uddoktapay.com/api/checkout-v2';
 
-            // এপিআই রিকোয়েস্ট বডি প্রস্তুতকরণ
             $fields = [
                 'full_name'    => $user->fullname ?? $user->username,
                 'email'        => $user->email,
@@ -133,25 +135,34 @@ public function depositInsert( Request $request,  $orderNumber = null ) {
                 'webhook_url'  => route('user.uddoktapay.webhook')
             ];
 
-            // UddoktaPay সার্ভারে রিকোয়েস্ট পাঠানো
-            $response = Http::withHeaders([
-                'RT-UDDOKTAPAY-API-KEY' => $apiKey,
-                'accept'                => 'application/json',
-                'content-type'          => 'application/json',
-            ])->post($apiLink, $fields);
+            Log::info('UddoktaPay API Payload Sent:', $fields);
 
-            $result = $response->json();
+            try {
+                $response = Http::withHeaders([
+                    'RT-UDDOKTAPAY-API-KEY' => $apiKey,
+                    'accept'                => 'application/json',
+                    'content-type'          => 'application/json',
+                ])->post($apiLink, $fields);
 
-            if (isset($result['status']) && $result['status'] === true) {
-                return redirect($result['payment_url']);
-            } else {
-                $deposit->delete(); // ব্যর্থ হলে ট্র্যাকিং ডাটা রিমুভ
-                $notify[] = ['error', $result['message'] ?? 'UddoktaPay Gateway Error'];
+                $result = $response->json();
+                Log::info('UddoktaPay API Response Received:', json_decode($response->body(), true) ?? []);
+
+                if (isset($result['status']) && $result['status'] === true) {
+                    return redirect($result['payment_url']);
+                } else {
+                    $deposit->delete();
+                    Log::error('UddoktaPay API Error Status', ['message' => $result['message'] ?? 'No message']);
+                    $notify[] = ['error', $result['message'] ?? 'UddoktaPay Gateway Error'];
+                    return back()->withNotify($notify);
+                }
+            } catch (\Exception $e) {
+                $deposit->delete();
+                Log::critical('UddoktaPay HTTP Request Failed: ' . $e->getMessage());
+                $notify[] = ['error', 'Gateway Connection Failed'];
                 return back()->withNotify($notify);
             }
         }
 
-        // ওল্ড ডাইনামিক স্ক্রিপ্টের ডিফল্ট কোড (ব্যালেন্স বা UddoktaPay না মিললে সিকিউরিটি গার্ড হিসেবে কাজ করবে)
         $notify[] = ['error', 'Gateway not allowed'];
         return back()->withNotify($notify);
     }
@@ -161,36 +172,47 @@ public function depositInsert( Request $request,  $orderNumber = null ) {
     // ==========================================
     public function uddoktapayCallback(Request $request)
     {
+        Log::info('--- UddoktaPay Callback Hit ---', $request->all());
+
         $invoiceId = $request->get('invoice_id');
         
         if (!$invoiceId) {
+            Log::warning('UddoktaPay Callback Missing Invoice ID');
             $notify[] = ['error', 'Invalid callback response'];
             return to_route('home')->withNotify($notify);
         }
 
-        // .env থেকে ডেটা নেওয়া হচ্ছে
         $apiKey     = '982d381360a69d419689740d9f2e26ce36fb7a50';
         $verifyLink = 'https://sandbox.uddoktapay.com/api/verify-payment';
 
-        $response = Http::withHeaders([
-            'RT-UDDOKTAPAY-API-KEY' => $apiKey,
-            'accept'                => 'application/json',
-            'content-type'          => 'application/json',
-        ])->post($verifyLink, ['invoice_id' => $invoiceId]);
+        try {
+            $response = Http::withHeaders([
+                'RT-UDDOKTAPAY-API-KEY' => $apiKey,
+                'accept'                => 'application/json',
+                'content-type'          => 'application/json',
+            ])->post($verifyLink, ['invoice_id' => $invoiceId]);
 
-        $result = $response->json();
+            $result = $response->json();
+            Log::info('UddoktaPay Verification Response:', json_decode($response->body(), true) ?? []);
 
-        if (isset($result['status']) && $result['status'] === 'COMPLETED') {
-            $trx = $result['metadata']['trx'] ?? null;
-            $deposit = Deposit::where('trx', $trx)->where('status', Status::PAYMENT_INITIATE)->first();
+            if (isset($result['status']) && $result['status'] === 'COMPLETED') {
+                $trx = $result['metadata']['trx'] ?? null;
+                $deposit = Deposit::where('trx', $trx)->where('status', Status::PAYMENT_INITIATE)->first();
 
-            if ($deposit) {
-                // স্ক্রিপ্টের নিজস্ব মেইন গ্লোবাল মেথড কল করে ট্রানজেকশন কমপ্লিট করা হলো
-                static::userDataUpdate($deposit);
-                
-                $notify[] = ['success', 'Payment successful'];
-                return redirect($deposit->success_url)->withNotify($notify);
+                if ($deposit) {
+                    static::userDataUpdate($deposit);
+                    Log::info('UddoktaPay Callback Payment Success processed inside Controller.', ['trx' => $trx]);
+                    
+                    $notify[] = ['success', 'Payment successful'];
+                    return redirect($deposit->success_url)->withNotify($notify);
+                } else {
+                    Log::warning('UddoktaPay Deposit Record Not Found or Already Processed', ['trx' => $trx]);
+                }
+            } else {
+                Log::warning('UddoktaPay Payment Status Not Completed', ['status' => $result['status'] ?? 'unknown']);
             }
+        } catch (\Exception $e) {
+            Log::error('UddoktaPay Callback Exception: ' . $e->getMessage());
         }
 
         $notify[] = ['error', 'Payment failed or unverified'];
@@ -200,6 +222,11 @@ public function depositInsert( Request $request,  $orderNumber = null ) {
     // হোস্টেড রিকোয়েস্ট ব্যাকগ্রাউন্ড ভেরিফিকেশনের জন্য ওয়েবহুক
     public function uddoktapayWebhook(Request $request)
     {
+        Log::info('--- UddoktaPay Webhook Hit ---', [
+            'headers' => $request->headers->all(),
+            'body'    => $request->all()
+        ]);
+
         $apiKey    = '982d381360a69d419689740d9f2e26ce36fb7a50';
         $headerApi = $request->header('RT-UDDOKTAPAY-API-KEY');
 
@@ -209,13 +236,17 @@ public function depositInsert( Request $request,  $orderNumber = null ) {
 
             if ($deposit) {
                 static::userDataUpdate($deposit);
+                Log::info('UddoktaPay Webhook Data Updated Successfully.', ['trx' => $trx]);
                 return response()->json(['status' => 'success']);
+            } else {
+                Log::warning('UddoktaPay Webhook Deposit Not Found or Processed.', ['trx' => $trx]);
             }
+        } else {
+            Log::error('UddoktaPay Webhook Security Token Mismatch or Status Uncompleted.');
         }
         return response()->json(['status' => 'failed'], 400);
     }
 
-    // নিচের ওল্ড মেথডগুলো অপরিবর্তিত রাখা হয়েছে যাতে কোনো ওল্ড মডিউল ক্র্যাশ না করে
     public function depositConfirm()
     {
         $track   = session()->get('Track');
@@ -393,9 +424,6 @@ public function depositInsert( Request $request,  $orderNumber = null ) {
             $notify[] = ['success', 'Your deposit request has been taken'];
             return to_route('user.deposit.history')->withNotify($notify);
         }
-
-        $notify[] = ['success', 'You have deposit request has been taken'];
-        return to_route('user.deposit.history')->withNotify($notify);
     }
 
     protected function getOrderRouteName($orderDetails = null, $deposit = true, $successUrl = false, $orderNumber = 0)
@@ -418,6 +446,7 @@ public function depositInsert( Request $request,  $orderNumber = null ) {
                 return route('user.buyer.software.log');
             }
         } catch (\Exception $e) {
+            Log::error('Order Route Name Exception: ' . $e->getMessage());
             return route('user.home');
         }
 
