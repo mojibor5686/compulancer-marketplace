@@ -408,9 +408,30 @@
         </style>
     @endpush
 
+    <!-- Slick Slider CSS -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
 
+    <!-- অতিরিক্ত CSS: কার্ডগুলোর মধ্যে সুন্দর Gap বা স্পেসিং বজায় রাখার জন্য -->
+    <style>
+        .portfolio-slick-slider {
+            margin: 0 -10px;
+            /* স্লাইডারের দুই পাশের বাড়তি মার্জিন ঠিক করার জন্য */
+        }
+
+        .slick-item-wrapper {
+            padding: 0 10px;
+            /* প্রতিটি কার্ডের ডানে-বামে ১০ পিক্সেল করে মোট ২০ পিক্সেল গ্যাপ তৈরি করবে */
+            box-sizing: border-box;
+        }
+
+        .portfolio-card {
+            display: block;
+            width: 100%;
+        }
+    </style>
+
+    <!-- jQuery & Slick JS -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 
@@ -468,26 +489,29 @@
             $('.portfolio-slick-slider').slick({
                 dots: false,
                 infinite: true,
-                speed: 300,
-                slidesToShow: 4,
-                slidesToScroll: 1,
+                speed: 500, // স্লাইড অ্যানিমেশনের স্পিড (0.5 সেকেন্ড)
+                slidesToShow: 4, // এক লাইনে ৪টা কার্ড দেখাবে
+                slidesToScroll: 1, // একবারে ১টা করে কার্ড সরবে
                 arrows: true,
+                autoplay: true, // ✅ অটো স্লাইড চালু করা হলো
+                autoplaySpeed: 3000, // ✅ প্রতি ৩ সেকেন্ড পর পর অটোমেটিক স্ক্রল হবে
+                pauseOnHover: true, // মাউস কার্ডের ওপর নিলে অটো স্লাইডার সাময়িক থামবে
                 responsive: [{
-                        breakpoint: 1024,
+                        breakpoint: 1200,
                         settings: {
-                            slidesToShow: 3,
+                            slidesToShow: 3, // বড় স্ক্রিনের চেয়ে একটু ছোট ডিভাইসে ৩টা দেখাবে
                         }
                     },
                     {
-                        breakpoint: 768,
+                        breakpoint: 992,
                         settings: {
                             slidesToShow: 2,
                         }
                     },
                     {
-                        breakpoint: 480,
+                        breakpoint: 576,
                         settings: {
-                            slidesToShow: 1,
+                            slidesToShow: 1, // মোবাইলে ১টা করে কার্ড দেখানোই স্ট্যান্ডার্ড
                         }
                     }
                 ]
