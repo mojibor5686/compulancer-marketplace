@@ -27,6 +27,47 @@
                     </div>
                 </section>
                 <div class="page-content">
+                    <div class="card-top-action-bar"
+                        style="display: flex !important; align-items: center !important; justify-content: space-between !important; padding: 12px 16px !important; border-bottom: 1px solid #eef2f5 !important; background: #fafbfc !important; flex-wrap: wrap !important; gap: 10px !important;">
+
+                        <div class="top-bar-left-buttons"
+                            style="display: flex !important; align-items: center !important; gap: 6px !important;">
+                            <a href="javascript:void(0)"
+                                style="font-size: 12px !important; font-weight: 600 !important; padding: 5px 12px !important; border-radius: 20px !important; text-decoration: none !important; transition: all 0.2s !important; 
+                {{ $type == 'service' ? 'background: #3a84ff !important; color: #fff !important;' : 'background: #eef2f5 !important; color: #475569 !important;' }}">
+                                @lang('Services')
+                            </a>
+                            <a href="javascript:void(0)"
+                                style="font-size: 12px !important; font-weight: 600 !important; padding: 5px 12px !important; border-radius: 20px !important; text-decoration: none !important; transition: all 0.2s !important; 
+                {{ $type == 'job' ? 'background: #3a84ff !important; color: #fff !important;' : 'background: #eef2f5 !important; color: #475569 !important;' }}">
+                                @lang('Jobs')
+                            </a>
+                            <a href="javascript:void(0)"
+                                style="font-size: 12px !important; font-weight: 600 !important; padding: 5px 12px !important; border-radius: 20px !important; text-decoration: none !important; transition: all 0.2s !important; 
+                {{ $type == 'software' ? 'background: #3a84ff !important; color: #fff !important;' : 'background: #eef2f5 !important; color: #475569 !important;' }}">
+                                @lang('Softwares')
+                            </a>
+                        </div>
+
+                        <div class="page-top__right">
+                            <div class="layout-toggle-btns"
+                                style="display: flex !important; align-items: center !important; gap: 5px !important;">
+                                <button class="layout-toggle-btn grid-layout active" type="button"
+                                    style="border: 1px solid #cbd5e1 !important; background: #fff !important; padding: 4px 8px !important; border-radius: 4px !important; cursor: pointer !important;">
+                                    @include('Template::partials.icons.grid')
+                                </button>
+                                <button class="layout-toggle-btn list-layout" type="button"
+                                    style="border: 1px solid #cbd5e1 !important; background: #fff !important; padding: 4px 8px !important; border-radius: 4px !important; cursor: pointer !important;">
+                                    @include('Template::partials.icons.list')
+                                </button>
+                                <button class="layout-toggle-btn toggle-sidebar d-lg-none" type="button"
+                                    data-toggle="offcanvas-sidebar" data-target="#jss-offcanvas-sidebar"
+                                    style="border: 1px solid #cbd5e1 !important; background: #fff !important; padding: 4px 10px !important; border-radius: 4px !important; color: #475569 !important; cursor: pointer !important;">
+                                    <i class="fas fa-bars"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-lg-8 col-xl-9 productList">
                             @include('Template::partials.product_list') </div>
