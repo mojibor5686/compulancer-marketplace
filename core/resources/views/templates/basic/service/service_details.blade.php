@@ -43,10 +43,10 @@
                                     <div class="d-flex align-items-center flex-wrap gap-2">
                                         <div class="d-flex align-items-center gap-2 me-2">
                                             <img src="{{ getImage(getFilePath('userProfile') . '/' . @$productDetails->user->image, isAvatar: true) }}"
-                                                class="rounded-circle object-fit-cover" width="24" height="24"
+                                                class="rounded-circle object-fit-cover" width="28" height="28"
                                                 alt="avatar">
                                             <a href="{{ route('public.profile', @$productDetails->user->username) }}"
-                                                style="font-size: 15px; font-weight: 600; color: #555555; text-decoration: none; transition: color 0.2s;"
+                                                style="font-size: 15px; font-weight: 600; color: #555555; text-decoration: none; transition: color 0.2s; text-transform: capitalize;"
                                                 onmouseover="this.style.color='#0073ec'"
                                                 onmouseout="this.style.color='#555555'">
                                                 {{ __(@$productDetails->user->username ?? 'Mobi_designs') }}
