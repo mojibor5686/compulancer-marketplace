@@ -43,10 +43,10 @@
                 <div class="col-lg-3 col-md-6">
                     <h5 class="kwork-footer__heading">@lang('About')</h5>
                     <ul class="kwork-footer__menu">
-                        <li><a href="">@lang('About Us')</a></li>
-                        <li><a href="">@lang('Terms of Service')</a></li>
-                        <li><a href="">@lang('Privacy Policy')</a></li>
-                        <li><a href="">@lang('Contact Us')</a></li>
+                        <li><a href="/about-us">@lang('About Us Details')</a></li>
+                        <li><a href="/service">@lang('Terms of Service')</a></li>
+                        <li><a href="/policy">@lang('Privacy Policy')</a></li>
+                        <li><a href="/contact">@lang('Contact Us')</a></li>
                     </ul>
                 </div>
 
