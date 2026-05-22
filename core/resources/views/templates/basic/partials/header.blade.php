@@ -219,7 +219,7 @@
             <div class="d-none d-sm-flex flex-grow-1 mx-3 desktop-stretch-width" style="max-width: 600px;">
                 <form action="{{ route('search') }}" method="GET"
                     class="w-100 d-flex align-items-center border rounded overflow-hidden bg-white">
-                    <input type="text" name="search" placeholder="Find Services..."
+                    <input type="text" name="search" placeholder="Find Services..." value="{{ request()->search }}"
                         class="form-control border-0 px-3 py-2 shadow-none" style="font-size: 14px;" />
                     <button type="submit"
                         class="btn btn-kwork px-4 py-2 rounded-0 d-flex align-items-center justify-content-center"
@@ -297,7 +297,7 @@
         </div>
 
         <div class="d-sm-none pb-2 pt-1">
-            <form action="{{ route('service') }}" method="GET"
+            <form action="{{ route('search') }}" method="GET"
                 class="w-100 d-flex align-items-center border rounded bg-light overflow-hidden">
                 <span class="ps-3 text-muted d-flex align-items-center">
                     <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke-width="2"
@@ -306,7 +306,7 @@
                             d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                     </svg>
                 </span>
-                <input type="text" name="search" placeholder="Find Services..."
+                <input type="text" name="search" placeholder="Find Services..." value="{{ request()->search }}"
                     class="form-control border-0 bg-transparent px-2 py-2 shadow-none" style="font-size: 13px;" />
             </form>
         </div>

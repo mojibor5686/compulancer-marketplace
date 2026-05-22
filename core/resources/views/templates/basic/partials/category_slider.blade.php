@@ -286,7 +286,7 @@
                         <span class="input-group-text bg-white border-end-0 ps-3 text-muted">
                             <i class="fas fa-search search-icon-main"></i>
                         </span>
-                        <input type="text" name="search"
+                        <input type="text" name="search" value="{{ request()->search }}"
                             class="form-control border-start-0 border-end-0 shadow-none ps-2"
                             placeholder='@lang('Try "social media design"')' required>
                         <button class="btn btn-kwork-search px-4 px-md-5" type="submit">
