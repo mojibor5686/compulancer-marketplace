@@ -36,7 +36,7 @@
                                             <div class="payment-item__info">
                                                 <span class="payment-item__check"></span>
                                                 <span
-                                                    class="payment-item__name">{{ __('UddoktaPay (Bkash/Nagad/Rocket)') }}</span>
+                                                    class="payment-item__name">{{ __('মোবাইল ব্যাংকিং (Bkash/Nagad/Rocket') }}</span>
                                             </div>
                                             <div class="payment-item__thumb">
                                                 <img class="payment-item__thumb-img"
