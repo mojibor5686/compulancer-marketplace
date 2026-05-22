@@ -20,6 +20,7 @@ use Symfony\Component\HttpFoundation\Response;
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
         commands: __DIR__ . '/../routes/console.php',
+        api: __DIR__.'/../routes/api.php',
         channels: __DIR__ . '/../routes/channels.php',
         health: '/up',
         using: function () {

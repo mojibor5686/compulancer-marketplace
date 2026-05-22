@@ -82,9 +82,3 @@ Route::controller('SiteController')->group(function () {
     Route::get('maintenance-mode', 'maintenance')->withoutMiddleware('maintenance')->name('maintenance');
     Route::get('/', 'index')->name('home');
 });
-
-
-Route::prefix('uddoktapay')->name('user.uddoktapay.')->controller(App\Http\Controllers\Gateway\PaymentController::class)->group(function () {
-    Route::any('callback', 'uddoktapayCallback')->name('callback');
-    Route::post('webhook', 'uddoktapayWebhook')->name('webhook');
-});
