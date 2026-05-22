@@ -1,4 +1,5 @@
 @extends('Template::layouts.frontend') @section('content')
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
     <main class="page-wrapper">
         <section class="jss-section pt-40 pb-80">
             <div class="container">
