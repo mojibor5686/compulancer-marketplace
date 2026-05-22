@@ -71,6 +71,8 @@ public function depositInsert( Request $request,  $orderNumber = null ) {
             return redirect($successUrl);
         }
 
+        dd($request->gateway);
+
         // ==========================================
         // ২. ডাইনামিক UddoktaPay গেটওয়ে প্রসেস
         // ==========================================
