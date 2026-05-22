@@ -24,6 +24,9 @@ class ServiceBookingController extends Controller
             'extra_services.*' => 'integer|exists:extra_services,id',
         ]);
 
+        dd(
+            $request->all()
+        );
 
         $service = Service::where('id', $id)->active()->notAuthUser()->checkData()->with('user')->first();
 
