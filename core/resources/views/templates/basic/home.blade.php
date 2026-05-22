@@ -76,24 +76,26 @@
                     <div class="row mt-3">
                         <div class="col-lg-8 col-xl-9 productList">
 
-                            <div class="tab-content" id="catalogTabContent">
-
-                                <div class="tab-pane fade {{ !isset($type) || $type == 'service' ? 'show active' : '' }}"
-                                    id="catalog-service" role="tabpanel">
-                                    @include('Template::partials.product_list', ['type' => 'service'])
-                                </div>
-
-                                <div class="tab-pane fade {{ @$type == 'job' ? 'show active' : '' }}" id="catalog-job"
-                                    role="tabpanel">
-                                    @include('Template::partials.product_list', ['type' => 'job'])
-                                </div>
-
-                                <div class="tab-pane fade {{ @$type == 'software' ? 'show active' : '' }}"
-                                    id="catalog-software" role="tabpanel">
-                                    @include('Template::partials.product_list', ['type' => 'software'])
-                                </div>
-
-                            </div>
+                            <ul class="nav nav-pills custom-capsule-tabs" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link {{ $maxKey == 'service' ? 'active' : '' }}" data-bs-toggle="tab"
+                                        data-bs-target="#service" type="button" role="tab">
+                                        <i class="ri-briefcase-line me-2"></i>@lang('Services')
+                                    </button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link {{ $maxKey == 'software' ? 'active' : '' }}"
+                                        data-bs-toggle="tab" data-bs-target="#software" type="button" role="tab">
+                                        <i class="ri-terminal-window-line me-2"></i>@lang('Softwares')
+                                    </button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link {{ $maxKey == 'job' ? 'active' : '' }}" data-bs-toggle="tab"
+                                        data-bs-target="#job" type="button" role="tab">
+                                        <i class="ri-search-eye-line me-2"></i>@lang('Jobs')
+                                    </button>
+                                </li>
+                            </ul>
 
                         </div>
                         <div class="col-lg-4 col-xl-3">
