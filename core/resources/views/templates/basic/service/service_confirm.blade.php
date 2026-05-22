@@ -32,35 +32,22 @@
                                                 @if (old('gateway')) @checked(old('gateway') == 'wallet') @endif>
                                         </label>
 
-                                        @foreach ($gatewayCurrency as $data)
-                                            <label for="{{ titleToKey($data->name) }}"
-                                                class="payment-item @if ($loop->index > 4) d-none @endif gateway-option">
-                                                <div class="payment-item__info">
-                                                    <span class="payment-item__check"></span>
-                                                    <span class="payment-item__name">{{ __($data->name) }}</span>
-                                                </div>
-                                                <div class="payment-item__thumb">
-                                                    <img class="payment-item__thumb-img"
-                                                        src="{{ getImage(getFilePath('gateway') . '/' . $data->method->image) }}"
-                                                        alt="@lang('payment-thumb')">
-                                                </div>
-                                                <input class="payment-item__radio gateway-input"
-                                                    id="{{ titleToKey($data->name) }}" hidden
-                                                    data-gateway='@json($data)' type="radio"
-                                                    name="gateway" value="{{ $data->method_code }}"
-                                                    @if (old('gateway')) @checked(old('gateway') == $data->method_code) @else @checked($loop->first) @endif
-                                                    data-min-amount="{{ showAmount($data->min_amount) }}"
-                                                    data-max-amount="{{ showAmount($data->max_amount) }}">
-                                            </label>
-                                        @endforeach
-
-                                        @if ($gatewayCurrency->count() > 4)
-                                            <button type="button" class="payment-item__btn more-gateway-option">
-                                                <p class="payment-item__btn-text">@lang('Show All Payment Options')</p>
-                                                <span class="payment-item__btn__icon"><i
-                                                        class="fas fa-chevron-down"></i></span>
-                                            </button>
-                                        @endif
+                                        <label for="uddoktapay" class="payment-item gateway-option">
+                                            <div class="payment-item__info">
+                                                <span class="payment-item__check"></span>
+                                                <span
+                                                    class="payment-item__name">{{ __('UddoktaPay (Bkash/Nagad/Rocket)') }}</span>
+                                            </div>
+                                            <div class="payment-item__thumb">
+                                                <img class="payment-item__thumb-img"
+                                                    src="https://sandbox.uddoktapay.com/assets/images/logo.png"
+                                                    alt="@lang('payment-thumb')" style="object-fit: contain; max-height: 35px;">
+                                            </div>
+                                            <input class="payment-item__radio gateway-input" id="uddoktapay" hidden
+                                                data-gateway='{"name":"UddoktaPay","currency":"BDT","percent_charge":"0","fixed_charge":"0","rate":"1"}'
+                                                type="radio" name="gateway" value="uddoktapay"
+                                                @checked(old('gateway') == 'uddoktapay') data-min-amount="10" data-max-amount="50000">
+                                        </label>
                                     </div>
                                 </div>
                             </div>
