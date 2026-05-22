@@ -107,6 +107,10 @@
                             </div>
 
                         </div>
+
+                        <div class="col-lg-4 col-xl-3">
+                            @include('Template::partials.filter')
+                        </div>
                     </div>
 
                 </div>
