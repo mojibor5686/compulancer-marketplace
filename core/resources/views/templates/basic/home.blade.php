@@ -379,6 +379,10 @@
         </style>
     @endpush
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
     <section class="portfolio-slider-section d-none d-lg-block">
         <div class="container-fluid" style="max-width: 1280px; padding: 0 30px;">
 
