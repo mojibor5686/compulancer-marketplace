@@ -22,7 +22,7 @@
         <div class="tags">
             <h6 class="tags__title">@lang('Skills')</h6>
             <div class="tags-list">
-                @foreach (($productDetails->skill ?? []) as $skill)
+                @foreach ($productDetails->skill ?? [] as $skill)
                     <a class="tags-list__tag"
                         href="{{ route('job') }}?skill={{ $skill }}">{{ __($skill) }}</a>
                 @endforeach
@@ -118,33 +118,6 @@
                     </a>
                 @endif
             </div>
-
-            <ul class="social-list style-two">
-                <li class="social-list__item">
-                    <a href="http://www.facebook.com/sharer.php?u={{ urlencode(url()->current()) }}&p[title]={{ slug($productDetails->name) }}"
-                        class="social-list__link" target="_blank">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                </li>
-                <li class="social-list__item">
-                    <a href="http://twitter.com/share?text={{ slug($productDetails->name) }}&url={{ urlencode(url()->current()) }}"
-                        class="social-list__link" target="_blank">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                </li>
-                <li class="social-list__item">
-                    <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ urlencode(url()->current()) }}&title={{ slug($productDetails->name) }}"
-                        class="social-list__link" target="_blank">
-                        <i class="fab fa-linkedin-in"></i>
-                    </a>
-                </li>
-                <li class="social-list__item">
-                    <a href="http://pinterest.com/pin/create/button/?url={{ urlencode(url()->current()) }}&description={{ slug($productDetails->name) }}"
-                        class="social-list__link" target="_blank">
-                        <i class="fab fa-pinterest-p"></i>
-                    </a>
-                </li>
-            </ul>
         </div>
     @endif
 </div>
