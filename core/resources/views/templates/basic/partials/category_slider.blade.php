@@ -6,6 +6,11 @@
             'image' => 'https://cdn.kwork.com/images/index/banner-user-5.png?ver=6',
         ],
         [
+            'name' => 'Nuruzzaman',
+            'role' => 'Digital Marketing Consultancy',
+            'image' => '/assets/images/Nuruzzaman.png',
+        ],
+        [
             'name' => 'Eugene',
             'role' => 'Voice Actor',
             'image' => 'https://cdn.kwork.com/images/index/banner-user-6.png?ver=7',
@@ -16,19 +21,19 @@
             'image' => 'https://cdn.kwork.com/images/index/banner-user-1.png?ver=2',
         ],
         [
+            'name' => 'Ahmed Shakil',
+            'role' => 'Ther German Academy (Education Support)',
+            'image' => '/assets/images/Shakil.png',
+        ],
+        [
             'name' => 'Sophia',
             'role' => 'Graphic Designer',
             'image' => 'https://cdn.kwork.com/images/index/banner-user-2.png?ver=3',
         ],
         [
-            'name' => 'Sakib',
+            'name' => 'Amir Hamza',
             'role' => 'It Specialist',
-            'image' => '/assets/images/sakib.jpeg',
-        ],
-        [
-            'name' => 'Alomgir',
-            'role' => 'Consultant Support',
-            'image' => '/assets/images/sakib.jpeg',
+            'image' => '/assets/images/Hamza.png',
         ],
     ];
 
