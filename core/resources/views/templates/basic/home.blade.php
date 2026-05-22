@@ -370,6 +370,35 @@
                 z-index: 1;
             }
 
+            .slick-item-wrapper {
+                padding: 0 10px;
+            }
+
+            .portfolio-card-link {
+                text-decoration: none;
+                display: block;
+            }
+
+            .portfolio-card {
+                background: #fff;
+                border: 1px solid #e0e0e0;
+                border-radius: 8px;
+                overflow: hidden;
+            }
+
+            .portfolio-img-box img {
+                width: 100%;
+                height: 220px;
+                object-fit: cover;
+                display: block;
+            }
+
+            .slick-prev:before,
+            .slick-next:before {
+                color: #333 !important;
+                font-size: 24px;
+            }
+
             @media (min-width: 1200px) {
                 .row.justify-content-center {
                     max-width: 1140px;
