@@ -1,30 +1,7 @@
 @extends('Template::layouts.frontend') @section('content')
-    <style>
-        .custom-capsule-tabs {
-            background-color: #f1f5f9;
-            padding: 5px;
-            border-radius: 50px;
-            display: inline-flex;
-        }
-
-        .custom-capsule-tabs .nav-link {
-            border-radius: 50px;
-            color: #475569;
-            font-weight: 500;
-            padding: 8px 20px;
-            transition: all 0.2s ease;
-        }
-
-        .custom-capsule-tabs .nav-link.active {
-            background-color: #3a84ff !important;
-            color: #ffffff !important;
-            box-shadow: 0 2px 8px rgba(58, 132, 255, 0.2);
-        }
-    </style>
     <main class="page-wrapper">
         <section class="jss-section pt-40 pb-80">
             <div class="container">
-
                 <section class="kwork-catalog-section py-5">
                     <div class="container">
                         <h2 class="catalog-main-title mb-4">@lang("Explore Compulancer Work's Evergrowing Catalog")</h2>
@@ -49,70 +26,14 @@
                         </div>
                     </div>
                 </section>
-
                 <div class="page-content">
-
-                    <div class="modern-action-bar mb-4">
-                        <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 w-100">
-                            <ul class="nav nav-pills custom-capsule-tabs" role="tablist">
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link {{ @$maxKey == 'service' ? 'active' : '' }}"
-                                        data-bs-toggle="tab" data-bs-target="#service" type="button" role="tab">
-                                        <i class="ri-briefcase-line me-2"></i>@lang('Services')
-                                    </button>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link {{ @$maxKey == 'software' ? 'active' : '' }}"
-                                        data-bs-toggle="tab" data-bs-target="#software" type="button" role="tab">
-                                        <i class="ri-terminal-window-line me-2"></i>@lang('Softwares')
-                                    </button>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link {{ @$maxKey == 'job' ? 'active' : '' }}" data-bs-toggle="tab"
-                                        data-bs-target="#job" type="button" role="tab">
-                                        <i class="ri-search-eye-line me-2"></i>@lang('Jobs')
-                                    </button>
-                                </li>
-                            </ul>
-
-                            <div class="layout-toggle-btns">
-                                <button class="layout-toggle-btn grid-layout active" type="button" title="Grid View">
-                                    @include('Template::partials.icons.grid')
-                                </button>
-                                <button class="layout-toggle-btn list-layout" type="button" title="List View">
-                                    @include('Template::partials.icons.list')
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    @include('Template::partials.top_filter')
-
                     <div class="row">
                         <div class="col-lg-8 col-xl-9 productList">
-
-                            <div class="tab-content">
-                                <div class="tab-pane fade {{ !isset($maxKey) || $maxKey == 'service' ? 'show active' : '' }}"
-                                    id="service" role="tabpanel">
-                                    @include('Template::partials.product_list')
-                                </div>
-                                <div class="tab-pane fade {{ @$maxKey == 'software' ? 'show active' : '' }}" id="software"
-                                    role="tabpanel">
-                                    @include('Template::partials.product_list')
-                                </div>
-                                <div class="tab-pane fade {{ @$maxKey == 'job' ? 'show active' : '' }}" id="job"
-                                    role="tabpanel">
-                                    @include('Template::partials.product_list')
-                                </div>
-                            </div>
-
-                        </div>
-
+                            @include('Template::partials.product_list') </div>
                         <div class="col-lg-4 col-xl-3">
                             @include('Template::partials.filter')
                         </div>
                     </div>
-
                 </div>
             </div>
         </section>
