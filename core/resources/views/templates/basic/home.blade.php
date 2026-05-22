@@ -1,4 +1,26 @@
 @extends('Template::layouts.frontend') @section('content')
+    <style>
+        .custom-capsule-tabs {
+            background-color: #f1f5f9;
+            padding: 5px;
+            border-radius: 50px;
+            display: inline-flex;
+        }
+
+        .custom-capsule-tabs .nav-link {
+            border-radius: 50px;
+            color: #475569;
+            font-weight: 500;
+            padding: 8px 20px;
+            transition: all 0.2s ease;
+        }
+
+        .custom-capsule-tabs .nav-link.active {
+            background-color: #3a84ff !important;
+            color: #ffffff !important;
+            box-shadow: 0 2px 8px rgba(58, 132, 255, 0.2);
+        }
+    </style>
     <main class="page-wrapper">
         <section class="jss-section pt-40 pb-80">
             <div class="container">
