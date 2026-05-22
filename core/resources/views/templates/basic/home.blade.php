@@ -388,13 +388,15 @@
                 <div class="swiper portfolioSwiper">
                     <div class="swiper-wrapper">
                         @forelse($product_all as $product)
-                            <a href="{{ route('service.details', [slug($product->name), $product->id]) }}"
-                                class="swiper-slide">
+                            <div class="swiper-slide">
                                 <div class="portfolio-card">
-                                    <div class="portfolio-img-box">
-                                        <img src="{{ getImage(getFilePath('service') . '/' . $product->image, getFileSize($type)) }}"
-                                            alt="{{ __($product->title) }}">
-                                    </div>
+                                    <a href="{{ route('service.details', [slug($product->name), $product->id]) }}"
+                                        class="portfolio-card-link">
+                                        <div class="portfolio-img-box">
+                                            <img src="{{ getImage(getFilePath('service') . '/' . $product->image, getFileSize(@$type)) }}"
+                                                alt="{{ __($product->title) }}">
+                                        </div>
+                                    </a>
 
                                     <div class="card-footer-profile">
                                         <img src="{{ getImage(getFilePath('userProfile') . '/' . @$product->user->image, isAvatar: true) }}"
@@ -414,7 +416,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </a>
+                            </div>
                         @empty
                             <div class="swiper-slide">
                                 <div class="text-center text-muted py-4">
@@ -431,6 +433,170 @@
 
         </div>
     </section>
+
+    @push('style')
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+        <style>
+            .portfolio-slider-section {
+                background-color: #ffffff;
+                padding: 60px 0;
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                position: relative;
+            }
+
+            .section-title {
+                font-size: 24px;
+                font-weight: 700;
+                color: #222222;
+                margin-bottom: 30px;
+                letter-spacing: -0.5px;
+            }
+
+            .slider-relative-wrapper {
+                position: relative;
+                padding: 0px;
+            }
+
+            .portfolio-card-link {
+                display: block;
+                width: 100%;
+            }
+
+            .portfolio-card {
+                background: #ffffff;
+                border: 1px solid #eef1f3;
+                border-radius: 12px;
+                overflow: hidden;
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+                height: 100%;
+            }
+
+            .portfolio-card:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+            }
+
+            .portfolio-img-box {
+                width: 100%;
+                height: 200px;
+                overflow: hidden;
+                background-color: #f7f9fa;
+            }
+
+            .portfolio-img-box img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+            .card-footer-profile {
+                padding: 14px 16px;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                border-top: 1px solid #f4f6f8;
+                background-color: #ffffff;
+            }
+
+            .freelancer-avatar {
+                width: 36px;
+                height: 36px;
+                border-radius: 50%;
+                object-fit: cover;
+            }
+
+            .freelancer-info {
+                font-size: 13px;
+                color: #555555;
+            }
+
+            .freelancer-info span {
+                color: #999999;
+            }
+
+            .freelancer-link {
+                color: #0073ec;
+                text-decoration: none;
+                font-weight: 600;
+                transition: color 0.2s;
+                position: relative;
+                z-index: 2;
+                /* যেন ক্লিকেবল থাকে */
+            }
+
+            .freelancer-link:hover {
+                text-decoration: underline;
+                color: #0056b3;
+            }
+
+            .portfolio-slider-section .swiper-button-next,
+            .portfolio-slider-section .swiper-button-prev {
+                width: 40px;
+                height: 40px;
+                background: #ffffff;
+                border: 1px solid #e4e8eb;
+                border-radius: 50%;
+                color: #333333;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+                transition: all 0.2s ease;
+                z-index: 10;
+            }
+
+            .portfolio-slider-section .swiper-button-next:after,
+            .portfolio-slider-section .swiper-button-prev:after {
+                font-size: 14px;
+                font-weight: bold;
+            }
+
+            .portfolio-slider-section .swiper-button-next:hover,
+            .portfolio-slider-section .swiper-button-prev:hover {
+                background: #f7f9fa;
+                color: #0073ec;
+                border-color: #ccd4da;
+            }
+
+            .portfolio-slider-section .swiper-button-prev {
+                left: -20px;
+            }
+
+            .portfolio-slider-section .swiper-button-next {
+                right: -20px;
+            }
+        </style>
+    @endpush
+
+    @push('script')
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                var swiper = new Swiper(".portfolioSwiper", {
+                    slidesPerView: 1,
+                    spaceBetween: 24,
+                    loop: true,
+                    autoplay: {
+                        delay: 4000,
+                        disableOnInteraction: false,
+                    },
+                    navigation: {
+                        nextEl: ".swiper-button-next",
+                        prevEl: ".swiper-button-prev",
+                    },
+                    breakpoints: {
+                        640: {
+                            slidesPerView: 2
+                        },
+                        992: {
+                            slidesPerView: 3
+                        },
+                        1200: {
+                            slidesPerView: 4
+                        }
+                    }
+                });
+            });
+        </script>
+    @endpush
 
     <section class="solutions-section"
         style="background-color: #ffffff; padding: 80px 0; padding-top:40px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
@@ -496,150 +662,6 @@
             </div>
         </div>
     </section>
-
-    @push('style')
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-        <style>
-            .portfolio-slider-section {
-                background-color: #ffffff;
-                padding: 60px 0;
-                font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-                position: relative;
-            }
-
-            .section-title {
-                font-size: 24px;
-                font-weight: 700;
-                color: #222222;
-                margin-bottom: 30px;
-                letter-spacing: -0.5px;
-            }
-
-            .slider-relative-wrapper {
-                position: relative;
-                padding: 0px;
-            }
-
-            .portfolio-card {
-                background: #ffffff;
-                border: 1px solid #eef1f3;
-                border-radius: 12px;
-                overflow: hidden;
-                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
-                transition: transform 0.3s ease, box-shadow 0.3s ease;
-                height: 100%;
-            }
-
-            .portfolio-card:hover {
-                transform: translateY(-4px);
-                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
-            }
-
-            .portfolio-img-box {
-                width: 100%;
-                height: 200px;
-                overflow: hidden;
-                background-color: #f7f9fa;
-            }
-
-            .portfolio-img-box img {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-            }
-
-            .card-footer-profile {
-                padding: 14px 16px;
-                display: flex;
-                align-items: center;
-                gap: 10px;
-                border-top: 1px solid #f4f6f8;
-                background-color: #ffffff;
-            }
-
-            .freelancer-avatar {
-                width: 36px;
-                height: 36px;
-                border-radius: 50%;
-                object-fit: cover;
-            }
-
-            .freelancer-info {
-                font-size: 13px;
-                color: #555555;
-            }
-
-            .freelancer-info span {
-                color: #999999;
-            }
-
-            .freelancer-link {
-                color: #0073ec;
-                text-decoration: none;
-                font-weight: 600;
-                transition: color 0.2s;
-            }
-
-            .freelancer-link:hover {
-                text-decoration: underline;
-                color: #0056b3;
-            }
-
-            .portfolio-slider-section .swiper-button-next,
-            .portfolio-slider-section .swiper-button-prev {
-                width: 40px;
-                height: 40px;
-                background: #ffffff;
-                border: 1px solid #e4e8eb;
-                border-radius: 50%;
-                color: #333333;
-                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-                transition: all 0.2s ease;
-            }
-
-            .portfolio-slider-section .swiper-button-next:after,
-            .portfolio-slider-section .swiper-button-prev:after {
-                font-size: 14px;
-                font-weight: bold;
-            }
-
-            .portfolio-slider-section .swiper-button-next:hover,
-            .portfolio-slider-section .swiper-button-prev:hover {
-                background: #f7f9fa;
-                color: #0073ec;
-                border-color: #ccd4da;
-            }
-
-            .portfolio-slider-section .swiper-button-prev {
-                left: -20px;
-            }
-
-            .portfolio-slider-section .swiper-button-next {
-                right: -20px;
-            }
-        </style>
-    @endpush
-
-    @push('script')
-        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-        <script>
-            document.addEventListener("DOMContentLoaded", function() {
-                var swiper = new Swiper(".portfolioSwiper", {
-                    slidesPerView: 4,
-                    spaceBetween: 24,
-                    loop: true,
-                    autoplay: {
-                        delay: 4000,
-                        disableOnInteraction: false,
-                    },
-                    navigation: {
-                        nextEl: ".swiper-button-next",
-                        prevEl: ".swiper-button-prev",
-                    },
-                });
-            });
-        </script>
-    @endpush
 
     <div class="modal fade" id="kworkVideoModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
