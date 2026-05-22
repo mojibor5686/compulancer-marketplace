@@ -117,8 +117,8 @@ public function depositInsert( Request $request,  $orderNumber = null ) {
             $deposit->save();
 
             // .env ফাইল থেকে ডাইনামিকভাবে ডেটা নেওয়া হচ্ছে
-            $apiKey  = env('UDDOKTAPAY_API_KEY'); 
-            $apiLink = rtrim(env('UDDOKTAPAY_BASE_URL'), '/') . '/checkout-v2';
+            $apiKey  = '982d381360a69d419689740d9f2e26ce36fb7a50'; 
+            $apiLink = 'https://sandbox.uddoktapay.com/api/checkout-v2';
 
             // এপিআই রিকোয়েস্ট বডি প্রস্তুতকরণ
             $fields = [
@@ -169,8 +169,8 @@ public function depositInsert( Request $request,  $orderNumber = null ) {
         }
 
         // .env থেকে ডেটা নেওয়া হচ্ছে
-        $apiKey     = env('UDDOKTAPAY_API_KEY');
-        $verifyLink = rtrim(env('UDDOKTAPAY_BASE_URL'), '/') . '/verify-payment';
+        $apiKey     = '982d381360a69d419689740d9f2e26ce36fb7a50';
+        $verifyLink = 'https://sandbox.uddoktapay.com/api/verify-payment';
 
         $response = Http::withHeaders([
             'RT-UDDOKTAPAY-API-KEY' => $apiKey,
@@ -200,7 +200,7 @@ public function depositInsert( Request $request,  $orderNumber = null ) {
     // হোস্টেড রিকোয়েস্ট ব্যাকগ্রাউন্ড ভেরিফিকেশনের জন্য ওয়েবহুক
     public function uddoktapayWebhook(Request $request)
     {
-        $apiKey    = env('UDDOKTAPAY_API_KEY');
+        $apiKey    = '982d381360a69d419689740d9f2e26ce36fb7a50';
         $headerApi = $request->header('RT-UDDOKTAPAY-API-KEY');
 
         if ($headerApi === $apiKey && $request->status === 'COMPLETED') {
