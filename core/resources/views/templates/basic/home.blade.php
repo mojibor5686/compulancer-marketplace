@@ -110,6 +110,45 @@
         </section>
     </main>
     <style>
+        /* ফিল্টার ও ট্যাব অ্যাকশন বার ডিজাইন */
+        .modern-action-bar {
+            background: #ffffff;
+            border: 1px solid #e4e8ec;
+            border-radius: 12px;
+            padding: 14px 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.01);
+            display: flex;
+        }
+
+        /* ক্যাপসুল আকৃতির মডার্ন পিলস ট্যাব */
+        .custom-capsule-tabs {
+            gap: 8px;
+        }
+
+        .custom-capsule-tabs .nav-link {
+            border: 1px solid #e4e8ec !important;
+            font-weight: 600 !important;
+            font-size: 14px !important;
+            padding: 10px 22px !important;
+            color: #5e6267 !important;
+            background: #ffffff !important;
+            border-radius: 50px !important;
+            transition: all 0.2s ease-in-out !important;
+        }
+
+        .custom-capsule-tabs .nav-link:hover {
+            background: #f4f6f8 !important;
+            color: #1d1e20 !important;
+        }
+
+        .custom-capsule-tabs .nav-link.active {
+            background: #3C88EE !important;
+            color: #ffffff !important;
+            border-color: #3C88EE !important;
+            box-shadow: 0 4px 12px rgba(60, 136, 238, 0.2) !important;
+        }
+
         .cta-section {
             background-color: #e8f9ee;
             background-image: url('https://www.transparenttextures.com/patterns/cubes.png');
