@@ -272,8 +272,3 @@ Route::middleware('auth')->name('user.')->group(function () {
         });
     });
 });
-
-Route::prefix('uddoktapay')->name('user.uddoktapay.')->controller(App\Http\Controllers\Gateway\PaymentController::class)->group(function () {
-    Route::any('callback', 'uddoktapayCallback')->name('callback');
-    Route::post('webhook', 'uddoktapayWebhook')->name('webhook');
-});
