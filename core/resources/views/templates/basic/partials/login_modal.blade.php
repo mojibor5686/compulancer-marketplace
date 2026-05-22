@@ -18,9 +18,8 @@
 
                 <div class="d-flex justify-content-center gap-3 mb-2">
                     @if ($socialLoginActive)
-                        @include('Template::partials.social_login')
-                        <div class="account-card__divider my-3">
-                            <span>@lang('OR')</span>
+                        <div class="d-flex justify-content-center mb-2">
+                            @include('Template::partials.social_login')
                         </div>
                     @endif
                 </div>
