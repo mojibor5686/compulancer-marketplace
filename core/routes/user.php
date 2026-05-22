@@ -158,6 +158,11 @@ Route::middleware('auth')->name('user.')->group(function () {
             Route::post('manual', 'manualDepositUpdate')->name('manual.update');
         });
 
+        Route::prefix('uddoktapay')->name('uddoktapay.')->controller(Gateway\PaymentController::class)->group(function () {
+            Route::get('callback', 'uddoktapayCallback')->name('callback');
+            Route::post('webhook', 'uddoktapayWebhook')->name('webhook');
+        });
+
         // seller route
         Route::namespace('Seller')->name('seller.')->prefix('seller')->group(function () {
             Route::controller('SellerController')->group(function () {

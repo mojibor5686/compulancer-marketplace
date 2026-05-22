@@ -12,48 +12,48 @@ use App\Models\Transaction;
 use App\Models\User;
 use App\Traits\BookingOrder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
-class PaymentController extends Controller
-{
-
+class PaymentController extends Controller {
     use BookingOrder;
 
+    public function deposit() {
+        $gatewayCurrency = GatewayCurrency::whereHas( 'method', function ( $gate ) {
+            $gate->where( 'status', Status::ENABLE );
+        }
+    )->with( 'method' )->orderby( 'name' )->get();
+    $pageTitle = 'Deposit Methods';
+    return view( 'Template::user.payment.deposit', compact( 'gatewayCurrency', 'pageTitle' ) );
+}
 
-    public function deposit()
-    {
-        $gatewayCurrency = GatewayCurrency::whereHas('method', function ($gate) {
-            $gate->where('status', Status::ENABLE);
-        })->with('method')->orderby('name')->get();
-        $pageTitle = 'Deposit Methods';
-        return view('Template::user.payment.deposit', compact('gatewayCurrency', 'pageTitle'));
+public function depositInsert( Request $request,  $orderNumber = null ) {
+    // ভ্যালিডেশন থেকে currency রিকোয়ারমেন্ট তুলে নেওয়া হয়েছে কারণ এটি ফিক্সড BDT/UddoktaPay বা Wallet
+    $request->validate( [
+        'amount'   => 'required|numeric|gt:0',
+        'gateway'  => 'required',
+    ] );
+
+    $user = auth()->user();
+
+    $bookingId    = 0;
+    $orderDetails = session( 'orderDetails' );
+    $successUrl   = $orderNumber ? $this->getOrderRouteName( $orderDetails, deposit: false, successUrl: true, orderNumber: $orderNumber ) : $this->getOrderRouteName( null, deposit: true );
+    $failUrl      = $orderNumber ? $this->getOrderRouteName( $orderDetails, deposit: false ) : $this->getOrderRouteName( null, deposit: true );
+
+    $amount = $orderNumber ? $orderDetails[ 'grandTotal' ] : $request->amount;
+
+    if ( $amount != $request->amount ) {
+        $notify[] = [ 'error', 'Invalid Request' ];
+        return back()->withNotify( $notify );
     }
 
-    public function depositInsert(Request $request,  $orderNumber = null)
-    {
-        $request->validate([
-            'amount'   => 'required|numeric|gt:0',
-            'gateway'  => 'required',
-            'currency' => 'required',
-        ]);
+    // ===  ===  ===  ===  ===  ===  ===  ===  ===  ===  ===  ===  ===  ===
+    // ১. অ্যাকাউন্ট ব্যালেন্স ( Wallet ) প্রсеস
+    // ===  ===  ===  ===  ===  ===  ===  ===  ===  ===  ===  ===  ===  ===
+    if ( $request->gateway == 'wallet' ) {
 
-        $user = auth()->user();
-
-        $bookingId    = 0;
-        $orderDetails = session('orderDetails');
-        $successUrl   = $orderNumber ? $this->getOrderRouteName($orderDetails, deposit: false, successUrl: true, orderNumber: $orderNumber) : $this->getOrderRouteName(null, deposit: true);
-        $failUrl      = $orderNumber ? $this->getOrderRouteName($orderDetails, deposit: false) : $this->getOrderRouteName(null, deposit: true);
-
-        $amount = $orderNumber ? $orderDetails['grandTotal'] : $request->amount;
-
-        if ($amount != $request->amount) {
-            $notify[] = ['error', 'Invalid Request'];
-            return back()->withNotify($notify);
-        }
-
-        if ($request->gateway == 'wallet') {
-
-            if ($amount > $user->balance) {
-                $notify[] = ['error', 'You don\'t have enough balance!'];
+        if ( $amount > $user->balance ) {
+            $notify[] = [ 'error', 'You don\'t have enough balance!'];
                 return back()->withNotify($notify);
             }
 
@@ -71,72 +71,151 @@ class PaymentController extends Controller
             return redirect($successUrl);
         }
 
-        $gate = GatewayCurrency::whereHas('method', function ($gate) {
-            $gate->where('status', Status::ENABLE);
-        })->where('method_code', $request->gateway)->where('currency', $request->currency)->first();
-        if (!$gate) {
-            $notify[] = ['error', 'Invalid gateway'];
-            return back()->withNotify($notify);
-        }
+        // ==========================================
+        // ২. ডাইনামিক UddoktaPay গেটওয়ে প্রসেস
+        // ==========================================
+        if ($request->gateway == 'uddoktapay') {
+            
+            // প্রথমে বুকিং তৈরি করে নেওয়া হচ্ছে যাতে ট্র্যাকিং ডাটাবেজে থাকে
+            if ($orderNumber) {
+                try {
+                    if (!$orderDetails || $orderDetails['orderNumber'] != $orderNumber) {
+                        $notify[] = ['error', 'Order booking not found!'];
+                        return to_route('home')->withNotify($notify);
+                    }
 
-        if ($orderNumber) {
-            try {
-                if (!$orderDetails) {
-                    $notify[] = ['error', 'Order booking not found!'];
-                    return to_route('home')->withNotify($notify);
+                    $bookingCreate = static::bookingCreate($orderDetails);
+                    if (!$bookingCreate) {
+                        $notify[] = ['error', 'Order booking not found!'];
+                        return to_route('home')->withNotify($notify);
+                    }
+                    $bookingId = $bookingCreate->id;
+                } catch (\Exception $e) {
+                    $notify[] = ['error', 'Something went wrong during booking'];
+                    return back()->withNotify($notify);
                 }
+            }
 
-                if ($orderDetails['orderNumber'] != $orderNumber) {
-                    $notify[] = ['error', 'Order booking not found!'];
-                    return to_route('home')->withNotify($notify);
-                }
+            // নতুন বা ট্র্যাকিং ডিপোজিট রেকর্ড তৈরি
+            $trx = $orderNumber ? $orderNumber : getTrx();
+            
+            $deposit                  = new Deposit();
+            $deposit->user_id         = $user->id;
+            $deposit->order_number    = $orderNumber;
+            $deposit->booking_id      = $bookingId;
+            $deposit->method_code     = 9999; // UddoktaPay এর জন্য কাস্টম ট্র্যাকিং কোড
+            $deposit->method_currency = 'BDT';
+            $deposit->amount          = $request->amount;
+            $deposit->charge          = 0;
+            $deposit->rate            = 1;
+            $deposit->final_amount    = $request->amount;
+            $deposit->btc_amount      = 0;
+            $deposit->btc_wallet      = "";
+            $deposit->trx             = $trx;
+            $deposit->success_url     = $successUrl;
+            $deposit->failed_url      = $failUrl;
+            $deposit->save();
 
-                $bookingCreate = static::bookingCreate($orderDetails);
+            // .env ফাইল থেকে ডাইনামিকভাবে ডেটা নেওয়া হচ্ছে
+            $apiKey  = env('UDDOKTAPAY_API_KEY'); 
+            $apiLink = rtrim(env('UDDOKTAPAY_BASE_URL'), '/') . '/checkout-v2';
 
-                if (!$bookingCreate) {
-                    $notify[] = ['error', 'Order booking not found!'];
-                    return to_route('home')->withNotify($notify);
-                }
+            // এপিআই রিকোয়েস্ট বডি প্রস্তুতকরণ
+            $fields = [
+                'full_name'    => $user->fullname ?? $user->username,
+                'email'        => $user->email,
+                'amount'       => $request->amount,
+                'metadata'     => [
+                    'trx' => $trx
+                ],
+                'redirect_url' => route('user.uddoktapay.callback'),
+                'cancel_url'   => $failUrl,
+                'webhook_url'  => route('user.uddoktapay.webhook')
+            ];
 
-                $bookingId = $bookingCreate->id;
-            } catch (\Exception $e) {
-                $notify[] = ['error', 'Something went wrong'];
+            // UddoktaPay সার্ভারে রিকোয়েস্ট পাঠানো
+            $response = Http::withHeaders([
+                'RT-UDDOKTAPAY-API-KEY' => $apiKey,
+                'accept'                => 'application/json',
+                'content-type'          => 'application/json',
+            ])->post($apiLink, $fields);
+
+            $result = $response->json();
+
+            if (isset($result['status']) && $result['status'] === true) {
+                return redirect($result['payment_url']);
+            } else {
+                $deposit->delete(); // ব্যর্থ হলে ট্র্যাকিং ডাটা রিমুভ
+                $notify[] = ['error', $result['message'] ?? 'UddoktaPay Gateway Error'];
                 return back()->withNotify($notify);
             }
-        } else {
-
-            if ($gate->min_amount > $amount || $gate->max_amount < $amount) {
-                $notify[] = ['error', 'Please follow deposit limit'];
-                return back()->withNotify($notify);
-            }
         }
 
-
-        $charge      = $gate->fixed_charge + ($request->amount * $gate->percent_charge / 100);
-        $payable     = $request->amount + $charge;
-        $finalAmount = $payable * $gate->rate;
-
-        $data                  = new Deposit();
-        $data->user_id         = $user->id;
-        $data->order_number    = $orderNumber ? $orderNumber : null;
-        $data->booking_id      = $bookingId;
-        $data->method_code     = $gate->method_code;
-        $data->method_currency = strtoupper($gate->currency);
-        $data->amount          = $request->amount;
-        $data->charge          = $charge;
-        $data->rate            = $gate->rate;
-        $data->final_amount    = $finalAmount;
-        $data->btc_amount      = 0;
-        $data->btc_wallet      = "";
-        $data->trx             = $orderNumber ? $orderNumber : getTrx();
-        $data->success_url     = $successUrl;
-        $data->failed_url      = $failUrl;
-        $data->save();
-        session()->put('Track', $data->trx);
-        return to_route('user.deposit.confirm');
+        // ওল্ড ডাইনামিক স্ক্রিপ্টের ডিফল্ট কোড (ব্যালেন্স বা UddoktaPay না মিললে সিকিউরিটি গার্ড হিসেবে কাজ করবে)
+        $notify[] = ['error', 'Gateway not allowed'];
+        return back()->withNotify($notify);
     }
 
+    // ==========================================
+    // ৩. UddoktaPay এর রেসপন্স ভেরিফিকেশন মেথড
+    // ==========================================
+    public function uddoktapayCallback(Request $request)
+    {
+        $invoiceId = $request->get('invoice_id');
+        
+        if (!$invoiceId) {
+            $notify[] = ['error', 'Invalid callback response'];
+            return to_route('home')->withNotify($notify);
+        }
 
+        // .env থেকে ডেটা নেওয়া হচ্ছে
+        $apiKey     = env('UDDOKTAPAY_API_KEY');
+        $verifyLink = rtrim(env('UDDOKTAPAY_BASE_URL'), '/') . '/verify-payment';
+
+        $response = Http::withHeaders([
+            'RT-UDDOKTAPAY-API-KEY' => $apiKey,
+            'accept'                => 'application/json',
+            'content-type'          => 'application/json',
+        ])->post($verifyLink, ['invoice_id' => $invoiceId]);
+
+        $result = $response->json();
+
+        if (isset($result['status']) && $result['status'] === 'COMPLETED') {
+            $trx = $result['metadata']['trx'] ?? null;
+            $deposit = Deposit::where('trx', $trx)->where('status', Status::PAYMENT_INITIATE)->first();
+
+            if ($deposit) {
+                // স্ক্রিপ্টের নিজস্ব মেইন গ্লোবাল মেথড কল করে ট্রানজেকশন কমপ্লিট করা হলো
+                static::userDataUpdate($deposit);
+                
+                $notify[] = ['success', 'Payment successful'];
+                return redirect($deposit->success_url)->withNotify($notify);
+            }
+        }
+
+        $notify[] = ['error', 'Payment failed or unverified'];
+        return to_route('home')->withNotify($notify);
+    }
+
+    // হোস্টেড রিকোয়েস্ট ব্যাকগ্রাউন্ড ভেরিফিকেশনের জন্য ওয়েবহুক
+    public function uddoktapayWebhook(Request $request)
+    {
+        $apiKey    = env('UDDOKTAPAY_API_KEY');
+        $headerApi = $request->header('RT-UDDOKTAPAY-API-KEY');
+
+        if ($headerApi === $apiKey && $request->status === 'COMPLETED') {
+            $trx = $request->metadata['trx'] ?? null;
+            $deposit = Deposit::where('trx', $trx)->where('status', Status::PAYMENT_INITIATE)->first();
+
+            if ($deposit) {
+                static::userDataUpdate($deposit);
+                return response()->json(['status' => 'success']);
+            }
+        }
+        return response()->json(['status' => 'failed'], 400);
+    }
+
+    // নিচের ওল্ড মেথডগুলো অপরিবর্তিত রাখা হয়েছে যাতে কোনো ওল্ড মডিউল ক্র্যাশ না করে
     public function depositConfirm()
     {
         $track   = session()->get('Track');
@@ -146,13 +225,11 @@ class PaymentController extends Controller
             return to_route('user.deposit.manual.confirm');
         }
 
-
         $dirName = $deposit->gateway->alias;
         $new     = __NAMESPACE__ . '\\' . $dirName . '\\ProcessController';
 
         $data = $new::process($deposit);
         $data = json_decode($data);
-
 
         if (isset($data->error)) {
             $notify[] = ['error', $data->message];
@@ -162,17 +239,14 @@ class PaymentController extends Controller
             return redirect($data->redirect_url);
         }
 
-        // for Stripe V3
         if (@$data->session) {
             $deposit->btc_wallet = $data->session->id;
             $deposit->save();
         }
 
         $pageTitle = $deposit->order_number ? 'Payment Confirm' : 'Deposit Confirm';
-
         return view("Template::$data->view", compact('data', 'pageTitle', 'deposit'));
     }
-
 
     public static function userDataUpdate($deposit, $isManual = null)
     {
@@ -184,7 +258,7 @@ class PaymentController extends Controller
             $user->balance += $deposit->amount;
             $user->save();
 
-            $methodName = $deposit->methodName();
+            $methodName = $deposit->method_code == 9999 ? 'UddoktaPay' : $deposit->methodName();
 
             $transaction               = new Transaction();
             $transaction->user_id      = $deposit->user_id;
@@ -199,9 +273,7 @@ class PaymentController extends Controller
 
             $referral = User::where('id', $user->ref_by)->first();
 
-
             if ($referral && (gs()->referral_commission > 0)) {
-
                 $refAmo             = ($deposit->amount * gs()->referral_commission) / 100;
                 $referral->balance += $refAmo;
                 $referral->save();
@@ -243,7 +315,6 @@ class PaymentController extends Controller
                 'post_balance'    => showAmount($user->balance, currencyFormat: false)
             ]);
 
-
             if ($deposit->order_number && $deposit->booking_id) {
                 $booking = static::bookingStatusChange($deposit->booking_id);
                 static::bookingTransactionCreate($booking, $user, $deposit);
@@ -280,11 +351,9 @@ class PaymentController extends Controller
         $request->validate($validationRule);
         $userData = $formProcessor->processFormData($request, $formData);
 
-
         $data->detail = $userData;
         $data->status = Status::PAYMENT_PENDING;
         $data->save();
-
 
         $adminNotification            = new AdminNotification();
         $adminNotification->user_id   = $data->user->id;
@@ -311,7 +380,6 @@ class PaymentController extends Controller
             $notify[] = ['success', 'Your payment request has been taken'];
             return to_route('user.transactions')->withNotify($notify);
         } else {
-
             notify($data->user, 'DEPOSIT_REQUEST', [
                 'method_name'     => $data->gatewayCurrency()->name,
                 'method_currency' => $data->method_currency,
@@ -325,8 +393,6 @@ class PaymentController extends Controller
             $notify[] = ['success', 'Your deposit request has been taken'];
             return to_route('user.deposit.history')->withNotify($notify);
         }
-
-
 
         $notify[] = ['success', 'You have deposit request has been taken'];
         return to_route('user.deposit.history')->withNotify($notify);
@@ -355,6 +421,6 @@ class PaymentController extends Controller
             return route('user.home');
         }
 
-        return route('user.home');
+        return route('user.home' );
+        }
     }
-}
