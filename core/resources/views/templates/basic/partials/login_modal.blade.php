@@ -16,18 +16,21 @@
                         @$credentials->linkedin->status == Status::ENABLE;
                 @endphp
 
-                @if ($socialLoginActive)
-                    @include('Template::partials.social_login')
-                    <div class="account-card__divider my-3">
-                        <span>@lang('OR')</span>
-                    </div>
-                @endif
+                <div class="d-flex justify-content-center gap-3 mb-2">
+                    @if ($socialLoginActive)
+                        @include('Template::partials.social_login')
+                        <div class="account-card__divider my-3">
+                            <span>@lang('OR')</span>
+                        </div>
+                    @endif
+                </div>
 
                 <form id="ajaxLoginForm" method="POST">
                     @csrf
                     <div class="mb-3">
                         <label for="username" class="form-label">@lang('Email or Username')</label>
-                        <input type="text" class="form-control form--control" id="username" name="username" required>
+                        <input type="text" class="form-control form--control" id="username" name="username"
+                            required>
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">@lang('Password')</label>
