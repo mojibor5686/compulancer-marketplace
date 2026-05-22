@@ -484,40 +484,39 @@
         </div>
     </section>
 
-    <script>
-        $(document).ready(function() {
-            $('.portfolio-slick-slider').slick({
-                dots: false,
-                infinite: true,
-                speed: 500, // স্লাইড অ্যানিমেশনের স্পিড (0.5 সেকেন্ড)
-                slidesToShow: 4, // এক লাইনে ৪টা কার্ড দেখাবে
-                slidesToScroll: 1, // একবারে ১টা করে কার্ড সরবে
-                arrows: true,
-                autoplay: true, // ✅ অটো স্লাইড চালু করা হলো
-                autoplaySpeed: 3000, // ✅ প্রতি ৩ সেকেন্ড পর পর অটোমেটিক স্ক্রল হবে
-                pauseOnHover: true, // মাউস কার্ডের ওপর নিলে অটো স্লাইডার সাময়িক থামবে
-                responsive: [{
-                        breakpoint: 1200,
-                        settings: {
-                            slidesToShow: 3, // বড় স্ক্রিনের চেয়ে একটু ছোট ডিভাইসে ৩টা দেখাবে
+    @push('script')
+        <script>
+            $(document).ready(function() {
+                $('.portfolio-slick-slider').slick({
+                    dots: false,
+                    infinite: true,
+                    speed: 300,
+                    slidesToShow: 4,
+                    slidesToScroll: 1,
+                    arrows: true,
+                    responsive: [{
+                            breakpoint: 1200,
+                            settings: {
+                                slidesToShow: 3
+                            }
+                        },
+                        {
+                            breakpoint: 768,
+                            settings: {
+                                slidesToShow: 2
+                            }
+                        },
+                        {
+                            breakpoint: 480,
+                            settings: {
+                                slidesToShow: 1
+                            }
                         }
-                    },
-                    {
-                        breakpoint: 992,
-                        settings: {
-                            slidesToShow: 2,
-                        }
-                    },
-                    {
-                        breakpoint: 576,
-                        settings: {
-                            slidesToShow: 1, // মোবাইলে ১টা করে কার্ড দেখানোই স্ট্যান্ডার্ড
-                        }
-                    }
-                ]
+                    ]
+                });
             });
-        });
-    </script>
+        </script>
+    @endpush
 
     <section class="solutions-section"
         style="background-color: #ffffff; padding: 80px 0; padding-top:40px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
