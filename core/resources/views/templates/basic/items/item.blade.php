@@ -1,6 +1,49 @@
 <article class="card jss--card jss--card-{{ $type }}"
     style="background: #ffffff !important; border: 1px solid #eef2f5 !important; border-radius: 4px !important; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04) !important; overflow: hidden !important; display: flex !important; flex-direction: column !important; height: 100% !important; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important; position: relative !important;">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@600;700;800&display=swap" rel="stylesheet">
+
+    <div class="card-top-action-bar"
+        style="display: flex !important; align-items: center !important; justify-content: space-between !important; padding: 12px 16px !important; border-bottom: 1px solid #eef2f5 !important; background: #fafbfc !important; flex-wrap: wrap !important; gap: 10px !important;">
+
+        <div class="top-bar-left-buttons"
+            style="display: flex !important; align-items: center !important; gap: 6px !important;">
+            <a href="javascript:void(0)"
+                style="font-size: 12px !important; font-weight: 600 !important; padding: 5px 12px !important; border-radius: 20px !important; text-decoration: none !important; transition: all 0.2s !important; 
+                {{ $type == 'service' ? 'background: #3a84ff !important; color: #fff !important;' : 'background: #eef2f5 !important; color: #475569 !important;' }}">
+                @lang('Services')
+            </a>
+            <a href="javascript:void(0)"
+                style="font-size: 12px !important; font-weight: 600 !important; padding: 5px 12px !important; border-radius: 20px !important; text-decoration: none !important; transition: all 0.2s !important; 
+                {{ $type == 'job' ? 'background: #3a84ff !important; color: #fff !important;' : 'background: #eef2f5 !important; color: #475569 !important;' }}">
+                @lang('Jobs')
+            </a>
+            <a href="javascript:void(0)"
+                style="font-size: 12px !important; font-weight: 600 !important; padding: 5px 12px !important; border-radius: 20px !important; text-decoration: none !important; transition: all 0.2s !important; 
+                {{ $type == 'software' ? 'background: #3a84ff !important; color: #fff !important;' : 'background: #eef2f5 !important; color: #475569 !important;' }}">
+                @lang('Softwares')
+            </a>
+        </div>
+
+        <div class="page-top__right">
+            <div class="layout-toggle-btns"
+                style="display: flex !important; align-items: center !important; gap: 5px !important;">
+                <button class="layout-toggle-btn grid-layout active" type="button"
+                    style="border: 1px solid #cbd5e1 !important; background: #fff !important; padding: 4px 8px !important; border-radius: 4px !important; cursor: pointer !important;">
+                    @include('Template::partials.icons.grid')
+                </button>
+                <button class="layout-toggle-btn list-layout" type="button"
+                    style="border: 1px solid #cbd5e1 !important; background: #fff !important; padding: 4px 8px !important; border-radius: 4px !important; cursor: pointer !important;">
+                    @include('Template::partials.icons.list')
+                </button>
+                <button class="layout-toggle-btn toggle-sidebar d-lg-none" type="button"
+                    data-toggle="offcanvas-sidebar" data-target="#jss-offcanvas-sidebar"
+                    style="border: 1px solid #cbd5e1 !important; background: #fff !important; padding: 4px 10px !important; border-radius: 4px !important; color: #475569 !important; cursor: pointer !important;">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
     <div
         style="position: relative !important; display: block !important; width: 100% !important; aspect-ratio: 16 / 10 !important; overflow: hidden !important; background: #f8f9fa !important;">
         <a href="{{ route("$type.details", [slug($product->name), $product->id]) }}"
@@ -13,9 +56,7 @@
 
     <div
         style="padding: 12px 16px !important; display: flex !important; flex-direction: column !important; flex-grow: 1 !important; justify-content: space-between !important; background: #ffffff !important;">
-
         <div style="width: 100% !important;">
-
             <div
                 style="display: flex !important; align-items: center !important; justify-content: space-between !important; margin-bottom: 12px !important; padding-bottom: 2px !important;">
 
@@ -66,8 +107,7 @@
         </div>
 
         <div
-            style="border-top: 1px solid #e4e5e7 !important; padding-top: 10px !important; !important; width: 100% !important; background: #ffffff !important; margin-top: auto !important;">
-
+            style="border-top: 1px solid #e4e5e7 !important; padding-top: 10px !important; width: 100% !important; background: #ffffff !important; margin-top: auto !important;">
             <div
                 style="text-align: right !important; display: flex !important; flex-direction: row !important; justify-content: space-between; line-height: 1.1 !important;">
                 <div
@@ -85,7 +125,6 @@
                     <x-item view="item-footer-right" :product="$product" :type="$type" />
                 </span>
             </div>
-
         </div>
     </div>
 </article>
