@@ -44,8 +44,8 @@
                     <h5 class="kwork-footer__heading">@lang('About')</h5>
                     <ul class="kwork-footer__menu">
                         <li><a href="/about-us">@lang('About Us Details')</a></li>
-                        <li><a href="/service">@lang('Terms of Service')</a></li>
-                        <li><a href="/policy">@lang('Privacy Policy')</a></li>
+                        <li><a href="/policy/terms-of-service">@lang('Terms of Service')</a></li>
+                        <li><a href="/policy/privacy-policy">@lang('Privacy Policy')</a></li>
                         <li><a href="/contact">@lang('Contact Us')</a></li>
                     </ul>
                 </div>
