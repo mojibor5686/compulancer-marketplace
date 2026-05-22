@@ -389,7 +389,6 @@
                     <div class="swiper-wrapper">
                         @php
                             $product_servies = \App\Models\Service::with('user')->latest()->take(12)->get();
-                            dd($product_servies);
                         @endphp
                         @forelse($product_servies as $product)
                             <a href="{{ route('service.details', [slug($product->name), $product->id]) }}"
