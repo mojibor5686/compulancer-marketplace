@@ -71,6 +71,10 @@ public function depositInsert( Request $request,  $orderNumber = null ) {
             return redirect($successUrl);
         }
 
+        if ($request->gateway == '1000') {
+            $request->merge(['gateway' => 'uddoktapay']);
+        }
+
         dd($request->all());
 
         // ==========================================
