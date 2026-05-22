@@ -379,9 +379,11 @@
         </style>
     @endpush
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
 
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 
     <section class="portfolio-slider-section d-none d-lg-block">
         <div class="container-fluid" style="max-width: 1280px; padding: 0 30px;">
@@ -389,17 +391,17 @@
             <h2 class="section-title">@lang('Get inspired with projects created by our freelancers')</h2>
 
             <div class="slider-relative-wrapper">
-                <div class="swiper portfolioSwiper">
-                    <div class="swiper-wrapper">
-                        @php
-                            $product_servies = \App\Models\Service::with('user')->latest()->take(12)->get();
-                        @endphp
-                        @forelse($product_servies as $product)
+                <div class="portfolio-slick-slider">
+                    @php
+                        $product_servies = \App\Models\Service::with('user')->latest()->take(12)->get();
+                    @endphp
+                    @forelse($product_servies as $product)
+                        <div class="slick-item-wrapper">
                             <a href="{{ route('service.details', [slug($product->name), $product->id]) }}"
-                                class="swiper-slide">
+                                class="portfolio-card-link">
                                 <div class="portfolio-card">
                                     <div class="portfolio-img-box">
-                                        <img src="{{ getImage(getFilePath('service') . '/' . $product->image, getFileSize($type)) }}"
+                                        <img src="{{ getImage(getFilePath('service') . '/' . $product->image, getFileSize(@$type)) }}"
                                             alt="{{ __($product->title) }}">
                                     </div>
 
@@ -409,12 +411,10 @@
 
                                         <div class="freelancer-info">
                                             <span>@lang('Freelancer:')</span>
-
                                             @if ($product->user)
-                                                <a href="{{ route('public.profile', $product->user->username) }}"
-                                                    class="freelancer-link">
+                                                <span class="freelancer-link">
                                                     {{ __($product->user->username) }}
-                                                </a>
+                                                </span>
                                             @else
                                                 <span class="text-muted">@lang('Unknown')</span>
                                             @endif
@@ -422,22 +422,49 @@
                                     </div>
                                 </div>
                             </a>
-                        @empty
-                            <div class="swiper-slide">
-                                <div class="text-center text-muted py-4">
-                                    @lang('No portfolios available.')
-                                </div>
-                            </div>
-                        @endforelse
-                    </div>
+                        </div>
+                    @empty
+                        <div class="text-center text-muted py-4">
+                            @lang('No portfolios available.')
+                        </div>
+                    @endforelse
                 </div>
-
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-button-next"></div>
             </div>
 
         </div>
     </section>
+
+    <script>
+        $(document).ready(function() {
+            $('.portfolio-slick-slider').slick({
+                dots: false,
+                infinite: true,
+                speed: 300,
+                slidesToShow: 4,
+                slidesToScroll: 1,
+                arrows: true,
+                responsive: [{
+                        breakpoint: 1024,
+                        settings: {
+                            slidesToShow: 3,
+                        }
+                    },
+                    {
+                        breakpoint: 768,
+                        settings: {
+                            slidesToShow: 2,
+                        }
+                    },
+                    {
+                        breakpoint: 480,
+                        settings: {
+                            slidesToShow: 1,
+                        }
+                    }
+                ]
+            });
+        });
+    </script>
 
     <section class="solutions-section"
         style="background-color: #ffffff; padding: 80px 0; padding-top:40px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
