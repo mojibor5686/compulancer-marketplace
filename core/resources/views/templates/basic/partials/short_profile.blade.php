@@ -17,9 +17,6 @@
                     style="font-size: 16px; color: #222; text-transform: capitalize;">
                     {{ __(@$user->username) }}
                 </h5>
-                <div class="d-flex align-items-center kwork-status text-muted" style="font-size: 13px;">
-                    <span class="status-dot me-1"></span> @lang('Offline')
-                </div>
             </div>
         </a>
 
