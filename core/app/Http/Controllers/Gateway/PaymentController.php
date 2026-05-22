@@ -120,8 +120,8 @@ public function depositInsert( Request $request,  $orderNumber = null ) {
             $deposit->failed_url      = $failUrl;
             $deposit->save();
 
-            $apiKey  = '982d381360a69d419689740d9f2e26ce36fb7a50'; 
-            $apiLink = 'https://sandbox.uddoktapay.com/api/checkout-v2';
+            $apiKey  = 'x8xuDacICGnVTcD3grPY9T15Jy4Ppgcn285J07jl'; 
+            $apiLink = 'https://compulancer.paymently.io/api/checkout';
 
             $fields = [
                 'full_name'    => $user->fullname ?? $user->username,
@@ -182,8 +182,8 @@ public function depositInsert( Request $request,  $orderNumber = null ) {
             return to_route('home')->withNotify($notify);
         }
 
-        $apiKey     = '982d381360a69d419689740d9f2e26ce36fb7a50';
-        $verifyLink = 'https://sandbox.uddoktapay.com/api/verify-payment';
+        $apiKey     = 'x8xuDacICGnVTcD3grPY9T15Jy4Ppgcn285J07jl';
+        $verifyLink = 'https://compulancer.paymently.io/api/verify-payment';
 
         try {
             $response = Http::withHeaders([
@@ -227,7 +227,7 @@ public function depositInsert( Request $request,  $orderNumber = null ) {
             'body'    => $request->all()
         ]);
 
-        $apiKey    = '982d381360a69d419689740d9f2e26ce36fb7a50';
+        $apiKey    = 'x8xuDacICGnVTcD3grPY9T15Jy4Ppgcn285J07jl';
         $headerApi = $request->header('RT-UDDOKTAPAY-API-KEY');
 
         if ($headerApi === $apiKey && $request->status === 'COMPLETED') {
