@@ -20,24 +20,30 @@ use Symfony\Component\HttpFoundation\Response;
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
         commands: __DIR__ . '/../routes/console.php',
-        api: __DIR__.'/../routes/api.php',
         channels: __DIR__ . '/../routes/channels.php',
         health: '/up',
         using: function () {
             Route::namespace('App\Http\Controllers')->middleware([VugiChugi::mdNm()])->group(function () {
 
+                Route::prefix('api')
+                    ->middleware(['api']) 
+                    ->group(base_path('routes/api.php'));
+
+                // ২. অ্যাডমিন রাউট গ্রুপ
                 Route::middleware(['web'])
                     ->namespace('Admin')
                     ->prefix('admin')
                     ->name('admin.')
                     ->group(base_path('routes/admin.php'));
 
+                // ৩. আইপিএন রাউট গ্রুপ
                 Route::middleware(['web', 'maintenance'])
                     ->namespace('Gateway')
                     ->prefix('ipn')
                     ->name('ipn.')
                     ->group(base_path('routes/ipn.php'));
 
+                // ৪. ইউজার এবং অন্যান্য গ্লোবাল রাউট গ্রুপ
                 Route::middleware(['web', 'maintenance'])->prefix('user')->group(base_path('routes/user.php'));
                 Route::middleware(['web', 'maintenance'])->group(base_path('routes/web.php'));
             });
