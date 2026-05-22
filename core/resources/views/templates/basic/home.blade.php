@@ -370,35 +370,6 @@
                 z-index: 1;
             }
 
-            .slick-item-wrapper {
-                padding: 0 10px;
-            }
-
-            .portfolio-card-link {
-                text-decoration: none;
-                display: block;
-            }
-
-            .portfolio-card {
-                background: #fff;
-                border: 1px solid #e0e0e0;
-                border-radius: 8px;
-                overflow: hidden;
-            }
-
-            .portfolio-img-box img {
-                width: 100%;
-                height: 220px;
-                object-fit: cover;
-                display: block;
-            }
-
-            .slick-prev:before,
-            .slick-next:before {
-                color: #333 !important;
-                font-size: 24px;
-            }
-
             @media (min-width: 1200px) {
                 .row.justify-content-center {
                     max-width: 1140px;
@@ -408,50 +379,20 @@
         </style>
     @endpush
 
-    <!-- Slick Slider CSS -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
-
-    <!-- অতিরিক্ত CSS: কার্ডগুলোর মধ্যে সুন্দর Gap বা স্পেসিং বজায় রাখার জন্য -->
-    <style>
-        .portfolio-slick-slider {
-            margin: 0 -10px;
-            /* স্লাইডারের দুই পাশের বাড়তি মার্জিন ঠিক করার জন্য */
-        }
-
-        .slick-item-wrapper {
-            padding: 0 10px;
-            /* প্রতিটি কার্ডের ডানে-বামে ১০ পিক্সেল করে মোট ২০ পিক্সেল গ্যাপ তৈরি করবে */
-            box-sizing: border-box;
-        }
-
-        .portfolio-card {
-            display: block;
-            width: 100%;
-        }
-    </style>
-
-    <!-- jQuery & Slick JS -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-
     <section class="portfolio-slider-section d-none d-lg-block">
         <div class="container-fluid" style="max-width: 1280px; padding: 0 30px;">
 
             <h2 class="section-title">@lang('Get inspired with projects created by our freelancers')</h2>
 
             <div class="slider-relative-wrapper">
-                <div class="portfolio-slick-slider">
-                    @php
-                        $product_servies = \App\Models\Service::with('user')->latest()->take(12)->get();
-                    @endphp
-                    @forelse($product_servies as $product)
-                        <div class="slick-item-wrapper">
+                <div class="swiper portfolioSwiper">
+                    <div class="swiper-wrapper">
+                        @forelse($product_all as $product)
                             <a href="{{ route('service.details', [slug($product->name), $product->id]) }}"
-                                class="portfolio-card-link">
+                                class="swiper-slide">
                                 <div class="portfolio-card">
                                     <div class="portfolio-img-box">
-                                        <img src="{{ getImage(getFilePath('service') . '/' . $product->image, getFileSize(@$type)) }}"
+                                        <img src="{{ getImage(getFilePath('service') . '/' . $product->image, getFileSize($type)) }}"
                                             alt="{{ __($product->title) }}">
                                     </div>
 
@@ -461,10 +402,12 @@
 
                                         <div class="freelancer-info">
                                             <span>@lang('Freelancer:')</span>
+
                                             @if ($product->user)
-                                                <span class="freelancer-link">
+                                                <a href="{{ route('public.profile', $product->user->username) }}"
+                                                    class="freelancer-link">
                                                     {{ __($product->user->username) }}
-                                                </span>
+                                                </a>
                                             @else
                                                 <span class="text-muted">@lang('Unknown')</span>
                                             @endif
@@ -472,51 +415,22 @@
                                     </div>
                                 </div>
                             </a>
-                        </div>
-                    @empty
-                        <div class="text-center text-muted py-4">
-                            @lang('No portfolios available.')
-                        </div>
-                    @endforelse
+                        @empty
+                            <div class="swiper-slide">
+                                <div class="text-center text-muted py-4">
+                                    @lang('No portfolios available.')
+                                </div>
+                            </div>
+                        @endforelse
+                    </div>
                 </div>
+
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
             </div>
 
         </div>
     </section>
-
-    @push('script')
-        <script>
-            $(document).ready(function() {
-                $('.portfolio-slick-slider').slick({
-                    dots: false,
-                    infinite: true,
-                    speed: 300,
-                    slidesToShow: 4,
-                    slidesToScroll: 1,
-                    arrows: true,
-                    responsive: [{
-                            breakpoint: 1200,
-                            settings: {
-                                slidesToShow: 3
-                            }
-                        },
-                        {
-                            breakpoint: 768,
-                            settings: {
-                                slidesToShow: 2
-                            }
-                        },
-                        {
-                            breakpoint: 480,
-                            settings: {
-                                slidesToShow: 1
-                            }
-                        }
-                    ]
-                });
-            });
-        </script>
-    @endpush
 
     <section class="solutions-section"
         style="background-color: #ffffff; padding: 80px 0; padding-top:40px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
