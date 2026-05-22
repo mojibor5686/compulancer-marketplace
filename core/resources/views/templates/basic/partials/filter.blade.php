@@ -293,7 +293,7 @@
                     });
 
                     $('.price-filter').each((index, element) => {
-                        let currency = '$';
+                        let currency = '৳';
                         let price = $(element).find('[name="price"]');
                         let rangeSlider = $(element).find('.range-slider');
                         let value0 = rangeSlider.slider('values', 0) || 0;
@@ -309,8 +309,6 @@
                     });
 
                 }
-
-
 
                 // Intercept pagination link clicks
                 $(document).on('click', '.pagination a', function(e) {
