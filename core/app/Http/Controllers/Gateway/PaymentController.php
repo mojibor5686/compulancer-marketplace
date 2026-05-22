@@ -71,16 +71,10 @@ public function depositInsert( Request $request,  $orderNumber = null ) {
             return redirect($successUrl);
         }
 
-        if ($request->gateway == '1000') {
-            $request->merge(['gateway' => 'uddoktapay']);
-        }
-
-        dd($request->all());
-
         // ==========================================
         // ২. ডাইনামিক UddoktaPay গেটওয়ে প্রসেস
         // ==========================================
-        if ($request->gateway == 'uddoktapay') {
+        if ($request->gateway == '1000') {
             
             // প্রথমে বুকিং তৈরি করে নেওয়া হচ্ছে যাতে ট্র্যাকিং ডাটাবেজে থাকে
             if ($orderNumber) {
