@@ -78,20 +78,22 @@
 
                             <ul class="nav nav-pills custom-capsule-tabs" role="tablist">
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link {{ $maxKey == 'service' ? 'active' : '' }}" data-bs-toggle="tab"
-                                        data-bs-target="#service" type="button" role="tab">
+                                    <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#service"
+                                        type="button" role="tab">
                                         <i class="ri-briefcase-line me-2"></i>@lang('Services')
                                     </button>
                                 </li>
+
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link {{ $maxKey == 'software' ? 'active' : '' }}"
-                                        data-bs-toggle="tab" data-bs-target="#software" type="button" role="tab">
+                                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#software" type="button"
+                                        role="tab">
                                         <i class="ri-terminal-window-line me-2"></i>@lang('Softwares')
                                     </button>
                                 </li>
+
                                 <li class="nav-item" role="presentation">
-                                    <button class="nav-link {{ $maxKey == 'job' ? 'active' : '' }}" data-bs-toggle="tab"
-                                        data-bs-target="#job" type="button" role="tab">
+                                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#job" type="button"
+                                        role="tab">
                                         <i class="ri-search-eye-line me-2"></i>@lang('Jobs')
                                     </button>
                                 </li>
