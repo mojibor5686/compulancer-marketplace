@@ -127,8 +127,8 @@
                                         </button>
                                     </li>
                                     <li class="nav-item" role="presentation">
-                                        <button class="nav-link comments-tab-btn" data-bs-toggle="tab"
-                                            data-bs-target="#jss-details-tab-4" type="button" role="tab">
+                                        <button class="nav-link" data-bs-dismiss="modal" data-bs-toggle="modal"
+                                            data-bs-target="#signInModal" type="button" role="tab">
                                             @lang('Comments')
                                         </button>
                                     </li>
