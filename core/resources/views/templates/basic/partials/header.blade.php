@@ -1084,26 +1084,13 @@
                 }
 
                 if (name === 'password') {
-                    if (value.length < 6) {
-                        showError(input, 'Password must be at least 6 characters.');
+                    if (value.trim() === '') {
+                        showError(input, 'Password cannot be empty.');
                         return false;
                     }
-                    if (securePassword) {
-                        if (!/[A-Z]/.test(value) || !/[a-z]/.test(value)) {
-                            showError(input, 'Password must contain both uppercase and lowercase letters.');
-                            return false;
-                        }
-                        if (!/[0-9]/.test(value)) {
-                            showError(input, 'Password must contain at least one number.');
-                            return false;
-                        }
-                        if (!/[!@#$%^&*(),.?":{}|<>]/.test(value)) {
-                            showError(input, 'Password must contain at least one special character.');
-                            return false;
-                        }
-                    }
+                    return true;
                 }
-
+                
                 if (name === 'password_confirmation') {
                     const passwordVal = form.querySelector('input[name="password"]').value;
                     if (value !== passwordVal) {

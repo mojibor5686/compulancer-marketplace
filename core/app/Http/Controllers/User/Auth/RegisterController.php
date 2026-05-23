@@ -31,11 +31,7 @@ class RegisterController extends Controller {
 
     protected function validator( array $data ) {
 
-        $passwordValidation = Password::min( 6 );
-
-        if ( gs( 'secure_password' ) ) {
-            $passwordValidation = $passwordValidation->mixedCase()->numbers()->symbols()->uncompromised();
-        }
+        $passwordValidation = 'required|string|min:6|confirmed';
 
         $agree = 'nullable';
         if ( gs( 'agree' ) ) {
