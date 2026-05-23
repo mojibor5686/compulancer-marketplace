@@ -203,7 +203,7 @@
 
                 <a href="{{ route('home') }}" class="d-flex align-items-center navbar-brand me-0">
                     <img src="{{ siteLogo() }}" alt="Site Logo" class="img-fluid"
-                        style="height: 32px; object-fit: contain;" />
+                        style="height: 70px; object-fit: contain;" />
                 </a>
 
                 @if (auth()->check())
@@ -380,7 +380,7 @@
         <button type="button" class="btn-close text-reset shadow-none" data-bs-dismiss="offcanvas"
             aria-label="Close"></button>
         <img src="{{ siteLogo() }}" alt="Logo" class="img-fluid"
-            style="height: 26px; object-fit: contain;" />
+            style="height: 40px; object-fit: contain;" />
         <div style="width: 24px;"></div>
     </div>
     <div class="offcanvas-body px-3 py-4">
