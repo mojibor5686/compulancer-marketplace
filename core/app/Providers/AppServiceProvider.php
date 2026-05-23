@@ -53,7 +53,9 @@ class AppServiceProvider extends ServiceProvider
 
         $viewShare['emptyMessage'] = 'Data not found';
         $viewShare['categories']   = Category::with('subCategories')->active()->orderBy('name')->get();
-        $viewShare['product_all']     = Service::active()->latest()->get() ?? collect();
+        $viewShare['services']     = Service::active()->latest()->get() ?? collect();
+        $viewShare['jobs']         = Job::active()->latest()->get() ?? collect();
+        $viewShare['softwares']    = Software::active()->latest()->get() ?? collect();
         view()->share($viewShare);
 
 

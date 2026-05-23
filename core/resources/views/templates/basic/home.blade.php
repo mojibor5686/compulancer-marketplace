@@ -1,8 +1,10 @@
 @extends('Template::layouts.frontend') @section('content')
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+
     <main class="page-wrapper">
         <section class="jss-section pt-40 pb-80">
             <div class="container">
+
                 <section class="kwork-catalog-section py-5">
                     <div class="container">
                         <h2 class="catalog-main-title mb-4">@lang("Explore Compulancer Work's Evergrowing Catalog")</h2>
@@ -35,20 +37,20 @@
                         <div class="top-bar-left-buttons nav nav-pills" role="tablist"
                             style="display: inline-flex !important; align-items: center !important; gap: 6px !important; border: none !important;">
 
-                            <button class="nav-link {{ !isset($type) || $type == 'service' ? 'active' : '' }}"
-                                data-bs-toggle="tab" data-bs-target="#catalog-service" type="button" role="tab"
+                            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#catalog-service"
+                                type="button" role="tab"
                                 style="font-size: 12px !important; font-weight: 600 !important; padding: 6px 16px !important; border-radius: 20px !important; border: none !important; transition: all 0.2s !important;">
                                 @lang('Services')
                             </button>
 
-                            <button class="nav-link {{ @$type == 'job' ? 'active' : '' }}" data-bs-toggle="tab"
-                                data-bs-target="#catalog-job" type="button" role="tab"
+                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#catalog-job" type="button"
+                                role="tab"
                                 style="font-size: 12px !important; font-weight: 600 !important; padding: 6px 16px !important; border-radius: 20px !important; border: none !important; transition: all 0.2s !important;">
                                 @lang('Jobs')
                             </button>
 
-                            <button class="nav-link {{ @$type == 'software' ? 'active' : '' }}" data-bs-toggle="tab"
-                                data-bs-target="#catalog-software" type="button" role="tab"
+                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#catalog-software" type="button"
+                                role="tab"
                                 style="font-size: 12px !important; font-weight: 600 !important; padding: 6px 16px !important; border-radius: 20px !important; border: none !important; transition: all 0.2s !important;">
                                 @lang('Softwares')
                             </button>
@@ -77,40 +79,84 @@
                     <div class="row mt-3">
                         <div class="col-lg-8 col-xl-9 productList">
 
-                            <ul class="nav nav-pills custom-capsule-tabs" role="tablist">
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#service"
-                                        type="button" role="tab">
-                                        <i class="ri-briefcase-line me-2"></i>@lang('Services')
-                                    </button>
-                                </li>
+                            <div class="tab-content" id="catalogTabContent">
 
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#software" type="button"
-                                        role="tab">
-                                        <i class="ri-terminal-window-line me-2"></i>@lang('Softwares')
-                                    </button>
-                                </li>
+                                <div class="tab-pane fade show active" id="catalog-service" role="tabpanel">
+                                    <div class="row gy-4 jss-row">
+                                        @forelse($services ?? [] as $product)
+                                            <div class="col-md-6 col-xxl-4 productListCol">
+                                                @include('Template::partials.custom_card', [
+                                                    'product' => $product,
+                                                    'type' => 'service',
+                                                ])
+                                            </div>
+                                        @empty
+                                            <x-basic-empty-message />
+                                        @endforelse
+                                    </div>
+                                </div>
 
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#job" type="button"
-                                        role="tab">
-                                        <i class="ri-search-eye-line me-2"></i>@lang('Jobs')
-                                    </button>
-                                </li>
-                            </ul>
+                                <div class="tab-pane fade" id="catalog-job" role="tabpanel">
+                                    <div class="row gy-4 jss-row">
+                                        @forelse($jobs ?? [] as $product)
+                                            <div class="col-md-6 col-xxl-4 productListCol">
+                                                @include('Template::partials.custom_card', [
+                                                    'product' => $product,
+                                                    'type' => 'job',
+                                                ])
+                                            </div>
+                                        @empty
+                                            <x-basic-empty-message />
+                                        @endforelse
+                                    </div>
+                                </div>
 
+                                <div class="tab-pane fade" id="catalog-software" role="tabpanel">
+                                    <div class="row gy-4 jss-row">
+                                        @forelse($softwares ?? [] as $product)
+                                            <div class="col-md-6 col-xxl-4 productListCol">
+                                                @include('Template::partials.custom_card', [
+                                                    'product' => $product,
+                                                    'type' => 'software',
+                                                ])
+                                            </div>
+                                        @empty
+                                            <x-basic-empty-message />
+                                        @endforelse
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
+
                         <div class="col-lg-4 col-xl-3">
                             @include('Template::partials.filter')
                         </div>
                     </div>
+
                 </div>
             </div>
         </section>
     </main>
+
     <style>
-        /* ফিল্টার ও ট্যাব অ্যাকশন বার ডিজাইন */
+        .top-bar-left-buttons .nav-link {
+            background-color: #eef2f5 !important;
+            color: #475569 !important;
+        }
+
+        .top-bar-left-buttons .nav-link:hover {
+            background-color: #e2e8f0 !important;
+            color: #1e293b !important;
+        }
+
+        .top-bar-left-buttons .nav-link.active {
+            background-color: #3a84ff !important;
+            color: #ffffff !important;
+            box-shadow: 0 2px 6px rgba(58, 132, 255, 0.25) !important;
+        }
+    </style>
+    <style>
         .modern-action-bar {
             background: #ffffff;
             border: 1px solid #e4e8ec;
@@ -121,7 +167,6 @@
             display: flex;
         }
 
-        /* ক্যাপসুল আকৃতির মডার্ন পিলস ট্যাব */
         .custom-capsule-tabs {
             gap: 8px;
         }
