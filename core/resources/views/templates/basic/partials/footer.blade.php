@@ -33,10 +33,6 @@
                         <a href="{{ route('home') }}">
                             <img src="{{ siteLogo() }}" alt="Logo" class="kwork-footer__logo" height="40">
                         </a>
-                        <div class="kwork-footer__payments mt-3">
-                            <img src="https://cdn.kwork.com/images/footer/mastercard.svg" alt="Mastercard">
-                            <img src="https://cdn.kwork.com/images/footer/visa.svg" alt="Visa">
-                        </div>
                     </div>
                 </div>
 

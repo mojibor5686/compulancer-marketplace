@@ -1,5 +1,6 @@
 <div id="contactModal" class="modal fade" tabindex="-1" role="dialog"
     style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content"
             style="border: none !important; border-radius: 16px !important; box-shadow: 0 15px 50px rgba(0,0,0,0.15) !important; overflow: hidden;">

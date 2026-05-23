@@ -40,7 +40,7 @@
                                             </div>
                                             <div class="payment-item__thumb">
                                                 <img class="payment-item__thumb-img"
-                                                    src="https://files.readme.io/c2c52ef-small-uplogo.png"
+                                                    src="https://sylhetvoice24.com/curator/media/e40bc8c1-9e85-4cb1-9943-059951b22bcc.jpg?s=8a51ba6a05dff38f7c7e2555fbab6a62"
                                                     alt="@lang('payment-thumb')" style="object-fit: contain; max-height: 35px;">
                                             </div>
                                             <input class="payment-item__radio gateway-input" id="uddoktapay" hidden
