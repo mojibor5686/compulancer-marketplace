@@ -76,24 +76,19 @@
                     <div class="row mt-3">
                         <div class="col-lg-8 col-xl-9 productList">
 
-                            <div class="catalog-data-section jss-active-section" data-section="service">
+                            <div class="catalog-data-section" data-section="service">
                                 <div class="row gy-4 jss-row">
                                     @php
-                                        // কন্ট্রোলারের কনফ্লিক্ট এড়াতে সরাসরি মডেল থেকে লেটেস্ট বা একটিভ সার্ভিস ডেটা লোড
                                         $directServices = \App\Models\Service::with('user')
                                             ->where('status', 1)
                                             ->latest()
                                             ->take(12)
                                             ->get();
                                     @endphp
-
                                     @forelse($directServices as $product)
                                         <div class="col-md-6 col-xxl-4 productListCol">
                                             <article class="card jss--card jss--card-service"
                                                 style="background: #ffffff !important; border: 1px solid #eef2f5 !important; border-radius: 4px !important; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04) !important; overflow: hidden !important; display: flex !important; flex-direction: column !important; height: 100% !important; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important; position: relative !important;">
-                                                <link
-                                                    href="https://fonts.googleapis.com/css2?family=Roboto:wght@600;700;800&display=swap"
-                                                    rel="stylesheet">
                                                 <div
                                                     style="position: relative !important; display: block !important; width: 100% !important; aspect-ratio: 16 / 10 !important; overflow: hidden !important; background: #f8f9fa !important;">
                                                     <a href="{{ route('service.details', [slug($product->name), $product->id]) }}"
@@ -174,7 +169,6 @@
                                             ->take(12)
                                             ->get();
                                     @endphp
-
                                     @forelse($directJobs as $product)
                                         <div class="col-md-6 col-xxl-4 productListCol">
                                             <article class="card jss--card jss--card-job"
@@ -259,7 +253,6 @@
                                             ->take(12)
                                             ->get();
                                     @endphp
-
                                     @forelse($directSoftwares as $product)
                                         <div class="col-md-6 col-xxl-4 productListCol">
                                             <article class="card jss--card jss--card-software"
@@ -348,62 +341,11 @@
     </main>
 
     <style>
-        /* 🔴 ডাটা সেকশন কন্ট্রোল করার জন্য ১০০% সিকিউর সিএসএস লজিক */
+        /* প্রাথমিক গ্লোবাল সিএসএস সেফটি ক্লিপ */
         .catalog-data-section {
-            display: none !important;
-            /* ডিফল্ট সব সেকশন ফোর্স হাইড থাকবে */
+            display: none;
         }
 
-        .catalog-data-section.jss-active-section {
-            display: block !important;
-            /* শুধুমাত্র একটিভ সেকশনটি ফোর্স শো হবে */
-        }
-
-        /* বাটন স্টাইল */
-        .custom-tab-btn {
-            background-color: #eef2f5 !important;
-            color: #475569 !important;
-        }
-
-        .custom-tab-btn:hover {
-            background-color: #e2e8f0 !important;
-            color: #1e293b !important;
-        }
-
-        .custom-tab-btn.active {
-            background-color: #3a84ff !important;
-            color: #ffffff !important;
-            box-shadow: 0 2px 6px rgba(58, 132, 255, 0.25) !important;
-        }
-
-        .custom-tab-btn i {
-            vertical-align: middle;
-        }
-    </style>
-
-    <style>
-        /* 🔴 নতুন এবং ১০০% বুলেটপ্রুফ হাইড/শো মেথড */
-        .catalog-data-section {
-            position: absolute !important;
-            opacity: 0 !important;
-            visibility: hidden !important;
-            pointer-events: none !important;
-            height: 0 !important;
-            overflow: hidden !important;
-            padding: 0 !important;
-            margin: 0 !important;
-        }
-
-        .catalog-data-section.jss-active-section {
-            position: relative !important;
-            opacity: 1 !important;
-            visibility: visible !important;
-            pointer-events: auto !important;
-            height: auto !important;
-            overflow: visible !important;
-        }
-
-        /* বাটন স্টাইল */
         .custom-tab-btn {
             background-color: #eef2f5 !important;
             color: #475569 !important;
@@ -424,37 +366,58 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            console.log("🚀 Secure Catalog Script Loaded!");
+            console.log("🚀 Absolute Native Toggle Loaded!");
 
             const triggerButtons = document.querySelectorAll('#catalog-trigger-menu .custom-tab-btn');
             const dataSections = document.querySelectorAll('.catalog-data-section');
 
-            triggerButtons.forEach(function(btn) {
-                btn.addEventListener('click', function() {
-                    const targetValue = this.getAttribute('data-target');
+            // ফাংশন: ইনলাইন সিএসএস দিয়ে ডিরেক্ট এলিমেন্ট রেন্ডারিং রুলস টগল করা
+            function syncSections(targetValue) {
+                dataSections.forEach(function(section) {
+                    const sectionType = section.getAttribute('data-section');
 
-                    // ১. বাটন একটিভ টগল
+                    if (sectionType === targetValue) {
+                        // 🎯 টার্গেটেড ফুল সেকশন ফোর্স শো
+                        section.style.setProperty('display', 'block', 'important');
+                        section.style.setProperty('opacity', '1', 'important');
+                        section.style.setProperty('visibility', 'visible', 'important');
+                        section.style.setProperty('height', 'auto', 'important');
+                        section.style.setProperty('overflow', 'visible', 'important');
+                        section.removeAttribute('hidden');
+                    } else {
+                        // 🛑 অন্য সব সেকশন ব্রাউজার লেভেল থেকে ফোর্স ভ্যানিশ
+                        section.style.setProperty('display', 'none', 'important');
+                        section.style.setProperty('opacity', '0', 'important');
+                        section.style.setProperty('visibility', 'hidden', 'important');
+                        section.style.setProperty('height', '0', 'important');
+                        section.style.setProperty('overflow', 'hidden', 'important');
+                        section.setAttribute('hidden', 'true');
+                    }
+                });
+            }
+
+            // বাটন ক্লিকে রিয়েল-টাইম সোয়াপিং
+            triggerButtons.forEach(function(btn) {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+
+                    const targetValue = this.getAttribute('data-target');
+                    console.log(`⚡ Force Switching to: ${targetValue}`);
+
                     triggerButtons.forEach(b => b.classList.remove('active'));
                     this.classList.add('active');
 
-                    // ২. সেকশন শো/হাইড লজিক (CSS + HTML Attribute দুইটাই একসাথে হ্যান্ডেল করবে)
-                    dataSections.forEach(function(section) {
-                        if (section.getAttribute('data-section') === targetValue) {
-                            section.classList.add('jss-active-section');
-                            section.removeAttribute(
-                            'hidden'); // ব্যাকআপ হিসেবে বুটস্ট্র্যাপ/এইচটিএমএল হিডেন রিমুভ
-                        } else {
-                            section.classList.remove('jss-active-section');
-                            section.setAttribute('hidden', 'true'); // ফোর্স হাইড
-                        }
-                    });
+                    syncSections(targetValue);
                 });
             });
 
-            // পেজ লোডের সময় প্রথম ডিফ্লট সিলেকশন নিশ্চিত করা
-            const activeBtn = document.querySelector('#catalog-trigger-menu .custom-tab-btn.active');
-            if (activeBtn) {
-                activeBtn.click();
+            // 🔄 প্রথমবার পেজ লোড হবার পর ডিফল্ট একটিভ বাটন রেন্ডার নিশ্চিত করা
+            const defaultActiveBtn = document.querySelector('#catalog-trigger-menu .custom-tab-btn.active');
+            if (defaultActiveBtn) {
+                syncSections(defaultActiveBtn.getAttribute('data-target'));
+            } else if (triggerButtons.length > 0) {
+                triggerButtons[0].classList.add('active');
+                syncSections(triggerButtons[0].getAttribute('data-target'));
             }
         });
     </script>
