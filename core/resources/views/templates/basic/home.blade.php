@@ -28,99 +28,18 @@
                     </div>
                 </section>
 
+                @include('Template::partials.top_filter')
+
                 <div class="page-content">
-                    <div class="card-top-action-bar"
-                        style="display: flex !important; align-items: center !important; justify-content: space-between !important; padding: 12px 16px !important; border-bottom: 1px solid #eef2f5 !important; background: #fafbfc !important; flex-wrap: wrap !important; gap: 10px !important;">
-
-                        <div class="top-bar-left-buttons nav nav-pills" role="tablist"
-                            style="display: inline-flex !important; align-items: center !important; gap: 6px !important; border: none !important;">
-
-                            <button class="nav-link {{ !isset($type) || $type == 'service' ? 'active' : '' }}"
-                                data-bs-toggle="tab" data-bs-target="#catalog-service" type="button" role="tab"
-                                style="font-size: 12px !important; font-weight: 600 !important; padding: 6px 16px !important; border-radius: 20px !important; border: none !important; transition: all 0.2s !important;">
-                                @lang('Services')
-                            </button>
-
-                            <button class="nav-link {{ @$type == 'job' ? 'active' : '' }}" data-bs-toggle="tab"
-                                data-bs-target="#catalog-job" type="button" role="tab"
-                                style="font-size: 12px !important; font-weight: 600 !important; padding: 6px 16px !important; border-radius: 20px !important; border: none !important; transition: all 0.2s !important;">
-                                @lang('Jobs')
-                            </button>
-
-                            <button class="nav-link {{ @$type == 'software' ? 'active' : '' }}" data-bs-toggle="tab"
-                                data-bs-target="#catalog-software" type="button" role="tab"
-                                style="font-size: 12px !important; font-weight: 600 !important; padding: 6px 16px !important; border-radius: 20px !important; border: none !important; transition: all 0.2s !important;">
-                                @lang('Softwares')
-                            </button>
-                        </div>
-
-                        <div class="page-top__right">
-                            <div class="layout-toggle-btns"
-                                style="display: flex !important; align-items: center !important; gap: 5px !important;">
-                                <button class="layout-toggle-btn grid-layout active" type="button"
-                                    style="border: 1px solid #cbd5e1 !important; background: #fff !important; padding: 4px 8px !important; border-radius: 4px !important; cursor: pointer !important;">
-                                    @include('Template::partials.icons.grid')
-                                </button>
-                                <button class="layout-toggle-btn list-layout" type="button"
-                                    style="border: 1px solid #cbd5e1 !important; background: #fff !important; padding: 4px 8px !important; border-radius: 4px !important; cursor: pointer !important;">
-                                    @include('Template::partials.icons.list')
-                                </button>
-                                <button class="layout-toggle-btn toggle-sidebar d-lg-none" type="button"
-                                    data-toggle="offcanvas-sidebar" data-target="#jss-offcanvas-sidebar"
-                                    style="border: 1px solid #cbd5e1 !important; background: #fff !important; padding: 4px 10px !important; border-radius: 4px !important; color: #475569 !important; cursor: pointer !important;">
-                                    <i class="fas fa-bars"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row mt-3">
-                        <div class="col-lg-4 col-xl-3">
-                            @include('Template::partials.filter')
-                        </div>
+                    <div class="row">
+                        <div class="col-lg-8 col-xl-9 productList"> @include('Template::partials.product_list') </div>
+                        <div class="col-lg-4 col-xl-3"> @include('Template::partials.filter') </div>
                     </div>
                 </div>
             </div>
         </section>
     </main>
     <style>
-        .modern-action-bar {
-            background: #ffffff;
-            border: 1px solid #e4e8ec;
-            border-radius: 12px;
-            padding: 14px 24px;
-            margin-bottom: 24px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.01);
-            display: flex;
-        }
-
-        .custom-capsule-tabs {
-            gap: 8px;
-        }
-
-        .custom-capsule-tabs .nav-link {
-            border: 1px solid #e4e8ec !important;
-            font-weight: 600 !important;
-            font-size: 14px !important;
-            padding: 10px 22px !important;
-            color: #5e6267 !important;
-            background: #ffffff !important;
-            border-radius: 50px !important;
-            transition: all 0.2s ease-in-out !important;
-        }
-
-        .custom-capsule-tabs .nav-link:hover {
-            background: #f4f6f8 !important;
-            color: #1d1e20 !important;
-        }
-
-        .custom-capsule-tabs .nav-link.active {
-            background: #3C88EE !important;
-            color: #ffffff !important;
-            border-color: #3C88EE !important;
-            box-shadow: 0 4px 12px rgba(60, 136, 238, 0.2) !important;
-        }
-
         .cta-section {
             background-color: #e8f9ee;
             background-image: url('https://www.transparenttextures.com/patterns/cubes.png');
@@ -469,7 +388,7 @@
             <div class="slider-relative-wrapper">
                 <div class="swiper portfolioSwiper">
                     <div class="swiper-wrapper">
-                        @forelse($services as $product)
+                        @forelse($product_all as $product)
                             <div class="swiper-slide">
                                 <div class="portfolio-card">
                                     <a href="{{ route('service.details', [slug($product->name), $product->id]) }}"
