@@ -381,50 +381,81 @@
         }
     </style>
 
+    <style>
+        /* 🔴 নতুন এবং ১০০% বুলেটপ্রুফ হাইড/শো মেথড */
+        .catalog-data-section {
+            position: absolute !important;
+            opacity: 0 !important;
+            visibility: hidden !important;
+            pointer-events: none !important;
+            height: 0 !important;
+            overflow: hidden !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+
+        .catalog-data-section.jss-active-section {
+            position: relative !important;
+            opacity: 1 !important;
+            visibility: visible !important;
+            pointer-events: auto !important;
+            height: auto !important;
+            overflow: visible !important;
+        }
+
+        /* বাটন স্টাইল */
+        .custom-tab-btn {
+            background-color: #eef2f5 !important;
+            color: #475569 !important;
+            cursor: pointer !important;
+        }
+
+        .custom-tab-btn:hover {
+            background-color: #e2e8f0 !important;
+            color: #1e293b !important;
+        }
+
+        .custom-tab-btn.active {
+            background-color: #3a84ff !important;
+            color: #ffffff !important;
+            box-shadow: 0 2px 6px rgba(58, 132, 255, 0.25) !important;
+        }
+    </style>
+
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            console.log("🚀 Catalog Script Initialized!");
+            console.log("🚀 Secure Catalog Script Loaded!");
 
             const triggerButtons = document.querySelectorAll('#catalog-trigger-menu .custom-tab-btn');
             const dataSections = document.querySelectorAll('.catalog-data-section');
 
-            console.log(`📊 Found ${triggerButtons.length} buttons and ${dataSections.length} data sections.`);
-
-            triggerButtons.forEach(function(btn, index) {
+            triggerButtons.forEach(function(btn) {
                 btn.addEventListener('click', function() {
                     const targetValue = this.getAttribute('data-target');
-                    console.log(
-                        `\n👆 Button Clicked: [${targetValue.toUpperCase()}] (Index: ${index})`);
 
-                    // ১. সব বাটন থেকে একটিভ ক্লাস রিমুভ করো
+                    // ১. বাটন একটিভ টগল
                     triggerButtons.forEach(b => b.classList.remove('active'));
-                    // ২. ক্লিক করা বাটনে একটিভ ক্লাস যোগ করো
                     this.classList.add('active');
-                    console.log(`✅ 'active' class added to ${targetValue} button.`);
 
-                    // ৩. সব ডাটা সেকশন থেকে একটিভ ক্লাস রিমুভ করো (যা তাদের হাইড করে দেবে)
-                    let sectionMatched = false;
+                    // ২. সেকশন শো/হাইড লজিক (CSS + HTML Attribute দুইটাই একসাথে হ্যান্ডেল করবে)
                     dataSections.forEach(function(section) {
-                        const sectionType = section.getAttribute('data-section');
-                        section.classList.remove('jss-active-section');
-
-                        // ৪. যদি সেকশনের ডাটা টাইপ আর বাটনের টার্গেট টাইপ মিলে যায় তবে ক্লাস যোগ করো
-                        if (sectionType === targetValue) {
+                        if (section.getAttribute('data-section') === targetValue) {
                             section.classList.add('jss-active-section');
-                            sectionMatched = true;
-                            console.log(
-                                `🎯 Match Found! Showing Section: [data-section="${sectionType}"]`
-                                );
+                            section.removeAttribute(
+                            'hidden'); // ব্যাকআপ হিসেবে বুটস্ট্র্যাপ/এইচটিএমএল হিডেন রিমুভ
+                        } else {
+                            section.classList.remove('jss-active-section');
+                            section.setAttribute('hidden', 'true'); // ফোর্স হাইড
                         }
                     });
-
-                    if (!sectionMatched) {
-                        console.warn(
-                            `⚠️ Warning: No HTML section found with data-section="${targetValue}"`
-                            );
-                    }
                 });
             });
+
+            // পেজ লোডের সময় প্রথম ডিফ্লট সিলেকশন নিশ্চিত করা
+            const activeBtn = document.querySelector('#catalog-trigger-menu .custom-tab-btn.active');
+            if (activeBtn) {
+                activeBtn.click();
+            }
         });
     </script>
     <style>
