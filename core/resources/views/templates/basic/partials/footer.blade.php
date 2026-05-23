@@ -40,7 +40,7 @@
                 <div class="col-lg-3 col-sm-6 kwork-footer__col">
                     <h5 class="kwork-footer__heading d-flex justify-content-between align-items-center"
                         data-bs-toggle="collapse" data-bs-target="#footerAbout" aria-expanded="false">
-                        @lang('About')
+                        @lang('Abouts Us')
                         <i class="las la-angle-down d-md-none"></i>
                     </h5>
                     <div class="collapse d-md-block" id="footerAbout">
