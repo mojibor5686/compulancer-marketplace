@@ -237,7 +237,7 @@
                                                     <span class="info-list-item__label">@lang('Extras Service')</span>
                                                     <span class="info-list-item__value">
                                                         {{ gs('cur_sym') }}<span
-                                                            class="extraServicePrice">{{ number_format($productDetails->extraServices->price) }}</span>
+                                                            class="extraServicePrice">{{ number_format($productDetails->extraServices->sum('price')) }}</span>
                                                     </span>
                                                 </li>
                                                 <li class="info-list-item">
