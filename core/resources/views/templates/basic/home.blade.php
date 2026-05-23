@@ -469,7 +469,7 @@
             <div class="slider-relative-wrapper">
                 <div class="swiper portfolioSwiper">
                     <div class="swiper-wrapper">
-                        @forelse($servies as $product)
+                        @forelse($services as $product)
                             <div class="swiper-slide">
                                 <div class="portfolio-card">
                                     <a href="{{ route('service.details', [slug($product->name), $product->id]) }}"
