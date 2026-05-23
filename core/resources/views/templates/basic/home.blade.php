@@ -78,7 +78,16 @@
 
                             <div class="catalog-data-section jss-active-section" data-section="service">
                                 <div class="row gy-4 jss-row">
-                                    @forelse($services ?? [] as $product)
+                                    @php
+                                        // কন্ট্রোলারের কনফ্লিক্ট এড়াতে সরাসরি মডেল থেকে লেটেস্ট বা একটিভ সার্ভিস ডেটা লোড
+                                        $directServices = \App\Models\Service::with('user')
+                                            ->where('status', 1)
+                                            ->latest()
+                                            ->take(12)
+                                            ->get();
+                                    @endphp
+
+                                    @forelse($directServices as $product)
                                         <div class="col-md-6 col-xxl-4 productListCol">
                                             <article class="card jss--card jss--card-service"
                                                 style="background: #ffffff !important; border: 1px solid #eef2f5 !important; border-radius: 4px !important; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04) !important; overflow: hidden !important; display: flex !important; flex-direction: column !important; height: 100% !important; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important; position: relative !important;">
@@ -158,7 +167,15 @@
 
                             <div class="catalog-data-section" data-section="job">
                                 <div class="row gy-4 jss-row">
-                                    @forelse($jobs ?? [] as $product)
+                                    @php
+                                        $directJobs = \App\Models\Job::with('user')
+                                            ->where('status', 1)
+                                            ->latest()
+                                            ->take(12)
+                                            ->get();
+                                    @endphp
+
+                                    @forelse($directJobs as $product)
                                         <div class="col-md-6 col-xxl-4 productListCol">
                                             <article class="card jss--card jss--card-job"
                                                 style="background: #ffffff !important; border: 1px solid #eef2f5 !important; border-radius: 4px !important; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04) !important; overflow: hidden !important; display: flex !important; flex-direction: column !important; height: 100% !important; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important; position: relative !important;">
@@ -235,7 +252,15 @@
 
                             <div class="catalog-data-section" data-section="software">
                                 <div class="row gy-4 jss-row">
-                                    @forelse($softwares ?? [] as $product)
+                                    @php
+                                        $directSoftwares = \App\Models\Software::with('user')
+                                            ->where('status', 1)
+                                            ->latest()
+                                            ->take(12)
+                                            ->get();
+                                    @endphp
+
+                                    @forelse($directSoftwares as $product)
                                         <div class="col-md-6 col-xxl-4 productListCol">
                                             <article class="card jss--card jss--card-software"
                                                 style="background: #ffffff !important; border: 1px solid #eef2f5 !important; border-radius: 4px !important; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04) !important; overflow: hidden !important; display: flex !important; flex-direction: column !important; height: 100% !important; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important; position: relative !important;">
@@ -358,27 +383,46 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
+            console.log("🚀 Catalog Script Initialized!");
+
             const triggerButtons = document.querySelectorAll('#catalog-trigger-menu .custom-tab-btn');
             const dataSections = document.querySelectorAll('.catalog-data-section');
 
-            triggerButtons.forEach(function(btn) {
+            console.log(`📊 Found ${triggerButtons.length} buttons and ${dataSections.length} data sections.`);
+
+            triggerButtons.forEach(function(btn, index) {
                 btn.addEventListener('click', function() {
                     const targetValue = this.getAttribute('data-target');
+                    console.log(
+                        `\n👆 Button Clicked: [${targetValue.toUpperCase()}] (Index: ${index})`);
 
                     // ১. সব বাটন থেকে একটিভ ক্লাস রিমুভ করো
                     triggerButtons.forEach(b => b.classList.remove('active'));
                     // ২. ক্লিক করা বাটনে একটিভ ক্লাস যোগ করো
                     this.classList.add('active');
+                    console.log(`✅ 'active' class added to ${targetValue} button.`);
 
                     // ৩. সব ডাটা সেকশন থেকে একটিভ ক্লাস রিমুভ করো (যা তাদের হাইড করে দেবে)
+                    let sectionMatched = false;
                     dataSections.forEach(function(section) {
+                        const sectionType = section.getAttribute('data-section');
                         section.classList.remove('jss-active-section');
 
-                        // ৪. যদি সেকশনের ডাটা টাইপ আর বাটনের টার্গেট টাইপ মিলে যায় তবে ক্লাস যোগ করো
-                        if (section.getAttribute('data-section') === targetValue) {
+                        // ৪. যদি সেকশনের ডাটা টাইপ আর বাটনের টার্গেট টাইপ মিলে যায় তবে ক্লাস যোগ করো
+                        if (sectionType === targetValue) {
                             section.classList.add('jss-active-section');
+                            sectionMatched = true;
+                            console.log(
+                                `🎯 Match Found! Showing Section: [data-section="${sectionType}"]`
+                                );
                         }
                     });
+
+                    if (!sectionMatched) {
+                        console.warn(
+                            `⚠️ Warning: No HTML section found with data-section="${targetValue}"`
+                            );
+                    }
                 });
             });
         });
