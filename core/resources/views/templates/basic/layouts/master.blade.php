@@ -116,7 +116,7 @@
 
                                 $myordersCount = 0;
                                 if (auth()->check()) {
-                                    $myordersCount = \App\Models\Booking::where('buyer_id', auth()->id())->count();
+                                    $myordersCount = \App\Models\Booking::where('seller_id', auth()->id())->count();
                                 }
                             @endphp
 
