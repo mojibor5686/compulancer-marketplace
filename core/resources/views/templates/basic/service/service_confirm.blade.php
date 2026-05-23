@@ -41,7 +41,7 @@
                                             <div class="payment-item__thumb">
                                                 <img class="payment-item__thumb-img"
                                                     src="https://sylhetvoice24.com/curator/media/e40bc8c1-9e85-4cb1-9943-059951b22bcc.jpg?s=8a51ba6a05dff38f7c7e2555fbab6a62"
-                                                    alt="@lang('payment-thumb')" style="object-fit: contain; max-height: 35px;">
+                                                    alt="@lang('payment-thumb')" style="object-fit: contain; max-height: 50px;">
                                             </div>
                                             <input class="payment-item__radio gateway-input" id="uddoktapay" hidden
                                                 data-gateway='{"name":"UddoktaPay","currency":"BDT","percent_charge":"0","fixed_charge":"0","rate":"1"}'
