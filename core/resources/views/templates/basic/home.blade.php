@@ -34,25 +34,21 @@
                     <div class="card-top-action-bar"
                         style="display: flex !important; align-items: center !important; justify-content: space-between !important; padding: 12px 16px !important; border-bottom: 1px solid #eef2f5 !important; background: #fafbfc !important; flex-wrap: wrap !important; gap: 10px !important;">
 
-                        <div class="top-bar-left-buttons nav nav-pills" id="catalogTabs" role="tablist"
+                        <div class="top-bar-left-buttons"
                             style="display: inline-flex !important; align-items: center !important; gap: 6px !important; border: none !important;">
 
-                            <button class="nav-link active" id="services-tab" data-bs-toggle="pill"
-                                data-bs-target="#catalog-service" type="button" role="tab"
-                                aria-controls="catalog-service" aria-selected="true"
+                            <button class="custom-tab-btn active" onclick="switchCatalogSection('service', this)"
+                                type="button"
                                 style="font-size: 12px !important; font-weight: 600 !important; padding: 6px 16px !important; border-radius: 20px !important; border: none !important; transition: all 0.2s !important;">
                                 <i class="ri-briefcase-line me-1"></i> @lang('Services')
                             </button>
 
-                            <button class="nav-link" id="jobs-tab" data-bs-toggle="pill" data-bs-target="#catalog-job"
-                                type="button" role="tab" aria-controls="catalog-job" aria-selected="false"
+                            <button class="custom-tab-btn" onclick="switchCatalogSection('job', this)" type="button"
                                 style="font-size: 12px !important; font-weight: 600 !important; padding: 6px 16px !important; border-radius: 20px !important; border: none !important; transition: all 0.2s !important;">
                                 <i class="ri-search-eye-line me-1"></i> @lang('Jobs')
                             </button>
 
-                            <button class="nav-link" id="softwares-tab" data-bs-toggle="pill"
-                                data-bs-target="#catalog-software" type="button" role="tab"
-                                aria-controls="catalog-software" aria-selected="false"
+                            <button class="custom-tab-btn" onclick="switchCatalogSection('software', this)" type="button"
                                 style="font-size: 12px !important; font-weight: 600 !important; padding: 6px 16px !important; border-radius: 20px !important; border: none !important; transition: all 0.2s !important;">
                                 <i class="ri-terminal-window-line me-1"></i> @lang('Softwares')
                             </button>
@@ -81,62 +77,240 @@
                     <div class="row mt-3">
                         <div class="col-lg-8 col-xl-9 productList">
 
-                            <div class="tab-content" id="catalogTabContent">
-
-                                <div class="tab-pane fade show active" id="catalog-service" role="tabpanel"
-                                    aria-labelledby="services-tab">
-                                    <div class="row gy-4 jss-row">
-                                        @forelse($services ?? [] as $product)
-                                            <div class="col-md-6 col-xxl-4 productListCol">
-                                                @include('Template::partials.custom_card', [
-                                                    'product' => $product,
-                                                    'type' => 'service',
-                                                ])
-                                            </div>
-                                        @empty
-                                            <div class="col-12">
-                                                <x-basic-empty-message />
-                                            </div>
-                                        @endforelse
-                                    </div>
+                            <div id="section-service" class="catalog-data-section">
+                                <div class="row gy-4 jss-row">
+                                    @forelse($services ?? [] as $product)
+                                        <div class="col-md-6 col-xxl-4 productListCol">
+                                            <article class="card jss--card jss--card-service"
+                                                style="background: #ffffff !important; border: 1px solid #eef2f5 !important; border-radius: 4px !important; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04) !important; overflow: hidden !important; display: flex !important; flex-direction: column !important; height: 100% !important; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important; position: relative !important;">
+                                                <link
+                                                    href="https://fonts.googleapis.com/css2?family=Roboto:wght@600;700;800&display=swap"
+                                                    rel="stylesheet">
+                                                <div
+                                                    style="position: relative !important; display: block !important; width: 100% !important; aspect-ratio: 16 / 10 !important; overflow: hidden !important; background: #f8f9fa !important;">
+                                                    <a href="{{ route('service.details', [slug($product->name), $product->id]) }}"
+                                                        style="display: block !important; width: 100% !important; height: 100% !important;">
+                                                        <img src="{{ getImage(getFilePath('service') . '/' . $product->image, getFileSize('service')) }}"
+                                                            alt="{{ $product->name }}"
+                                                            style="width: 100% !important; height: 100% !important; object-fit: cover !important; display: block !important;">
+                                                    </a>
+                                                </div>
+                                                <div
+                                                    style="padding: 12px 16px !important; display: flex !important; flex-direction: column !important; flex-grow: 1 !important; justify-content: space-between !important; background: #ffffff !important;">
+                                                    <div style="width: 100% !important;">
+                                                        <div
+                                                            style="display: flex !important; align-items: center !important; justify-content: space-between !important; margin-bottom: 12px !important; padding-bottom: 2px !important;">
+                                                            <div onclick="window.open('{{ route('public.profile', ['username' => optional($product->user)->username ?? ($product->username ?? 'user'), 'contact' => 'true']) }}', '_blank')"
+                                                                style="display: flex !important; align-items: center !important; gap: 8px !important; cursor: pointer !important;">
+                                                                <img src="{{ $product->user && $product->user->image ? getImage(getFilePath('userProfile') . '/' . $product->user->image) : asset('assets/images/default.png') }}"
+                                                                    alt="Seller"
+                                                                    style="width: 32px !important; height: 32px !important; border-radius: 50% !important; object-fit: cover !important; display: block !important; border: 1px solid #e1e4e6 !important;">
+                                                                <div
+                                                                    style="display: flex !important; flex-direction: column !important; line-height: 1.2 !important;">
+                                                                    <span
+                                                                        style="font-size: 13px !important; text-transform: capitalize !important; font-weight: 700 !important; color: #404145 !important; display: block !important; max-width: 110px !important; white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important;">{{ $product->user ? $product->user->username : $product->username ?? 'user' }}</span>
+                                                                    <span
+                                                                        style="font-size: 11px !important; color: #74767e !important; font-weight: 400 !important; text-transform: capitalize;">@lang('Service')</span>
+                                                                </div>
+                                                            </div>
+                                                            @php $cardAvgRating = ($product->total_review ?? 0) > 0 ? number_format(($product->total_rating ?? 0) / $product->total_review, 1) : '0.0'; @endphp
+                                                            <div
+                                                                style="display: flex !important; align-items: center !important; gap: 3px !important; font-size: 12px !important; font-weight: 700 !important; color: #ffb33e !important;">
+                                                                <span
+                                                                    style="font-size: 14px !important; line-height: 1 !important;">★</span>
+                                                                <span
+                                                                    style="color: #404145 !important;">{{ $cardAvgRating }}</span>
+                                                                <span
+                                                                    style="color: #b5b6ba !important; font-weight: 400 !important; font-size: 11px !important;">({{ $product->total_review ?? 0 }})</span>
+                                                            </div>
+                                                        </div>
+                                                        <h6
+                                                            style="margin: 0 0 16px 0 !important; text-transform: capitalize; font-size: 14px !important; font-weight: 400 !important; line-height: 1.4 !important; height: 38px !important; overflow: hidden !important; display: -webkit-box !important; -webkit-line-clamp: 2 !important; -webkit-box-orient: vertical !important;">
+                                                            <a href="{{ route('service.details', [slug($product->name), $product->id]) }}"
+                                                                style="color: #404145 !important; text-decoration: none !important; display: block !important;">{{ __($product->name) }}</a>
+                                                        </h6>
+                                                    </div>
+                                                    <div
+                                                        style="border-top: 1px solid #e4e5e7 !important; padding-top: 10px !important; width: 100% !important; background: #ffffff !important; margin-top: auto !important;">
+                                                        <div
+                                                            style="text-align: right !important; display: flex !important; flex-direction: row !important; justify-content: space-between; line-height: 1.1 !important;">
+                                                            <div
+                                                                style="display: flex; flex-direction: column; justify-content: start; align-items: baseline; gap:5px;">
+                                                                <span
+                                                                    style="display: inline-flex !important; align-items: center !important; gap: 4px !important; font-weight: 800 !important; color: #23c366 !important; font-size: 16px !important;"><span
+                                                                        style="font-family: 'Roboto', sans-serif !important; font-size: 15px !important; font-weight: 600 !important; margin-right: 1px !important;">৳</span>{{ number_format($product->price, 2) }}</span>
+                                                                <span
+                                                                    style="display: block !important; font-size: 10px !important; color: #74767e !important; text-transform: uppercase !important; font-weight: 600 !important; letter-spacing: 0.3px !important; margin-bottom: 2px !important;">@lang('Starting at')</span>
+                                                            </div>
+                                                            <span
+                                                                style="color: #2b2b2b !important; font-size: 16px !important; font-weight: 700 !important;"><x-item
+                                                                    view="item-footer-right" :product="$product"
+                                                                    type="service" /></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </article>
+                                        </div>
+                                    @empty
+                                        <div class="col-12"><x-basic-empty-message /></div>
+                                    @endforelse
                                 </div>
-
-                                <div class="tab-pane fade" id="catalog-job" role="tabpanel" aria-labelledby="jobs-tab">
-                                    <div class="row gy-4 jss-row">
-                                        @forelse($jobs ?? [] as $product)
-                                            <div class="col-md-6 col-xxl-4 productListCol">
-                                                @include('Template::partials.custom_card', [
-                                                    'product' => $product,
-                                                    'type' => 'job',
-                                                ])
-                                            </div>
-                                        @empty
-                                            <div class="col-12">
-                                                <x-basic-empty-message />
-                                            </div>
-                                        @endforelse
-                                    </div>
-                                </div>
-
-                                <div class="tab-pane fade" id="catalog-software" role="tabpanel"
-                                    aria-labelledby="softwares-tab">
-                                    <div class="row gy-4 jss-row">
-                                        @forelse($softwares ?? [] as $product)
-                                            <div class="col-md-6 col-xxl-4 productListCol">
-                                                @include('Template::partials.custom_card', [
-                                                    'product' => $product,
-                                                    'type' => 'software',
-                                                ])
-                                            </div>
-                                        @empty
-                                            <div class="col-12">
-                                                <x-basic-empty-message />
-                                            </div>
-                                        @endforelse
-                                    </div>
-                                </div>
-
                             </div>
+
+                            <div id="section-job" class="catalog-data-section" style="display: none;">
+                                <div class="row gy-4 jss-row">
+                                    @forelse($jobs ?? [] as $product)
+                                        <div class="col-md-6 col-xxl-4 productListCol">
+                                            <article class="card jss--card jss--card-job"
+                                                style="background: #ffffff !important; border: 1px solid #eef2f5 !important; border-radius: 4px !important; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04) !important; overflow: hidden !important; display: flex !important; flex-direction: column !important; height: 100% !important; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important; position: relative !important;">
+                                                <div
+                                                    style="position: relative !important; display: block !important; width: 100% !important; aspect-ratio: 16 / 10 !important; overflow: hidden !important; background: #f8f9fa !important;">
+                                                    <a href="{{ route('job.details', [slug($product->name), $product->id]) }}"
+                                                        style="display: block !important; width: 100% !important; height: 100% !important;">
+                                                        <img src="{{ getImage(getFilePath('job') . '/' . $product->image, getFileSize('job')) }}"
+                                                            alt="{{ $product->name }}"
+                                                            style="width: 100% !important; height: 100% !important; object-fit: cover !important; display: block !important;">
+                                                    </a>
+                                                </div>
+                                                <div
+                                                    style="padding: 12px 16px !important; display: flex !important; flex-direction: column !important; flex-grow: 1 !important; justify-content: space-between !important; background: #ffffff !important;">
+                                                    <div style="width: 100% !important;">
+                                                        <div
+                                                            style="display: flex !important; align-items: center !important; justify-content: space-between !important; margin-bottom: 12px !important; padding-bottom: 2px !important;">
+                                                            <div onclick="window.open('{{ route('public.profile', ['username' => optional($product->user)->username ?? ($product->username ?? 'user'), 'contact' => 'true']) }}', '_blank')"
+                                                                style="display: flex !important; align-items: center !important; gap: 8px !important; cursor: pointer !important;">
+                                                                <img src="{{ $product->user && $product->user->image ? getImage(getFilePath('userProfile') . '/' . $product->user->image) : asset('assets/images/default.png') }}"
+                                                                    alt="Seller"
+                                                                    style="width: 32px !important; height: 32px !important; border-radius: 50% !important; object-fit: cover !important; display: block !important; border: 1px solid #e1e4e6 !important;">
+                                                                <div
+                                                                    style="display: flex !important; flex-direction: column !important; line-height: 1.2 !important;">
+                                                                    <span
+                                                                        style="font-size: 13px !important; text-transform: capitalize !important; font-weight: 700 !important; color: #404145 !important; display: block !important; max-width: 110px !important; white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important;">{{ $product->user ? $product->user->username : $product->username ?? 'user' }}</span>
+                                                                    <span
+                                                                        style="font-size: 11px !important; color: #74767e !important; font-weight: 400 !important; text-transform: capitalize;">@lang('Job')</span>
+                                                                </div>
+                                                            </div>
+                                                            @php $cardAvgRating = ($product->total_review ?? 0) > 0 ? number_format(($product->total_rating ?? 0) / $product->total_review, 1) : '0.0'; @endphp
+                                                            <div
+                                                                style="display: flex !important; align-items: center !important; gap: 3px !important; font-size: 12px !important; font-weight: 700 !important; color: #ffb33e !important;">
+                                                                <span
+                                                                    style="font-size: 14px !important; line-height: 1 !important;">★</span>
+                                                                <span
+                                                                    style="color: #404145 !important;">{{ $cardAvgRating }}</span>
+                                                                <span
+                                                                    style="color: #b5b6ba !important; font-weight: 400 !important; font-size: 11px !important;">({{ $product->total_review ?? 0 }})</span>
+                                                            </div>
+                                                        </div>
+                                                        <h6
+                                                            style="margin: 0 0 16px 0 !important; text-transform: capitalize; font-size: 14px !important; font-weight: 400 !important; line-height: 1.4 !important; height: 38px !important; overflow: hidden !important; display: -webkit-box !important; -webkit-line-clamp: 2 !important; -webkit-box-orient: vertical !important;">
+                                                            <a href="{{ route('job.details', [slug($product->name), $product->id]) }}"
+                                                                style="color: #404145 !important; text-decoration: none !important; display: block !important;">{{ __($product->name) }}</a>
+                                                        </h6>
+                                                    </div>
+                                                    <div
+                                                        style="border-top: 1px solid #e4e5e7 !important; padding-top: 10px !important; width: 100% !important; background: #ffffff !important; margin-top: auto !important;">
+                                                        <div
+                                                            style="text-align: right !important; display: flex !important; flex-direction: row !important; justify-content: space-between; line-height: 1.1 !important;">
+                                                            <div
+                                                                style="display: flex; flex-direction: column; justify-content: start; align-items: baseline; gap:5px;">
+                                                                <span
+                                                                    style="display: inline-flex !important; align-items: center !important; gap: 4px !important; font-weight: 800 !important; color: #23c366 !important; font-size: 16px !important;"><span
+                                                                        style="font-family: 'Roboto', sans-serif !important; font-size: 15px !important; font-weight: 600 !important; margin-right: 1px !important;">৳</span>{{ number_format($product->price, 2) }}</span>
+                                                                <span
+                                                                    style="display: block !important; font-size: 10px !important; color: #74767e !important; text-transform: uppercase !important; font-weight: 600 !important; letter-spacing: 0.3px !important; margin-bottom: 2px !important;">@lang('Starting at')</span>
+                                                            </div>
+                                                            <span
+                                                                style="color: #2b2b2b !important; font-size: 16px !important; font-weight: 700 !important;"><x-item
+                                                                    view="item-footer-right" :product="$product"
+                                                                    type="job" /></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </article>
+                                        </div>
+                                    @empty
+                                        <div class="col-12"><x-basic-empty-message /></div>
+                                    @endforelse
+                                </div>
+                            </div>
+
+                            <div id="section-software" class="catalog-data-section" style="display: none;">
+                                <div class="row gy-4 jss-row">
+                                    @forelse($softwares ?? [] as $product)
+                                        <div class="col-md-6 col-xxl-4 productListCol">
+                                            <article class="card jss--card jss--card-software"
+                                                style="background: #ffffff !important; border: 1px solid #eef2f5 !important; border-radius: 4px !important; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04) !important; overflow: hidden !important; display: flex !important; flex-direction: column !important; height: 100% !important; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important; position: relative !important;">
+                                                <div
+                                                    style="position: relative !important; display: block !important; width: 100% !important; aspect-ratio: 16 / 10 !important; overflow: hidden !important; background: #f8f9fa !important;">
+                                                    <a href="{{ route('software.details', [slug($product->name), $product->id]) }}"
+                                                        style="display: block !important; width: 100% !important; height: 100% !important;">
+                                                        <img src="{{ getImage(getFilePath('software') . '/' . $product->image, getFileSize('software')) }}"
+                                                            alt="{{ $product->name }}"
+                                                            style="width: 100% !important; height: 100% !important; object-fit: cover !important; display: block !important;">
+                                                    </a>
+                                                </div>
+                                                <div
+                                                    style="padding: 12px 16px !important; display: flex !important; flex-direction: column !important; flex-grow: 1 !important; justify-content: space-between !important; background: #ffffff !important;">
+                                                    <div style="width: 100% !important;">
+                                                        <div
+                                                            style="display: flex !important; align-items: center !important; justify-content: space-between !important; margin-bottom: 12px !important; padding-bottom: 2px !important;">
+                                                            <div onclick="window.open('{{ route('public.profile', ['username' => optional($product->user)->username ?? ($product->username ?? 'user'), 'contact' => 'true']) }}', '_blank')"
+                                                                style="display: flex !important; align-items: center !important; gap: 8px !important; cursor: pointer !important;">
+                                                                <img src="{{ $product->user && $product->user->image ? getImage(getFilePath('userProfile') . '/' . $product->user->image) : asset('assets/images/default.png') }}"
+                                                                    alt="Seller"
+                                                                    style="width: 32px !important; height: 32px !important; border-radius: 50% !important; object-fit: cover !important; display: block !important; border: 1px solid #e1e4e6 !important;">
+                                                                <div
+                                                                    style="display: flex !important; flex-direction: column !important; line-height: 1.2 !important;">
+                                                                    <span
+                                                                        style="font-size: 13px !important; text-transform: capitalize !important; font-weight: 700 !important; color: #404145 !important; display: block !important; max-width: 110px !important; white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important;">{{ $product->user ? $product->user->username : $product->username ?? 'user' }}</span>
+                                                                    <span
+                                                                        style="font-size: 11px !important; color: #74767e !important; font-weight: 400 !important; text-transform: capitalize;">@lang('Software')</span>
+                                                                </div>
+                                                            </div>
+                                                            @php $cardAvgRating = ($product->total_review ?? 0) > 0 ? number_format(($product->total_rating ?? 0) / $product->total_review, 1) : '0.0'; @endphp
+                                                            <div
+                                                                style="display: flex !important; align-items: center !important; gap: 3px !important; font-size: 12px !important; font-weight: 700 !important; color: #ffb33e !important;">
+                                                                <span
+                                                                    style="font-size: 14px !important; line-height: 1 !important;">★</span>
+                                                                <span
+                                                                    style="color: #404145 !important;">{{ $cardAvgRating }}</span>
+                                                                <span
+                                                                    style="color: #b5b6ba !important; font-weight: 400 !important; font-size: 11px !important;">({{ $product->total_review ?? 0 }})</span>
+                                                            </div>
+                                                        </div>
+                                                        <h6
+                                                            style="margin: 0 0 16px 0 !important; text-transform: capitalize; font-size: 14px !important; font-weight: 400 !important; line-height: 1.4 !important; height: 38px !important; overflow: hidden !important; display: -webkit-box !important; -webkit-line-clamp: 2 !important; -webkit-box-orient: vertical !important;">
+                                                            <a href="{{ route('software.details', [slug($product->name), $product->id]) }}"
+                                                                style="color: #404145 !important; text-decoration: none !important; display: block !important;">{{ __($product->name) }}</a>
+                                                        </h6>
+                                                    </div>
+                                                    <div
+                                                        style="border-top: 1px solid #e4e5e7 !important; padding-top: 10px !important; width: 100% !important; background: #ffffff !important; margin-top: auto !important;">
+                                                        <div
+                                                            style="text-align: right !important; display: flex !important; flex-direction: row !important; justify-content: space-between; line-height: 1.1 !important;">
+                                                            <div
+                                                                style="display: flex; flex-direction: column; justify-content: start; align-items: baseline; gap:5px;">
+                                                                <span
+                                                                    style="display: inline-flex !important; align-items: center !important; gap: 4px !important; font-weight: 800 !important; color: #23c366 !important; font-size: 16px !important;"><span
+                                                                        style="font-family: 'Roboto', sans-serif !important; font-size: 15px !important; font-weight: 600 !important; margin-right: 1px !important;">৳</span>{{ number_format($product->price, 2) }}</span>
+                                                                <span
+                                                                    style="display: block !important; font-size: 10px !important; color: #74767e !important; text-transform: uppercase !important; font-weight: 600 !important; letter-spacing: 0.3px !important; margin-bottom: 2px !important;">@lang('Starting at')</span>
+                                                            </div>
+                                                            <span
+                                                                style="color: #2b2b2b !important; font-size: 16px !important; font-weight: 700 !important;"><x-item
+                                                                    view="item-footer-right" :product="$product"
+                                                                    type="software" /></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </article>
+                                        </div>
+                                    @empty
+                                        <div class="col-12"><x-basic-empty-message /></div>
+                                    @endforelse
+                                </div>
+                            </div>
+
                         </div>
 
                         <div class="col-lg-4 col-xl-3">
@@ -150,42 +324,50 @@
     </main>
 
     <style>
-        /* ডাইনামিক বাটনগুলোর প্রফেশনাল কালার স্টাইল ওভাররাইড */
-        .top-bar-left-buttons .nav-link {
+        .custom-tab-btn {
             background-color: #eef2f5 !important;
             color: #475569 !important;
-            border: none !important;
         }
 
-        .top-bar-left-buttons .nav-link:hover {
+        .custom-tab-btn:hover {
             background-color: #e2e8f0 !important;
             color: #1e293b !important;
         }
 
-        /* বুটস্ট্র্যাপের একটিভ ক্লাস স্টাইল */
-        .top-bar-left-buttons .nav-link.active {
+        .custom-tab-btn.active {
             background-color: #3a84ff !important;
             color: #ffffff !important;
             box-shadow: 0 2px 6px rgba(58, 132, 255, 0.25) !important;
         }
 
-        /* আইকন এলাইনমেন্ট ঠিক করার জন্য */
-        .top-bar-left-buttons .nav-link i {
+        .custom-tab-btn i {
             vertical-align: middle;
         }
     </style>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            var triggerTabList = [].slice.call(document.querySelectorAll('#catalogTabs button'))
-            triggerTabList.forEach(function(triggerEl) {
-                triggerEl.addEventListener('click', function(event) {
-                    event.preventDefault();
-                    var tabTrigger = new bootstrap.Tab(triggerEl);
-                    tabTrigger.show();
-                });
+        function switchCatalogSection(targetType, buttonElement) {
+            // ১. সব কন্টেন্ট সেকশন হাইড করা
+            const sections = document.querySelectorAll('.catalog-data-section');
+            sections.forEach(function(section) {
+                section.style.display = 'none';
             });
-        });
+
+            // ২. সব বাটন থেকে একটিভ ক্লাস রিমুভ করা
+            const buttons = document.querySelectorAll('.custom-tab-btn');
+            buttons.forEach(function(btn) {
+                btn.classList.remove('active');
+            });
+
+            // ৩. টার্গেট সেকশন শো করা
+            const activeSection = document.getElementById('section-' + targetType);
+            if (activeSection) {
+                activeSection.style.display = 'block';
+            }
+
+            // ৪. কারেন্ট বাটনে একটিভ ক্লাস যোগ করা
+            buttonElement.classList.add('active');
+        }
     </script>
 
     <style>
