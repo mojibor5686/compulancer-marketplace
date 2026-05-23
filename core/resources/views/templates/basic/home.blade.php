@@ -34,25 +34,27 @@
                     <div class="card-top-action-bar"
                         style="display: flex !important; align-items: center !important; justify-content: space-between !important; padding: 12px 16px !important; border-bottom: 1px solid #eef2f5 !important; background: #fafbfc !important; flex-wrap: wrap !important; gap: 10px !important;">
 
-                        <div class="top-bar-left-buttons nav nav-pills" role="tablist"
+                        <div class="top-bar-left-buttons nav nav-pills" id="catalogTabs" role="tablist"
                             style="display: inline-flex !important; align-items: center !important; gap: 6px !important; border: none !important;">
 
-                            <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#catalog-service"
-                                type="button" role="tab"
+                            <button class="nav-link active" id="services-tab" data-bs-toggle="pill"
+                                data-bs-target="#catalog-service" type="button" role="tab"
+                                aria-controls="catalog-service" aria-selected="true"
                                 style="font-size: 12px !important; font-weight: 600 !important; padding: 6px 16px !important; border-radius: 20px !important; border: none !important; transition: all 0.2s !important;">
-                                @lang('Services')
+                                <i class="ri-briefcase-line me-1"></i> @lang('Services')
                             </button>
 
-                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#catalog-job" type="button"
-                                role="tab"
+                            <button class="nav-link" id="jobs-tab" data-bs-toggle="pill" data-bs-target="#catalog-job"
+                                type="button" role="tab" aria-controls="catalog-job" aria-selected="false"
                                 style="font-size: 12px !important; font-weight: 600 !important; padding: 6px 16px !important; border-radius: 20px !important; border: none !important; transition: all 0.2s !important;">
-                                @lang('Jobs')
+                                <i class="ri-search-eye-line me-1"></i> @lang('Jobs')
                             </button>
 
-                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#catalog-software" type="button"
-                                role="tab"
+                            <button class="nav-link" id="softwares-tab" data-bs-toggle="pill"
+                                data-bs-target="#catalog-software" type="button" role="tab"
+                                aria-controls="catalog-software" aria-selected="false"
                                 style="font-size: 12px !important; font-weight: 600 !important; padding: 6px 16px !important; border-radius: 20px !important; border: none !important; transition: all 0.2s !important;">
-                                @lang('Softwares')
+                                <i class="ri-terminal-window-line me-1"></i> @lang('Softwares')
                             </button>
                         </div>
 
@@ -81,7 +83,8 @@
 
                             <div class="tab-content" id="catalogTabContent">
 
-                                <div class="tab-pane fade show active" id="catalog-service" role="tabpanel">
+                                <div class="tab-pane fade show active" id="catalog-service" role="tabpanel"
+                                    aria-labelledby="services-tab">
                                     <div class="row gy-4 jss-row">
                                         @forelse($services ?? [] as $product)
                                             <div class="col-md-6 col-xxl-4 productListCol">
@@ -91,12 +94,14 @@
                                                 ])
                                             </div>
                                         @empty
-                                            <x-basic-empty-message />
+                                            <div class="col-12">
+                                                <x-basic-empty-message />
+                                            </div>
                                         @endforelse
                                     </div>
                                 </div>
 
-                                <div class="tab-pane fade" id="catalog-job" role="tabpanel">
+                                <div class="tab-pane fade" id="catalog-job" role="tabpanel" aria-labelledby="jobs-tab">
                                     <div class="row gy-4 jss-row">
                                         @forelse($jobs ?? [] as $product)
                                             <div class="col-md-6 col-xxl-4 productListCol">
@@ -106,12 +111,15 @@
                                                 ])
                                             </div>
                                         @empty
-                                            <x-basic-empty-message />
+                                            <div class="col-12">
+                                                <x-basic-empty-message />
+                                            </div>
                                         @endforelse
                                     </div>
                                 </div>
 
-                                <div class="tab-pane fade" id="catalog-software" role="tabpanel">
+                                <div class="tab-pane fade" id="catalog-software" role="tabpanel"
+                                    aria-labelledby="softwares-tab">
                                     <div class="row gy-4 jss-row">
                                         @forelse($softwares ?? [] as $product)
                                             <div class="col-md-6 col-xxl-4 productListCol">
@@ -121,7 +129,9 @@
                                                 ])
                                             </div>
                                         @empty
-                                            <x-basic-empty-message />
+                                            <div class="col-12">
+                                                <x-basic-empty-message />
+                                            </div>
                                         @endforelse
                                     </div>
                                 </div>
@@ -140,9 +150,11 @@
     </main>
 
     <style>
+        /* ডাইনামিক বাটনগুলোর প্রফেশনাল কালার স্টাইল ওভাররাইড */
         .top-bar-left-buttons .nav-link {
             background-color: #eef2f5 !important;
             color: #475569 !important;
+            border: none !important;
         }
 
         .top-bar-left-buttons .nav-link:hover {
@@ -150,12 +162,32 @@
             color: #1e293b !important;
         }
 
+        /* বুটস্ট্র্যাপের একটিভ ক্লাস স্টাইল */
         .top-bar-left-buttons .nav-link.active {
             background-color: #3a84ff !important;
             color: #ffffff !important;
             box-shadow: 0 2px 6px rgba(58, 132, 255, 0.25) !important;
         }
+
+        /* আইকন এলাইনমেন্ট ঠিক করার জন্য */
+        .top-bar-left-buttons .nav-link i {
+            vertical-align: middle;
+        }
     </style>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var triggerTabList = [].slice.call(document.querySelectorAll('#catalogTabs button'))
+            triggerTabList.forEach(function(triggerEl) {
+                triggerEl.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    var tabTrigger = new bootstrap.Tab(triggerEl);
+                    tabTrigger.show();
+                });
+            });
+        });
+    </script>
+
     <style>
         .modern-action-bar {
             background: #ffffff;
