@@ -384,13 +384,12 @@
                 <img src="https://cdn.kwork.com/images/index/partners/en/apple.svg" alt="Apple">
             </div>
             <div class="brand-logo-item">
-                <img src="https://cdn.kwork.com/images/index/partners/en/danone.svg" alt="Danone"
-                    class="d-none d-lg-block">
+                <img src="https://cdn.kwork.com/images/index/partners/en/danone.svg" alt="Danone">
             </div>
             <div class="brand-logo-item">
                 <img src="https://cdn.kwork.com/images/index/partners/en/leroy-merlin.svg" alt="Leroy Merlin">
             </div>
-            <div class="brand-logo-item">
+            <div class="brand-logo-item" class="d-none d-lg-block">
                 <img src="https://cdn.kwork.com/images/index/partners/en/philips.svg" alt="Philips">
             </div>
         </div>
