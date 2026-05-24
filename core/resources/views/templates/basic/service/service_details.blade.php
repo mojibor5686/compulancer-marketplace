@@ -298,12 +298,12 @@
 
                                         <div class="d-flex flex-wrap align-items-center gap-x-4 gap-y-2 mb-4"
                                             style="font-size: 14px; color: #4a5568;">
-                                            <div class="d-flex align-items-center gap-1.5">
+                                            <div class="d-flex align-items-center gap-1.5" style="margin-right: 20px;">
                                                 <i class="lar la-clock" style="font-size: 16px; color: #718096;"></i>
                                                 <span><strong>{{ $productDetails->delivery_time ?? 'N/A' }}-day</strong>
                                                     delivery</span>
                                             </div>
-                                            <div class="d-flex align-items-center gap-1.5 margin-left:5px;">
+                                            <div class="d-flex align-items-center gap-1.5">
                                                 <i class="las la-sync" style="font-size: 16px; color: #718096;"></i>
                                                 <span>Unlimited Revisions</span>
                                             </div>
