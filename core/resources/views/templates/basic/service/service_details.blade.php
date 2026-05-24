@@ -303,7 +303,7 @@
                                                 <span><strong>{{ $productDetails->delivery_time ?? 'N/A' }}-day</strong>
                                                     delivery</span>
                                             </div>
-                                            <div class="d-flex align-items-center gap-1.5">
+                                            <div class="d-flex align-items-center gap-1.5 margin-left:5px;">
                                                 <i class="las la-sync" style="font-size: 16px; color: #718096;"></i>
                                                 <span>Unlimited Revisions</span>
                                             </div>
@@ -390,14 +390,6 @@
                                                         class="totalPrice">{{ number_format($productDetails->price) }}</span>
                                                 </button>
                                             @endauth
-
-                                            <button type="button"
-                                                class="btn d-flex align-items-center justify-content-center"
-                                                style="background-color: #23c366; color: #ffffff; width: 52px; border-radius: 6px; border: none; font-size: 18px; transition: opacity 0.2s;"
-                                                onmouseover="this.style.opacity='0.9'"
-                                                onmouseout="this.style.opacity='1'">
-                                                <i class="las la-cart-plus"></i>
-                                            </button>
                                         </div>
 
                                     </div>
