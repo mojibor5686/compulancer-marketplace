@@ -329,7 +329,7 @@
                                         @if ($extraServices->count() > 0)
                                             <div class="mb-4">
                                                 <h6
-                                                    style="font-size: 14px; font-weight: 600; color: #2d3748; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px;">
+                                                    style="font-size: 14px; font-weight: 600; color: #2d3748; margin-bottom: 12px; text-transform: capitalize; letter-spacing: 0.5px;">
                                                     @lang('Upgrade your order with extras:')
                                                 </h6>
                                                 <div style="display: flex; flex-direction: column; gap: 10px;">
@@ -359,7 +359,7 @@
 
                                                             <div
                                                                 style="font-size: 14px; font-weight: 600; color: #2d3748; white-space: nowrap;">
-                                                                +&#2547;{{ number_format($extraService->price, 0) }}
+                                                                &#2547;{{ number_format($extraService->price, 0) }}
                                                             </div>
                                                         </label>
                                                     @endforeach
