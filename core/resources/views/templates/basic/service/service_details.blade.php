@@ -309,7 +309,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="mb-0" style="font-size: 13px; color: #a0aec0;">
+                                        <div class="mb-4" style="font-size: 13px; color: #a0aec0;">
                                             <i class="lar la-clock"></i> Usually completed in
                                             {{ ($productDetails->delivery_time ?? 3) + 1 }} days
                                         </div>
