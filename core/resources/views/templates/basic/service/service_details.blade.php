@@ -325,7 +325,8 @@
                                             </ul>
 
                                             @auth
-                                                <button type="submit" class="mt-4 btn btn--lg btn--base w-100">
+                                                <button type="submit" id="desktopOrderBtn"
+                                                    class="mt-4 btn btn--lg btn--base w-100">
                                                     @lang('Order Now')
                                                     (&#2547;<span
                                                         class="totalPrice">{{ number_format($productDetails->price) }}</span>)
@@ -554,9 +555,10 @@
             <script>
                 document.addEventListener('DOMContentLoaded', function() {
                     const mobileOrderBtn = document.querySelector('.js-mobile-order-submit');
+                    const desktopOrderBtn = document.getElementById('desktopOrderBtn');
                     const mainOrderForm = document.getElementById('mainOrderForm');
 
-                    if (mobileOrderBtn && mainOrderForm) {
+                    if (mobileOrderBtn && desktopOrderBtn && mainOrderForm) {
                         mobileOrderBtn.addEventListener('click', function(e) {
                             e.preventDefault();
 
@@ -573,7 +575,7 @@
                                 });
                             }
 
-                            mainOrderForm.submit();
+                            desktopOrderBtn.click();
                         });
                     }
                 });
