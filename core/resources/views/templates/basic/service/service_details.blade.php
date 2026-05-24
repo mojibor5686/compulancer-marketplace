@@ -48,7 +48,7 @@
             }
 
             .btn-order-mobile {
-                background-color: #28a745 !important;
+                background-color: #007bff !important;
                 color: #ffffff !important;
                 font-size: 16px;
                 font-weight: 600;
