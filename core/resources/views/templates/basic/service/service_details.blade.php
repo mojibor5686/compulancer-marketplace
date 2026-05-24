@@ -89,7 +89,7 @@
                                     <span style="font-size: 11px; color: #b5b5b5;"><i class="las la-angle-right"></i></span>
                                 </nav>
 
-                                <div style="border: 1px solid #eee; padding: 7px;">
+                                <div style="border: 1px solid #eee; padding: 10px;">
                                     <h1 class="kwork-gig-title mb-1 fs-3 fs-lg-1"
                                         style="font-weight: 700; color: #222222; line-height: 1.25; letter-spacing: -0.5px;">
                                         {{ __($productDetails->title ?? 'I will do unique, modern and professional business logo design') }}
@@ -211,44 +211,6 @@
                                             'type' => 'service',
                                         ])
                                     </div>
-
-                                    <!-- Extra Services Tab -->
-                                    @if ($extraServices->count() > 0)
-                                        <div class="tab-pane" id="jss-details-tab-2" role="tabpanel" tabindex="0">
-                                            <div class="extra-services">
-                                                <div class="extra-services-list service-card-body">
-                                                    <div class="service-card-form">
-                                                        @forelse ($extraServices as $key => $extraService)
-                                                            <div class="form-row">
-                                                                <div class="left">
-                                                                    <div class="form-group custom-check-group">
-                                                                        <input class="extraServices custom-checkbox"
-                                                                            type="checkbox" name="extra_services[]"
-                                                                            id="extra_service_{{ $key }}"
-                                                                            data-id="{{ $extraService->id }}"
-                                                                            data-key="{{ $key }}"
-                                                                            data-price="{{ number_format($extraService->price, 0, '.', '') }}"
-                                                                            value="{{ $extraService->id }}">
-                                                                        <label class="custom-checkbox-label"
-                                                                            for="extra_service_{{ $key }}">{{ $extraService->name }}</label>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="right">
-                                                                    <span
-                                                                        class="value">{{ number_format($extraService->price, 0) }}</span>
-                                                                </div>
-                                                            </div>
-                                                        @empty
-                                                            <div class="empty-message-box">
-                                                                <i class="las la-folder-open icon"></i>
-                                                                <p class="caption">@lang('No extra services available at this time.')</p>
-                                                            </div>
-                                                        @endforelse
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    @endif
 
                                     <!-- Reviews Tab -->
                                     <div class="tab-pane" id="jss-details-tab-3" role="tabpanel" tabindex="0">
@@ -372,6 +334,44 @@
                                                 </div>
                                             </li>
                                         </ul>
+
+                                        <!-- Extra Services Tab -->
+                                        @if ($extraServices->count() > 0)
+                                            <div class="tab-pane" id="jss-details-tab-2" role="tabpanel" tabindex="0">
+                                                <div class="extra-services">
+                                                    <div class="extra-services-list service-card-body">
+                                                        <div class="service-card-form">
+                                                            @forelse ($extraServices as $key => $extraService)
+                                                                <div class="form-row">
+                                                                    <div class="left">
+                                                                        <div class="form-group custom-check-group">
+                                                                            <input class="extraServices custom-checkbox"
+                                                                                type="checkbox" name="extra_services[]"
+                                                                                id="extra_service_{{ $key }}"
+                                                                                data-id="{{ $extraService->id }}"
+                                                                                data-key="{{ $key }}"
+                                                                                data-price="{{ number_format($extraService->price, 0, '.', '') }}"
+                                                                                value="{{ $extraService->id }}">
+                                                                            <label class="custom-checkbox-label"
+                                                                                for="extra_service_{{ $key }}">{{ $extraService->name }}</label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="right">
+                                                                        <span
+                                                                            class="value">{{ number_format($extraService->price, 0) }}</span>
+                                                                    </div>
+                                                                </div>
+                                                            @empty
+                                                                <div class="empty-message-box">
+                                                                    <i class="las la-folder-open icon"></i>
+                                                                    <p class="caption">@lang('No extra services available at this time.')</p>
+                                                                </div>
+                                                            @endforelse
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endif
 
                                         <div class="d-flex gap-2 w-100 mt-4">
                                             @auth
