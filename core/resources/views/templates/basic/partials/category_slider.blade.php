@@ -122,11 +122,11 @@
     }
 
     .tag-link {
-        font-size: 12px;
+        font-size: 13px;
         color: #444444;
         background-color: rgba(255, 255, 255, 0.7);
         border: 1px solid #ced4da;
-        padding: 4px 10px;
+        padding: 6px 12px;
         border-radius: 4px;
         text-decoration: none;
         font-weight: 500;
@@ -204,6 +204,39 @@
         z-index: 1;
     }
 
+    .brand-section {
+        background-color: #ffffff;
+        border-bottom: 1px solid #eeeeee;
+        padding: 20px 0;
+    }
+
+    .brand-logo-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .brand-logo-item {
+        flex: 1;
+        min-width: 120px;
+        text-align: center;
+    }
+
+    .brand-logo-item img {
+        max-width: 110px;
+        height: auto;
+        filter: grayscale(100%);
+        opacity: 0.4;
+        transition: all 0.3s ease;
+    }
+
+    .brand-logo-item img:hover {
+        filter: grayscale(0%);
+        opacity: 0.8;
+    }
+
     @media (max-width: 991.98px) {
         .kwork-hero-section {
             height: auto;
@@ -227,6 +260,10 @@
         .btn-kwork-search {
             padding: 0 20px;
             font-size: 14px;
+        }
+
+        .brand-logo-container {
+            justify-content: center;
         }
     }
 
@@ -267,6 +304,14 @@
 
         .hero-popular-tags {
             display: none !important;
+        }
+
+        .brand-logo-item {
+            min-width: 80px;
+        }
+
+        .brand-logo-item img {
+            max-width: 80px;
         }
     }
 </style>
@@ -328,6 +373,30 @@
     </div>
 
     <div class="hero-bottom-shadow"></div>
+
+    <section class="brand-section">
+        <div class="container">
+            <div class="brand-logo-container">
+                <div class="brand-logo-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c5/IKEA_logo.svg" alt="IKEA">
+                </div>
+                <div class="brand-logo-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="Apple"
+                        style="max-width: 35px;">
+                </div>
+                <div class="brand-logo-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/1/13/Danone_logo.svg" alt="Danone">
+                </div>
+                <div class="brand-logo-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/e/ec/Leroy_Merlin_Logo.svg"
+                        alt="Leroy Merlin">
+                </div>
+                <div class="brand-logo-item">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/Philips_logo.svg" alt="Philips">
+                </div>
+            </div>
+        </div>
+    </section>
 </section>
 @push('script')
     <script>
