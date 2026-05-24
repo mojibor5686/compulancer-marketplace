@@ -49,6 +49,10 @@
             overflow: hidden;
         }
 
+        .brand-section {
+            display: block;
+        }
+
         .cta-title {
             color: #333333;
             font-weight: 700;

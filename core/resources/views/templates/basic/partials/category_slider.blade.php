@@ -47,6 +47,10 @@
         position: relative;
     }
 
+    .brand-section {
+        display: none;
+    }
+
     .hero-bg-pattern {
         position: absolute;
         top: 0;
