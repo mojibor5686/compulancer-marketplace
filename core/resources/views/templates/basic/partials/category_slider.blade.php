@@ -372,29 +372,29 @@
     </div>
 
     <div class="hero-bottom-shadow"></div>
+</section>
 
-    <section class="brand-section">
-        <div class="container">
-            <div class="brand-logo-container">
-                <div class="brand-logo-item">
-                    <img src="https://cdn.kwork.com/images/index/partners/en/ikea.svg" alt="IKEA">
-                </div>
-                <div class="brand-logo-item">
-                    <img src="https://cdn.kwork.com/images/index/partners/en/apple.svg" alt="Apple"
-                        style="max-width: 35px;">
-                </div>
-                <div class="brand-logo-item">
-                    <img src="https://cdn.kwork.com/images/index/partners/en/danone.svg" alt="Danone">
-                </div>
-                <div class="brand-logo-item">
-                    <img src="https://cdn.kwork.com/images/index/partners/en/leroy_merlin.svg" alt="Leroy Merlin">
-                </div>
-                <div class="brand-logo-item">
-                    <img src="https://cdn.kwork.com/images/index/partners/en/philips.svg" alt="Philips">
-                </div>
+<section class="brand-section">
+    <div class="container">
+        <div class="brand-logo-container">
+            <div class="brand-logo-item">
+                <img src="https://cdn.kwork.com/images/index/partners/en/ikea.svg" alt="IKEA">
+            </div>
+            <div class="brand-logo-item">
+                <img src="https://cdn.kwork.com/images/index/partners/en/apple.svg" alt="Apple"
+                    style="max-width: 35px;">
+            </div>
+            <div class="brand-logo-item">
+                <img src="https://cdn.kwork.com/images/index/partners/en/danone.svg" alt="Danone">
+            </div>
+            <div class="brand-logo-item">
+                <img src="https://cdn.kwork.com/images/index/partners/en/leroy-merlin.svg" alt="Leroy Merlin">
+            </div>
+            <div class="brand-logo-item">
+                <img src="https://cdn.kwork.com/images/index/partners/en/philips.svg" alt="Philips">
             </div>
         </div>
-    </section>
+    </div>
 </section>
 @push('script')
     <script>
