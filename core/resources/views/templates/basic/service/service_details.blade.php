@@ -274,7 +274,7 @@
                     </div>
                     <!-- End of col-lg-8 -->
 
-                    <div class="col-lg-4 d-none d-lg-block details-sidebar" style="margin-top:30px">
+                    <div class="col-lg-4 d-none d-lg-block details-sidebar" style="margin-top:48px">
                         <div class="jss-details-sidebar">
                             <!-- Service Details Widget -->
                             <div class="jss-details-sidebar__block" style="border: 1px solid #eee">
