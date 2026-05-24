@@ -276,7 +276,7 @@
                         <div class="jss-details-sidebar">
                             <!-- Service Details Widget -->
                             <div class="jss-details-sidebar__block">
-                                <form class="jss-details-sidebar__block"
+                                <form id="mainOrderForm" class="jss-details-sidebar__block"
                                     action="{{ route('user.service.add.booking', $productDetails->id) }}" method="POST">
                                     @csrf
                                     <div class="extra_services_container"></div>
