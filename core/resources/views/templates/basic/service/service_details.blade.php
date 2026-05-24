@@ -525,7 +525,7 @@
                         <span>@lang('Chat')</span>
                     </button>
 
-                    <button type="button" class="btn btn-order-mobile flex-grow-1 text-center js-submit-mobile-order">
+                    <button type="button" class="btn btn-order-mobile flex-grow-1 text-center js-mobile-order-submit">
                         @lang('Order for') &#2547;<span class="totalPrice">{{ number_format($productDetails->price) }}</span>
                     </button>
                 </div>
