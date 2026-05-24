@@ -8364,7 +8364,6 @@ textarea.form--control {
 .jss-details-main__block.one {
   padding: 24px;
   border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 12px;
 }
 
 @media screen and (max-width: 575px) {
