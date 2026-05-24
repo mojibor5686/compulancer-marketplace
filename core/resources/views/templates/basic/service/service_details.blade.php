@@ -1,8 +1,74 @@
 @extends('Template::layouts.frontend')
 @section('content')
+    <div class="mobile-fixed-bottom-action d-sm-none">
+        <div class="container-fluid px-3">
+            <div class="d-flex align-items-center gap-2 w-100">
+                <a href="#" class="btn btn-chat-mobile d-flex align-items-center justify-content-center gap-2">
+                    <i class="far fa-comment-dots"></i>
+                    <span>@lang('Chat')</span>
+                </a>
+                <a href="#" class="btn btn-order-mobile flex-grow-1 text-center">
+                    @lang('Order for') $80
+                </a>
+            </div>
+        </div>
+    </div>
     <style>
         .kwork-hero-section {
             display: none
+        }
+
+        @media (max-width: 575.98px) {
+            body {
+                padding-bottom: 75px !important;
+            }
+
+            .mobile-fixed-bottom-action {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                background-color: #ffffff;
+                box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.08);
+                padding: 12px 0;
+                z-index: 9999;
+            }
+
+            .btn-chat-mobile {
+                background-color: #007bff !important;
+                color: #ffffff !important;
+                font-size: 15px;
+                font-weight: 600;
+                padding: 12px 20px;
+                border-radius: 8px;
+                border: none;
+                text-decoration: none;
+                white-space: nowrap;
+                transition: opacity 0.2s ease;
+            }
+
+            .btn-order-mobile {
+                background-color: #28a745 !important;
+                color: #ffffff !important;
+                font-size: 16px;
+                font-weight: 600;
+                padding: 12px 15px;
+                border-radius: 8px;
+                border: none;
+                text-decoration: none;
+                transition: opacity 0.2s ease;
+            }
+
+            .btn-chat-mobile:active,
+            .btn-order-mobile:active {
+                opacity: 0.9;
+            }
+        }
+
+        @media (min-width: 576px) {
+            .mobile-fixed-bottom-action {
+                display: none !important;
+            }
         }
     </style>
     <main class="page-wrapper">
@@ -447,6 +513,62 @@
             </section>
         @endif
     </main>
+
+    @auth
+        <div class="mobile-fixed-bottom-action d-sm-none">
+            <div class="container-fluid px-3">
+                <div class="d-flex align-items-center gap-2 w-100">
+                    <button type="button" class="btn btn-chat-mobile d-flex align-items-center justify-content-center gap-2"
+                        data-bs-toggle="modal" data-bs-target="#contactModal">
+                        <i class="far fa-comment-dots"></i>
+                        <span>@lang('Chat')</span>
+                    </button>
+
+                    <button type="button" class="btn btn-order-mobile flex-grow-1 text-center js-submit-mobile-order">
+                        @lang('Order for') {{ gs('cur_sym') }}<span
+                            class="totalPrice">{{ number_format($productDetails->price) }}</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    @else
+        <div class="mobile-fixed-bottom-action d-sm-none">
+            <div class="container-fluid px-3">
+                <div class="d-flex align-items-center gap-2 w-100">
+                    <button type="button" class="btn btn-chat-mobile d-flex align-items-center justify-content-center gap-2"
+                        data-bs-toggle="modal" data-bs-target="#signInModal">
+                        <i class="far fa-comment-dots"></i>
+                        <span>@lang('Chat')</span>
+                    </button>
+
+                    <button type="button" class="btn btn-order-mobile flex-grow-1 text-center" data-bs-toggle="modal"
+                        data-bs-target="#signInModal">
+                        @lang('Order for') {{ gs('cur_sym') }}<span
+                            class="totalPrice">{{ number_format($productDetails->price) }}</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    @endauth
+
+    @auth
+        @push('script')
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    const mobileOrderBtn = document.querySelector('.js-submit-mobile-order');
+                    if (mobileOrderBtn) {
+                        mobileOrderBtn.addEventListener('click', function() {
+                            const mainForm = document.querySelector('form[action*="add.booking"]');
+                            if (mainForm) {
+                                mainForm.submit();
+                            }
+                        });
+                    }
+                });
+            </script>
+        @endpush
+    @endauth
+
     <style>
         .hover-translate-y {
             transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
