@@ -873,7 +873,7 @@
 
 @if (!$isUser)
     @if (hasSlider())
-        <div class="bg-light py-1">
+        <div class="bg-light">
             @include('Template::partials.category_slider')
         </div>
     @endif
@@ -1090,7 +1090,7 @@
                     }
                     return true;
                 }
-                
+
                 if (name === 'password_confirmation') {
                     const passwordVal = form.querySelector('input[name="password"]').value;
                     if (value !== passwordVal) {
