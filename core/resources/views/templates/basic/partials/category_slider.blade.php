@@ -378,21 +378,20 @@
         <div class="container">
             <div class="brand-logo-container">
                 <div class="brand-logo-item">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c5/IKEA_logo.svg" alt="IKEA">
+                    <img src="https://cdn.kwork.com/images/index/partners/en/ikea.svg" alt="IKEA">
                 </div>
                 <div class="brand-logo-item">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="Apple"
+                    <img src="https://cdn.kwork.com/images/index/partners/en/apple.svg" alt="Apple"
                         style="max-width: 35px;">
                 </div>
                 <div class="brand-logo-item">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/1/13/Danone_logo.svg" alt="Danone">
+                    <img src="https://cdn.kwork.com/images/index/partners/en/danone.svg" alt="Danone">
                 </div>
                 <div class="brand-logo-item">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/e/ec/Leroy_Merlin_Logo.svg"
-                        alt="Leroy Merlin">
+                    <img src="https://cdn.kwork.com/images/index/partners/en/leroy_merlin.svg" alt="Leroy Merlin">
                 </div>
                 <div class="brand-logo-item">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/Philips_logo.svg" alt="Philips">
+                    <img src="https://cdn.kwork.com/images/index/partners/en/philips.svg" alt="Philips">
                 </div>
             </div>
         </div>
