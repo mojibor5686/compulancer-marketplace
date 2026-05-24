@@ -389,7 +389,7 @@
             <div class="brand-logo-item">
                 <img src="https://cdn.kwork.com/images/index/partners/en/leroy-merlin.svg" alt="Leroy Merlin">
             </div>
-            <div class="brand-logo-item" class="d-none d-lg-block">
+            <div class="brand-logo-item d-none d-lg-block">
                 <img src="https://cdn.kwork.com/images/index/partners/en/philips.svg" alt="Philips">
             </div>
         </div>
