@@ -225,7 +225,7 @@
     }
 
     .brand-logo-item img {
-        max-width: 110px;
+        max-width: 80px;
         height: auto;
         filter: grayscale(100%);
         opacity: 0.4;
@@ -307,11 +307,11 @@
         }
 
         .brand-logo-item {
-            min-width: 80px;
+            min-width: 62px;
         }
 
         .brand-logo-item img {
-            max-width: 80px;
+            max-width: 62px;
         }
     }
 </style>
