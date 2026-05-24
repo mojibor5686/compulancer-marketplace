@@ -381,11 +381,11 @@
                 <img src="https://cdn.kwork.com/images/index/partners/en/ikea.svg" alt="IKEA">
             </div>
             <div class="brand-logo-item">
-                <img src="https://cdn.kwork.com/images/index/partners/en/apple.svg" alt="Apple"
-                    style="max-width: 35px;">
+                <img src="https://cdn.kwork.com/images/index/partners/en/apple.svg" alt="Apple">
             </div>
             <div class="brand-logo-item">
-                <img src="https://cdn.kwork.com/images/index/partners/en/danone.svg" alt="Danone">
+                <img src="https://cdn.kwork.com/images/index/partners/en/danone.svg" alt="Danone"
+                    class="d-none d-lg-block">
             </div>
             <div class="brand-logo-item">
                 <img src="https://cdn.kwork.com/images/index/partners/en/leroy-merlin.svg" alt="Leroy Merlin">
