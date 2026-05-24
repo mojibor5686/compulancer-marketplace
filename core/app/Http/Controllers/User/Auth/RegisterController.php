@@ -13,7 +13,6 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rules\Password;
 
 class RegisterController extends Controller {
 
@@ -30,26 +29,21 @@ class RegisterController extends Controller {
     }
 
     protected function validator( array $data ) {
-
-        $passwordValidation = 'required|string|min:6|confirmed';
-
         $agree = 'nullable';
         if ( gs( 'agree' ) ) {
             $agree = 'required';
         }
 
-        $validate     = Validator::make( $data, [
+        return Validator::make( $data, [
             'firstname' => 'required',
             'lastname'  => 'required',
             'email'     => 'required|string|email|unique:users',
-            'password'  => [ 'required', 'confirmed', $passwordValidation ],
+            'password'  => 'required',
             'agree'     => $agree
         ], [
             'firstname.required' => 'The first name field is required',
-            'lastname.required' => 'The last name field is required'
+            'lastname.required'  => 'The last name field is required'
         ] );
-
-        return $validate;
     }
 
     public function register( Request $request ) {
@@ -82,18 +76,18 @@ class RegisterController extends Controller {
             $referUser = null;
         }
 
-        //User Create
+        // User Create
         $user            = new User();
         $user->email     = strtolower( $data[ 'email' ] );
         $user->firstname = $data[ 'firstname' ];
         $user->lastname  = $data[ 'lastname' ];
         $user->password  = Hash::make( $data[ 'password' ] );
         $user->ref_by    = $referUser ? $referUser->id : 0;
-        $user->kv = gs( 'kv' ) ? Status::NO : Status::YES;
-        $user->ev = gs( 'ev' ) ? Status::NO : Status::YES;
-        $user->sv = gs( 'sv' ) ? Status::NO : Status::YES;
-        $user->ts = Status::DISABLE;
-        $user->tv = Status::ENABLE;
+        $user->kv        = gs( 'kv' ) ? Status::NO : Status::YES;
+        $user->ev        = gs( 'kv' ) ? Status::NO : Status::YES;
+        $user->sv        = gs( 'sv' ) ? Status::NO : Status::YES;
+        $user->ts        = Status::DISABLE;
+        $user->tv        = Status::ENABLE;
         $user->save();
 
         $adminNotification            = new AdminNotification();
@@ -102,7 +96,7 @@ class RegisterController extends Controller {
         $adminNotification->click_url = urlPath( 'admin.users.detail', $user->id );
         $adminNotification->save();
 
-        //Login Log Create
+        // Login Log Create
         $ip        = getRealIP();
         $exist     = UserLogin::where( 'user_ip', $ip )->first();
         $userLogin = new UserLogin();
@@ -137,18 +131,18 @@ class RegisterController extends Controller {
         $exist[ 'data' ] = false;
         $exist[ 'type' ] = null;
         if ( $request->email ) {
-            $exist[ 'data' ] = User::where( 'email', $request->email )->exists();
-            $exist[ 'type' ] = 'email';
+            $exist[ 'data' ]  = User::where( 'email', $request->email )->exists();
+            $exist[ 'type' ]  = 'email';
             $exist[ 'field' ] = 'Email';
         }
         if ( $request->mobile ) {
-            $exist[ 'data' ] = User::where( 'mobile', $request->mobile )->where( 'dial_code', $request->mobile_code )->exists();
-            $exist[ 'type' ] = 'mobile';
+            $exist[ 'data' ]  = User::where( 'mobile', $request->mobile )->where( 'dial_code', $request->mobile_code )->exists();
+            $exist[ 'type' ]  = 'mobile';
             $exist[ 'field' ] = 'Mobile';
         }
         if ( $request->username ) {
-            $exist[ 'data' ] = User::where( 'username', $request->username )->exists();
-            $exist[ 'type' ] = 'username';
+            $exist[ 'data' ]  = User::where( 'username', $request->username )->exists();
+            $exist[ 'type' ]  = 'username';
             $exist[ 'field' ] = 'Username';
         }
         return response( $exist );
