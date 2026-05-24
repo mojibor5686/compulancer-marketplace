@@ -356,7 +356,6 @@
                                                                     {{ $extraService->name }}
                                                                 </span>
                                                             </div>
-
                                                             <div
                                                                 style="font-size: 14px; font-weight: 600; color: #2d3748; white-space: nowrap;">
                                                                 &#2547;{{ number_format($extraService->price, 0) }}
