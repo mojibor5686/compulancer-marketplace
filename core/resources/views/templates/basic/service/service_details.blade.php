@@ -553,13 +553,27 @@
         @push('script')
             <script>
                 document.addEventListener('DOMContentLoaded', function() {
-                    const mobileOrderBtn = document.querySelector('.js-submit-mobile-order');
-                    if (mobileOrderBtn) {
-                        mobileOrderBtn.addEventListener('click', function() {
-                            const mainForm = document.querySelector('form[action*="add.booking"]');
-                            if (mainForm) {
-                                mainForm.submit();
+                    const mobileOrderBtn = document.querySelector('.js-mobile-order-submit');
+                    const mainOrderForm = document.getElementById('mainOrderForm');
+
+                    if (mobileOrderBtn && mainOrderForm) {
+                        mobileOrderBtn.addEventListener('click', function(e) {
+                            e.preventDefault();
+
+                            const extraContainer = mainOrderForm.querySelector('.extra_services_container');
+                            if (extraContainer) {
+                                extraContainer.innerHTML = '';
+
+                                document.querySelectorAll('.extraServices:checked').forEach(function(checkbox) {
+                                    const hiddenInput = document.createElement('input');
+                                    hiddenInput.type = 'hidden';
+                                    hiddenInput.name = 'extra_services[]';
+                                    hiddenInput.value = checkbox.value;
+                                    extraContainer.appendChild(hiddenInput);
+                                });
                             }
+
+                            mainOrderForm.submit();
                         });
                     }
                 });
