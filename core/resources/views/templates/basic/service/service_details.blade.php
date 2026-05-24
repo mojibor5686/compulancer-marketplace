@@ -180,14 +180,6 @@
                                             @lang('Description')
                                         </button>
                                     </li>
-                                    @if ($extraServices->count() > 0)
-                                        <li class="nav-item" role="presentation">
-                                            <button class="nav-link" data-bs-toggle="tab"
-                                                data-bs-target="#jss-details-tab-2" type="button" role="tab">
-                                                @lang('Extra Services')
-                                            </button>
-                                        </li>
-                                    @endif
                                     <li class="nav-item" role="presentation">
                                         <button class="nav-link" data-bs-toggle="tab" data-bs-target="#jss-details-tab-3"
                                             type="button" role="tab">
@@ -200,7 +192,6 @@
                                             @lang('Comments')
                                         </button>
                                     </li>
-
                                 </ul>
 
                                 <!-- Tabs Content -->
@@ -335,40 +326,43 @@
                                             </li>
                                         </ul>
 
-                                        <!-- Extra Services Tab -->
                                         @if ($extraServices->count() > 0)
-                                            <div class="tab-pane" id="jss-details-tab-2" role="tabpanel" tabindex="0">
-                                                <div class="extra-services">
-                                                    <div class="extra-services-list service-card-body">
-                                                        <div class="service-card-form">
-                                                            @forelse ($extraServices as $key => $extraService)
-                                                                <div class="form-row">
-                                                                    <div class="left">
-                                                                        <div class="form-group custom-check-group">
-                                                                            <input class="extraServices custom-checkbox"
-                                                                                type="checkbox" name="extra_services[]"
-                                                                                id="extra_service_{{ $key }}"
-                                                                                data-id="{{ $extraService->id }}"
-                                                                                data-key="{{ $key }}"
-                                                                                data-price="{{ number_format($extraService->price, 0, '.', '') }}"
-                                                                                value="{{ $extraService->id }}">
-                                                                            <label class="custom-checkbox-label"
-                                                                                for="extra_service_{{ $key }}">{{ $extraService->name }}</label>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="right">
-                                                                        <span
-                                                                            class="value">{{ number_format($extraService->price, 0) }}</span>
-                                                                    </div>
+                                            <div class="mb-4">
+                                                <h6
+                                                    style="font-size: 14px; font-weight: 600; color: #2d3748; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.5px;">
+                                                    @lang('Upgrade your order with extras:')
+                                                </h6>
+                                                <div style="display: flex; flex-direction: column; gap: 10px;">
+                                                    @foreach ($extraServices as $key => $extraService)
+                                                        <label class="marketplace-extra-card"
+                                                            for="extra_service_{{ $key }}"
+                                                            style="display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border: 1px solid #e2e8f0; border-radius: 6px; cursor: pointer; transition: all 0.2s ease; margin: 0;">
+
+                                                            <div
+                                                                style="display: flex; align-items: center; gap: 12px; flex-grow: 1; padding-right: 10px;">
+                                                                <div class="custom-checkbox-wrapper"
+                                                                    style="position: relative; display: flex; align-items: center;">
+                                                                    <input class="extraServices custom-checkbox"
+                                                                        type="checkbox" name="extra_services[]"
+                                                                        id="extra_service_{{ $key }}"
+                                                                        data-id="{{ $extraService->id }}"
+                                                                        data-key="{{ $key }}"
+                                                                        data-price="{{ number_format($extraService->price, 0, '.', '') }}"
+                                                                        value="{{ $extraService->id }}"
+                                                                        style="width: 18px; height: 18px; cursor: pointer; accent-color: #3C88EE;">
                                                                 </div>
-                                                            @empty
-                                                                <div class="empty-message-box">
-                                                                    <i class="las la-folder-open icon"></i>
-                                                                    <p class="caption">@lang('No extra services available at this time.')</p>
-                                                                </div>
-                                                            @endforelse
-                                                        </div>
-                                                    </div>
+                                                                <span
+                                                                    style="font-size: 14px; color: #4a5568; font-weight: 500; line-height: 1.3;">
+                                                                    {{ $extraService->name }}
+                                                                </span>
+                                                            </div>
+
+                                                            <div
+                                                                style="font-size: 14px; font-weight: 600; color: #2d3748; white-space: nowrap;">
+                                                                +&#2547;{{ number_format($extraService->price, 0) }}
+                                                            </div>
+                                                        </label>
+                                                    @endforeach
                                                 </div>
                                             </div>
                                         @endif
@@ -397,13 +391,21 @@
                             </div>
 
                             <style>
-                                /* কোয়ান্টিটি বাটনের হোভার ইফেক্ট */
+                                .marketplace-extra-card:hover {
+                                    background-color: #f8fafc;
+                                    border-color: #cbd5e1 !important;
+                                }
+
+                                .marketplace-extra-card:has(input:checked) {
+                                    background-color: #f0f7ff;
+                                    border-color: #3C88EE !important;
+                                }
+
                                 .quantity-control-modern button:hover {
                                     background-color: #edf2f7 !important;
                                     color: #2d3748 !important;
                                 }
 
-                                /* মেইন বাটনের হোভার ইফেক্ট */
                                 #desktopOrderBtn:hover {
                                     background-color: #2a75dc !important;
                                 }
