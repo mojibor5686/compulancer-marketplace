@@ -1,4 +1,4 @@
-<div class="jss-details-main__block one">
+<div class="jss-details-main__block one" style="border-radius: 0px;">
     @if ($type == 'job')
         <!-- Job Image -->
         <div class="jss-details-slider">
