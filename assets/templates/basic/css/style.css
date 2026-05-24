@@ -8408,6 +8408,7 @@ textarea.form--control {
 
 .jss-details__title {
   margin-bottom: 0;
+  text-transform: capitalize;
 }
 
 .jss-details-meta {
