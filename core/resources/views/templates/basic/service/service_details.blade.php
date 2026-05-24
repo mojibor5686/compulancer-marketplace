@@ -79,7 +79,7 @@
                         <div class="jss-details-main bg--white">
                             <div class="kwork-detail-header"
                                 style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
-                                <nav class="kwork-breadcrumb d-flex align-items-center gap-2 mb-3"
+                                <nav class="kwork-breadcrumb d-flex align-items-center gap-2 mb-3 mt-3"
                                     style="font-size: 14px; color: #777777;">
                                     <a href="#"
                                         style="color: #777777; text-decoration: none; transition: color 0.2s;">{{ __(@$productDetails->category->name ?? 'Design') }}</a>
@@ -89,7 +89,7 @@
                                     <span style="font-size: 11px; color: #b5b5b5;"><i class="las la-angle-right"></i></span>
                                 </nav>
 
-                                <div style="border: 1px solid #eee">
+                                <div style="border: 1px solid #eee; padding: 7px;">
                                     <h1 class="kwork-gig-title mb-1 fs-3 fs-lg-1"
                                         style="font-weight: 700; color: #222222; line-height: 1.25; letter-spacing: -0.5px;">
                                         {{ __($productDetails->title ?? 'I will do unique, modern and professional business logo design') }}
@@ -274,7 +274,7 @@
                     </div>
                     <!-- End of col-lg-8 -->
 
-                    <div class="col-lg-4 d-none d-lg-block details-sidebar" style="margin-top:28px">
+                    <div class="col-lg-4 d-none d-lg-block details-sidebar" style="margin-top:30px">
                         <div class="jss-details-sidebar">
                             <!-- Service Details Widget -->
                             <div class="jss-details-sidebar__block" style="border: 1px solid #eee">
