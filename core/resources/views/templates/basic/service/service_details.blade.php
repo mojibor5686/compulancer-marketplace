@@ -281,69 +281,141 @@
                                     @csrf
                                     <div class="extra_services_container"></div>
 
-                                    <div class="widget-card">
-                                        <div class="widget-card__header">
-                                            <h5 class="widget-card__title">@lang('Service Details')</h5>
-                                        </div>
-                                        <div class="widget-card__body">
-                                            <ul class="info-list style-two">
-                                                <li class="info-list-item">
-                                                    <span class="info-list-item__label">@lang('Estimated Delivery Time')</span>
-                                                    <span
-                                                        class="info-list-item__value">{{ $productDetails->delivery_time ?? 'N/A' }}
-                                                        @lang('Days')</span>
-                                                </li>
-                                                <li class="info-list-item">
-                                                    <span class="info-list-item__label">@lang('Service Price')</span>
-                                                    <span class="info-list-item__value">&#2547;<span
-                                                            class="servicePrice">{{ number_format($productDetails->price) }}</span></span>
-                                                </li>
-                                                <li
-                                                    class="info-list-item {{ $extraServices->count() > 0 ? '' : 'd-none' }}">
-                                                    <span class="info-list-item__label">@lang('Extras Service')</span>
-                                                    <span class="info-list-item__value">
-                                                        &#2547;<span
-                                                            class="extraServicePrice">{{ number_format($productDetails->extraServices->sum('price')) }}</span>
-                                                    </span>
-                                                </li>
-                                                <li class="info-list-item">
-                                                    <span class="info-list-item__label">@lang('Quantity')</span>
-                                                    <div class="quantity-control">
-                                                        <button type="button"
-                                                            class="quantity-btn quantity-btn--minus decrementBtn">
-                                                            <i class="las la-minus"></i>
-                                                        </button>
-                                                        <span
-                                                            class="info-list-item__value d-flex align-items-center quantity">1</span>
-                                                        <button type="button"
-                                                            class="quantity-btn quantity-btn--plus incrementBtn">
-                                                            <i class="las la-plus"></i>
-                                                        </button>
-                                                        <input type="hidden" name="service_qty" value="1">
-                                                    </div>
-                                                </li>
-                                            </ul>
+                                    <div class="widget-card-modern"
+                                        style="background: #ffffff; border: 1px solid #eef2f5; border-radius: 8px; padding: 24px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
 
+                                        <div class="d-flex align-items-baseline gap-2 mb-4">
+                                            <span
+                                                style="font-size: 32px; font-weight: 700; color: #2d3748; line-height: 1;">
+                                                &#2547;<span
+                                                    class="totalPrice">{{ number_format($productDetails->price) }}</span>
+                                            </span>
+                                            <span
+                                                style="font-size: 18px; font-weight: 600; color: #4a5568; text-transform: capitalize;">
+                                                @lang('Standard')
+                                            </span>
+                                        </div>
+
+                                        <div class="d-flex flex-wrap align-items-center gap-x-4 gap-y-2 mb-4"
+                                            style="font-size: 14px; color: #4a5568;">
+                                            <div class="d-flex align-items-center gap-1.5">
+                                                <i class="lar la-clock" style="font-size: 16px; color: #718096;"></i>
+                                                <span><strong>{{ $productDetails->delivery_time ?? 'N/A' }}-day</strong>
+                                                    delivery</span>
+                                            </div>
+                                            <div class="d-flex align-items-center gap-1.5">
+                                                <i class="las la-sync" style="font-size: 16px; color: #718096;"></i>
+                                                <span>Unlimited Revisions</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-4" style="font-size: 13px; color: #a0aec0;">
+                                            <i class="lar la-clock"></i> Usually completed in
+                                            {{ ($productDetails->delivery_time ?? 3) + 1 }} days
+                                        </div>
+
+                                        <hr style="border-top: 1px solid #edf2f7; margin: 20px 0;">
+
+                                        <ul class="info-list-modern"
+                                            style="list-style: none; padding: 0; margin: 0 0 24px 0;">
+                                            <li class="d-flex align-items-start gap-2.5 mb-3"
+                                                style="font-size: 14px; color: #4a5568;">
+                                                <i class="las la-check"
+                                                    style="color: #23c366; font-size: 16px; font-weight: bold; margin-top: 2px;"></i>
+                                                <span>Estimated Delivery Time:
+                                                    {{ $productDetails->delivery_time ?? 'N/A' }} @lang('Days')</span>
+                                            </li>
+
+                                            <li class="info-list-item-modern {{ $extraServices->count() > 0 ? '' : 'd-none' }} d-flex align-items-start justify-content-between gap-2.5 mb-3"
+                                                style="font-size: 14px; color: #4a5568;">
+                                                <div class="d-flex align-items-center gap-2.5">
+                                                    <i class="las la-check"
+                                                        style="color: #23c366; font-size: 16px; font-weight: bold;"></i>
+                                                    <span>@lang('Extras Service')</span>
+                                                </div>
+                                                <span style="font-weight: 600; color: #2d3748;">&#2547;<span
+                                                        class="extraServicePrice">{{ number_format($productDetails->extraServices->sum('price')) }}</span></span>
+                                            </li>
+
+                                            <li class="d-flex align-items-start justify-content-between gap-2.5 mb-3"
+                                                style="font-size: 14px; color: #4a5568;">
+                                                <div class="d-flex align-items-center gap-2.5">
+                                                    <i class="las la-check"
+                                                        style="color: #23c366; font-size: 16px; font-weight: bold;"></i>
+                                                    <span>@lang('Base Service Price')</span>
+                                                </div>
+                                                <span style="font-weight: 600; color: #2d3748;">&#2547;<span
+                                                        class="servicePrice">{{ number_format($productDetails->price) }}</span></span>
+                                            </li>
+
+                                            <li class="d-flex align-items-center justify-content-between gap-2.5 pt-2"
+                                                style="font-size: 14px; color: #4a5568;">
+                                                <div class="d-flex align-items-center gap-2.5">
+                                                    <i class="las la-check"
+                                                        style="color: #23c366; font-size: 16px; font-weight: bold;"></i>
+                                                    <span>@lang('Quantity')</span>
+                                                </div>
+
+                                                <div class="quantity-control-modern"
+                                                    style="display: flex; align-items: center; border: 1px solid #e2e8f0; border-radius: 6px; overflow: hidden; background: #f7fafc; height: 32px;">
+                                                    <button type="button" class="decrementBtn"
+                                                        style="border: none; background: transparent; width: 32px; height: 100%; display: flex; align-items: center; justify-content: center; color: #718096; transition: background 0.2s;">
+                                                        <i class="las la-minus" style="font-size: 12px;"></i>
+                                                    </button>
+                                                    <span class="quantity"
+                                                        style="width: 36px; text-align: center; font-weight: 600; color: #2d3748; font-size: 14px; display: inline-block;">1</span>
+                                                    <button type="button" class="incrementBtn"
+                                                        style="border: none; background: transparent; width: 32px; height: 100%; display: flex; align-items: center; justify-content: center; color: #718096; transition: background 0.2s;">
+                                                        <i class="las la-plus" style="font-size: 12px;"></i>
+                                                    </button>
+                                                    <input type="hidden" name="service_qty" value="1">
+                                                </div>
+                                            </li>
+                                        </ul>
+
+                                        <div class="d-flex gap-2 w-100 mt-4">
                                             @auth
                                                 <button type="submit" id="desktopOrderBtn"
-                                                    class="mt-4 btn btn--lg btn--base w-100">
-                                                    @lang('Order Now')
-                                                    (&#2547;<span
-                                                        class="totalPrice">{{ number_format($productDetails->price) }}</span>)
+                                                    class="btn flex-grow-1 d-flex align-items-center justify-content-center"
+                                                    style="background-color: #3C88EE; color: #ffffff; font-weight: 600; font-size: 16px; padding: 14px 20px; border-radius: 6px; border: none; transition: background-color 0.2s ease;">
+                                                    @lang('Order for') &#2547;<span
+                                                        class="totalPrice">{{ number_format($productDetails->price) }}</span>
                                                 </button>
                                             @else
-                                                <button type="button" class="mt-4 btn btn--lg btn--base w-100"
-                                                    data-bs-toggle="modal" data-bs-target="#signInModal">
-                                                    @lang('Order Now')
-                                                    (&#2547;<span
-                                                        class="totalPrice">{{ number_format($productDetails->price) }}</span>)
+                                                <button type="button"
+                                                    class="btn flex-grow-1 d-flex align-items-center justify-content-center"
+                                                    data-bs-toggle="modal" data-bs-target="#signInModal"
+                                                    style="background-color: #3C88EE; color: #ffffff; font-weight: 600; font-size: 16px; padding: 14px 20px; border-radius: 6px; border: none; transition: background-color 0.2s ease;">
+                                                    @lang('Order for') &#2547;<span
+                                                        class="totalPrice">{{ number_format($productDetails->price) }}</span>
                                                 </button>
                                             @endauth
 
+                                            <button type="button"
+                                                class="btn d-flex align-items-center justify-content-center"
+                                                style="background-color: #23c366; color: #ffffff; width: 52px; border-radius: 6px; border: none; font-size: 18px; transition: opacity 0.2s;"
+                                                onmouseover="this.style.opacity='0.9'"
+                                                onmouseout="this.style.opacity='1'">
+                                                <i class="las la-cart-plus"></i>
+                                            </button>
                                         </div>
+
                                     </div>
                                 </form>
                             </div>
+
+                            <style>
+                                /* কোয়ান্টিটি বাটনের হোভার ইফেক্ট */
+                                .quantity-control-modern button:hover {
+                                    background-color: #edf2f7 !important;
+                                    color: #2d3748 !important;
+                                }
+
+                                /* মেইন বাটনের হোভার ইফেক্ট */
+                                #desktopOrderBtn:hover {
+                                    background-color: #2a75dc !important;
+                                }
+                            </style>
 
                             <!-- Contact Us Widget -->
                             @if ($productDetails->user)
