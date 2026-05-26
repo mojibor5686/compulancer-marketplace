@@ -71,24 +71,25 @@
                                                     <div
                                                         style="text-align: right !important; display: flex !important; flex-direction: row !important; justify-content: space-between; line-height: 1.1 !important;">
                                                         <div>
-                                                            <i class="ri-check-line" style="font-size: 18px !important; color: #74767e !important;"></i>
+                                                            <i class="ri-check-line"
+                                                                style="font-size: 18px !important; color: #74767e !important;"></i>
                                                         </div>
                                                         <div
-                                                            style="display: flex; flex-direction: column; justify-content: start; align-items: baseline; gap:5px;">
+                                                            style="display: flex; flex-direction: row; justify-content: start; align-items: baseline; gap:5px;">
                                                             <span
                                                                 style="display: block !important; font-size: 10px !important; color: #74767e !important; text-transform: capitalize !important; font-weight: 600 !important; letter-spacing: 0.3px !important; margin-bottom: 2px !important;">@lang('Starting at')</span>
                                                             <span
                                                                 style="display: inline-flex !important; align-items: center !important; gap: 4px !important; font-weight: 800 !important; color: #23c366 !important; font-size: 16px !important;">
                                                                 <span
-                                                                    style="font-family: 'Roboto', sans-serif !important; font-size: 15px !important; font-weight: 600 !important; margin-right: 1px !important;">৳</span>
-                                                                {{ number_format($product->price, 2) }}
+                                                                    style="font-family: 'Roboto', sans-serif !important; font-size: 13px !important; font-weight: 600 !important; margin-right: 1px !important;">৳</span>
+                                                                {{ number_format($product->price) }}
                                                             </span>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            <div style="width: 100% !important;">
+                                            <div style="width: 100% !important; padding:0 6px;">
 
                                                 <div
                                                     style="display: flex !important; align-items: center !important; justify-content: space-between !important; margin-bottom: 12px !important; padding-bottom: 2px !important;">
