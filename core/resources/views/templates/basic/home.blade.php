@@ -53,7 +53,7 @@
                                             <div
                                                 style="display: flex !important; flex-direction: column !important; flex-grow: 1 !important; justify-content: space-between !important;">
 
-                                                <div class="px-4">
+                                                <div class="px-2">
                                                     <h6
                                                         style="font-size: 14px !important; font-weight: 400 !important; line-height: 1.4 !important; min-height: 42px !important; overflow: hidden !important; display: -webkit-box !important; -webkit-line-clamp: 2 !important; -webkit-box-orient: vertical !important; text-transform: capitalize !important;">
                                                         <a href="{{ route("$type.details", [slug($product->name), $product->id]) }}"
@@ -66,16 +66,16 @@
                                                 </div>
 
                                                 <div
-                                                    style="display: flex !important; justify-content: space-between !important; align-items: center !important; margin-bottom: 16px !important;">
+                                                    style="px-2 display: flex !important; justify-content: space-between !important; align-items: center !important; margin-bottom: 16px !important;">
                                                     <div>
                                                         <i class="ri-check-line"
                                                             style="font-size: 20px !important; color: #b5b6ba !important; font-weight: bold;"></i>
                                                     </div>
                                                     <div style="text-align: right !important;">
                                                         <span
-                                                            style="font-weight: 700 !important; color: #1dbf73 !important; font-size: 20px !important; display: flex; align-items: center; gap: 2px;">
+                                                            style="font-weight: 700 !important; color: #1dbf73 !important; font-size: 16px !important; display: flex; align-items: center; gap: 2px;">
                                                             <span
-                                                                style="font-size: 14px; font-weight: 600;">$</span>{{ number_format($product->price) }}
+                                                                style="font-size: 14px; font-weight: 600;">&#2547;</span>{{ number_format($product->price) }}
                                                         </span>
                                                     </div>
                                                 </div>
