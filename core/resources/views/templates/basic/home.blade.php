@@ -55,7 +55,7 @@
 
                                                 <div class="px-2">
                                                     <h6
-                                                        style="font-size: 14px !important; font-weight: 400 !important; line-height: 1.4 !important; min-height: 42px !important; overflow: hidden !important; display: -webkit-box !important; -webkit-line-clamp: 2 !important; -webkit-box-orient: vertical !important; text-transform: capitalize !important;">
+                                                        style="font-size: 14px !important; font-weight: 400 !important; line-height: 1.4 !important; margin: 0 !important; min-height: 42px !important; overflow: hidden !important; display: -webkit-box !important; -webkit-line-clamp: 2 !important; -webkit-box-orient: vertical !important; text-transform: capitalize !important;">
                                                         <a href="{{ route("$type.details", [slug($product->name), $product->id]) }}"
                                                             style="color: #404145 !important; text-decoration: none !important; display: block !important;"
                                                             onmouseover="this.style.color='#1dbf73'"
