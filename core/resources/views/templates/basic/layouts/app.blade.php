@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="{{ asset(activeTemplate(true) . 'css/style.css') }}">
     @stack('style')
     <link rel="stylesheet" href="{{ asset(activeTemplate(true) . 'css/custom.css') }}">
-
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="stylesheet"
         href="{{ asset(activeTemplate(true) . 'css/color.php') }}?color={{ gs('base_color') }}&secondColor={{ gs('secondary_color') }}&get=20">
 </head>
