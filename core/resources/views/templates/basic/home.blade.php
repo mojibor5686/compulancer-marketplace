@@ -73,7 +73,7 @@
                                                         <span
                                                             style="font-weight: 700 !important; color: #1dbf73 !important; font-size: 20px !important; display: flex; align-items: center; gap: 2px;">
                                                             <span
-                                                                style="font-size: 16px; font-weight: 600;">$</span>{{ number_format($product->price) }}
+                                                                style="font-size: 14px; font-weight: 600;">$</span>{{ number_format($product->price) }}
                                                         </span>
                                                     </div>
                                                 </div>
@@ -91,7 +91,7 @@
                                                             <span
                                                                 style="width: 8px; height: 8px; background-color: #b5b6ba; border-radius: 50%; display: inline-block;"></span>
                                                             <span
-                                                                style="font-size: 13px !important; font-weight: 600 !important; color: #404145 !important; max-width: 90px !important; white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important;"
+                                                                style="font-size: 13px !important; text-transform: capitalize; font-weight: 600 !important; color: #404145 !important; max-width: 90px !important; white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important;"
                                                                 title="{{ $product->user ? $product->user->username : $product->username ?? 'babsmart_' }}">
                                                                 {{ $product->user ? $product->user->username : $product->username ?? 'babsmart_' }}
                                                             </span>
