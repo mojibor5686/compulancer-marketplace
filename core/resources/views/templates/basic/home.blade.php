@@ -27,13 +27,9 @@
                         </div>
                     </div>
                 </section>
-
-                @include('Template::partials.top_filter')
-
                 <div class="page-content">
                     <div class="row">
                         <div class="col-lg-8 col-xl-9 productList"> @include('Template::partials.product_list') </div>
-                        <div class="col-lg-4 col-xl-3"> @include('Template::partials.filter') </div>
                     </div>
                 </div>
             </div>
