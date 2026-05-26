@@ -40,7 +40,6 @@
                                         <article class="card jss--card jss--card-{{ $type }}"
                                             style="background: #ffffff !important; border: 1px solid #dadbdd !important; border-radius: 4px !important; box-shadow: none !important; overflow: hidden !important; display: flex !important; flex-direction: column !important; height: 100% !important; font-family: Macan, 'Helvetica Neue', Helvetica, Arial, sans-serif !important; position: relative !important; transition: all 0.2s ease-in-out;">
 
-                                            {{-- 1. Thumbnail Image Section --}}
                                             <div
                                                 style="position: relative !important; display: block !important; width: 100% !important; aspect-ratio: 16 / 10 !important; overflow: hidden !important; background: #f8f9fa !important;">
                                                 <a href="{{ route("$type.details", [slug($product->name), $product->id]) }}"
@@ -49,21 +48,13 @@
                                                         alt="{{ $product->name }}"
                                                         style="width: 100% !important; height: 100% !important; object-fit: cover !important; display: block !important;">
                                                 </a>
-
-                                                {{-- Fast and Best Quality Ribbon Bar --}}
-                                                <div
-                                                    style="position: absolute; bottom: 0; left: 0; width: 100%; background: #e0a400; color: #ffffff; text-align: center; padding: 4px 0; font-size: 14px; font-weight: bold; font-family: sans-serif; letter-spacing: 0.5px;">
-                                                    Fast and Best Quality
-                                                </div>
                                             </div>
 
-                                            {{-- 2. Content Body --}}
                                             <div
                                                 style="padding: 16px !important; display: flex !important; flex-direction: column !important; flex-grow: 1 !important; justify-content: space-between !important;">
 
-                                                {{-- Gig Title --}}
                                                 <h6
-                                                    style="margin: 0 0 12px 0 !important; font-size: 15px !important; font-weight: 400 !important; line-height: 1.4 !important; min-height: 42px !important; overflow: hidden !important; display: -webkit-box !important; -webkit-line-clamp: 2 !important; -webkit-box-orient: vertical !important;">
+                                                    style="margin: 0 0 12px 0 !important; font-size: 15px !important; font-weight: 400 !important; line-height: 1.4 !important; min-height: 42px !important; overflow: hidden !important; display: -webkit-box !important; -webkit-line-clamp: 2 !important; -webkit-box-orient: vertical !important; text-transform: capitalize !important;">
                                                     <a href="{{ route("$type.details", [slug($product->name), $product->id]) }}"
                                                         style="color: #404145 !important; text-decoration: none !important; display: block !important;"
                                                         onmouseover="this.style.color='#1dbf73'"
@@ -72,7 +63,6 @@
                                                     </a>
                                                 </h6>
 
-                                                {{-- Verification Tick & Price Row --}}
                                                 <div
                                                     style="display: flex !important; justify-content: space-between !important; align-items: center !important; margin-bottom: 16px !important;">
                                                     <div>
@@ -91,11 +81,9 @@
                                                 <hr
                                                     style="border: 0; border-top: 1px solid #e4e5e7; margin: 0 0 12px 0 !important;">
 
-                                                {{-- 3. Seller Info Footer --}}
                                                 <div
                                                     style="display: flex !important; align-items: center !important; justify-content: space-between !important;">
 
-                                                    {{-- User Profile & Badge --}}
                                                     <div
                                                         style="display: flex !important; flex-direction: column !important; gap: 4px !important;">
                                                         <div onclick="window.open('{{ route('public.profile', ['username' => $product->user->username, 'contact' => 'true']) }}', '_blank')"
@@ -109,7 +97,6 @@
                                                             </span>
                                                         </div>
 
-                                                        {{-- Top Rated Badge --}}
                                                         <div
                                                             style="display: inline-flex; align-items: center; background: #f4f5f7; border: 1px solid #e4e5e7; padding: 2px 6px; border-radius: 3px; width: fit-content;">
                                                             <span
@@ -118,7 +105,6 @@
                                                         </div>
                                                     </div>
 
-                                                    {{-- Rating --}}
                                                     @php
                                                         $cardAvgRating =
                                                             $product->total_review > 0
@@ -128,7 +114,7 @@
                                                                 )
                                                                 : '5.0';
                                                         $totalReviews =
-                                                            $product->total_review > 0 ? $product->total_review : '90'; // fallback just to match your screen if 0
+                                                            $product->total_review > 0 ? $product->total_review : '90';
                                                     @endphp
                                                     <div
                                                         style="display: flex !important; align-items: center !important; gap: 3px !important; font-size: 13px !important; font-weight: 700 !important;">
