@@ -32,7 +32,7 @@
                         <div class="col-lg-12 productList">
                             <div class="row gy-4 jss-row">
                                 @include('Template::partials.loader')
-                                @forelse(@$products ?? [] as $product)
+                                @forelse($services ?? [] as $product)
                                     <div class="col-md-6 col-xxl-6 productListCol">
                                         <article class="card jss--card jss--card-{{ $type }}"
                                             style="background: #ffffff !important; border: 1px solid #eef2f5 !important; border-radius: 4px !important; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04) !important; overflow: hidden !important; display: flex !important; flex-direction: column !important; height: 100% !important; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important; position: relative !important;">
