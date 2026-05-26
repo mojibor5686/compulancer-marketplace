@@ -153,7 +153,7 @@ class ItemController extends Controller
 
         $subCategories = $category->subCategories;
 
-        return view('Template::products', compact('pageTitle', 'category', 'subCategories'));
+        return view('Template::categories', compact('pageTitle', 'category', 'subCategories'));
     }
 
     public function subcategoryWiseProduct($slug, $id)
