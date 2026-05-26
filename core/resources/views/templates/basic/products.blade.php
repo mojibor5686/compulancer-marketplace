@@ -3,28 +3,6 @@
     <main class="page-wrapper pt-0">
         <section class="category pt-80 pb-80">
             <div class="container">
-                @if (request()->routeIs('category.wise.product'))
-                    <div class="category2-slider">
-                        @foreach ($category->subCategories as $subcategory)
-                            <div class="category2-slider__slide">
-                                <div class="category2-item">
-                                    <a
-                                        href="{{ route('subcategory.wise.product', [slug($subcategory->name), $subcategory->id]) }}">
-                                        <div class="category2-item__icon">
-                                            <img src="{{ getImage(getFilePath('subcategory') . '/' . $subcategory->image, getFileSize('subcategory')) }}"
-                                                alt="@lang('Subcategory Image')" />
-                                        </div>
-                                    </a>
-                                    <a class="category2-item__name"
-                                        href="{{ route('subcategory.wise.product', [slug($subcategory->name), $subcategory->id]) }}">
-                                        {{ __($subcategory->name) }}
-                                    </a>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                @endif
-
                 <div class="page-content">
                     <div class="row">
                         <div class="col-lg-4 col-xl-3">
@@ -35,7 +13,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </section>
     </main>
