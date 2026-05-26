@@ -30,10 +30,10 @@
                 <div class="page-content">
                     <div class="row">
                         <div class="col-lg-12 productList">
-                            <div class="row gy-4 jss-row">
+                            <div class="row gy-4 row-cols-2 row-cols-lg-5 jss-row">
                                 @include('Template::partials.loader')
                                 @forelse($services ?? [] as $product)
-                                    <div class="col-6 col-lg-2 productListCol">
+                                    <div class="col productListCol">
                                         <article class="card jss--card jss--card-{{ $type }}"
                                             style="background: #ffffff !important; border: 1px solid #eef2f5 !important; border-radius: 4px !important; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04) !important; overflow: hidden !important; display: flex !important; flex-direction: column !important; height: 100% !important; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important; position: relative !important;">
                                             <link
