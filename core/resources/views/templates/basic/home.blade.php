@@ -52,29 +52,42 @@
                                                 </a>
                                             </div>
 
+                                            <div class="p-2">
+                                                <h6
+                                                    style="margin: 0 0 16px 0 !important; text-transform: capitalize; font-size: 14px !important; font-weight: 400 !important; line-height: 1.4 !important; height: 38px !important; overflow: hidden !important; display: -webkit-box !important; -webkit-line-clamp: 2 !important; -webkit-box-orient: vertical !important;">
+                                                    <a href="{{ route("$type.details", [slug($product->name), $product->id]) }}"
+                                                        style="color: #404145 !important; text-decoration: none !important; display: block !important; transition: color 0.1s ease !important;"
+                                                        onmouseover="this.style.color='#3C88EE'"
+                                                        onmouseout="this.style.color='#404145'">
+                                                        {{ __($product->name) }}
+                                                    </a>
+                                                </h6>
+                                            </div>
+
                                             <div
                                                 style="padding: 12px 16px !important; display: flex !important; flex-direction: column !important; flex-grow: 1 !important; justify-content: space-between !important; background: #ffffff !important;">
-
                                                 <div
                                                     style="border-top: 1px solid #070707 !important; padding-top: 10px !important; !important; width: 100% !important; background: #ffffff !important; margin-top: auto !important;">
-
                                                     <div
                                                         style="text-align: right !important; display: flex !important; flex-direction: row !important; justify-content: space-between; line-height: 1.1 !important;">
+                                                        <div>
+                                                            <i class="ri-check-line" style="font-size: 18px !important; color: #74767e !important;"></i>
+                                                        </div>
                                                         <div
                                                             style="display: flex; flex-direction: column; justify-content: start; align-items: baseline; gap:5px;">
+                                                            <span
+                                                                style="display: block !important; font-size: 10px !important; color: #74767e !important; text-transform: capitalize !important; font-weight: 600 !important; letter-spacing: 0.3px !important; margin-bottom: 2px !important;">@lang('Starting at')</span>
                                                             <span
                                                                 style="display: inline-flex !important; align-items: center !important; gap: 4px !important; font-weight: 800 !important; color: #23c366 !important; font-size: 16px !important;">
                                                                 <span
                                                                     style="font-family: 'Roboto', sans-serif !important; font-size: 15px !important; font-weight: 600 !important; margin-right: 1px !important;">৳</span>
                                                                 {{ number_format($product->price, 2) }}
                                                             </span>
-                                                            <span
-                                                                style="display: block !important; font-size: 10px !important; color: #74767e !important; text-transform: uppercase !important; font-weight: 600 !important; letter-spacing: 0.3px !important; margin-bottom: 2px !important;">@lang('Starting at')</span>
                                                         </div>
                                                     </div>
-
                                                 </div>
                                             </div>
+
                                             <div style="width: 100% !important;">
 
                                                 <div
@@ -120,16 +133,6 @@
                                                             style="color: #b5b6ba !important; font-weight: 400 !important; font-size: 11px !important;">({{ $product->total_review }})</span>
                                                     </div>
                                                 </div>
-
-                                                <h6
-                                                    style="margin: 0 0 16px 0 !important; text-transform: capitalize; font-size: 14px !important; font-weight: 400 !important; line-height: 1.4 !important; height: 38px !important; overflow: hidden !important; display: -webkit-box !important; -webkit-line-clamp: 2 !important; -webkit-box-orient: vertical !important;">
-                                                    <a href="{{ route("$type.details", [slug($product->name), $product->id]) }}"
-                                                        style="color: #404145 !important; text-decoration: none !important; display: block !important; transition: color 0.1s ease !important;"
-                                                        onmouseover="this.style.color='#3C88EE'"
-                                                        onmouseout="this.style.color='#404145'">
-                                                        {{ __($product->name) }}
-                                                    </a>
-                                                </h6>
                                             </div>
                                         </article>
                                     </div>
