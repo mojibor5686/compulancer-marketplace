@@ -2,12 +2,6 @@
 @section('content')
     <main class="page-wrapper pt-5" style="background-color: #fcfcfc;">
         <div class="container pb-5">
-
-            <div class="text-center mb-5">
-                <h1 class="fw-bold text-dark display-5 mb-2">{{ __($pageTitle) }}</h1>
-                <p class="text-muted fs-5">You bring the idea. {{ __($pageTitle) }}'s specialists will make it a reality.</p>
-            </div>
-
             <div class="row g-4">
                 <div class="col-lg-3 d-none d-lg-block">
                     <div class="card border-0 bg-transparent ps-2">
