@@ -29,7 +29,9 @@
                 </section>
                 <div class="page-content">
                     <div class="row">
-                        <div class="col-lg-8 col-xl-9 productList"> @include('Template::partials.product_list') </div>
+                        <div class="col-lg-12 productList">
+                            @include('Template::partials.product_list')
+                        </div>
                     </div>
                 </div>
             </div>
