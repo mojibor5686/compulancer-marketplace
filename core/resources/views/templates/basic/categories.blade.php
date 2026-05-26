@@ -13,7 +13,7 @@
                             </li>
                             @forelse($subCategories as $subCategory)
                                 <li class="mb-2">
-                                    <a href="#"
+                                    <a href="{{ route('subcategory.wise.product', [slug($subCategory->name), $subCategory->id]) }}"
                                         class="text-secondary text-decoration-none d-block py-1 subcategory-link"
                                         style="font-size: 14px; transition: color 0.2s ease;">
                                         {{ __($subCategory->name) }}
@@ -30,7 +30,8 @@
                     <div class="row g-3 row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5">
                         @forelse($subCategories as $subCategory)
                             <div class="col">
-                                <a href="#" class="text-decoration-none" style="width: 100%;">
+                                <a href="{{ route('subcategory.wise.product', [slug($subCategory->name), $subCategory->id]) }}"
+                                    class="text-decoration-none" style="width: 100%;">
                                     <div class="card h-100 text-center p-3 border-0 rounded-4 sub-cat-card"
                                         style="background: #f4f6f8; transition: all 0.3s ease-in-out;">
 
