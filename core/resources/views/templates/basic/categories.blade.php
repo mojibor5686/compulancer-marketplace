@@ -19,7 +19,7 @@
                             </li>
                             @forelse($subCategories as $subCategory)
                                 <li class="mb-2">
-                                    <a href="{{ route('subcategory.products', [slug($subCategory->name), $subCategory->id]) }}"
+                                    <a href="#"
                                         class="text-secondary text-decoration-none d-block py-1 subcategory-link"
                                         style="font-size: 14px; transition: color 0.2s ease;">
                                         {{ __($subCategory->name) }}
