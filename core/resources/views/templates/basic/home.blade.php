@@ -65,8 +65,8 @@
                                                     </h6>
                                                 </div>
 
-                                                <div
-                                                    style="px-2 display: flex !important; justify-content: space-between !important; align-items: center !important; margin-bottom: 16px !important;">
+                                                <div class="px-2"
+                                                    style="display: flex !important; justify-content: space-between !important; align-items: center !important;">
                                                     <div>
                                                         <i class="ri-check-line"
                                                             style="font-size: 20px !important; color: #b5b6ba !important; font-weight: bold;"></i>
@@ -83,9 +83,8 @@
                                                 <hr
                                                     style="border: 0; border-top: 1px solid #e4e5e7; margin: 0 0 12px 0 !important;">
 
-                                                <div
+                                                <div class="px-2"
                                                     style="display: flex !important; align-items: center !important; justify-content: space-between !important;">
-
                                                     <div
                                                         style="display: flex !important; flex-direction: column !important; gap: 4px !important;">
                                                         <div onclick="window.open('{{ route('public.profile', ['username' => $product->user->username, 'contact' => 'true']) }}', '_blank')"
