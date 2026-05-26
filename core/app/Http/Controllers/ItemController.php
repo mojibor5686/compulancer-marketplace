@@ -2,71 +2,77 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use App\Models\ExtraService;
+use App\Models\Frontend;
 use App\Models\Job;
-use App\Models\User;
 use App\Models\JobBid;
 use App\Models\Review;
 use App\Models\Service;
-use App\Models\Category;
 use App\Models\Software;
 use App\Models\SubCategory;
-use App\Models\ExtraService;
-use App\Http\Controllers\Controller;
-use App\Models\Frontend;
+use App\Models\User;
 
 class ItemController extends Controller
 {
     public function service()
     {
-        $pageTitle  = 'Service';
-        $type       = 'service';
+        $pageTitle = 'Service';
+        $type = 'service';
+
         return view('Template::home', compact('pageTitle', 'type'));
     }
 
     public function software()
     {
-        $pageTitle  = 'Software';
-        $type       = 'software';
+        $pageTitle = 'Software';
+        $type = 'software';
+
         return view('Template::home', compact('pageTitle', 'type'));
     }
 
     public function job()
     {
-        $pageTitle  = 'Job';
-        $type       = 'job';
+        $pageTitle = 'Job';
+        $type = 'job';
+
         return view('Template::home', compact('pageTitle', 'type'));
     }
 
     public function serviceDetails($slug, $id)
     {
-        $pageTitle        = 'Service Details';
+        $pageTitle = 'Service Details';
         $productDetails = Service::where('id', $id)->active()->userActiveCheck()->checkData()->with('user')->first();
-        if (!$productDetails) {
+        if (! $productDetails) {
             $notify[] = ['error', 'The requested service is no longer available or has been removed'];
+
             return redirect()->route('home')->withNotify($notify);
         }
-        $extraServices    = ExtraService::where('service_id', $productDetails->id)->active()->latest()->get();
-        $seoContents      = (object)seoContentSliced($productDetails->tag, $productDetails->name, $productDetails->description, getFilePath('service'), $productDetails->image, getFileSize('service'));
-        $seoImage = getImage(getFilePath('service') . '/' . $productDetails->image, getFileSize('service'));
+        $extraServices = ExtraService::where('service_id', $productDetails->id)->active()->latest()->get();
+        $seoContents = (object) seoContentSliced($productDetails->tag, $productDetails->name, $productDetails->description, getFilePath('service'), $productDetails->image, getFileSize('service'));
+        $seoImage = getImage(getFilePath('service').'/'.$productDetails->image, getFileSize('service'));
+
         return view('Template::service.service_details', compact('pageTitle', 'productDetails', 'extraServices', 'seoContents', 'seoImage'));
     }
 
     public function softwareDetails($slug, $id)
     {
-        $pageTitle        = 'Software Details';
-        $productDetails   = Software::where('id', $id)->active()->userActiveCheck()->checkData()->first();
-        if (!$productDetails) {
+        $pageTitle = 'Software Details';
+        $productDetails = Software::where('id', $id)->active()->userActiveCheck()->checkData()->first();
+        if (! $productDetails) {
             $notify[] = ['error', 'The requested software is no longer available or has been removed'];
+
             return redirect()->route('home')->withNotify($notify);
         }
-        $seoContents      = (object)seoContentSliced($productDetails->tag, $productDetails->name, $productDetails->description, getFilePath('software'), $productDetails->image, getFileSize('software'));
-        $seoImage = getImage(getFilePath('software') . '/' . $productDetails->image, getFileSize('software'));
+        $seoContents = (object) seoContentSliced($productDetails->tag, $productDetails->name, $productDetails->description, getFilePath('software'), $productDetails->image, getFileSize('software'));
+        $seoImage = getImage(getFilePath('software').'/'.$productDetails->image, getFileSize('software'));
+
         return view('Template::software.software_details', compact('pageTitle', 'productDetails', 'seoContents', 'seoImage'));
     }
 
     public function jobDetails($slug, $id)
     {
-        $pageTitle      = 'Job Details';
+        $pageTitle = 'Job Details';
         $productDetails = Job::where('id', $id)
             ->active()
             ->userActiveCheck()
@@ -76,8 +82,9 @@ class ItemController extends Controller
             }, 'jobBidings.user', 'jobBidings.user.level'])
             ->first();
 
-        if (!$productDetails) {
+        if (! $productDetails) {
             $notify[] = ['error', 'The requested job is no longer available or has been removed'];
+
             return redirect()->route('home')->withNotify($notify);
         }
 
@@ -103,7 +110,7 @@ class ItemController extends Controller
         }
 
         // Normal page load
-        $seoContents = (object)seoContentSliced(
+        $seoContents = (object) seoContentSliced(
             $productDetails->skill,
             $productDetails->name,
             $productDetails->description,
@@ -116,7 +123,7 @@ class ItemController extends Controller
             ->where('user_id', auth()->id() ?? 0)
             ->exists();
 
-        $seoImage = getImage(getFilePath('job') . '/' . $productDetails->image, getFileSize('job'));
+        $seoImage = getImage(getFilePath('job').'/'.$productDetails->image, getFileSize('job'));
 
         return view('Template::job_details', compact(
             'pageTitle',
@@ -127,31 +134,26 @@ class ItemController extends Controller
         ));
     }
 
-
     public function categoryWiseProduct($slug, $id)
     {
-        $category = Category::where('id', $id)->active()->with('subCategories', function ($subCategories) {
-            $subCategories->active();
-        })->first();
+        $category = Category::where('id', $id)
+            ->active()
+            ->with(['subCategories' => function ($query) {
+                $query->active();
+            }])
+            ->first();
 
-        if (!$category) {
+        if (! $category) {
             $notify[] = ['error', 'The requested category is no longer available or has been removed'];
+
             return redirect()->route('home')->withNotify($notify);
         }
 
         $pageTitle = $category->name;
-        $items = $this->getItems('category_id', $category->id, 'checkSubCategory');
 
-        $counts = [
-            'service' => count($items['service']),
-            'software' => count($items['software']),
-            'job' => count($items['job']),
-        ];
+        $subCategories = $category->subCategories;
 
-        $maxKey = array_keys($counts, max($counts))[0];
-
-
-        return view('Template::products', compact('pageTitle', 'category', 'items', 'maxKey'));
+        return view('Template::products', compact('pageTitle', 'category', 'subCategories'));
     }
 
     public function subcategoryWiseProduct($slug, $id)
@@ -160,14 +162,15 @@ class ItemController extends Controller
             $category->active();
         })->first();
 
-        if (!$subcategory) {
+        if (! $subcategory) {
             $notify[] = ['error', 'The requested subcategory is no longer available or has been removed'];
+
             return redirect()->route('home')->withNotify($notify);
         }
 
         $pageTitle = $subcategory->name;
         $items = $this->getItems('sub_category_id', $subcategory->id, 'checkCategory');
-        $isSubcat = True;
+        $isSubcat = true;
 
         $counts = [
             'service' => count($items['service']),
@@ -183,10 +186,11 @@ class ItemController extends Controller
     public function publicProfile($username)
     {
         $pageTitle = 'User Profile';
-        $user      = User::where('username', $username)->active()->with('jobBids')->first();
+        $user = User::where('username', $username)->active()->with('jobBids')->first();
 
-        if (!$user) {
+        if (! $user) {
             $notify[] = ['error', 'The requested user profile could not be found or has been deactivated'];
+
             return redirect()->route('home')->withNotify($notify);
         }
 
@@ -212,16 +216,16 @@ class ItemController extends Controller
             ),
         ];
 
-
-        $seoImage = getImage(getFilePath('userProfile') . '/' . @$user->image, isAvatar: true);
+        $seoImage = getImage(getFilePath('userProfile').'/'.@$user->image, isAvatar: true);
 
         $reviews = Review::where('to_id', $user->id)->latest()->with('user')->get();
+
         return view('Template::public_profile', compact('pageTitle', 'user', 'reviews', 'items', 'maxKey', 'seoContents', 'seoImage'));
     }
 
     private function getItems($columnName, $columnValue, $scopeName = null)
     {
-        $items    = ['Service', 'Software', 'Job'];
+        $items = ['Service', 'Software', 'Job'];
         $itemData = [];
 
         foreach ($items as $item) {
@@ -231,6 +235,7 @@ class ItemController extends Controller
             }
             $itemData[strtolower($item)] = $query->latest()->limit(10)->with('user')->get();
         }
+
         return $itemData;
     }
 }

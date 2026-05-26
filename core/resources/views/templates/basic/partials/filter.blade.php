@@ -258,8 +258,6 @@
                         }
                     });
 
-
-
                 }
 
                 // Event bindings
