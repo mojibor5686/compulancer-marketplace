@@ -43,7 +43,7 @@ class ServiceBookingController extends Controller
             'grandTotal'        => $servicePrice,
             'orderNumber'       => getTrx(),
             'price'             => $servicePrice,
-            'extraServices'     => $request->package_type,
+            'package_type'     => $request->package_type,
             'couponId'          => null
         ]);
 
@@ -71,11 +71,6 @@ class ServiceBookingController extends Controller
         if (!$service) {
             $notify[] = ['error', 'Service not found'];
             return to_route('home')->withNotify($notify);
-        }
-
-        $extraServicesId = [];
-        if (@$orderDetails['extraServices']) {
-            $extraServicesId = collect($orderDetails['extraServices'])->pluck('id')->toArray();
         }
 
         $gatewayCurrency = GatewayCurrency::whereHas('method', function ($gate) {

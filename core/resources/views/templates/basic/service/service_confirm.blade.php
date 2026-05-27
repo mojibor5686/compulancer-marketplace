@@ -69,7 +69,7 @@
                                                 <span class="info-list-item__label">@lang('Package Type')</span>
                                                 <span
                                                     class="info-list-item__value text-capitalize badge badge--success text-white px-2">
-                                                    {{ __($orderDetails['extraServices'] ?? 'Basic') }}
+                                                    {{ __($orderDetails['package_type']) }}
                                                 </span>
                                             </li>
                                             <li class="info-list-item">
