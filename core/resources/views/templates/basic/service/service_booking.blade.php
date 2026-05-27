@@ -10,6 +10,9 @@
                                 <form class="row justify-content-center mb-30-none"
                                     action="{{ route('user.service.add.booking', $service->id) }}" method="POST">
                                     @csrf
+                                    <input type="hidden" name="package_type" value="{{ request()->package_type }}">
+                                    <input type="hidden" name="package_id" value="{{ request()->package_id }}">
+
                                     <div class="col-xl-9 col-lg-9 mb-30">
                                         <div class="item-details-area">
                                             <div class="item-card-wrapper border-0 p-0 list-view">
@@ -39,40 +42,7 @@
                                                 </div>
                                             </div>
 
-                                            @if ($extraServices->count())
-                                                <div class="service-card mt-40">
-                                                    <div class="service-card-header bg--gray text-center">
-                                                        <h4 class="title">@lang('Extra Services')</h4>
-                                                    </div>
-                                                    <div class="service-card-body">
-                                                        <div class="service-card-form">
-                                                            @foreach ($extraServices as $key => $extraService)
-                                                                <div class="form-row">
-                                                                    <div class="left">
-                                                                        <div class="form-group custom-check-group">
-                                                                            <input class="extraServices" type="checkbox"
-                                                                                name="extra_services[]"
-                                                                                id="{{ $key }}"
-                                                                                data-id="{{ $extraService->id }}"
-                                                                                data-key="{{ $key }}"
-                                                                                data-price="{{ getAmount($extraService->price) }}"
-                                                                                value="{{ $extraService->id }}"
-                                                                                class="extraService">
-                                                                            <label
-                                                                                for="{{ $key }}">{{ __($extraService->name) }}</label>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="right">
-                                                                        <span
-                                                                            class="value">{{ showAmount($extraService->price) }}</span>
-                                                                    </div>
-                                                                </div>
-                                                            @endforeach
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            @endif
-                                            <div class="product-desc mt-80">
+                                            <div class="product-desc mt-40">
                                                 <div class="section-header">
                                                     <h2 class="section-title">@lang('Service Description')</h2>
                                                 </div>
@@ -82,6 +52,7 @@
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="col-xl-3 col-lg-3 mb-30">
                                         <div class="sidebar">
                                             <div class="widget custom-widget mb-30">
@@ -93,11 +64,9 @@
                                                                 id="servicePrice">{{ showAmount($service->price, currencyFormat: false) }}</span>
                                                         </div>
                                                     </li>
-                                                    <li><span>@lang('Extras Service'):</span>
-                                                        <div class="order-price-tags">
-                                                            <span>{{ gs('cur_sym') }}</span><span
-                                                                id="extraServicePrice">0.00</span>
-                                                        </div>
+                                                    <li><span>@lang('Package Type'):</span>
+                                                        <span
+                                                            class="badge badge--success text-capitalize">{{ __(request()->package_type ?? 'Basic') }}</span>
                                                     </li>
                                                     <li><span>@lang('Quantity'):</span>
                                                         <span id="quantity">1</span>
@@ -133,7 +102,6 @@
     </section>
 
     @include('Template::partials.down_ad')
-
 @endsection
 
 @push('script')
@@ -141,37 +109,16 @@
         (function($) {
             "use strict";
 
-            var totalPrice = '{{ getAmount($service->price) }}';
-            var servicePrice = parseFloat('{{ getAmount($service->price) }}');
-            var extraService = 0;
+            var basePrice = parseFloat('{{ getAmount($service->price) }}');
 
             $('[name=service_qty]').on('change', function() {
-                var quantity = $(this).val();
-                servicePrice = parseFloat(parseFloat('{{ getAmount($service->price) }}' * quantity));
+                var quantity = parseInt($(this).val()) || 1;
+                var calculatedTotal = basePrice * quantity;
+
                 $('#quantity').text(quantity);
-                $('#servicePrice').text(parseFloat(servicePrice).toFixed(2));
-
-                totalPriceCalculation(servicePrice, extraService);
+                $('#servicePrice').text(calculatedTotal.toFixed(2));
+                $('#totalPrice').text(calculatedTotal.toFixed(2));
             });
-
-            $('.extraServices').on('change', function() {
-                var key = $(this).data('key');
-                var price = $(this).data('price');
-
-                if ($(`#${key}`).is(":checked")) {
-                    extraService += price;
-                } else {
-                    extraService -= price;
-                }
-
-                $('#extraServicePrice').text(parseFloat(extraService).toFixed(2));
-                totalPriceCalculation(servicePrice, extraService);
-            });
-
-            function totalPriceCalculation(servicePrice, extraService) {
-                totalPrice = parseFloat(servicePrice + extraService).toFixed(2);
-                $('#totalPrice').text(`${totalPrice}`);
-            }
         })(jQuery);
     </script>
 @endpush
