@@ -30,6 +30,7 @@
         <input type="hidden" name="package_type" id="selectedPackageType" value="basic">
         <input type="hidden" name="package_id" id="selectedPackageId" value="{{ $basicPkg->id ?? '' }}">
         <div class="extra_services_container"></div>
+        <input type="hidden" value="{{ $productDetails->id }}" name="service_id">
 
         <div class="kwork-packages-accordion d-flex flex-column gap-3"
             style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
@@ -159,7 +160,8 @@
                 <div class="kwork-card-wrapper" data-package="premium" data-id="{{ $premiumPkg->id }}">
                     <div class="kwork-card-header d-flex justify-content-between align-items-center">
                         <div class="d-flex align-items-center gap-2">
-                            <span class="currency-symbol">&#2547;{{ number_format($premiumPkg->price ?? 0, 0) }}</span>
+                            <span
+                                class="currency-symbol">&#2547;{{ number_format($premiumPkg->price ?? 0, 0) }}</span>
                             <span class="package-name">@lang('Premium')</span>
                         </div>
                         <i class="las la-angle-down accordion-arrow"></i>
