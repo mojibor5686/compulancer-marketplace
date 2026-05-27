@@ -558,7 +558,7 @@
 
                             <!-- Contact Us Widget -->
                             @if ($productDetails->user)
-                                <div class="jss-details-sidebar__block">
+                                <div class="jss-details-sidebar_block" style="margin:20px 0;">
                                     <div class="widget-card">
                                         <div class="widget-card__header">
                                             <h5 class="widget-card__title">
@@ -616,9 +616,9 @@
                         <p class="text-muted small m-0">@lang('Handpicked services from the same category.')</p>
                     </div>
 
-                    <div class="row g-4">
+                    <div class="row g-4 kwrk-custom-grid-container">
                         @foreach ($relatedServices as $product)
-                            <div class="col-sm-6 col-md-4 col-lg-3">
+                            <div class="kwrk-custom-grid-col">
                                 <article class="card jss--card jss--card-{{ $type }}"
                                     style="background: #ffffff !important; border: 1px solid #dadbdd !important; border-radius: 4px !important; box-shadow: none !important; overflow: hidden !important; display: flex !important; flex-direction: column !important; height: 100% !important; font-family: Macan, 'Helvetica Neue', Helvetica, Arial, sans-serif !important; position: relative !important; transition: all 0.2s ease-in-out;">
                                     @php
@@ -729,6 +729,36 @@
                             </div>
                         @endforeach
                     </div>
+
+                    <style>
+                        .kwrk-custom-grid-container {
+                            display: flex !important;
+                            flex-wrap: wrap !important;
+                        }
+
+                        .kwrk-custom-grid-col {
+                            width: 50% !important;
+                            padding: 8px !important;
+                        }
+
+                        @media (min-width: 576px) {
+                            .kwrk-custom-grid-col {
+                                width: 33.333% !important;
+                            }
+                        }
+
+                        @media (min-width: 768px) {
+                            .kwrk-custom-grid-col {
+                                width: 25% !important;
+                            }
+                        }
+
+                        @media (min-width: 1200px) {
+                            .kwrk-custom-grid-col {
+                                width: 20% !important;
+                            }
+                        }
+                    </style>
                 </div>
             </section>
         @endif
