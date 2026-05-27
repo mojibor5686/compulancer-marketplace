@@ -47,14 +47,11 @@
                             <tr class="fixed-row">
                                 <td class="fw-bold p-3">@lang('Package Title')</td>
                                 <td><input type="text" name="package_title[basic]" class="form-control form--control"
-                                        value="{{ $basicPkg->package_title ?? '' }}" placeholder="e.g. Silver Plan"
-                                        required></td>
+                                        value="{{ $basicPkg->package_title ?? '' }}" placeholder="e.g. Silver Plan"></td>
                                 <td><input type="text" name="package_title[standard]" class="form-control form--control"
-                                        value="{{ $standardPkg->package_title ?? '' }}" placeholder="e.g. Gold Plan"
-                                        required></td>
+                                        value="{{ $standardPkg->package_title ?? '' }}" placeholder="e.g. Gold Plan"></td>
                                 <td><input type="text" name="package_title[premium]" class="form-control form--control"
-                                        value="{{ $premiumPkg->package_title ?? '' }}" placeholder="e.g. Diamond Plan"
-                                        required></td>
+                                        value="{{ $premiumPkg->package_title ?? '' }}" placeholder="e.g. Diamond Plan"></td>
                                 <td></td>
                             </tr>
 
@@ -62,15 +59,15 @@
                                 <td class="fw-bold p-3">@lang('Package Description')</td>
                                 <td>
                                     <textarea name="package_description[basic]" class="form-control form--control" rows="2"
-                                        placeholder="What's included..." required>{{ $basicPkg->package_description ?? '' }}</textarea>
+                                        placeholder="What's included...">{{ $basicPkg->package_description ?? '' }}</textarea>
                                 </td>
                                 <td>
                                     <textarea name="package_description[standard]" class="form-control form--control" rows="2"
-                                        placeholder="What's included..." required>{{ $standardPkg->package_description ?? '' }}</textarea>
+                                        placeholder="What's included...">{{ $standardPkg->package_description ?? '' }}</textarea>
                                 </td>
                                 <td>
                                     <textarea name="package_description[premium]" class="form-control form--control" rows="2"
-                                        placeholder="What's included..." required>{{ $premiumPkg->package_description ?? '' }}</textarea>
+                                        placeholder="What's included...">{{ $premiumPkg->package_description ?? '' }}</textarea>
                                 </td>
                                 <td></td>
                             </tr>
@@ -78,12 +75,12 @@
                             <tr class="fixed-row">
                                 <td class="fw-bold p-3">@lang('Delivery Time')</td>
                                 <td><input type="text" name="delivery_time[basic]" class="form-control form--control"
-                                        value="{{ $basicPkg->delivery_time ?? '' }}" placeholder="e.g. 1 Day" required></td>
+                                        value="{{ $basicPkg->delivery_time ?? '' }}" placeholder="e.g. 1 Day"></td>
                                 <td><input type="text" name="delivery_time[standard]" class="form-control form--control"
-                                        value="{{ $standardPkg->delivery_time ?? '' }}" placeholder="e.g. 3 Days" required>
+                                        value="{{ $standardPkg->delivery_time ?? '' }}" placeholder="e.g. 3 Days">
                                 </td>
                                 <td><input type="text" name="delivery_time[premium]" class="form-control form--control"
-                                        value="{{ $premiumPkg->delivery_time ?? '' }}" placeholder="e.g. 5 Days" required>
+                                        value="{{ $premiumPkg->delivery_time ?? '' }}" placeholder="e.g. 5 Days">
                                 </td>
                                 <td></td>
                             </tr>
@@ -94,7 +91,7 @@
                                         <td>
                                             <input type="text" name="custom_features[{{ $index }}][name]"
                                                 class="form-control form--control" value="{{ $featureKey }}"
-                                                placeholder="e.g. Keywords, Meta tags" required>
+                                                placeholder="e.g. Keywords, Meta tags">
                                         </td>
                                         <td class="text-center">
                                             <input type="checkbox" name="custom_features[{{ $index }}][basic]"
@@ -123,7 +120,7 @@
                             @else
                                 <tr class="feature-row">
                                     <td><input type="text" name="custom_features[0][name]"
-                                            class="form-control form--control" placeholder="e.g. Keywords" required></td>
+                                            class="form-control form--control" placeholder="e.g. Keywords"></td>
                                     <td class="text-center"><input type="checkbox" name="custom_features[0][basic]"
                                             value="yes" style="transform: scale(1.3);"></td>
                                     <td class="text-center"><input type="checkbox" name="custom_features[0][standard]"
@@ -140,16 +137,16 @@
                                 <td class="fw-bold p-3">@lang('Price') ({{ __(gs('cur_text')) }})</td>
                                 <td><input type="number" step="any" name="price[basic]"
                                         class="form-control form--control fw-bold"
-                                        value="{{ $basicPkg ? getAmount($basicPkg->price) : '' }}" placeholder="0.00"
-                                        required></td>
+                                        value="{{ $basicPkg ? getAmount($basicPkg->price) : '' }}" placeholder="0.00">
+                                </td>
                                 <td><input type="number" step="any" name="price[standard]"
                                         class="form-control form--control fw-bold"
                                         value="{{ $standardPkg ? getAmount($standardPkg->price) : '' }}"
-                                        placeholder="0.00" required></td>
+                                        placeholder="0.00"></td>
                                 <td><input type="number" step="any" name="price[premium]"
                                         class="form-control form--control fw-bold"
-                                        value="{{ $premiumPkg ? getAmount($premiumPkg->price) : '' }}" placeholder="0.00"
-                                        required></td>
+                                        value="{{ $premiumPkg ? getAmount($premiumPkg->price) : '' }}"
+                                        placeholder="0.00"></td>
                                 <td></td>
                             </tr>
                         </tbody>
@@ -198,7 +195,7 @@
 
                 var html = `<tr class="feature-row">
                                 <td>
-                                    <input type="text" name="custom_features[${index}][name]" class="form-control form--control" placeholder="Enter feature name (e.g. Meta tags)" required>
+                                    <input type="text" name="custom_features[${index}][name]" class="form-control form--control" placeholder="Enter feature name (e.g. Meta tags)" >
                                 </td>
                                 <td class="text-center">
                                     <input type="checkbox" name="custom_features[${index}][basic]" value="yes" style="transform: scale(1.3);">

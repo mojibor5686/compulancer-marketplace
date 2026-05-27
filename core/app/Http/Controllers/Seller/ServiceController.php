@@ -382,14 +382,14 @@ class ServiceController extends Controller
     public function storePackages(Request $request, $id)
     {
         $validation = Validator::make($request->all(), [
-            'package_title'            => 'required|array',
-            'package_title.*'          => 'required|string|max:255',
-            'package_description'      => 'required|array',
-            'package_description.*'    => 'required|string',
-            'delivery_time'            => 'required|array',
-            'delivery_time.*'          => 'required|string|max:255',
-            'price'                    => 'required|array',
-            'price.*'                  => 'required|numeric|min:0',
+            'package_title'            => 'nullable|array',
+            'package_title.*'          => 'nullable|string|max:255',
+            'package_description'      => 'nullable|array',
+            'package_description.*'    => 'nullable|string',
+            'delivery_time'            => 'nullable|array',
+            'delivery_time.*'          => 'nullable|string|max:255',
+            'price'                    => 'nullable|array',
+            'price.*'                  => 'nullable|numeric|min:0',
             'features'                 => 'nullable|array',
         ]);
 
