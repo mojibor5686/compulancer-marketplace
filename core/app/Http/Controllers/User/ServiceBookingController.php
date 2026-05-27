@@ -8,6 +8,7 @@ use App\Models\Coupon;
 use App\Models\ExtraService;
 use App\Models\GatewayCurrency;
 use App\Models\Service;
+use App\Models\ServicePackage;
 use App\Traits\BookingOrder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -20,11 +21,10 @@ class ServiceBookingController extends Controller
     {
         $request->validate([
             'service_qty'      => 'required|integer|min:1',
-            'extra_services'   => 'nullable|array',
-            'extra_services.*' => 'integer|exists:extra_services,id',
         ]);
 
         $service = Service::where('id', $request->service_id)->active()->notAuthUser()->checkData()->with('user')->first();
+        $package = ServicePackage::where('id', $request->package_id)->active()->first();
 
         if (!$service) {
             $notify[] = ['error', 'You are not allowed to make a booking'];
@@ -32,7 +32,8 @@ class ServiceBookingController extends Controller
         }
 
         $quantity     = $request->service_qty;
-        $servicePrice = $service->price * $quantity;
+
+        $servicePrice = $package->price * $quantity;
 
         session()->forget('orderDetails');
         session()->put('orderDetails', [
