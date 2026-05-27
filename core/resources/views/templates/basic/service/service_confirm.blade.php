@@ -67,7 +67,7 @@
                                             </li>
                                             <li class="info-list-item">
                                                 <span class="info-list-item__label">@lang('Package Type')</span>
-                                                <span class="info-list-item__value">
+                                                <span class="info-list-item__value" style="color: #333 !important;">
                                                     {{ __($orderDetails['extraServices']) }}
                                                 </span>
                                             </li>
