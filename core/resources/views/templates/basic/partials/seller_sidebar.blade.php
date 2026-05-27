@@ -6,7 +6,7 @@
     <div
         class="sidebar-brand-wrapper d-flex align-items-center p-3 border-bottom border-secondary border-opacity-25 mb-2">
         <a href="{{ url('/') }}" class="text-decoration-none">
-            <img src="https://work.mojibor.com/assets/images/logo_icon/logo.png" alt="Compulancer Logo" class="img-fluid"
+            <img src="{{ siteLogo() }}" alt="Compulancer Logo" class="img-fluid"
                 style="max-height: 35px; object-fit: contain;">
         </a>
     </div>
