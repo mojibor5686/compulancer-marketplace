@@ -128,18 +128,18 @@
                                 </tr>
                             @endif
 
-                            <tr id="priceRow" class="table-success">
-                                <td class="fw-bold p-3 text-success">@lang('Price') ({{ __(gs('cur_text')) }})</td>
+                            <tr id="priceRow">
+                                <td class="fw-bold p-3">@lang('Price') ({{ __(gs('cur_text')) }})</td>
                                 <td><input type="number" step="any" name="price[basic]"
-                                        class="form-control form--control fw-bold text-success"
+                                        class="form-control form--control fw-bold"
                                         value="{{ $basicPkg ? getAmount($basicPkg->price) : '' }}" placeholder="0.00"
                                         required></td>
                                 <td><input type="number" step="any" name="price[standard]"
-                                        class="form-control form--control fw-bold text-success"
+                                        class="form-control form--control fw-bold"
                                         value="{{ $standardPkg ? getAmount($standardPkg->price) : '' }}"
                                         placeholder="0.00" required></td>
                                 <td><input type="number" step="any" name="price[premium]"
-                                        class="form-control form--control fw-bold text-success"
+                                        class="form-control form--control fw-bold"
                                         value="{{ $premiumPkg ? getAmount($premiumPkg->price) : '' }}" placeholder="0.00"
                                         required></td>
                                 <td></td>
@@ -163,9 +163,8 @@
         (function($) {
             "use strict";
 
-            // ডাইনামিক রো যোগ করার স্ক্রিপ্ট
             $('#addNewFeatureBtn').on('click', function() {
-                let index = $('.feature-row').length + Date.now(); // ইউনিক ইনডেক্স তৈরির জন্য
+                let index = $('.feature-row').length + Date.now();
 
                 var html = `<tr class="feature-row">
                                 <td>
@@ -185,16 +184,13 @@
                                 </td>
                             </tr>`;
 
-                // প্রাইস রো এর ঠিক ওপরে নতুন কাস্টম রো পুশ করবে
                 $('#priceRow').before(html);
             });
 
-            // রো ডিলিট করার স্ক্রিপ্ট
             $(document).on('click', '.removeFeatureRowBtn', function() {
                 $(this).closest('.feature-row').remove();
             });
 
-            // Ajax Form Submission
             $('#saveAndContinue').on('click', function() {
                 var btn = $(this);
                 var originalButtonText = btn.html();
