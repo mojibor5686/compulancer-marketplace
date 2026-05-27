@@ -186,165 +186,159 @@
     </div>
 
 
-    <div class="kwork-mobile-package-view d-md-none bg-white border rounded">
-        <div class="mobile-tabs-grid d-flex border-bottom text-center">
-            <div class="mobile-tab-item flex-fill active" data-target="mob-basic">
+    <div class="kwork-mobile-package-view d-md-none">
+        <div class="mobile-tabs-grid">
+            <div class="mobile-tab-item active" data-target="mob-basic">
                 <div class="label">@lang('Basic')</div>
                 <div class="price">&#2547;{{ number_format($basicPkg->price ?? 0, 0) }}</div>
             </div>
-            <div class="mobile-tab-item flex-fill" data-target="mob-standard">
+            <div class="mobile-tab-item" data-target="mob-standard">
                 <div class="label">@lang('Standard')</div>
                 <div class="price">&#2547;{{ number_format($standardPkg->price ?? 0, 0) }}</div>
             </div>
-            <div class="mobile-tab-item flex-fill" data-target="mob-premium">
+            <div class="mobile-tab-item" data-target="mob-premium">
                 <div class="label">@lang('Premium')</div>
                 <div class="price">&#2547;{{ number_format($premiumPkg->price ?? 0, 0) }}</div>
             </div>
         </div>
 
-        <div class="mobile-tab-content-wrapper p-3">
+        <div class="mobile-tab-content-wrapper">
             <div class="mob-panel-block" id="mob-basic">
-                <form action="{{ route('user.service.add.booking', $productDetails->id) }}" method="POST">
+                <form action="{{ route('user.service.add.booking', $productDetails->id) }}" method="POST"
+                    class="m-0 p-0">
                     @csrf
                     <input type="hidden" name="package_type" value="basic">
                     <input type="hidden" name="package_id" value="{{ $basicPkg->id ?? '' }}">
                     <input type="hidden" name="service_id" value="{{ $productDetails->id }}">
 
-                    <h5 class="package-title font-weight-bold mb-2">@lang('Package Summary')</h5>
-                    <p class="text-muted small mb-3">{{ $basicPkg->package_title ?? '' }} -
-                        {{ $basicPkg->package_description ?? '' }}</p>
+                    <h4 class="mob-pkg-title">{{ $basicPkg->package_title ?? 'Basic Package' }}</h4>
+                    <p class="mob-pkg-desc">{{ $basicPkg->package_description ?? '' }}</p>
 
-                    <ul class="feature-list-mobile mb-3">
-                        @foreach ($basicFeatures as $featureName => $isAvailable)
-                            <li
-                                class="d-flex align-items-center justify-content-between py-1 border-bottom small {{ $isAvailable == 'no' ? 'text-muted opacity-50' : '' }}">
-                                <span>{{ __($featureName) }}</span>
-                                <i
-                                    class="las {{ $isAvailable == 'yes' ? 'la-check text-success' : 'la-check text-muted opacity-25' }} fs-5"></i>
-                            </li>
-                        @endforeach
-                        <li class="d-flex align-items-center justify-content-between py-1 border-bottom small">
-                            <span>@lang('Delivery')</span>
-                            <span class="font-weight-bold">{{ $basicPkg->delivery_time ?? '1' }}
-                                @lang('days')</span>
-                        </li>
-                    </ul>
-
-                    <div class="d-flex align-items-center justify-content-between mb-3">
-                        <span class="small font-weight-bold">@lang('Number of words')</span>
-                        <input type="number" name="service_qty" class="form-control mobile-qty-input-box"
-                            data-price="{{ $basicPkg->price ?? 0 }}" value="1" min="1"
-                            style="width: 75px; height: 32px; text-align: center;">
+                    <div class="mob-delivery-time">
+                        <i class="lar la-clock"></i> <span>@lang('Delivery Time'):</span>
+                        <strong>{{ $basicPkg->delivery_time ?? '1' }} @lang('Days')</strong>
                     </div>
 
-                    <div class="row gx-2">
-                        <div class="col-10">
-                            <button type="submit"
-                                class="btn btn-success w-100 kwork-mob-submit-btn">@lang('Order for') &#2547;<span
-                                    class="mob-price-text">{{ number_format($basicPkg->price ?? 0, 0) }}</span></button>
+                    <ul class="mob-feature-ul">
+                        @foreach ($basicFeatures as $featureName => $isAvailable)
+                            <li class="{{ $isAvailable == 'no' ? 'disabled' : '' }}">
+                                <i
+                                    class="las {{ $isAvailable == 'yes' ? 'la-check text-success' : 'la-times text-muted' }}"></i>
+                                <span>{{ __($featureName) }}</span>
+                            </li>
+                        @endforeach
+                    </ul>
+
+                    <div class="mob-qty-row">
+                        <span class="qty-text">@lang('Number of words / Qty')</span>
+                        <input type="number" name="service_qty" class="form-control mobile-qty-input-box"
+                            data-price="{{ $basicPkg->price ?? 0 }}" value="1" min="1">
+                    </div>
+
+                    <div class="mob-action-buttons">
+                        <div class="submit-btn-container">
+                            <button type="submit" class="kwork-mob-submit-btn">
+                                @lang('Order for') &#2547;<span
+                                    class="mob-price-text">{{ number_format($basicPkg->price ?? 0, 0) }}</span>
+                            </button>
                         </div>
-                        <div class="col-2">
-                            <button type="button"
-                                class="btn btn-outline-success w-100 p-0 d-flex align-items-center justify-content-center"
-                                style="height: 42px;"><i class="las la-shopping-cart fs-5"></i></button>
+                        <div class="cart-btn-container">
+                            <button type="button" class="mob-cart-icon-btn"><i
+                                    class="las la-shopping-cart"></i></button>
                         </div>
                     </div>
                 </form>
             </div>
 
             <div class="mob-panel-block d-none" id="mob-standard">
-                <form action="{{ route('user.service.add.booking', $productDetails->id) }}" method="POST">
+                <form action="{{ route('user.service.add.booking', $productDetails->id) }}" method="POST"
+                    class="m-0 p-0">
                     @csrf
                     <input type="hidden" name="package_type" value="standard">
                     <input type="hidden" name="package_id" value="{{ $standardPkg->id ?? '' }}">
                     <input type="hidden" name="service_id" value="{{ $productDetails->id }}">
 
-                    <h5 class="package-title font-weight-bold mb-2">@lang('Package Summary')</h5>
-                    <p class="text-muted small mb-3">{{ $standardPkg->package_title ?? '' }} -
-                        {{ $standardPkg->package_description ?? '' }}</p>
+                    <h4 class="mob-pkg-title">{{ $standardPkg->package_title ?? 'Standard Package' }}</h4>
+                    <p class="mob-pkg-desc">{{ $standardPkg->package_description ?? '' }}</p>
 
-                    <ul class="feature-list-mobile mb-3">
-                        @foreach ($standardFeatures as $featureName => $isAvailable)
-                            <li
-                                class="d-flex align-items-center justify-content-between py-1 border-bottom small {{ $isAvailable == 'no' ? 'text-muted opacity-50' : '' }}">
-                                <span>{{ __($featureName) }}</span>
-                                <i
-                                    class="las {{ $isAvailable == 'yes' ? 'la-check text-success' : 'la-check text-muted opacity-25' }} fs-5"></i>
-                            </li>
-                        @endforeach
-                        <li class="d-flex align-items-center justify-content-between py-1 border-bottom small">
-                            <span>@lang('Delivery')</span>
-                            <span class="font-weight-bold">{{ $standardPkg->delivery_time ?? '3' }}
-                                @lang('days')</span>
-                        </li>
-                    </ul>
-
-                    <div class="d-flex align-items-center justify-content-between mb-3">
-                        <span class="small font-weight-bold">@lang('Number of words')</span>
-                        <input type="number" name="service_qty" class="form-control mobile-qty-input-box"
-                            data-price="{{ $standardPkg->price ?? 0 }}" value="1" min="1"
-                            style="width: 75px; height: 32px; text-align: center;">
+                    <div class="mob-delivery-time">
+                        <i class="lar la-clock"></i> <span>@lang('Delivery Time'):</span>
+                        <strong>{{ $standardPkg->delivery_time ?? '3' }} @lang('Days')</strong>
                     </div>
 
-                    <div class="row gx-2">
-                        <div class="col-10">
-                            <button type="submit"
-                                class="btn btn-success w-100 kwork-mob-submit-btn">@lang('Order for') &#2547;<span
-                                    class="mob-price-text">{{ number_format($standardPkg->price ?? 0, 0) }}</span></button>
+                    <ul class="mob-feature-ul">
+                        @foreach ($standardFeatures as $featureName => $isAvailable)
+                            <li class="{{ $isAvailable == 'no' ? 'disabled' : '' }}">
+                                <i
+                                    class="las {{ $isAvailable == 'yes' ? 'la-check text-success' : 'la-times text-muted' }}"></i>
+                                <span>{{ __($featureName) }}</span>
+                            </li>
+                        @endforeach
+                    </ul>
+
+                    <div class="mob-qty-row">
+                        <span class="qty-text">@lang('Number of words / Qty')</span>
+                        <input type="number" name="service_qty" class="form-control mobile-qty-input-box"
+                            data-price="{{ $standardPkg->price ?? 0 }}" value="1" min="1">
+                    </div>
+
+                    <div class="mob-action-buttons">
+                        <div class="submit-btn-container">
+                            <button type="submit" class="kwork-mob-submit-btn">
+                                @lang('Order for') &#2547;<span
+                                    class="mob-price-text">{{ number_format($standardPkg->price ?? 0, 0) }}</span>
+                            </button>
                         </div>
-                        <div class="col-2">
-                            <button type="button"
-                                class="btn btn-outline-success w-100 p-0 d-flex align-items-center justify-content-center"
-                                style="height: 42px;"><i class="las la-shopping-cart fs-5"></i></button>
+                        <div class="cart-btn-container">
+                            <button type="button" class="mob-cart-icon-btn"><i
+                                    class="las la-shopping-cart"></i></button>
                         </div>
                     </div>
                 </form>
             </div>
 
             <div class="mob-panel-block d-none" id="mob-premium">
-                <form action="{{ route('user.service.add.booking', $productDetails->id) }}" method="POST">
+                <form action="{{ route('user.service.add.booking', $productDetails->id) }}" method="POST"
+                    class="m-0 p-0">
                     @csrf
                     <input type="hidden" name="package_type" value="premium">
                     <input type="hidden" name="package_id" value="{{ $premiumPkg->id ?? '' }}">
                     <input type="hidden" name="service_id" value="{{ $productDetails->id }}">
 
-                    <h5 class="package-title font-weight-bold mb-2">@lang('Package Summary')</h5>
-                    <p class="text-muted small mb-3">{{ $premiumPkg->package_title ?? '' }} -
-                        {{ $premiumPkg->package_description ?? '' }}</p>
+                    <h4 class="mob-pkg-title">{{ $premiumPkg->package_title ?? 'Premium Package' }}</h4>
+                    <p class="mob-pkg-desc">{{ $premiumPkg->package_description ?? '' }}</p>
 
-                    <ul class="feature-list-mobile mb-3">
-                        @foreach ($premiumFeatures as $featureName => $isAvailable)
-                            <li
-                                class="d-flex align-items-center justify-content-between py-1 border-bottom small {{ $isAvailable == 'no' ? 'text-muted opacity-50' : '' }}">
-                                <span>{{ __($featureName) }}</span>
-                                <i
-                                    class="las {{ $isAvailable == 'yes' ? 'la-check text-success' : 'la-check text-muted opacity-25' }} fs-5"></i>
-                            </li>
-                        @endforeach
-                        <li class="d-flex align-items-center justify-content-between py-1 border-bottom small">
-                            <span>@lang('Delivery')</span>
-                            <span class="font-weight-bold">{{ $premiumPkg->delivery_time ?? '5' }}
-                                @lang('days')</span>
-                        </li>
-                    </ul>
-
-                    <div class="d-flex align-items-center justify-content-between mb-3">
-                        <span class="small font-weight-bold">@lang('Number of words')</span>
-                        <input type="number" name="service_qty" class="form-control mobile-qty-input-box"
-                            data-price="{{ $premiumPkg->price ?? 0 }}" value="1" min="1"
-                            style="width: 75px; height: 32px; text-align: center;">
+                    <div class="mob-delivery-time">
+                        <i class="lar la-clock"></i> <span>@lang('Delivery Time'):</span>
+                        <strong>{{ $premiumPkg->delivery_time ?? '5' }} @lang('Days')</strong>
                     </div>
 
-                    <div class="row gx-2">
-                        <div class="col-10">
-                            <button type="submit"
-                                class="btn btn-success w-100 kwork-mob-submit-btn">@lang('Order for') &#2547;<span
-                                    class="mob-price-text">{{ number_format($premiumPkg->price ?? 0, 0) }}</span></button>
+                    <ul class="mob-feature-ul">
+                        @foreach ($premiumFeatures as $featureName => $isAvailable)
+                            <li class="{{ $isAvailable == 'no' ? 'disabled' : '' }}">
+                                <i
+                                    class="las {{ $isAvailable == 'yes' ? 'la-check text-success' : 'la-times text-muted' }}"></i>
+                                <span>{{ __($featureName) }}</span>
+                            </li>
+                        @endforeach
+                    </ul>
+
+                    <div class="mob-qty-row">
+                        <span class="qty-text">@lang('Number of words / Qty')</span>
+                        <input type="number" name="service_qty" class="form-control mobile-qty-input-box"
+                            data-price="{{ $premiumPkg->price ?? 0 }}" value="1" min="1">
+                    </div>
+
+                    <div class="mob-action-buttons">
+                        <div class="submit-btn-container">
+                            <button type="submit" class="kwork-mob-submit-btn">
+                                @lang('Order for') &#2547;<span
+                                    class="mob-price-text">{{ number_format($premiumPkg->price ?? 0, 0) }}</span>
+                            </button>
                         </div>
-                        <div class="col-2">
-                            <button type="button"
-                                class="btn btn-outline-success w-100 p-0 d-flex align-items-center justify-content-center"
-                                style="height: 42px;"><i class="las la-shopping-cart fs-5"></i></button>
+                        <div class="cart-btn-container">
+                            <button type="button" class="mob-cart-icon-btn"><i
+                                    class="las la-shopping-cart"></i></button>
                         </div>
                     </div>
                 </form>
@@ -354,52 +348,182 @@
 </div>
 
 <style>
-    /* মোবাইল ট্যাব ডিজাইন */
+    .kwork-mobile-package-view {
+        background: #fff !important;
+        border: 1px solid #e4e6e9 !important;
+        border-radius: 8px !important;
+        overflow: hidden !important;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+        margin-bottom: 25px !important;
+    }
+
     .mobile-tabs-grid {
-        background-color: #fafafa;
+        display: flex !important;
+        width: 100% !important;
+        background-color: #f7f7f7 !important;
+        border-bottom: 1px solid #e4e6e9 !important;
     }
 
     .mobile-tab-item {
-        padding: 10px 5px;
-        cursor: pointer;
-        color: #8c8c8c;
-        border-bottom: 3px solid transparent;
-        transition: all 0.2s ease;
+        flex: 1 !important;
+        text-align: center !important;
+        padding: 12px 5px !important;
+        cursor: pointer !important;
+        color: #555555 !important;
+        border-bottom: 3px solid transparent !important;
+        transition: all 0.2s ease !important;
     }
 
     .mobile-tab-item .label {
-        font-size: 13px;
-        font-weight: 600;
+        font-size: 13px !important;
+        font-weight: 600 !important;
+        text-transform: uppercase !important;
+        margin-bottom: 2px !important;
     }
 
     .mobile-tab-item .price {
-        font-size: 15px;
-        font-weight: 700;
+        font-size: 16px !important;
+        font-weight: 700 !important;
     }
 
     .mobile-tab-item.active {
-        color: #1dbf73;
-        border-bottom-color: #1dbf73;
-        background-color: #fff;
+        color: #1dbf73 !important;
+        border-bottom-color: #1dbf73 !important;
+        background-color: #ffffff !important;
     }
 
-    .feature-list-mobile {
-        list-style: none;
-        padding-left: 0;
+    .mobile-tab-content-wrapper {
+        padding: 20px 15px !important;
+    }
+
+    .mob-pkg-title {
+        font-size: 18px !important;
+        font-weight: 700 !important;
+        color: #222222 !important;
+        margin-bottom: 8px !important;
+        line-height: 1.3 !important;
+    }
+
+    .mob-pkg-desc {
+        font-size: 14px !important;
+        color: #62646a !important;
+        line-height: 1.5 !important;
+        margin-bottom: 15px !important;
+    }
+
+    .mob-delivery-time {
+        font-size: 14px !important;
+        color: #404145 !important;
+        margin-bottom: 15px !important;
+    }
+
+    .mob-delivery-time i {
+        color: #74767e !important;
+        font-size: 16px !important;
+        margin-right: 4px !important;
+    }
+
+    .mob-feature-ul {
+        list-style: none !important;
+        padding: 0 !important;
+        margin: 0 0 20px 0 !important;
+    }
+
+    .mob-feature-ul li {
+        display: flex !important;
+        align-items: center !important;
+        gap: 10px !important;
+        font-size: 14px !important;
+        color: #404145 !important;
+        padding: 8px 0 !important;
+        border-bottom: 1px solid #f4f5f7 !important;
+    }
+
+    .mob-feature-ul li.disabled {
+        color: #b5b6ba !important;
+        opacity: 0.6 !important;
+    }
+
+    .mob-feature-ul li i {
+        font-size: 16px !important;
+        font-weight: bold !important;
+    }
+
+    .mob-feature-ul li i.text-success {
+        color: #1dbf73 !important;
+    }
+
+    .mob-qty-row {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        margin-bottom: 20px !important;
+        padding-top: 5px !important;
+    }
+
+    .mob-qty-row .qty-text {
+        font-size: 14px !important;
+        font-weight: 600 !important;
+        color: #404145 !important;
+    }
+
+    .mobile-qty-input-box {
+        width: 75px !important;
+        height: 34px !important;
+        text-align: center !important;
+        font-weight: 700 !important;
+        border: 1px solid #dadbdd !important;
+        border-radius: 4px !important;
+    }
+
+    .mob-action-buttons {
+        display: flex !important;
+        gap: 10px !important;
+        width: 100% !important;
+    }
+
+    .mob-action-buttons .submit-btn-container {
+        flex: 1 !important;
     }
 
     .kwork-mob-submit-btn {
+        width: 100% !important;
         background-color: #1dbf73 !important;
-        border-color: #1dbf73 !important;
-        font-weight: 700;
-        height: 42px;
+        border: 1px solid #1dbf73 !important;
+        color: #ffffff !important;
+        font-weight: 700 !important;
+        font-size: 16px !important;
+        height: 44px !important;
+        border-radius: 4px !important;
+        transition: all 0.2s ease !important;
     }
 
-    /* ডেস্কটপ সিএসএস এনহান্সমেন্ট */
+    .kwork-mob-submit-btn:hover {
+        background-color: #19a463 !important;
+    }
+
+    .mob-action-buttons .cart-btn-container {
+        width: 48px !important;
+    }
+
+    .mob-cart-icon-btn {
+        width: 100% !important;
+        height: 44px !important;
+        background: #ffffff !important;
+        border: 1px solid #1dbf73 !important;
+        color: #1dbf73 !important;
+        border-radius: 4px !important;
+        font-size: 20px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+
+    /* ডেস্কটপ সিএসএস এনহান্সমেন্ট ফিক্স */
     .table-qty-input-desktop {
-        border: 1px solid #dadbdd;
-        height: 34px;
-        font-weight: bold;
+        border: 1px solid #dadbdd !important;
+        height: 34px !important;
+        font-weight: bold !important;
     }
 </style>
 
@@ -408,7 +532,7 @@
         (function($) {
             "use strict";
 
-            // ================== মোবাইলের জন্য ট্যাব চেঞ্জার লজিক ==================
+            // ================== ১. মোবাইলের ট্যাব টগল স্ক্রিপ্ট ==================
             $('.mobile-tab-item').on('click', function() {
                 $('.mobile-tab-item').removeClass('active');
                 $(this).addClass('active');
@@ -418,7 +542,7 @@
                 $('#' + targetPanel).removeClass('d-none');
             });
 
-            // ================== মোবাইলের প্রাইস ও কোয়ান্টিটি রিয়েলটাইম ক্যালকুলেটর ==================
+            // ================== ২. মোবাইলের লাইভ প্রাইস ক্যালকুলেটর ==================
             $('.mobile-qty-input-box').on('input change', function() {
                 let qty = parseInt($(this).val()) || 1;
                 if (qty < 1) {
@@ -429,12 +553,11 @@
                 let basePrice = parseFloat($(this).data('price')) || 0;
                 let finalTotal = basePrice * qty;
 
-                // সংশ্লিষ্ট প্যানেলের বাটনের ভেতরের টেক্সট আপডেট
                 $(this).closest('form').find('.mob-price-text').text(finalTotal.toLocaleString('en-US'));
             });
 
 
-            // ================== ডেস্কটপ ভিউ ক্যালকুলেটর ও অ্যাকর্ডিয়ন স্লাইড লজিক ==================
+            // ================== ৩. ডেস্কটপ অ্যাকর্ডিয়ন ও ক্যালকুলেশন স্ক্রিপ্ট ==================
             var desktopPrices = {
                 basic: parseFloat("{{ $basicPkg->price ?? 0 }}"),
                 standard: parseFloat("{{ $standardPkg->price ?? 0 }}"),
