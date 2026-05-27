@@ -172,60 +172,361 @@
 
                             <!-- Tab Navigation and Content -->
                             <div class="jss-details-main__block three">
-                                <!-- Tabs Navigation -->
-                                <ul class="nav nav-tabs custom--tab" role="tablist">
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link active" data-bs-toggle="tab"
-                                            data-bs-target="#jss-details-tab-1" type="button" role="tab">
-                                            @lang('Description')
-                                        </button>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#jss-details-tab-3"
-                                            type="button" role="tab">
-                                            @lang('Reviews')
-                                        </button>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link comments-tab-btn" data-bs-toggle="tab"
-                                            data-bs-target="#jss-details-tab-4" type="button" role="tab">
-                                            @lang('Comments')
-                                        </button>
-                                    </li>
-                                </ul>
+                                @php
+                                    $basicPkg = $productDetails->packages->where('package_type', 'basic')->first();
+                                    $standardPkg = $productDetails->packages
+                                        ->where('package_type', 'standard')
+                                        ->first();
+                                    $premiumPkg = $productDetails->packages->where('package_type', 'premium')->first();
 
-                                <!-- Tabs Content -->
-                                <div class="tab-content">
-                                    <!-- Description Tab -->
-                                    <div class="tab-pane active" id="jss-details-tab-1" role="tabpanel" tabindex="0">
+                                    $basicFeatures = $basicPkg
+                                        ? (is_array($basicPkg->features)
+                                            ? $basicPkg->features
+                                            : json_decode($basicPkg->features, true))
+                                        : [];
+                                    $standardFeatures = $standardPkg
+                                        ? (is_array($standardPkg->features)
+                                            ? $standardPkg->features
+                                            : json_decode($standardPkg->features, true))
+                                        : [];
+                                    $premiumFeatures = $premiumPkg
+                                        ? (is_array($premiumPkg->features)
+                                            ? $premiumPkg->features
+                                            : json_decode($premiumPkg->features, true))
+                                        : [];
+
+                                    // সমস্ত ইউনিক ফিচারগুলোর লিস্ট বের করা টেবিলের রো (Row) তৈরি করার জন্য
+                                    $allFeatureNames = array_unique(
+                                        array_merge(
+                                            array_keys($basicFeatures),
+                                            array_keys($standardFeatures),
+                                            array_keys($premiumFeatures),
+                                        ),
+                                    );
+                                @endphp
+
+                                <div class="kwork-package-table-section mb-5">
+                                    <h3 class="kwork-section-title mb-3">@lang('Select a Package')</h3>
+                                    <div class="table-responsive">
+                                        <table class="table kwork-package-compare-table">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width: 25%;"></th>
+                                                    <th style="width: 25%; text-align: center;">@lang('BASIC')</th>
+                                                    <th style="width: 25%; text-align: center;">@lang('STANDARD')</th>
+                                                    <th style="width: 25%; text-align: center;">@lang('PREMIUM')</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr class="row-package-summary">
+                                                    <td class="feature-label-col">@lang('Package Summary')</td>
+                                                    <td>
+                                                        <div class="pkg-table-desc">{{ $basicPkg->package_title ?? '' }}
+                                                        </div>
+                                                        <small
+                                                            class="text-muted">{{ $basicPkg->package_description ?? '' }}</small>
+                                                    </td>
+                                                    <td>
+                                                        <div class="pkg-table-desc">{{ $standardPkg->package_title ?? '' }}
+                                                        </div>
+                                                        <small
+                                                            class="text-muted">{{ $standardPkg->package_description ?? '' }}</small>
+                                                    </td>
+                                                    <td>
+                                                        <div class="pkg-table-desc">{{ $premiumPkg->package_title ?? '' }}
+                                                        </div>
+                                                        <small
+                                                            class="text-muted">{{ $premiumPkg->package_description ?? '' }}</small>
+                                                    </td>
+                                                </tr>
+
+                                                @foreach ($allFeatureNames as $featureName)
+                                                    <tr>
+                                                        <td class="feature-label-col">{{ __($featureName) }}</td>
+                                                        <td class="text-center">
+                                                            @if (isset($basicFeatures[$featureName]))
+                                                                <i
+                                                                    class="las {{ $basicFeatures[$featureName] == 'yes' ? 'la-check text--success' : 'la-minus text-muted' }} fs-18"></i>
+                                                            @else
+                                                                <i class="las la-minus text-muted fs-18"></i>
+                                                            @endif
+                                                        </td>
+                                                        <td class="text-center">
+                                                            @if (isset($standardFeatures[$featureName]))
+                                                                <i
+                                                                    class="las {{ $standardFeatures[$featureName] == 'yes' ? 'la-check text--success' : 'la-minus text-muted' }} fs-18"></i>
+                                                            @else
+                                                                <i class="las la-minus text-muted fs-18"></i>
+                                                            @endif
+                                                        </td>
+                                                        <td class="text-center">
+                                                            @if (isset($premiumFeatures[$featureName]))
+                                                                <i
+                                                                    class="las {{ $premiumFeatures[$featureName] == 'yes' ? 'la-check text--success' : 'la-minus text-muted' }} fs-18"></i>
+                                                            @else
+                                                                <i class="las la-minus text-muted fs-18"></i>
+                                                            @endif
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+
+                                                <tr>
+                                                    <td class="feature-label-col">@lang('Revisions')</td>
+                                                    <td class="text-center">@lang('Unlimited')</td>
+                                                    <td class="text-center">@lang('Unlimited')</td>
+                                                    <td class="text-center">@lang('Unlimited')</td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td class="feature-label-col">@lang('Delivery')</td>
+                                                    <td class="text-center">{{ $basicPkg->delivery_time ?? '1' }}
+                                                        @lang('day')</td>
+                                                    <td class="text-center">{{ $standardPkg->delivery_time ?? '3' }}
+                                                        @lang('days')</td>
+                                                    <td class="text-center">{{ $premiumPkg->delivery_time ?? '5' }}
+                                                        @lang('days')</td>
+                                                </tr>
+
+                                                <tr class="row-quantity-inputs">
+                                                    <td class="feature-label-col">@lang('Number of words / Qty')</td>
+                                                    <td class="text-center">
+                                                        @if ($basicPkg)
+                                                            <div class="pkg-table-qty-box">
+                                                                <input type="number" class="form-control table-qty-input"
+                                                                    data-package="basic" value="1" min="1">
+                                                            </div>
+                                                        @endif
+                                                    </td>
+                                                    <td class="text-center">
+                                                        @if ($standardPkg)
+                                                            <div class="pkg-table-qty-box">
+                                                                <input type="number" class="form-control table-qty-input"
+                                                                    data-package="standard" value="1"
+                                                                    min="1">
+                                                            </div>
+                                                        @endif
+                                                    </td>
+                                                    <td class="text-center">
+                                                        @if ($premiumPkg)
+                                                            <div class="pkg-table-qty-box">
+                                                                <input type="number" class="form-control table-qty-input"
+                                                                    data-package="premium" value="1" min="1">
+                                                            </div>
+                                                        @endif
+                                                    </td>
+                                                </tr>
+
+                                                <tr class="row-action-forms">
+                                                    <td class="feature-label-col"></td>
+
+                                                    <td class="text-center">
+                                                        @if ($basicPkg)
+                                                            <form
+                                                                action="{{ route('user.service.add.booking', $productDetails->id) }}"
+                                                                method="POST" class="table-package-form">
+                                                                @csrf
+                                                                <input type="hidden" name="package_type" value="basic">
+                                                                <input type="hidden" name="package_id"
+                                                                    value="{{ $basicPkg->id }}">
+                                                                <input type="hidden" name="service_id"
+                                                                    value="{{ $productDetails->id }}">
+                                                                <input type="hidden" name="service_qty"
+                                                                    class="form-qty-hidden-basic" value="1">
+
+                                                                <div class="pkg-table-price mb-2">&#2547;<span
+                                                                        class="total-price-display-basic">{{ number_format($basicPkg->price ?? 0, 0) }}</span>
+                                                                </div>
+                                                                <button type="submit"
+                                                                    class="btn btn-success w-100 btn-sm kwork-table-order-btn">@lang('Order')</button>
+                                                            </form>
+                                                        @endif
+                                                    </td>
+
+                                                    <td class="text-center">
+                                                        @if ($standardPkg)
+                                                            <form
+                                                                action="{{ route('user.service.add.booking', $productDetails->id) }}"
+                                                                method="POST" class="table-package-form">
+                                                                @csrf
+                                                                <input type="hidden" name="package_type"
+                                                                    value="standard">
+                                                                <input type="hidden" name="package_id"
+                                                                    value="{{ $standardPkg->id }}">
+                                                                <input type="hidden" name="service_id"
+                                                                    value="{{ $productDetails->id }}">
+                                                                <input type="hidden" name="service_qty"
+                                                                    class="form-qty-hidden-standard" value="1">
+
+                                                                <div class="pkg-table-price mb-2">&#2547;<span
+                                                                        class="total-price-display-standard">{{ number_format($standardPkg->price ?? 0, 0) }}</span>
+                                                                </div>
+                                                                <button type="submit"
+                                                                    class="btn btn-success w-100 btn-sm kwork-table-order-btn">@lang('Order')</button>
+                                                            </form>
+                                                        @endif
+                                                    </td>
+
+                                                    <td class="text-center">
+                                                        @if ($premiumPkg)
+                                                            <form
+                                                                action="{{ route('user.service.add.booking', $productDetails->id) }}"
+                                                                method="POST" class="table-package-form">
+                                                                @csrf
+                                                                <input type="hidden" name="package_type"
+                                                                    value="premium">
+                                                                <input type="hidden" name="package_id"
+                                                                    value="{{ $premiumPkg->id }}">
+                                                                <input type="hidden" name="service_id"
+                                                                    value="{{ $productDetails->id }}">
+                                                                <input type="hidden" name="service_qty"
+                                                                    class="form-qty-hidden-premium" value="1">
+
+                                                                <div class="pkg-table-price mb-2">&#2547;<span
+                                                                        class="total-price-display-premium">{{ number_format($premiumPkg->price ?? 0, 0) }}</span>
+                                                                </div>
+                                                                <button type="submit"
+                                                                    class="btn btn-success w-100 btn-sm kwork-table-order-btn">@lang('Order')</button>
+                                                            </form>
+                                                        @endif
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="kwork-description-section mb-5">
+                                    <h3 class="kwork-section-title mb-3">@lang('Kwork Overview')</h3>
+                                    <div class="kwork-real-description-body p-3 bg-white border rounded">
                                         @include('Template::items.details.description', [
                                             'type' => 'service',
                                         ])
                                     </div>
-
-                                    <!-- Reviews Tab -->
-                                    <div class="tab-pane" id="jss-details-tab-3" role="tabpanel" tabindex="0">
-                                        @include('Template::items.details.reviews', [
-                                            'type' => 'service',
-                                        ])
-                                    </div>
-
-                                    <!-- Comments Tab -->
-                                    <div class="tab-pane" id="jss-details-tab-4" role="tabpanel" tabindex="0">
-                                        @include('Template::items.details.comments', [
-                                            'type' => 'service',
-                                        ])
-                                    </div>
-
-                                    <!-- End of Comments Tab -->
                                 </div>
-                                <!-- End of Tab Content -->
+
+                                <div class="kwork-reviews-section">
+                                    <h3 class="kwork-section-title mb-3">@lang('Reviews')</h3>
+                                    <div class="kwork-real-reviews-body p-3 bg-white border rounded">
+                                        @include('Template::items.details.reviews', ['type' => 'service'])
+                                    </div>
+                                </div>
                             </div>
+
+                            <style>
+                                .kwork-section-title {
+                                    font-size: 20px;
+                                    font-weight: 700;
+                                    color: #2d3748;
+                                }
+
+                                .kwork-package-compare-table {
+                                    background: #fff;
+                                    border: 1px solid #e2e8f0;
+                                    border-collapse: collapse;
+                                    width: 100%;
+                                }
+
+                                .kwork-package-compare-table th {
+                                    background: #f7fafc;
+                                    color: #4a5568;
+                                    font-weight: 700;
+                                    padding: 12px;
+                                    border: 1px solid #e2e8f0;
+                                }
+
+                                .kwork-package-compare-table td {
+                                    padding: 12px;
+                                    border: 1px solid #e2e8f0;
+                                    vertical-align: top;
+                                    font-size: 14px;
+                                    color: #4a5568;
+                                }
+
+                                .kwork-package-compare-table .feature-label-col {
+                                    font-weight: 600;
+                                    background: #fcfdfd;
+                                    color: #404145;
+                                }
+
+                                .pkg-table-desc {
+                                    font-weight: 600;
+                                    color: #2d3748;
+                                    margin-bottom: 4px;
+                                }
+
+                                .table-qty-input {
+                                    width: 90px;
+                                    margin: 0 auto;
+                                    height: 32px;
+                                    text-align: center;
+                                    font-weight: 600;
+                                }
+
+                                .pkg-table-price {
+                                    font-size: 18px;
+                                    font-weight: 700;
+                                    color: #10b981;
+                                }
+
+                                .kwork-table-order-btn {
+                                    background-color: #1dbf73 !important;
+                                    border-color: #1dbf73 !important;
+                                    font-weight: 700;
+                                    padding: 6px 20px;
+                                }
+
+                                .kwork-table-order-btn:hover {
+                                    background-color: #19a463 !important;
+                                }
+
+                                .text--success {
+                                    color: #1dbf73;
+                                }
+
+                                .fs-18 {
+                                    font-size: 18px;
+                                }
+                            </style>
                             <!-- End of jss-details-main__block three -->
                         </div>
                         <!-- End of jss-details-main -->
                     </div>
                     <!-- End of col-lg-8 -->
+
+                    @push('script')
+                        <script>
+                            (function($) {
+                                "use strict";
+
+                                // ডাটাবেজ থেকে প্রতিটি প্যাকেজের মূল বেইজ প্রাইস স্টোর করা হলো
+                                var basePrices = {
+                                    basic: parseFloat("{{ $basicPkg->price ?? 0 }}"),
+                                    standard: parseFloat("{{ $standardPkg->price ?? 0 }}"),
+                                    premium: parseFloat("{{ $premiumPkg->price ?? 0 }}")
+                                };
+
+                                // কোয়ান্টিটি ইনপুট বক্স চেঞ্জ ইভেন্ট
+                                $('.table-qty-input').on('input change', function() {
+                                    let qty = parseInt($(this).val()) || 1;
+                                    if (qty < 1) {
+                                        qty = 1;
+                                        $(this).val(1);
+                                    }
+
+                                    let pkgType = $(this).data('package'); // basic, standard, or premium
+                                    let basePrice = basePrices[pkgType] || 0;
+                                    let calculatedTotalPrice = basePrice * qty;
+
+                                    // ১. সংশ্লিষ্ট ফর্মের হিডেন service_qty ইনপুট আপডেট করা হচ্ছে 
+                                    $('.form-qty-hidden-' + pkgType).val(qty);
+
+                                    // ২. টেবিলের নিচে ডিসপ্লে হওয়া রিয়েলটাইম প্রাইস টেক্সট আপডেট করা হচ্ছে
+                                    $('.total-price-display-' + pkgType).text(calculatedTotalPrice.toLocaleString('en-US'));
+                                });
+
+                            })(jQuery);
+                        </script>
+                    @endpush
 
                     <div class="col-lg-4 d-none d-lg-block details-sidebar" style="margin-top:48px">
                         <div class="jss-details-sidebar">
