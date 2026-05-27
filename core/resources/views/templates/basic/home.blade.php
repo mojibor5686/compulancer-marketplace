@@ -36,6 +36,36 @@
                                     @if ($loop->iteration > 5)
                                         @break
                                     @endif
+
+                                    @php
+                                        $avgRatingNumeric =
+                                            $product->total_review > 0
+                                                ? $product->total_rating / $product->total_review
+                                                : 0;
+
+                                        if ($avgRatingNumeric >= 4.0) {
+                                            $badgeText = 'TOP RATED';
+                                            $badgeColor = '#446ee7';
+                                            $badgeBg = '#f4f5f7';
+                                        } elseif ($avgRatingNumeric >= 3.0) {
+                                            $badgeText = 'LEVEL 2';
+                                            $badgeColor = '#1dbf73';
+                                            $badgeBg = '#eefbf4';
+                                        } elseif ($avgRatingNumeric >= 2.0) {
+                                            $badgeText = 'LEVEL 1';
+                                            $badgeColor = '#ff7a00';
+                                            $badgeBg = '#fff8f2';
+                                        } else {
+                                            $badgeText = 'NEW SELLER';
+                                            $badgeColor = '#74767e';
+                                            $badgeBg = '#f5f5f5';
+                                        }
+
+                                        $cardAvgRating =
+                                            $product->total_review > 0 ? number_format($avgRatingNumeric, 1) : '0.0';
+                                        $totalReviews = $product->total_review > 0 ? $product->total_review : 0;
+                                    @endphp
+
                                     <div class="col productListCol" style="margin-bottom: 20px;">
                                         <article class="card jss--card jss--card-{{ $type }}"
                                             style="background: #ffffff !important; border: 1px solid #dadbdd !important; border-radius: 4px !important; box-shadow: none !important; overflow: hidden !important; display: flex !important; flex-direction: column !important; height: 100% !important; font-family: Macan, 'Helvetica Neue', Helvetica, Arial, sans-serif !important; position: relative !important; transition: all 0.2s ease-in-out;">
@@ -98,24 +128,14 @@
                                                         </div>
 
                                                         <div
-                                                            style="display: inline-flex; align-items: center; background: #f4f5f7; border: 1px solid #e4e5e7; padding: 2px 6px; border-radius: 3px; width: fit-content;">
+                                                            style="display: inline-flex; align-items: center; background: {{ $badgeBg }}; border: 1px solid {{ $badgeColor }}40; padding: 2px 6px; border-radius: 3px; width: fit-content;">
                                                             <span
-                                                                style="color: #446ee7; font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;">TOP
-                                                                RATED</span>
+                                                                style="color: {{ $badgeColor }}; font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;">
+                                                                {{ $badgeText }}
+                                                            </span>
                                                         </div>
                                                     </div>
 
-                                                    @php
-                                                        $cardAvgRating =
-                                                            $product->total_review > 0
-                                                                ? number_format(
-                                                                    $product->total_rating / $product->total_review,
-                                                                    1,
-                                                                )
-                                                                : '5.0';
-                                                        $totalReviews =
-                                                            $product->total_review > 0 ? $product->total_review : '90';
-                                                    @endphp
                                                     <div
                                                         style="display: flex !important; align-items: center !important; gap: 3px !important; font-size: 13px !important; font-weight: 700 !important;">
                                                         <span
