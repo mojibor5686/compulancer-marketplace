@@ -66,7 +66,7 @@
                                         $totalReviews = $product->total_review > 0 ? $product->total_review : 0;
                                     @endphp
 
-                                    <div class="col productListCol" style="margin-bottom: 20px;">
+                                    <div class="col productListCol">
                                         <article class="card jss--card jss--card-{{ $type }}"
                                             style="background: #ffffff !important; border: 1px solid #dadbdd !important; border-radius: 4px !important; box-shadow: none !important; overflow: hidden !important; display: flex !important; flex-direction: column !important; height: 100% !important; font-family: Macan, 'Helvetica Neue', Helvetica, Arial, sans-serif !important; position: relative !important; transition: all 0.2s ease-in-out;">
 
