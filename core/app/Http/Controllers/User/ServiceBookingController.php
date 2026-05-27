@@ -24,7 +24,7 @@ class ServiceBookingController extends Controller
         ]);
 
         $service = Service::where('id', $request->service_id)->active()->notAuthUser()->checkData()->with('user')->first();
-        $package = ServicePackage::where('id', $request->package_id)->active()->first();
+        $package = ServicePackage::where('id', $request->package_id)->first();
 
         if (!$service) {
             $notify[] = ['error', 'You are not allowed to make a booking'];
