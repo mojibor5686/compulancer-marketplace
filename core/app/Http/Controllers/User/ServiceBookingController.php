@@ -57,8 +57,6 @@ class ServiceBookingController extends Controller
 
         $orderDetails = session('orderDetails');
 
-        dd($orderDetails);
-
         if (!$orderDetails) {
             $notify[] = ['error', 'Order booking not found!'];
             return to_route('home')->withNotify($notify);
