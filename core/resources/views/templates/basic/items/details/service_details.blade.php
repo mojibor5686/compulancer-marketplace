@@ -221,32 +221,6 @@
 
             <input type="hidden" name="service_qty" id="service_qty_input" value="1">
 
-            @if ($extraServices && $extraServices->count() > 0)
-                <div class="kwork-extra-box"
-                    style="border: 1px solid #dadbdd; border-radius: 6px; padding: 20px; background: #fff;">
-                    <h6 style="font-size: 14px; font-weight: 600; color: #2d3748; margin-bottom: 12px;">
-                        @lang('Upgrade order with extras:')</h6>
-                    <div style="display: flex; flex-direction: column; gap: 10px;">
-                        @foreach ($extraServices as $key => $extraService)
-                            <label class="marketplace-extra-card" for="extra_service_{{ $key }}"
-                                style="display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; border: 1px solid #e2e8f0; border-radius: 6px; cursor: pointer; margin: 0; transition: background 0.2s;">
-                                <div style="display: flex; align-items: center; gap: 12px;">
-                                    <input class="pkgExtraServicesCheckbox" type="checkbox" name="extra_services[]"
-                                        id="extra_service_{{ $key }}"
-                                        data-price="{{ number_format($extraService->price, 0, '.', '') }}"
-                                        value="{{ $extraService->id }}"
-                                        style="width: 18px; height: 18px; accent-color: #3c88ee; cursor: pointer;">
-                                    <span
-                                        style="font-size: 14px; color: #4a5568; font-weight: 500;">{{ $extraService->name }}</span>
-                                </div>
-                                <div style="font-size: 14px; font-weight: 600; color: #2d3748;">
-                                    &#2547;{{ number_format($extraService->price, 0) }}</div>
-                            </label>
-                        @endforeach
-                    </div>
-                </div>
-            @endif
-
         </div>
     </form>
 </div>
