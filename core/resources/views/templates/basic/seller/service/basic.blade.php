@@ -1,36 +1,5 @@
 @extends('Template::layouts.seller_service')
 
-@push('style')
-    <style>
-        /* NicEdit Editor UI Fixes for CDN & Overflow */
-        .nicEdit-panel {
-            background-color: #f8f9fa !important;
-            border: 1px solid #ccc !important;
-            border-bottom: none !important;
-            padding: 4px !important;
-            display: flex;
-            flex-wrap: wrap;
-        }
-
-        .nicEdit-panel containment {
-            background-color: #fff !important;
-        }
-
-        .nicEdit-main {
-            background-color: #fff !important;
-            color: #333 !important;
-            overflow-y: auto !important;
-            min-height: 200px !important;
-            padding: 10px !important;
-        }
-
-        /* Fixing the broken/invisible icons by using an official remote fallback image */
-        .nicEdit-panel button {
-            background-image: url('https://cdnjs.cloudflare.com/ajax/libs/NicEdit/0.93/nicEditorIcons.gif') !important;
-        }
-    </style>
-@endpush
-
 @section('service')
     <form id="basicForm">
         <div class="form--group-lg">
@@ -96,7 +65,7 @@
 
         <div class="form--group-lg">
             <label class="form-label form--label required">@lang('Service Description')</label>
-            <textarea class="form-control form--control nicEdit" name="description">{{ old('description', @$service->description) }}</textarea>
+            <textarea class="form-control form--control" name="description" rows="6" required>{{ old('description', @$service->description) }}</textarea>
             <p class="fs-14 mt-1">@lang('Provide a detailed description of your service.')</p>
         </div>
 
@@ -109,33 +78,9 @@
 @endsection
 
 @push('script')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/NicEdit/0.93/nicEdit.min.js"></script>
-
     <script>
         (function($) {
             "use strict";
-
-            // Initialize NicEdit for rich text areas
-            $(document).ready(function() {
-                if (typeof nicEditor !== 'undefined' && typeof bkLib !== 'undefined') {
-                    bkLib.onDomLoaded(function() {
-                        $(".nicEdit").each(function(index) {
-                            try {
-                                $(this).attr("id", "nicEditor" + index);
-                                new nicEditor({
-                                    fullPanel: true
-                                }).panelInstance('nicEditor' + index, {
-                                    hasPanel: true
-                                });
-                            } catch (e) {
-                                console.error('NicEdit initialization error:', e);
-                            }
-                        });
-                    });
-                } else {
-                    console.warn('NicEdit library not loaded');
-                }
-            });
 
             // Initialize Select2 for category and subcategory dropdowns
             $('.select2').select2({
@@ -162,14 +107,9 @@
                 let originalButtonText = btn.html();
                 btn.html(`<div class="spinner-border"></div> {{ __('Saving') }}...`).prop('disabled', true);
 
+                // FormData সরাসরি ফর্মের সব ভ্যালু (description সহ) নিজে থেকেই নিয়ে নেবে
                 let formData = new FormData($('#basicForm')[0]);
-
-                // Fixed: Added safety check to prevent crash if instance is empty
-                let nicInstance = nicEditors.findEditor('nicEditor0');
-                let nicContent = nicInstance ? nicInstance.getContent() : '';
-
                 formData.append('_token', '{{ csrf_token() }}');
-                formData.append('description', nicContent);
 
                 $.ajax({
                     url: '{{ route('user.seller.service.store.basic', @$service->id ?? '') }}',
