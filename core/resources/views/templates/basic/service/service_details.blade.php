@@ -205,7 +205,7 @@
                                     );
                                 @endphp
 
-                                <div class="kwork-package-table-section mb-5">
+                                <div class="kwork-package-table-section mb-5 d-none d-lg-block">
                                     <h3 class="kwork-section-title mb-3">@lang('Select a Package')</h3>
                                     <div class="table-responsive">
                                         <table class="table kwork-package-compare-table">
