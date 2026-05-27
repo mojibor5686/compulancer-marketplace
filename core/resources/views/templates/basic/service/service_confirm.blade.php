@@ -36,7 +36,7 @@
                                             <div class="payment-item__info">
                                                 <span class="payment-item__check"></span>
                                                 <span
-                                                    class="payment-item__name">{{ __('মোবাইল ব্যাংকিং (Bkash/Nagad/Rocket') }}</span>
+                                                    class="payment-item__name">{{ __('মোবাইল ব্যাংকিং (Bkash/Nagad/Rocket)') }}</span>
                                             </div>
                                             <div class="payment-item__thumb">
                                                 <img class="payment-item__thumb-img"
@@ -66,9 +66,11 @@
                                                     class="info-list-item__value">{{ showAmount($orderDetails['price']) }}</span>
                                             </li>
                                             <li class="info-list-item">
-                                                <span class="info-list-item__label">@lang('Extra Services')</span>
+                                                <span class="info-list-item__label">@lang('Package Type')</span>
                                                 <span
-                                                    class="info-list-item__value">{{ showAmount($orderDetails['extraServicePrice']) }}</span>
+                                                    class="info-list-item__value text-capitalize badge badge--success text-white px-2">
+                                                    {{ __($orderDetails['extraServices'] ?? 'Basic') }}
+                                                </span>
                                             </li>
                                             <li class="info-list-item">
                                                 <span class="info-list-item__label">@lang('Quantity')</span>
@@ -96,7 +98,7 @@
                                         <h5 class="widget-card__title">@lang('Payment Details')</h5>
                                     </div>
                                     <div class="widget-card__body">
-                                        <ul class="info-list style-two`">
+                                        <ul class="info-list style-two">
                                             <li class="info-list-item deposit-info">
                                                 <span class="info-list-item__label">@lang('Amount')</span>
                                                 <div class="deposit-info__input">
@@ -112,7 +114,7 @@
                                             </li>
                                             <li class="info-list-item deposit-info hideInfo">
                                                 <div class="d-flex align-items-center gap-2">
-                                                    <span class="info-list-item__label">@lang(' Processing Charge ')</span>
+                                                    <span class="info-list-item__label">@lang('Processing Charge')</span>
                                                     <span data-bs-toggle="tooltip" title="@lang('Processing charge for payment gateways')"
                                                         class="proccessing-fee-info">
                                                         <i class="las la-info-circle"></i>
@@ -128,7 +130,6 @@
                                             <li class="info-list-item deposit-info total-amount">
                                                 <div class="d-flex align-items-center gap-2">
                                                     <span class="info-list-item__label">@lang('Total')</span>
-
                                                 </div>
                                                 <div class="deposit-info__input">
                                                     <p class="text mb-0">
@@ -141,7 +142,6 @@
                                                 class="info-list-item deposit-info hideInfo gateway-conversion d-none total-amount">
                                                 <div class="d-flex align-items-center gap-2">
                                                     <span class="info-list-item__label">@lang('Conversion')</span>
-
                                                 </div>
                                                 <div class="deposit-info__input">
                                                     <p class="text mb-0"></p>
@@ -152,7 +152,6 @@
                                                 <div class="d-flex align-items-center gap-2">
                                                     <span class="info-list-item__label">@lang('In') <span
                                                             class="gateway-currency"></span></span>
-
                                                 </div>
                                                 <div class="deposit-info__input">
                                                     <p class="text mb-0">
@@ -163,7 +162,6 @@
                                             @if ($coupon)
                                                 <li class="info-list-item flex-column align-items-start">
                                                     <span class="info-list-item__label mb-2">@lang('Coupon')</span>
-                                                    <!-- Include coupon partial -->
                                                     @include('Template::partials.coupon')
                                                 </li>
                                             @endif
@@ -182,13 +180,7 @@
                                             <p class="text text-muted small">@lang('Ensuring your funds grow safely through our secure deposit process with world-class payment options.')</p>
                                         </div>
                                     </div>
-
                                 </div>
-
-                                {{-- <div class="w-100 widget-card">
-
-
-                                </div> --}}
                             </div>
                         </div>
                     </div>
@@ -204,7 +196,52 @@
 @push('script')
     <script>
         (function($) {
-            // Apply coupon
+            "use strict";
+
+            // গেটওয়ে পরিবর্তনের সাথে সাথে চার্জ ও বাটন প্রসেস রিয়েলটাইম করার স্ক্রিপ্ট
+            $('.gateway-input').on('change', function() {
+                let gateway = $(this).val();
+                let amount = parseFloat($('.amount').val()) || 0;
+
+                if (!gateway) {
+                    $('.btn[type=submit]').attr('disabled', true);
+                    return;
+                }
+
+                // বাটন একটিভ করা
+                $('.btn[type=submit]').removeAttr('disabled');
+
+                if (gateway == 'wallet') {
+                    $('.hideInfo').addClass('d-none');
+                    $('.final-amount').text(amount.toFixed(2));
+                    return;
+                }
+
+                // ডাইনামিক ডেটা অবজেক্ট রিড
+                let data = $(this).data('gateway');
+                $('.hideInfo').removeClass('d-none');
+
+                let fixed_charge = parseFloat(data.fixed_charge);
+                let percent_charge = parseFloat(data.percent_charge);
+                let rate = parseFloat(data.rate);
+
+                let charge = fixed_charge + (amount * percent_charge / 100);
+                $('.processing-fee').text(charge.toFixed(2));
+
+                let totalAmount = amount + charge;
+                $('.final-amount').text(totalAmount.toFixed(2));
+
+                let finalInCrypto = totalAmount * rate;
+                $('.in-currency').text(finalInCrypto.toFixed(2));
+                $('.gateway-currency').text(data.currency);
+            });
+
+            // প্রথম সিলেক্টেড গেটওয়ে থাকলে ট্রিগার করা
+            if ($('.gateway-input:checked').length > 0) {
+                $('.gateway-input:checked').trigger('change');
+            }
+
+            // Coupon apply handler
             $(document).on('click', '.coupon-code-apply', function() {
                 var couponCode = $('.coupon-input').val();
                 if (couponCode) {
@@ -214,24 +251,22 @@
                         data: {
                             service_id: "{{ $orderDetails['service']->id }}",
                             service_qty: "{{ $orderDetails['quantity'] }}",
-                            extra_services: '{{ json_encode($extraServicesId) }}',
                             coupon_code: couponCode
                         },
                         success: function(response) {
                             if (response.grandTotal !== undefined && response.discount !==
                                 undefined) {
-                                // Update the amount input field in deposit-info and discount span in info-list
                                 $('.amount').val(parseFloat(response.grandTotal).toFixed(2))
                                     .trigger('input');
                                 $('#grandTotal').text(parseFloat(response.grandTotal).toFixed(2));
                                 $('#discount').text(parseFloat(response.discount).toFixed(2));
 
-                                // Update coupon-div to show remove option
                                 $('.coupon-div').html(
                                     `<code class="text--warning coupon-remove" role="button">@lang('Click here to remove coupon')</code>`
                                 );
 
-                                // Notify user of success
+                                // গেটওয়ে গেট চার্জ আপডেট ট্রিগার
+                                $('.gateway-input:checked').trigger('change');
                                 notify('success', 'Coupon applied successfully');
                             } else {
                                 notify('error', response.error || 'Failed to apply coupon');
@@ -243,20 +278,17 @@
                 }
             });
 
-            // Remove coupon
             $(document).on('click', '.coupon-remove', function() {
                 $.ajax({
                     type: "get",
                     url: "{{ route('user.service.coupon.remove') }}",
                     success: function(response) {
                         if (response.grandTotal !== undefined && response.discount !== undefined) {
-                            // Update the amount input field in deposit-info and discount span in info-list
                             $('.amount').val(parseFloat(response.grandTotal).toFixed(2)).trigger(
                                 'input');
                             $('#grandTotal').text(parseFloat(response.grandTotal).toFixed(2));
                             $('#discount').text(parseFloat(response.discount).toFixed(2));
 
-                            // Revert coupon-div to input and apply button
                             $('.coupon-div').html(`
                                 <div class="input-group">
                                     <input class="form-control form--control coupon-input" type="text" name="coupon_code" placeholder="Apply Coupon">
@@ -265,7 +297,7 @@
                                 <code class="text--base d-none coupon-message" role="button"></code>
                             `);
 
-                            // Notify user of success
+                            $('.gateway-input:checked').trigger('change');
                             notify('success', 'Coupon removed successfully');
                         } else {
                             notify('error', response.error || 'Failed to remove coupon');
