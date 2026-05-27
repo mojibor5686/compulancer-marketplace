@@ -64,6 +64,11 @@ class Service extends Model
         return $this->hasMany(ExtraService::class);
     }
 
+    public function packages()
+    {
+        return $this->hasMany(ServicePackage::class, 'service_id');
+    }
+
     public function reviews()
     {
         return $this->hasMany(Review::class);

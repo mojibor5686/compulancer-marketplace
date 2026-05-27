@@ -82,11 +82,9 @@
     </form>
 @endsection
 
-@push('script-lib')
-    <script src="{{ asset('assets/global/js/nicEdit.js') }}"></script>
-@endpush
-
 @push('script')
+    <script src="{{ asset('assets/global/js/nicEdit.js') }}"></script>
+
     <script>
         (function($) {
             "use strict";

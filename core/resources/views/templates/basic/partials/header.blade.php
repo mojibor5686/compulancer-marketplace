@@ -502,7 +502,7 @@
                                 Remember me
                             </label>
                         </div>
-                        <a href="#" class="text-primary text-decoration-none" style="font-weight: 500;">Forgot
+                        <a href="{{ route('user.password.request') }}" class="text-primary text-decoration-none" style="font-weight: 500;">Forgot
                             your password?</a>
                     </div>
 
