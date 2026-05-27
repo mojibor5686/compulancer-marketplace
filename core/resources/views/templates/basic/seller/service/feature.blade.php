@@ -3,7 +3,6 @@
 @push('style')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css">
     <style>
-        /* আপনার থিমের সাথে ম্যাচ করানোর জন্য সামান্য স্টাইল */
         .iziToast {
             z-index: 99999 !important;
         }

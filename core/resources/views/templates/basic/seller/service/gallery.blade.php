@@ -1,10 +1,11 @@
 @extends('Template::layouts.seller_service')
+
 @section('service')
     <form id="galleryForm">
         <!-- Thumbnail Image -->
         <div class="form--group-lg">
             <label class="form-label form--label">@lang('Thumbnail Image')</label>
-            <div class="box mb-3 upload-content"
+            <div class="box mb-3 upload-content" id="thumbnailBox"
                 style="background: {{ $service->image ? 'url(' . getImage(getFilePath('service') . '/' . $service->image) . ') center center / cover no-repeat' : '#f9f9f9' }};">
                 <!-- Dark Overlay -->
                 <div class="dark-overlay"></div>
@@ -28,6 +29,7 @@
 
         <!-- Image Gallery -->
         @php
+            $images = [];
             if ($service->extra_image) {
                 foreach ($service->extra_image as $key => $image) {
                     $img['id'] = $key;
@@ -36,7 +38,9 @@
                 }
             }
         @endphp
-        <div class="form--group-lg" @if ($service->extra_image) data-images='@json(@$images)' @endif>
+
+        <!-- Fixed data attribute for json data -->
+        <div class="form--group-lg" id="galleryContainer" data-images="{{ json_encode($images) }}">
             <label class="form-label form--label">@lang('Image Gallery')</label>
             <div class="input-images"></div>
 
@@ -76,6 +80,11 @@
 @endsection
 
 @push('style')
+    <!-- Secure Version fallback CDN for Image Uploader CSS -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/christianbueso/image-uploader@master/dist/image-uploader.min.css">
+
     <style>
         .upload-content {
             border: 2px dashed #cccccc;
@@ -133,18 +142,22 @@
     </style>
 @endpush
 
-@push('style-lib')
-    <link rel="stylesheet" href="{{ asset(activeTemplate(true) . 'css/image-uploader.min.css') }}">
-@endpush
-
-@push('script-lib')
-    <script src="{{ asset(activeTemplate(true) . 'js/image-uploader.min.js') }}"></script>
-@endpush
-
 @push('script')
+    <!-- Secure Git Fallback CDN for Image Uploader JS (Loaded inside push to guarantee JQuery loads first) -->
+    <script src="https://cdn.jsdelivr.net/gh/christianbueso/image-uploader@master/dist/image-uploader.min.js"></script>
+
     <script>
         (function($) {
             "use strict";
+
+            // Safety helper to trigger notifications without crash
+            function safeNotify(type, msg) {
+                if (typeof notify !== 'undefined') {
+                    notify(type, msg);
+                } else {
+                    alert(msg);
+                }
+            }
 
             // Prevent the click event on the label from bubbling up
             $('label.show-image').on('click', function(event) {
@@ -161,24 +174,44 @@
                 $('#image-upload').click();
             });
 
-            // Initialize Image Uploader
-            $('.input-images').each((i, element) => {
-                const data = $(element).parent().data();
-                $(element).imageUploader({
-                    preloaded: data.images,
-                    imagesInputName: 'extra_image',
-                    preloadedInputName: 'old',
-                    maxFiles: 6
-                });
+            // Initialize Image Uploader safely after script fallback load
+            $(document).ready(function() {
+                if ($.fn.imageUploader) {
+                    $('.input-images').each((i, element) => {
+                        let dataImages = $('#galleryContainer').attr('data-images');
+                        let preloadedArr = [];
+
+                        try {
+                            if (dataImages) {
+                                preloadedArr = JSON.parse(dataImages);
+                            }
+                        } catch (e) {
+                            console.error("Failed to parse gallery images JSON:", e);
+                        }
+
+                        $(element).imageUploader({
+                            preloaded: preloadedArr,
+                            imagesInputName: 'extra_image',
+                            preloadedInputName: 'old',
+                            maxFiles: 6
+                        });
+                    });
+                } else {
+                    console.error("imageUploader function is still missing after CDN load.");
+                }
             });
 
-            // Thumbnail Preview
+            // Thumbnail Preview (Fixed and Optimized)
             $('#image-upload').on('change', function() {
-                const [file] = this.files;
+                const file = this.files[0];
                 if (file) {
                     const reader = new FileReader();
                     reader.onload = function(e) {
-                        $('.upload-content').css('background-image', `url(${e.target.result})`);
+                        $('#thumbnailBox').css({
+                            'background-image': `url(${e.target.result})`,
+                            'background-size': 'cover',
+                            'background-position': 'center'
+                        });
                     };
                     reader.readAsDataURL(file);
                 }
@@ -204,16 +237,16 @@
                             if (!response.is_update) {
                                 window.location.href = response.redirect_url;
                             } else {
-                                notify('success', `@lang('Service gallery images updated successfully')`);
+                                safeNotify('success', `@lang('Service gallery images updated successfully')`);
                                 btn.html(originalButtonText).prop('disabled', false);
                             }
                         } else {
-                            notify('error', response.message);
+                            safeNotify('error', response.message);
                             btn.html(originalButtonText).prop('disabled', false);
                         }
                     },
                     error: function(xhr, status, error) {
-                        notify('error', error);
+                        safeNotify('error', error);
                         btn.html(originalButtonText).prop('disabled', false);
                     }
                 });
