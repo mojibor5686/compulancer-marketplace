@@ -30,7 +30,7 @@
         </div>
     @else
         <!-- Image Slider -->
-        <div class="jss-details-slider">
+        <div class="jss-details-slider" style="border: none;">
             <div class="jss-details-thumb-slider">
                 <div class="jss-details-thumb-slider__slide">
                     <a href="{{ getImage(getFilePath($type) . '/' . $productDetails->image) }}"
