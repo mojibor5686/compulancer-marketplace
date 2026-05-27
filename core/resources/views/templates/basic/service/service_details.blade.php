@@ -618,7 +618,7 @@
 
                     <div class="row g-4 kwrk-custom-grid-container">
                         @foreach ($relatedServices as $product)
-                            <div class="kwrk-custom-grid-col">
+                            <div class="kwrk-custom-grid-col m-0" style="margin: 0;">
                                 <article class="card jss--card jss--card-{{ $type }}"
                                     style="background: #ffffff !important; border: 1px solid #dadbdd !important; border-radius: 4px !important; box-shadow: none !important; overflow: hidden !important; display: flex !important; flex-direction: column !important; height: 100% !important; font-family: Macan, 'Helvetica Neue', Helvetica, Arial, sans-serif !important; position: relative !important; transition: all 0.2s ease-in-out;">
                                     @php
