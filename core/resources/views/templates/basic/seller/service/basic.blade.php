@@ -1,7 +1,38 @@
 @extends('Template::layouts.seller_service')
+
+@push('style')
+    <style>
+        /* NicEdit Editor UI Fixes for CDN & Overflow */
+        .nicEdit-panel {
+            background-color: #f8f9fa !important;
+            border: 1px solid #ccc !important;
+            border-bottom: none !important;
+            padding: 4px !important;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .nicEdit-panel containment {
+            background-color: #fff !important;
+        }
+
+        .nicEdit-main {
+            background-color: #fff !important;
+            color: #333 !important;
+            overflow-y: auto !important;
+            min-height: 200px !important;
+            padding: 10px !important;
+        }
+
+        /* Fixing the broken/invisible icons by using an official remote fallback image */
+        .nicEdit-panel button {
+            background-image: url('https://cdnjs.cloudflare.com/ajax/libs/NicEdit/0.93/nicEditorIcons.gif') !important;
+        }
+    </style>
+@endpush
+
 @section('service')
     <form id="basicForm">
-        <!-- Service Name -->
         <div class="form--group-lg">
             <label class="form-label form--label required" for="name">@lang('Name')</label>
             <input class="form-control form--control" name="name" type="text" value="{{ old('name', @$service->name) }}"
@@ -9,7 +40,6 @@
             <p class="fs-14 mt-1">@lang('Your service name is the most important place to include keywords that buyers would likely use to search for a service like yours.')</p>
         </div>
 
-        <!-- Category & Subcategory -->
         <div class="form--group-lg">
             <label class="form-label form--label required">@lang('Category & Subcategory')</label>
             <div class="row gy-4">
@@ -33,7 +63,6 @@
             <p class="fs-14 mt-1">@lang('Choose the category and subcategory most suitable for your service.')</p>
         </div>
 
-        <!-- Price & Max Order Quantity -->
         <div class="form--group-lg">
             <label class="form-label form--label required">@lang('Price & Max Order Quantity')</label>
             <div class="row gy-4">
@@ -55,7 +84,6 @@
             </div>
         </div>
 
-        <!-- Delivery Time -->
         <div class="form--group-lg">
             <label class="form-label form--label required">@lang('Estimated Delivery Time')</label>
             <div class="input-group input--group">
@@ -66,14 +94,12 @@
             <p class="fs-14 mt-1">@lang('Provide the most affordable delivery days.')</p>
         </div>
 
-        <!-- Service Description -->
         <div class="form--group-lg">
             <label class="form-label form--label required">@lang('Service Description')</label>
             <textarea class="form-control form--control nicEdit" name="description">{{ old('description', @$service->description) }}</textarea>
             <p class="fs-14 mt-1">@lang('Provide a detailed description of your service.')</p>
         </div>
 
-        <!-- Submit Button -->
         <div class="form--group-lg text-end mt-4">
             <button class="btn btn--base btn--lg" id="saveAndContinue" type="button">
                 @lang('Save & Continue')
@@ -137,8 +163,11 @@
                 btn.html(`<div class="spinner-border"></div> {{ __('Saving') }}...`).prop('disabled', true);
 
                 let formData = new FormData($('#basicForm')[0]);
+
+                // Fixed: Added safety check to prevent crash if instance is empty
                 let nicInstance = nicEditors.findEditor('nicEditor0');
-                let nicContent = nicInstance.getContent();
+                let nicContent = nicInstance ? nicInstance.getContent() : '';
+
                 formData.append('_token', '{{ csrf_token() }}');
                 formData.append('description', nicContent);
 
