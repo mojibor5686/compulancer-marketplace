@@ -673,12 +673,12 @@
         }
 
         .kwrk-mobile-tab-item.active {
-            border-bottom-color: #1dbf73 !important;
+            border-bottom-color: #3c88ee !important;
             background-color: #ffffff !important;
         }
 
         .kwrk-mobile-tab-item.active .price {
-            color: #1dbf73 !important;
+            color: #3c88ee !important;
         }
 
         .kwrk-mobile-tab-content-container {
@@ -725,7 +725,7 @@
         }
 
         .mob-feature-ul li i.text-success {
-            color: #1dbf73 !important;
+            color: #3c88ee !important;
         }
 
         .mob-feature-ul li i.text-muted {
@@ -768,8 +768,8 @@
 
         .kwork-mob-submit-btn {
             width: 100% !important;
-            background-color: #1dbf73 !important;
-            border: 1px solid #1dbf73 !important;
+            background-color: #3c88ee !important;
+            border: 1px solid #3c88ee !important;
             color: #ffffff !important;
             font-weight: 700 !important;
             font-size: 15px !important;
