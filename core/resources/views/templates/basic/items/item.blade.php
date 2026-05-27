@@ -37,7 +37,7 @@
          <div
              style="display: flex !important; flex-direction: column !important; flex-grow: 1 !important; justify-content: space-between !important;">
 
-             <div class="px-2 py-2">
+             <div class="px-2 pt-2 pb-1">
                  <h6
                      style="font-size: 14px !important; font-weight: 400 !important; line-height: 1.4 !important; margin: 0 !important; min-height: 42px !important; overflow: hidden !important; display: -webkit-box !important; -webkit-line-clamp: 2 !important; -webkit-box-orient: vertical !important; text-transform: capitalize !important;">
                      <a href="{{ route("$type.details", [slug($product->name), $product->id]) }}"
