@@ -35,7 +35,7 @@
             }
 
             .btn-chat-mobile {
-                background-color: #007bff !important;
+                background-color: #0ba833 !important;
                 color: #ffffff !important;
                 font-size: 15px;
                 font-weight: 600;
