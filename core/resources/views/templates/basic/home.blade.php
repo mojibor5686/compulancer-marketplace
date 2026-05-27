@@ -30,10 +30,10 @@
                 <div class="page-content">
                     <div class="row">
                         <div class="col-lg-12 productList">
-                            <div class="row gy-4 row-cols-2 row-cols-lg-5 jss-row">
+                            <div class="row gy-4 row-cols-2 row-cols-lg-5 jss-row kwrk-responsive-grid">
                                 @include('Template::partials.loader')
                                 @forelse($services ?? [] as $product)
-                                    @if ($loop->iteration > 5)
+                                    @if ($loop->iteration > 6)
                                         @break
                                     @endif
 
@@ -66,7 +66,7 @@
                                         $totalReviews = $product->total_review > 0 ? $product->total_review : 0;
                                     @endphp
 
-                                    <div class="col productListCol">
+                                    <div class="col productListCol kwrk-item-{{ $loop->iteration }}">
                                         <article class="card jss--card jss--card-{{ $type }}"
                                             style="background: #ffffff !important; border: 1px solid #dadbdd !important; border-radius: 4px !important; box-shadow: none !important; overflow: hidden !important; display: flex !important; flex-direction: column !important; height: 100% !important; font-family: Macan, 'Helvetica Neue', Helvetica, Arial, sans-serif !important; position: relative !important; transition: all 0.2s ease-in-out;">
 
@@ -156,6 +156,14 @@
                                 @endforelse
                             </div>
                         </div>
+
+                        <style>
+                            @media (min-width: 992px) {
+                                .kwrk-responsive-grid .kwrk-item-6 {
+                                    display: none !important;
+                                }
+                            }
+                        </style>
                     </div>
                 </div>
             </div>
