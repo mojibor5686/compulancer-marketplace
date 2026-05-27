@@ -8,7 +8,7 @@
                     <span>@lang('Chat')</span>
                 </a>
                 <a href="#" class="btn btn-order-mobile flex-grow-1 text-center">
-                    @lang('Order for') $80
+                    @lang('Order for')
                 </a>
             </div>
         </div>
@@ -774,8 +774,9 @@
                         <span>@lang('Chat')</span>
                     </button>
 
-                    <button type="button" class="btn btn-order-mobile flex-grow-1 text-center js-mobile-order-submit">
-                        @lang('Order for') &#2547;<span class="totalPrice">{{ number_format($productDetails->price) }}</span>
+                    <button type="button" class="btn btn-order-mobile flex-grow-1 text-center js-mobile-fixed-order-trigger">
+                        @lang('Order for') &#2547;<span
+                            class="totalPrice">{{ number_format($basicPkg->price ?? 0, 0) }}</span>
                     </button>
                 </div>
             </div>
@@ -792,7 +793,8 @@
 
                     <button type="button" class="btn btn-order-mobile flex-grow-1 text-center" data-bs-toggle="modal"
                         data-bs-target="#signInModal">
-                        @lang('Order for') &#2547;<span class="totalPrice">{{ number_format($productDetails->price) }}</span>
+                        @lang('Order for') &#2547;<span
+                            class="totalPrice">{{ number_format($basicPkg->price ?? 0, 0) }}</span>
                     </button>
                 </div>
             </div>

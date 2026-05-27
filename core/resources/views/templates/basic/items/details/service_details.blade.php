@@ -402,6 +402,78 @@
     </div>
 </div>
 
+<script>
+    $(document).ready(function() {
+
+        // নম্বর ফরম্যাটার (কারেন্সির কমা দেওয়ার জন্য, যেমন: 1,200)
+        function formatNumber(num) {
+            return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+        }
+
+        // মোবাইল ফিক্সড বটম বারের প্রাইস আপডেট করার মেইন ফাংশন
+        function updateMobileFixedBottomPrice() {
+            // ১. বর্তমানে যে মোবাইল প্যানেল বা ব্লকটি দৃশ্যমান (Visible) আছে সেটি খুঁজে বের করি
+            var $activePanel = $('.kwrk-mob-panel-block:visible');
+
+            if ($activePanel.length) {
+                // ২. ওই প্যানেলের কোয়ান্টিটি ইনপুট এবং বেস প্রাইস ধরি
+                var $qtyInput = $activePanel.find('.kwrk-mobile-qty-input');
+                var basePrice = parseFloat($qtyInput.data('price')) || 0;
+                var qty = parseInt($qtyInput.val()) || 1;
+
+                // ৩. টোটাল হিসাব
+                var totalPrice = basePrice * qty;
+
+                // ৪. প্যানেলের ভেতরের বাটন টেক্সট আপডেট
+                $activePanel.find('.kwrk-mob-price-text').text(formatNumber(totalPrice));
+
+                // ৫. বটম ফিক্সড অ্যাকশন বারের প্রাইস আপডেট
+                $('.mobile-fixed-bottom-action .totalPrice').text(formatNumber(totalPrice));
+            }
+        }
+
+        // ইভেন্ট ১: মোবাইল ট্যাব আইটেম ক্লিক (টগল) হলে
+        $('.kwrk-mobile-tab-item').on('click', function() {
+            var targetId = $(this).data('kwrktarget');
+
+            // ট্যাব অ্যাক্টিভ ক্লাস চেঞ্জ
+            $('.kwrk-mobile-tab-item').removeClass('active');
+            $(this).addClass('active');
+
+            // প্যানেল হাইড/শো
+            $('.kwrk-mob-panel-block').hide();
+            $('#' + targetId).show();
+
+            // প্রাইস রি-ক্যালকুলেট
+            updateMobileFixedBottomPrice();
+        });
+
+        // ইভেন্ট ২: কোয়ান্টিটি ইনপুট ম্যানুয়ালি চেঞ্জ বা কি-আপ হলে
+        $(document).on('input change keyup', '.kwrk-mobile-qty-input', function() {
+            // ইনপুট ভ্যালু ভ্যালিডেশন (মিনিমাম ১)
+            if ($(this).val() < 1) {
+                $(this).val(1);
+            }
+            updateMobileFixedBottomPrice();
+        });
+
+        // ইভেন্ট ৩: ফিক্সড বটম অর্ডার বাটনে ক্লিক করলে অ্যাক্টিভ ফর্মটি সাবমিট হবে
+        $(document).on('click', '.js-mobile-fixed-order-trigger', function(e) {
+            e.preventDefault();
+
+            // বর্তমানে অ্যাক্টিভ বা দৃশ্যমান প্যানেলের ভেতরের ফর্মটি ধরবে
+            var $activeForm = $('.kwrk-mob-panel-block:visible').find('form');
+
+            if ($activeForm.length) {
+                $activeForm.submit(); // ফর্ম সাবমিট
+            }
+        });
+
+        // পেজ ফার্স্ট টাইম লোড হওয়ার পর ইনিশিয়াল প্রাইস সেট করার জন্য একবার কল করা হলো
+        updateMobileFixedBottomPrice();
+    });
+</script>
+
 <style>
     .kwork-card-wrapper {
         border: 1px solid #dadbdd;
