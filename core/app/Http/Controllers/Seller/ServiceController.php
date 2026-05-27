@@ -413,19 +413,31 @@ class ServiceController extends Controller
         }
 
         $packageTypes = ['basic', 'standard', 'premium'];
+        
+        $customFeaturesInput = $request->input('custom_features', []);
 
         foreach ($packageTypes as $type) {
-            $package = ServicePackage::updateOrCreate(
+            $compiledFeatures = [];
+
+            foreach ($customFeaturesInput as $item) {
+                if (!empty($item['name'])) {
+                    $featureName = trim($item['name']); 
+                    
+                    $compiledFeatures[$featureName] = isset($item[$type]) && $item[$type] == 'yes' ? 'yes' : 'no';
+                }
+            }
+
+            ServicePackage::updateOrCreate(
                 [
                     'service_id'   => $service->id,
                     'package_type' => $type
                 ],
                 [
-                    'package_title'       => $request->package_title[$type],
-                    'package_description' => purifylab($request->package_description[$type]),
-                    'delivery_time'       => $request->delivery_time[$type],
-                    'price'               => $request->price[$type],
-                    'features'            => isset($request->features[$type]) ? $request->features[$type] : []
+                    'package_title'       => $request->input("package_title.{$type}"),
+                    'package_description' => $request->input("package_description.{$type}"),
+                    'price'               => $request->input("price.{$type}", 0),
+                    'delivery_time'       => $request->input("delivery_time.{$type}"),
+                    'features'            => $compiledFeatures 
                 ]
             );
         }
