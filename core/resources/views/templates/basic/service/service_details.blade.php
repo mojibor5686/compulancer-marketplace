@@ -392,7 +392,7 @@
                                 </div>
 
                                 <div class="kwork-description-section mb-5">
-                                    <h3 class="kwork-section-title mb-3">@lang('Kwork Overview')</h3>
+                                    <h3 class="kwork-section-title mb-3">@lang('Compulancer Overview')</h3>
                                     <div class="kwork-real-description-body p-3 bg-white border rounded">
                                         @include('Template::items.details.description', [
                                             'type' => 'service',
