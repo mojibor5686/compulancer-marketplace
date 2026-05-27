@@ -1,10 +1,11 @@
-<div class="jss-details-sidebar__block"
-    style="border: 1px solid #dadbdd; border-radius: 8px; overflow: hidden; background: #fff;">
+<div class="jss-details-sidebar__block" style="background: transparent;">
     @php
+        // ডাটাবেজ থেকে প্যাকেজগুলো আলাদা করা হচ্ছে
         $basicPkg = $productDetails->packages->where('package_type', 'basic')->first();
         $standardPkg = $productDetails->packages->where('package_type', 'standard')->first();
         $premiumPkg = $productDetails->packages->where('package_type', 'premium')->first();
 
+        // ফিচারগুলোর জেসন ডিকোড হ্যান্ডলিং
         $basicFeatures = $basicPkg
             ? (is_array($basicPkg->features)
                 ? $basicPkg->features
@@ -26,159 +27,204 @@
         $premiumFeatures = $premiumFeatures ?? [];
     @endphp
 
-    <div class="d-flex text-center gig-package-tabs" style="background: #f5f5f5; border-bottom: 1px solid #dadbdd;">
-        <button type="button" class="flex-grow-1 py-3 fw-bold pkg-tab-btn active" data-target="basic"
-            style="border: none; background: transparent; font-size: 14px; color: #777; transition: all 0.2s;">
-            @lang('Basic')
-        </button>
-        <button type="button" class="flex-grow-1 py-3 fw-bold pkg-tab-btn" data-target="standard"
-            style="border: none; background: transparent; font-size: 14px; color: #777; transition: all 0.2s; border-left: 1px solid #dadbdd; border-right: 1px solid #dadbdd;">
-            @lang('Standard')
-        </button>
-        <button type="button" class="flex-grow-1 py-3 fw-bold pkg-tab-btn" data-target="premium"
-            style="border: none; background: transparent; font-size: 14px; color: #777; transition: all 0.2s;">
-            @lang('Premium')
-        </button>
-    </div>
-
     <form id="mainOrderForm" action="{{ route('user.service.add.booking', $productDetails->id) }}" method="POST">
         @csrf
         <input type="hidden" name="package_type" id="selectedPackageType" value="basic">
         <input type="hidden" name="package_id" id="selectedPackageId" value="{{ $basicPkg->id ?? '' }}">
         <div class="extra_services_container"></div>
 
-        <div class="widget-card-modern"
-            style="padding: 24px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+        <div class="kwork-packages-accordion d-flex flex-column gap-3"
+            style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
 
-            <div class="package-content-block" id="pkg_basic">
-                <div class="d-flex justify-content-between align-items-baseline mb-3">
-                    <span style="font-size: 28px; font-weight: 700; color: #2d3748;">
-                        &#2547;<span class="base-price">{{ number_format($basicPkg->price ?? 0, 0, '.', '') }}</span>
-                    </span>
-                    <span
-                        style="font-size: 14px; font-weight: 600; color: #1dbf73; background: #e8faf0; padding: 4px 10px; border-radius: 4px;">{{ $basicPkg->package_title ?? 'Basic Plan' }}</span>
-                </div>
-                <p style="font-size: 14px; color: #62646a; line-height: 1.4; margin-bottom: 20px;">
-                    {{ $basicPkg->package_description ?? '' }}</p>
+            @if ($basicPkg)
+                <div class="kwork-card-wrapper active" data-package="basic" data-id="{{ $basicPkg->id }}">
+                    <div class="kwork-card-header d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="currency-symbol">&#2547;{{ number_format($basicPkg->price ?? 0, 0) }}</span>
+                            <span class="package-name">@lang('Basic')</span>
+                        </div>
+                        <i class="las la-angle-down accordion-arrow"></i>
+                    </div>
 
-                <div class="d-flex align-items-center gap-3 mb-4"
-                    style="font-size: 14px; color: #62646a; font-weight: 600;">
-                    <div><i class="lar la-clock" style="font-size: 16px; margin-right: 5px;"></i>
-                        {{ $basicPkg->delivery_time ?? '1' }}-Day Delivery</div>
-                    <div><i class="las la-sync" style="font-size: 16px; margin-right: 5px;"></i> Unlimited Revisions
+                    <div class="kwork-card-body">
+                        <div class="package-title-badge mb-2">{{ $basicPkg->package_title ?? 'Basic Plan' }}</div>
+                        <p class="package-desc">{{ $basicPkg->package_description ?? '' }}</p>
+
+                        <div class="d-flex align-items-center gap-3 mb-3 delivery-revision-row">
+                            <div><i class="lar la-clock"></i> {{ $basicPkg->delivery_time ?? '1' }}-Day Delivery</div>
+                            <div><i class="las la-sync"></i> Unlimited Revisions</div>
+                        </div>
+
+                        <ul class="feature-list">
+                            @foreach ($basicFeatures as $featureName => $isAvailable)
+                                <li class="{{ $isAvailable == 'no' ? 'disabled' : '' }}">
+                                    @if ($isAvailable == 'yes')
+                                        <i class="las la-check check-icon"></i>
+                                    @else
+                                        <i class="las la-times cross-icon"></i>
+                                    @endif
+                                    <span>{{ $featureName }}</span>
+                                </li>
+                            @endforeach
+                        </ul>
+
+                        <div class="order-action-area">
+                            <div class="quantity-row d-flex align-items-center justify-content-between mb-3">
+                                <span class="qty-label"><i class="las la-cubes"></i> @lang('Quantity')</span>
+                                <div class="qty-counter">
+                                    <button type="button" class="pkgDecrementBtn"><i class="las la-minus"></i></button>
+                                    <span class="pkgQuantityDisplay">1</span>
+                                    <button type="button" class="pkgIncrementBtn"><i class="las la-plus"></i></button>
+                                </div>
+                            </div>
+
+                            @auth
+                                <button type="submit" class="kwork-order-btn">
+                                    @lang('Order for') &nbsp;&#2547;<span
+                                        class="finalTotalPriceDisplay">{{ number_format($basicPkg->price ?? 0, 0) }}</span>
+                                </button>
+                            @else
+                                <button type="button" class="kwork-order-btn" data-bs-toggle="modal"
+                                    data-bs-target="#signInModal">
+                                    @lang('Order for') &nbsp;&#2547;<span
+                                        class="finalTotalPriceDisplay">{{ number_format($basicPkg->price ?? 0, 0) }}</span>
+                                </button>
+                            @endauth
+                        </div>
                     </div>
                 </div>
+            @endif
 
-                <ul class="feature-check-list"
-                    style="list-style: none; padding: 0; margin: 0 0 20px 0; font-size: 14px; color: #4a5568;">
-                    @foreach ($basicFeatures as $featureName => $isAvailable)
-                        <li class="d-flex align-items-center gap-2 mb-2.5"
-                            style="{{ $isAvailable == 'no' ? 'color: #bcbebf; text-decoration: line-through; opacity: 0.6;' : '' }}">
-                            @if ($isAvailable == 'yes')
-                                <i class="las la-check" style="color: #1dbf73; font-size: 16px; font-weight: bold;"></i>
+            @if ($standardPkg)
+                <div class="kwork-card-wrapper" data-package="standard" data-id="{{ $standardPkg->id }}">
+                    <div class="kwork-card-header d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center gap-2">
+                            <span
+                                class="currency-symbol">&#2547;{{ number_format($standardPkg->price ?? 0, 0) }}</span>
+                            <span class="package-name">@lang('Standard')</span>
+                        </div>
+                        <i class="las la-angle-down accordion-arrow"></i>
+                    </div>
+
+                    <div class="kwork-card-body" style="display: none;">
+                        <div class="package-title-badge mb-2">{{ $standardPkg->package_title ?? 'Standard Plan' }}
+                        </div>
+                        <p class="package-desc">{{ $standardPkg->package_description ?? '' }}</p>
+
+                        <div class="d-flex align-items-center gap-3 mb-3 delivery-revision-row">
+                            <div><i class="lar la-clock"></i> {{ $standardPkg->delivery_time ?? '3' }}-Day Delivery
+                            </div>
+                            <div><i class="las la-sync"></i> Unlimited Revisions</div>
+                        </div>
+
+                        <ul class="feature-list">
+                            @foreach ($standardFeatures as $featureName => $isAvailable)
+                                <li class="{{ $isAvailable == 'no' ? 'disabled' : '' }}">
+                                    @if ($isAvailable == 'yes')
+                                        <i class="las la-check check-icon"></i>
+                                    @else
+                                        <i class="las la-times cross-icon"></i>
+                                    @endif
+                                    <span>{{ $featureName }}</span>
+                                </li>
+                            @endforeach
+                        </ul>
+
+                        <div class="order-action-area">
+                            <div class="quantity-row d-flex align-items-center justify-content-between mb-3">
+                                <span class="qty-label"><i class="las la-cubes"></i> @lang('Quantity')</span>
+                                <div class="qty-counter">
+                                    <button type="button" class="pkgDecrementBtn"><i class="las la-minus"></i></button>
+                                    <span class="pkgQuantityDisplay">1</span>
+                                    <button type="button" class="pkgIncrementBtn"><i class="las la-plus"></i></button>
+                                </div>
+                            </div>
+
+                            @auth
+                                <button type="submit" class="kwork-order-btn">
+                                    @lang('Order for') &nbsp;&#2547;<span
+                                        class="finalTotalPriceDisplay">{{ number_format($standardPkg->price ?? 0, 0) }}</span>
+                                </button>
                             @else
-                                <i class="las la-times" style="color: #bcbebf; font-size: 16px;"></i>
-                            @endif
-                            <span>{{ $featureName }}</span>
-                        </li>
-                    @endforeach
-                </ul>
-            </div>
-
-            <div class="package-content-block d-none" id="pkg_standard">
-                <div class="d-flex justify-content-between align-items-baseline mb-3">
-                    <span style="font-size: 28px; font-weight: 700; color: #2d3748;">
-                        &#2547;<span class="base-price">{{ number_format($standardPkg->price ?? 0, 0, '.', '') }}</span>
-                    </span>
-                    <span
-                        style="font-size: 14px; font-weight: 600; color: #1dbf73; background: #e8faf0; padding: 4px 10px; border-radius: 4px;">{{ $standardPkg->package_title ?? 'Standard Plan' }}</span>
-                </div>
-                <p style="font-size: 14px; color: #62646a; line-height: 1.4; margin-bottom: 20px;">
-                    {{ $standardPkg->package_description ?? '' }}</p>
-
-                <div class="d-flex align-items-center gap-3 mb-4"
-                    style="font-size: 14px; color: #62646a; font-weight: 600;">
-                    <div><i class="lar la-clock" style="font-size: 16px; margin-right: 5px;"></i>
-                        {{ $standardPkg->delivery_time ?? '3' }}-Day Delivery</div>
-                    <div><i class="las la-sync" style="font-size: 16px; margin-right: 5px;"></i> Unlimited Revisions
+                                <button type="button" class="kwork-order-btn" data-bs-toggle="modal"
+                                    data-bs-target="#signInModal">
+                                    @lang('Order for') &nbsp;&#2547;<span
+                                        class="finalTotalPriceDisplay">{{ number_format($standardPkg->price ?? 0, 0) }}</span>
+                                </button>
+                            @endauth
+                        </div>
                     </div>
                 </div>
+            @endif
 
-                <ul class="feature-check-list"
-                    style="list-style: none; padding: 0; margin: 0 0 20px 0; font-size: 14px; color: #4a5568;">
-                    @foreach ($standardFeatures as $featureName => $isAvailable)
-                        <li class="d-flex align-items-center gap-2 mb-2.5"
-                            style="{{ $isAvailable == 'no' ? 'color: #bcbebf; text-decoration: line-through; opacity: 0.6;' : '' }}">
-                            @if ($isAvailable == 'yes')
-                                <i class="las la-check" style="color: #1dbf73; font-size: 16px; font-weight: bold;"></i>
+            @if ($premiumPkg)
+                <div class="kwork-card-wrapper" data-package="premium" data-id="{{ $premiumPkg->id }}">
+                    <div class="kwork-card-header d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center gap-2">
+                            <span class="currency-symbol">&#2547;{{ number_format($premiumPkg->price ?? 0, 0) }}</span>
+                            <span class="package-name">@lang('Premium')</span>
+                        </div>
+                        <i class="las la-angle-down accordion-arrow"></i>
+                    </div>
+
+                    <div class="kwork-card-body" style="display: none;">
+                        <div class="package-title-badge mb-2">{{ $premiumPkg->package_title ?? 'Premium Plan' }}</div>
+                        <p class="package-desc">{{ $premiumPkg->package_description ?? '' }}</p>
+
+                        <div class="d-flex align-items-center gap-3 mb-3 delivery-revision-row">
+                            <div><i class="lar la-clock"></i> {{ $premiumPkg->delivery_time ?? '5' }}-Day Delivery
+                            </div>
+                            <div><i class="las la-sync"></i> Unlimited Revisions</div>
+                        </div>
+
+                        <ul class="feature-list">
+                            @foreach ($premiumFeatures as $featureName => $isAvailable)
+                                <li class="{{ $isAvailable == 'no' ? 'disabled' : '' }}">
+                                    @if ($isAvailable == 'yes')
+                                        <i class="las la-check check-icon"></i>
+                                    @else
+                                        <i class="las la-times cross-icon"></i>
+                                    @endif
+                                    <span>{{ $featureName }}</span>
+                                </li>
+                            @endforeach
+                        </ul>
+
+                        <div class="order-action-area">
+                            <div class="quantity-row d-flex align-items-center justify-content-between mb-3">
+                                <span class="qty-label"><i class="las la-cubes"></i> @lang('Quantity')</span>
+                                <div class="qty-counter">
+                                    <button type="button" class="pkgDecrementBtn"><i
+                                            class="las la-minus"></i></button>
+                                    <span class="pkgQuantityDisplay">1</span>
+                                    <button type="button" class="pkgIncrementBtn"><i
+                                            class="las la-plus"></i></button>
+                                </div>
+                            </div>
+
+                            @auth
+                                <button type="submit" class="kwork-order-btn">
+                                    @lang('Order for') &nbsp;&#2547;<span
+                                        class="finalTotalPriceDisplay">{{ number_format($premiumPkg->price ?? 0, 0) }}</span>
+                                </button>
                             @else
-                                <i class="las la-times" style="color: #bcbebf; font-size: 16px;"></i>
-                            @endif
-                            <span>{{ $featureName }}</span>
-                        </li>
-                    @endforeach
-                </ul>
-            </div>
-
-            <div class="package-content-block d-none" id="pkg_premium">
-                <div class="d-flex justify-content-between align-items-baseline mb-3">
-                    <span style="font-size: 28px; font-weight: 700; color: #2d3748;">
-                        &#2547;<span class="base-price">{{ number_format($premiumPkg->price ?? 0, 0, '.', '') }}</span>
-                    </span>
-                    <span
-                        style="font-size: 14px; font-weight: 600; color: #1dbf73; background: #e8faf0; padding: 4px 10px; border-radius: 4px;">{{ $premiumPkg->package_title ?? 'Premium Plan' }}</span>
-                </div>
-                <p style="font-size: 14px; color: #62646a; line-height: 1.4; margin-bottom: 20px;">
-                    {{ $premiumPkg->package_description ?? '' }}</p>
-
-                <div class="d-flex align-items-center gap-3 mb-4"
-                    style="font-size: 14px; color: #62646a; font-weight: 600;">
-                    <div><i class="lar la-clock" style="font-size: 16px; margin-right: 5px;"></i>
-                        {{ $premiumPkg->delivery_time ?? '5' }}-Day Delivery</div>
-                    <div><i class="las la-sync" style="font-size: 16px; margin-right: 5px;"></i> Unlimited Revisions
+                                <button type="button" class="kwork-order-btn" data-bs-toggle="modal"
+                                    data-bs-target="#signInModal">
+                                    @lang('Order for') &nbsp;&#2547;<span
+                                        class="finalTotalPriceDisplay">{{ number_format($premiumPkg->price ?? 0, 0) }}</span>
+                                </button>
+                            @endauth
+                        </div>
                     </div>
                 </div>
+            @endif
 
-                <ul class="feature-check-list"
-                    style="list-style: none; padding: 0; margin: 0 0 20px 0; font-size: 14px; color: #4a5568;">
-                    @foreach ($premiumFeatures as $featureName => $isAvailable)
-                        <li class="d-flex align-items-center gap-2 mb-2.5"
-                            style="{{ $isAvailable == 'no' ? 'color: #bcbebf; text-decoration: line-through; opacity: 0.6;' : '' }}">
-                            @if ($isAvailable == 'yes')
-                                <i class="las la-check" style="color: #1dbf73; font-size: 16px; font-weight: bold;"></i>
-                            @else
-                                <i class="las la-times" style="color: #bcbebf; font-size: 16px;"></i>
-                            @endif
-                            <span>{{ $featureName }}</span>
-                        </li>
-                    @endforeach
-                </ul>
-            </div>
-
-            <hr style="border-color: #e2e8f0; margin: 20px 0;">
-
-            <div class="d-flex align-items-center justify-content-between mb-4"
-                style="font-size: 14px; color: #4a5568;">
-                <span class="fw-bold"><i class="las la-cubes" style="color: #718096; font-size: 16px;"></i>
-                    @lang('Quantity')</span>
-                <div class="quantity-control-modern"
-                    style="display: flex; align-items: center; border: 1px solid #e2e8f0; border-radius: 6px; overflow: hidden; background: #f7fafc; height: 32px;">
-                    <button type="button" class="pkgDecrementBtn"
-                        style="border: none; background: transparent; width: 32px; height: 100%; display: flex; align-items: center; justify-content: center; color: #718096; outline: none;"><i
-                            class="las la-minus" style="font-size: 12px;"></i></button>
-                    <span class="pkgQuantityDisplay"
-                        style="width: 36px; text-align: center; font-weight: 600; color: #2d3748;">1</span>
-                    <button type="button" class="pkgIncrementBtn"
-                        style="border: none; background: transparent; width: 32px; height: 100%; display: flex; align-items: center; justify-content: center; color: #718096; outline: none;"><i
-                            class="las la-plus" style="font-size: 12px;"></i></button>
-                    <input type="hidden" name="service_qty" id="service_qty_input" value="1">
-                </div>
-            </div>
+            <input type="hidden" name="service_qty" id="service_qty_input" value="1">
 
             @if ($extraServices && $extraServices->count() > 0)
-                <div class="mb-4">
-                    <h6
-                        style="font-size: 14px; font-weight: 600; color: #2d3748; margin-bottom: 12px; letter-spacing: 0.3px;">
+                <div class="kwork-extra-box"
+                    style="border: 1px solid #dadbdd; border-radius: 6px; padding: 20px; background: #fff;">
+                    <h6 style="font-size: 14px; font-weight: 600; color: #2d3748; margin-bottom: 12px;">
                         @lang('Upgrade order with extras:')</h6>
                     <div style="display: flex; flex-direction: column; gap: 10px;">
                         @foreach ($extraServices as $key => $extraService)
@@ -201,109 +247,281 @@
                 </div>
             @endif
 
-            <div class="w-100 mt-2">
-                @auth
-                    <button type="submit" class="btn w-100 d-flex align-items-center justify-content-center"
-                        style="background-color: #1dbf73; color: #ffffff; font-weight: 700; font-size: 16px; padding: 14px 20px; border-radius: 6px; border: none; transition: background 0.2s; outline: none;">
-                        @lang('Order for') &nbsp;&#2547;<span class="finalTotalPriceDisplay">0</span>
-                    </button>
-                @else
-                    <button type="button" class="btn w-100 d-flex align-items-center justify-content-center"
-                        data-bs-toggle="modal" data-bs-target="#signInModal"
-                        style="background-color: #1dbf73; color: #ffffff; font-weight: 700; font-size: 16px; padding: 14px 20px; border-radius: 6px; border: none; transition: background 0.2s; outline: none;">
-                        @lang('Order for') &nbsp;&#2547;<span class="finalTotalPriceDisplay">0</span>
-                    </button>
-                @endauth
-            </div>
-
         </div>
     </form>
 </div>
 
 <style>
-    .pkg-tab-btn.active {
-        background: #ffffff !important;
-        color: #1dbf73 !important;
-        border-top: 3px solid #1dbf73 !important;
+    .kwork-card-wrapper {
+        border: 1px solid #dadbdd;
+        border-radius: 6px;
+        background: #fff;
+        overflow: hidden;
+        transition: all 0.2s ease-in-out;
     }
 
-    .pkg-tab-btn:not(.active):hover {
-        background: #eaeaea !important;
-        color: #333;
+    .kwork-card-header {
+        padding: 14px 20px;
+        background: #fff;
+        cursor: pointer;
+        user-select: none;
+    }
+
+    .kwork-card-header .currency-symbol {
+        font-size: 20px;
+        font-weight: 700;
+        color: #1dbf73;
+    }
+
+    .kwork-card-header .package-name {
+        font-size: 15px;
+        font-weight: 600;
+        color: #2d3748;
+    }
+
+    .kwork-card-header .accordion-arrow {
+        font-size: 16px;
+        color: #a0aec0;
+        transition: transform 0.2s;
+    }
+
+    .kwork-card-body {
+        padding: 0 20px 20px 20px;
+        border-top: 1px solid #f0f0f0;
+        background: #fafafa;
+    }
+
+    /* Active Card UI State Update */
+    .kwork-card-wrapper.active {
+        border-color: #1dbf73;
+        box-shadow: 0 4px 12px rgba(29, 191, 115, 0.06);
+    }
+
+    .kwork-card-wrapper.active .kwork-card-header {
+        background: #fafafa;
+        border-bottom: none;
+    }
+
+    .kwork-card-wrapper.active .accordion-arrow {
+        transform: rotate(180deg);
+        color: #1dbf73;
+    }
+
+    /* Inner Typography */
+    .package-title-badge {
+        font-size: 14px;
+        font-weight: 600;
+        color: #4a5568;
+        padding-top: 15px;
+    }
+
+    .package-desc {
+        font-size: 13.5px;
+        color: #62646a;
+        line-height: 1.5;
+        margin-bottom: 15px;
+    }
+
+    .delivery-revision-row {
+        font-size: 13px;
+        color: #74767e;
+        font-weight: 600;
+    }
+
+    .delivery-revision-row i {
+        font-size: 15px;
+        color: #999;
+    }
+
+    /* Checklist Grid UI */
+    .feature-list {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 20px 0;
+    }
+
+    .feature-list li {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 13.5px;
+        color: #404145;
+        margin-bottom: 8px;
+    }
+
+    .feature-list li.disabled {
+        color: #b5b6ba;
+        text-decoration: line-through;
+        opacity: 0.65;
+    }
+
+    .feature-list .check-icon {
+        color: #1dbf73;
+        font-size: 15px;
+        font-weight: bold;
+    }
+
+    .feature-list .cross-icon {
+        color: #b5b6ba;
+        font-size: 14px;
+    }
+
+    /* Quantity Panel Box */
+    .qty-counter {
+        display: flex;
+        align-items: center;
+        border: 1px solid #e2e8f0;
+        border-radius: 4px;
+        background: #fff;
+        height: 30px;
+    }
+
+    .qty-counter button {
+        border: none;
+        background: transparent;
+        width: 30px;
+        height: 100%;
+        color: #718096;
+        outline: none;
+    }
+
+    .qty-counter .pkgQuantityDisplay {
+        width: 30px;
+        text-align: center;
+        font-weight: 600;
+        font-size: 13px;
+    }
+
+    .qty-label {
+        font-size: 13px;
+        font-weight: 600;
+        color: #62646a;
+    }
+
+    /* Global Order Button Clones */
+    .kwork-order-btn {
+        width: 100%;
+        background-color: #1dbf73;
+        color: #fff;
+        font-weight: 700;
+        font-size: 15px;
+        padding: 12px 20px;
+        border-radius: 4px;
+        border: none;
+        transition: background 0.15s ease;
+        outline: none;
+    }
+
+    .kwork-order-btn:hover {
+        background-color: #19a462;
     }
 
     .marketplace-extra-card:hover {
-        background: #fcfcfc;
+        background: #fdfdfd;
         border-color: #cbd5e0 !important;
     }
 </style>
-
 @push('script')
     <script>
         (function($) {
             "use strict";
 
-            var packageIds = {
-                basic: "{{ $basicPkg->id ?? '' }}",
-                standard: "{{ $standardPkg->id ?? '' }}",
-                premium: "{{ $premiumPkg->id ?? '' }}"
-            };
-
+            // ১. মেইন ক্যালকুলেটর ফাংশন
             function calculateTotalOrderPrice() {
-                let activeTab = $('#selectedPackageType').val();
-                let container = $('#pkg_' + activeTab);
+                // বর্তমানে একটিভ থাকা প্যাকেজ কন্টেইনার ধরা হচ্ছে
+                let activeCard = $('.kwork-card-wrapper.active');
+                if (activeCard.length === 0) return;
 
-                let basePrice = parseFloat(container.find('.base-price').text().replace(/,/g, '')) || 0;
+                let activeTab = activeCard.data('package');
 
-                let qty = parseInt($('.pkgQuantityDisplay').text()) || 1;
+                // ডাটাবেজ থেকে রেন্ডার করা রিল্যান্ড দাম রিড করা (ফরমেট ছাড়া ক্লিন ফ্লোট ভ্যালু)
+                let basePrice = 0;
+                if (activeTab === 'basic') basePrice = parseFloat("{{ $basicPkg->price ?? 0 }}") || 0;
+                if (activeTab === 'standard') basePrice = parseFloat("{{ $standardPkg->price ?? 0 }}") || 0;
+                if (activeTab === 'premium') basePrice = parseFloat("{{ $premiumPkg->price ?? 0 }}") || 0;
 
+                // মেইন গ্লোবাল কোয়ান্টিটি ইনপুট থেকে মান নেওয়া
+                let qty = parseInt($('#service_qty_input').val()) || 1;
+
+                // এক্সট্রা সার্ভিস সামেশন
                 let extraTotal = 0;
                 $('.pkgExtraServicesCheckbox:checked').each(function() {
                     extraTotal += parseFloat($(this).data('price')) || 0;
                 });
 
+                // মোট সমীকরণ হিসাব
                 let finalPrice = (basePrice * qty) + extraTotal;
 
-                $('.finalTotalPriceDisplay').text(finalPrice.toLocaleString('en-US'));
+                // শুধুমাত্র কারেন্ট ওপেন থাকা কার্ডের ভেতরের বাটনে দাম আপডেট করা
+                activeCard.find('.finalTotalPriceDisplay').text(finalPrice.toLocaleString('en-US'));
             }
 
-            $('.pkg-tab-btn').on('click', function() {
-                $('.pkg-tab-btn').removeClass('active');
-                $(this).addClass('active');
+            // ২. Kwork Accordion Header ক্লিক ইভেন্ট
+            $('.kwork-card-header').on('click', function(e) {
+                // যদি ভুলবশত কোয়ান্টিটি কাউন্টারে ক্লিক পড়ে তাহলে কোড রানিং অফ থাকবে
+                if ($(e.target).closest('.order-action-area').length) return;
 
-                let targetPkg = $(this).data('target');
+                let parentCard = $(this).closest('.kwork-card-wrapper');
 
-                $('#selectedPackageType').val(targetPkg);
-                $('#selectedPackageId').val(packageIds[targetPkg]);
+                // অলরেডি একটিভ থাকলে ক্লোজ করার প্রয়োজন নেই (Kwork সিস্টেমে যেকোনো ১টি প্যানেল ওপেন থাকতেই হয়)
+                if (parentCard.hasClass('active')) return;
 
-                $('.package-content-block').addClass('d-none');
-                $('#pkg_' + targetPkg).removeClass('d-none');
+                // বাকি সব প্যানেল স্লাইড আপ করে বন্ধ করা
+                $('.kwork-card-body').slideUp(200);
+                $('.kwork-card-wrapper').removeClass('active');
 
+                // বর্তমানের সিলেক্টেড প্যানেলটি ওপেন করা
+                parentCard.addClass('active');
+                parentCard.find('.kwork-card-body').slideDown(200);
+
+                // হিডেন ফর্মে ডাটা অ্যাসাইন করা
+                let packageType = parentCard.data('package');
+                let packageId = parentCard.data('id');
+
+                $('#selectedPackageType').val(packageType);
+                $('#selectedPackageId').val(packageId);
+
+                // নতুন প্যানেল ওপেন করার সাথে সাথে কোয়ান্টিটি ১ এ রিসেট করা
+                $('.pkgQuantityDisplay').text('1');
+                $('#service_qty_input').val(1);
+
+                // নতুন প্রাইস রি-ক্যালকুলেট করা
                 calculateTotalOrderPrice();
             });
 
-            $('.pkgIncrementBtn').on('click', function() {
-                let currentQty = parseInt($('.pkgQuantityDisplay').text()) || 1;
+            // ৩. কোয়ান্টিটি ইনক্রিমেন্ট (+) বাটন
+            $(document).on('click', '.pkgIncrementBtn', function(e) {
+                e.preventDefault();
+                let currentQty = parseInt($('#service_qty_input').val()) || 1;
                 currentQty++;
+
+                // পেজের সব কোয়ান্টিটি টেক্সট সিঙ্ক রাখা
                 $('.pkgQuantityDisplay').text(currentQty);
                 $('#service_qty_input').val(currentQty);
+
                 calculateTotalOrderPrice();
             });
 
-            $('.pkgDecrementBtn').on('click', function() {
-                let currentQty = parseInt($('.pkgQuantityDisplay').text()) || 1;
+            // ৪. কোয়ান্টিটি ডিক্রিমেন্ট (-) বাটন
+            $(document).on('click', '.pkgDecrementBtn', function(e) {
+                e.preventDefault();
+                let currentQty = parseInt($('#service_qty_input').val()) || 1;
                 if (currentQty > 1) {
                     currentQty--;
+
                     $('.pkgQuantityDisplay').text(currentQty);
                     $('#service_qty_input').val(currentQty);
+
                     calculateTotalOrderPrice();
                 }
             });
 
+            // ৫. এক্সট্রা সার্ভিস চেকবক্স টগল ইভেন্ট
             $(document).on('change', '.pkgExtraServicesCheckbox', function() {
                 calculateTotalOrderPrice();
             });
 
+            // ফার্স্ট টাইম ইনিশিয়াল পেজ লোড রান
             calculateTotalOrderPrice();
 
         })(jQuery);
