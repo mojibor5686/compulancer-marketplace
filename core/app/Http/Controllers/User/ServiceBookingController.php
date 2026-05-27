@@ -26,29 +26,15 @@ class ServiceBookingController extends Controller
 
         $service = Service::where('id', $id)->active()->notAuthUser()->checkData()->with('user')->first();
 
+        dd($request->all(), $service);
+
         if (!$service) {
             $notify[] = ['error', 'You are not allowed to make a booking'];
             return back()->withNotify($notify);
         }
 
-        $extraServices     = null;
-        $extraServicePrice = 0;
-
-        if ($request->extra_services) {
-            $extraServicesCheck = $this->extraServicePriceCalculation($request->extra_services, $service->id);
-
-            if ($extraServicesCheck[0] == 'notFoundOrDisabled') {
-                $notify[] = ['error', 'The extra service was not found or has been disabled.'];
-                return back()->withNotify($notify);
-            }
-
-            $extraServices     = $extraServicesCheck[0];
-            $extraServicePrice = $extraServicesCheck[1];
-        }
-
         $quantity     = $request->service_qty;
         $servicePrice = $service->price * $quantity;
-        $totalPrice   = $servicePrice + $extraServicePrice;
 
         session()->forget('orderDetails');
         session()->put('orderDetails', [
@@ -60,7 +46,6 @@ class ServiceBookingController extends Controller
             'orderNumber'       => getTrx(),
             'price'             => $servicePrice,
             'extraServices'     => $extraServices,
-            'extraServicePrice' => $extraServicePrice,
             'couponId'          => null
         ]);
 
@@ -99,7 +84,7 @@ class ServiceBookingController extends Controller
             $gate->where('status', Status::ENABLE);
         })->with('method')->orderby('name')->get();
         
-        return view('Template::service.service_confirm', compact('pageTitle', 'orderDetails', 'coupon', 'gatewayCurrency', 'extraServicesId'));
+        return view('Template::service.service_confirm', compact('pageTitle', 'orderDetails', 'coupon', 'gatewayCurrency'));
     }
 
     public function couponApply(Request $request)
