@@ -71,12 +71,10 @@
         (function($) {
             "use strict";
 
-            // Handle subcategory loading based on selected category
             let softwareSubcategoryId = `{{ @$software->sub_category_id }}`;
             $('select[name="category_id"]').on('change', function() {
                 let subcategories = $(this).find('option:selected').data('softwareSubcategories');
 
-                // Fallback check if data attributes differ in templates
                 if (!subcategories) {
                     subcategories = $(this).find('option:selected').data('subcategories');
                 }
@@ -90,13 +88,11 @@
                 $('select[name="sub_category_id"]').html(html);
             }).change();
 
-            // Handle form submission for 'Save & Continue' button
             $('#saveAndContinue').on("click", function() {
                 let btn = $(this);
                 let originalButtonText = btn.html();
                 btn.html(`<div class="spinner-border"></div> {{ __('Saving') }}...`).prop('disabled', true);
 
-                // FormData অটোমেটিকভাবে ফরমের সব ডাটা (description সহ) কালেক্ট করে নেবে
                 let formData = new FormData($('#basicForm')[0]);
                 formData.append('_token', '{{ csrf_token() }}');
 

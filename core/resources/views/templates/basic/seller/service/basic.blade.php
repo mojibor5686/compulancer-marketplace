@@ -82,12 +82,10 @@
         (function($) {
             "use strict";
 
-            // Initialize Select2 for category and subcategory dropdowns
             $('.select2').select2({
                 width: '100%'
             });
 
-            // Handle subcategory loading based on selected category
             let serviceSubcategoryId = `{{ @$service->sub_category_id }}`;
             $('select[name="category_id"]').on('change', function() {
                 let subcategories = $(this).find(`option:selected`).data(`subcategories`);
@@ -101,13 +99,11 @@
                 $('select[name="sub_category_id"]').html(html);
             }).change();
 
-            // Handle form submission for 'Save & Continue' button
             $('#saveAndContinue').on("click", function() {
                 let btn = $(this);
                 let originalButtonText = btn.html();
                 btn.html(`<div class="spinner-border"></div> {{ __('Saving') }}...`).prop('disabled', true);
 
-                // FormData সরাসরি ফর্মের সব ভ্যালু (description সহ) নিজে থেকেই নিয়ে নেবে
                 let formData = new FormData($('#basicForm')[0]);
                 formData.append('_token', '{{ csrf_token() }}');
 

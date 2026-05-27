@@ -54,6 +54,14 @@
     <script>
         (function($) {
             "use strict";
+
+            function showNotification(type, message) {
+                if (typeof notify !== 'undefined') {
+                    notify(type, message);
+                } else {
+                    alert(message);
+                }
+            }
             // Handle form submission for 'Save & Continue' button
             $('#saveAndContinue').on('click', function() {
                 var btn = $(this);
