@@ -465,22 +465,22 @@
                                 .pkg-table-price {
                                     font-size: 18px;
                                     font-weight: 700;
-                                    color: #10b981;
+                                    color: #3c88ee;
                                 }
 
                                 .kwork-table-order-btn {
-                                    background-color: #1dbf73 !important;
-                                    border-color: #1dbf73 !important;
+                                    background-color: #3c88ee !important;
+                                    border-color: #3c88ee !important;
                                     font-weight: 700;
                                     padding: 6px 20px;
                                 }
 
                                 .kwork-table-order-btn:hover {
-                                    background-color: #19a463 !important;
+                                    background-color: #3c88ee !important;
                                 }
 
                                 .text--success {
-                                    color: #1dbf73;
+                                    color: #3c88ee;
                                 }
 
                                 .fs-18 {
