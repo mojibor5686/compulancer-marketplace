@@ -25,27 +25,27 @@
         $premiumFeatures = $premiumFeatures ?? [];
     @endphp
 
-    <form id="mainOrderForm" action="{{ route('user.service.add.booking', $productDetails->id) }}" method="POST">
-        @csrf
-        <input type="hidden" name="package_type" id="selectedPackageType" value="basic">
-        <input type="hidden" name="package_id" id="selectedPackageId" value="{{ $basicPkg->id ?? '' }}">
-        <div class="extra_services_container"></div>
-        <input type="hidden" value="{{ $productDetails->id }}" name="service_id">
+    <div class="kwork-packages-accordion d-flex flex-column gap-3"
+        style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
 
-        <div class="kwork-packages-accordion d-flex flex-column gap-3"
-            style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
-
-            @if ($basicPkg)
-                <div class="kwork-card-wrapper active" data-package="basic" data-id="{{ $basicPkg->id }}">
-                    <div class="kwork-card-header d-flex justify-content-between align-items-center">
-                        <div class="d-flex align-items-center gap-2">
-                            <span class="currency-symbol">&#2547;{{ number_format($basicPkg->price ?? 0, 0) }}</span>
-                            <span class="package-name">@lang('Basic')</span>
-                        </div>
-                        <i class="las la-angle-down accordion-arrow"></i>
+        @if ($basicPkg)
+            <div class="kwork-card-wrapper active" data-package="basic">
+                <div class="kwork-card-header d-flex justify-content-between align-items-center">
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="currency-symbol">&#2547;{{ number_format($basicPkg->price ?? 0, 0) }}</span>
+                        <span class="package-name">@lang('Basic')</span>
                     </div>
+                    <i class="las la-angle-down accordion-arrow"></i>
+                </div>
 
-                    <div class="kwork-card-body">
+                <div class="kwork-card-body">
+                    <form action="{{ route('user.service.add.booking', $productDetails->id) }}" method="POST"
+                        class="package-order-form">
+                        @csrf
+                        <input type="hidden" name="package_type" value="basic">
+                        <input type="hidden" name="package_id" value="{{ $basicPkg->id }}">
+                        <input type="hidden" name="service_id" value="{{ $productDetails->id }}">
+
                         <div class="package-title-badge mb-2">{{ $basicPkg->package_title ?? 'Basic Plan' }}</div>
                         <p class="package-desc">{{ $basicPkg->package_description ?? '' }}</p>
 
@@ -57,11 +57,8 @@
                         <ul class="feature-list">
                             @foreach ($basicFeatures as $featureName => $isAvailable)
                                 <li class="{{ $isAvailable == 'no' ? 'disabled' : '' }}">
-                                    @if ($isAvailable == 'yes')
-                                        <i class="las la-check check-icon"></i>
-                                    @else
-                                        <i class="las la-times cross-icon"></i>
-                                    @endif
+                                    <i
+                                        class="las {{ $isAvailable == 'yes' ? 'la-check check-icon' : 'la-times cross-icon' }}"></i>
                                     <span>{{ $featureName }}</span>
                                 </li>
                             @endforeach
@@ -75,6 +72,7 @@
                                     <span class="pkgQuantityDisplay">1</span>
                                     <button type="button" class="pkgIncrementBtn"><i class="las la-plus"></i></button>
                                 </div>
+                                <input type="hidden" name="service_qty" class="service_qty_hidden" value="1">
                             </div>
 
                             @auth
@@ -90,22 +88,29 @@
                                 </button>
                             @endauth
                         </div>
-                    </div>
+                    </form>
                 </div>
-            @endif
+            </div>
+        @endif
 
-            @if ($standardPkg)
-                <div class="kwork-card-wrapper" data-package="standard" data-id="{{ $standardPkg->id }}">
-                    <div class="kwork-card-header d-flex justify-content-between align-items-center">
-                        <div class="d-flex align-items-center gap-2">
-                            <span
-                                class="currency-symbol">&#2547;{{ number_format($standardPkg->price ?? 0, 0) }}</span>
-                            <span class="package-name">@lang('Standard')</span>
-                        </div>
-                        <i class="las la-angle-down accordion-arrow"></i>
+        @if ($standardPkg)
+            <div class="kwork-card-wrapper" data-package="standard">
+                <div class="kwork-card-header d-flex justify-content-between align-items-center">
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="currency-symbol">&#2547;{{ number_format($standardPkg->price ?? 0, 0) }}</span>
+                        <span class="package-name">@lang('Standard')</span>
                     </div>
+                    <i class="las la-angle-down accordion-arrow"></i>
+                </div>
 
-                    <div class="kwork-card-body" style="display: none;">
+                <div class="kwork-card-body" style="display: none;">
+                    <form action="{{ route('user.service.add.booking', $productDetails->id) }}" method="POST"
+                        class="package-order-form">
+                        @csrf
+                        <input type="hidden" name="package_type" value="standard">
+                        <input type="hidden" name="package_id" value="{{ $standardPkg->id }}">
+                        <input type="hidden" name="service_id" value="{{ $productDetails->id }}">
+
                         <div class="package-title-badge mb-2">{{ $standardPkg->package_title ?? 'Standard Plan' }}
                         </div>
                         <p class="package-desc">{{ $standardPkg->package_description ?? '' }}</p>
@@ -119,11 +124,8 @@
                         <ul class="feature-list">
                             @foreach ($standardFeatures as $featureName => $isAvailable)
                                 <li class="{{ $isAvailable == 'no' ? 'disabled' : '' }}">
-                                    @if ($isAvailable == 'yes')
-                                        <i class="las la-check check-icon"></i>
-                                    @else
-                                        <i class="las la-times cross-icon"></i>
-                                    @endif
+                                    <i
+                                        class="las {{ $isAvailable == 'yes' ? 'la-check check-icon' : 'la-times cross-icon' }}"></i>
                                     <span>{{ $featureName }}</span>
                                 </li>
                             @endforeach
@@ -137,6 +139,7 @@
                                     <span class="pkgQuantityDisplay">1</span>
                                     <button type="button" class="pkgIncrementBtn"><i class="las la-plus"></i></button>
                                 </div>
+                                <input type="hidden" name="service_qty" class="service_qty_hidden" value="1">
                             </div>
 
                             @auth
@@ -152,22 +155,29 @@
                                 </button>
                             @endauth
                         </div>
-                    </div>
+                    </form>
                 </div>
-            @endif
+            </div>
+        @endif
 
-            @if ($premiumPkg)
-                <div class="kwork-card-wrapper" data-package="premium" data-id="{{ $premiumPkg->id }}">
-                    <div class="kwork-card-header d-flex justify-content-between align-items-center">
-                        <div class="d-flex align-items-center gap-2">
-                            <span
-                                class="currency-symbol">&#2547;{{ number_format($premiumPkg->price ?? 0, 0) }}</span>
-                            <span class="package-name">@lang('Premium')</span>
-                        </div>
-                        <i class="las la-angle-down accordion-arrow"></i>
+        @if ($premiumPkg)
+            <div class="kwork-card-wrapper" data-package="premium">
+                <div class="kwork-card-header d-flex justify-content-between align-items-center">
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="currency-symbol">&#2547;{{ number_format($premiumPkg->price ?? 0, 0) }}</span>
+                        <span class="package-name">@lang('Premium')</span>
                     </div>
+                    <i class="las la-angle-down accordion-arrow"></i>
+                </div>
 
-                    <div class="kwork-card-body" style="display: none;">
+                <div class="kwork-card-body" style="display: none;">
+                    <form action="{{ route('user.service.add.booking', $productDetails->id) }}" method="POST"
+                        class="package-order-form">
+                        @csrf
+                        <input type="hidden" name="package_type" value="premium">
+                        <input type="hidden" name="package_id" value="{{ $premiumPkg->id }}">
+                        <input type="hidden" name="service_id" value="{{ $productDetails->id }}">
+
                         <div class="package-title-badge mb-2">{{ $premiumPkg->package_title ?? 'Premium Plan' }}</div>
                         <p class="package-desc">{{ $premiumPkg->package_description ?? '' }}</p>
 
@@ -180,11 +190,8 @@
                         <ul class="feature-list">
                             @foreach ($premiumFeatures as $featureName => $isAvailable)
                                 <li class="{{ $isAvailable == 'no' ? 'disabled' : '' }}">
-                                    @if ($isAvailable == 'yes')
-                                        <i class="las la-check check-icon"></i>
-                                    @else
-                                        <i class="las la-times cross-icon"></i>
-                                    @endif
+                                    <i
+                                        class="las {{ $isAvailable == 'yes' ? 'la-check check-icon' : 'la-times cross-icon' }}"></i>
                                     <span>{{ $featureName }}</span>
                                 </li>
                             @endforeach
@@ -200,6 +207,7 @@
                                     <button type="button" class="pkgIncrementBtn"><i
                                             class="las la-plus"></i></button>
                                 </div>
+                                <input type="hidden" name="service_qty" class="service_qty_hidden" value="1">
                             </div>
 
                             @auth
@@ -215,14 +223,12 @@
                                 </button>
                             @endauth
                         </div>
-                    </div>
+                    </form>
                 </div>
-            @endif
+            </div>
+        @endif
 
-            <input type="hidden" name="service_qty" id="service_qty_input" value="1">
-
-        </div>
-    </form>
+    </div>
 </div>
 
 <style>
@@ -265,7 +271,6 @@
         background: #fafafa;
     }
 
-    /* Active Card UI State Update */
     .kwork-card-wrapper.active {
         border-color: #3c88ee;
         box-shadow: 0 4px 12px rgba(60, 136, 238, 0.06);
@@ -281,7 +286,6 @@
         color: #3c88ee;
     }
 
-    /* Inner Typography */
     .package-title-badge {
         font-size: 14px;
         font-weight: 600;
@@ -307,7 +311,6 @@
         color: #999;
     }
 
-    /* Checklist Grid UI */
     .feature-list {
         list-style: none;
         padding: 0;
@@ -340,7 +343,6 @@
         font-size: 14px;
     }
 
-    /* Quantity Panel Box */
     .qty-counter {
         display: flex;
         align-items: center;
@@ -372,7 +374,6 @@
         color: #62646a;
     }
 
-    /* Global Order Button Clones */
     .kwork-order-btn {
         width: 100%;
         background-color: #3c88ee;
@@ -387,12 +388,7 @@
     }
 
     .kwork-order-btn:hover {
-        background-color: #3c88ee;
-    }
-
-    .marketplace-extra-card:hover {
-        background: #fdfdfd;
-        border-color: #cbd5e0 !important;
+        background-color: #2a75d3;
     }
 </style>
 @push('script')
@@ -400,110 +396,88 @@
         (function($) {
             "use strict";
 
-            // ১. মেইন ক্যালকুলেটর ফাংশন
-            function calculateTotalOrderPrice() {
-                // বর্তমানে একটিভ থাকা প্যাকেজ কন্টেইনার ধরা হচ্ছে
-                let activeCard = $('.kwork-card-wrapper.active');
-                if (activeCard.length === 0) return;
+            // প্রতিটি প্যাকেজের স্ট্যাটিক বেইজ প্রাইস অবজেক্ট
+            var packagePrices = {
+                basic: parseFloat("{{ $basicPkg->price ?? 0 }}"),
+                standard: parseFloat("{{ $standardPkg->price ?? 0 }}"),
+                premium: parseFloat("{{ $premiumPkg->price ?? 0 }}")
+            };
 
-                let activeTab = activeCard.data('package');
+            // ১. সিঙ্গেল কার্ড প্রাইস ক্যালকুলেটর ফাংশন
+            function calculateCardPrice(wrapper) {
+                let pkgType = wrapper.data('package');
+                let basePrice = packagePrices[pkgType] || 0;
 
-                // ডাটাবেজ থেকে রেন্ডার করা প্যাকেজের প্রাইস নেওয়া
-                let basePrice = 0;
-                if (activeTab === 'basic') basePrice = parseFloat("{{ $basicPkg->price ?? 0 }}") || 0;
-                if (activeTab === 'standard') basePrice = parseFloat("{{ $standardPkg->price ?? 0 }}") || 0;
-                if (activeTab === 'premium') basePrice = parseFloat("{{ $premiumPkg->price ?? 0 }}") || 0;
+                // শুধুমাত্র এই ফর্মের ভেতরের হিডেন ইনপুট থেকে কোয়ান্টিটি নেওয়া
+                let qty = parseInt(wrapper.find('.service_qty_hidden').val()) || 1;
 
-                // মেইন গ্লোবাল কোয়ান্টিটি ইনপুট থেকে মান নেওয়া
-                let qty = parseInt($('#service_qty_input').val()) || 1;
+                // টোটাল ক্যালকুলেশন
+                let finalPrice = basePrice * qty;
 
-                // এক্সট্রা সার্ভিস সামেশন (যদি থাকে)
-                let extraTotal = 0;
-                $('.pkgExtraServicesCheckbox:checked').each(function() {
-                    extraTotal += parseFloat($(this).data('price')) || 0;
-                });
-
-                // মোট সমীকরণ হিসাব: (প্যাকেজ দাম * কোয়ান্টিটি) + এক্সট্রা সার্ভিস দাম
-                let finalPrice = (basePrice * qty) + extraTotal;
-
-                // শুধুমাত্র কারেন্ট ওপেন থাকা কার্ডের ভেতরের বাটনে দাম আপডেট করা
-                activeCard.find('.finalTotalPriceDisplay').text(finalPrice.toLocaleString('en-US'));
+                // শুধুমাত্র এই ফর্মের ভেতরের বাটনের প্রাইস টেক্সট আপডেট
+                wrapper.find('.finalTotalPriceDisplay').text(finalPrice.toLocaleString('en-US'));
             }
 
-            // ২. Kwork Accordion Header ক্লিক ইভেন্ট
+            // ২. Kwork Accordion Header স্লাইড ও টগল ইভেন্ট
             $('.kwork-card-header').on('click', function(e) {
-                // যদি ভুলবশত কোয়ান্টিটি কাউন্টারে ক্লিক পড়ে তাহলে কোড রানিং অফ থাকবে
                 if ($(e.target).closest('.order-action-area').length) return;
 
                 let parentCard = $(this).closest('.kwork-card-wrapper');
-
-                // অলরেডি একটিভ থাকলে ক্লোজ করার প্রয়োজন নেই
                 if (parentCard.hasClass('active')) return;
 
-                // বাকি সব প্যানেল স্লাইড আপ করে বন্ধ করা
+                // বাকি সব ক্লোজ করা
                 $('.kwork-card-body').slideUp(200);
                 $('.kwork-card-wrapper').removeClass('active');
 
-                // বর্তমানের সিলেক্টেড প্যানেলটি ওপেন করা
+                // কারেন্ট প্যানেল ওপেন করা
                 parentCard.addClass('active');
                 parentCard.find('.kwork-card-body').slideDown(200);
 
-                // হিডেন ফর্মে ডাটা অ্যাসাইন করা
-                let packageType = parentCard.data('package');
-                let packageId = parentCard.data('id');
+                // ওপেন হওয়ার সময় এই ফর্মের কোয়ান্টিটি ইনপুট ১ এ রিসেট করা
+                parentCard.find('.service_qty_hidden').val(1);
+                parentCard.find('.pkgQuantityDisplay').text('1');
 
-                $('#selectedPackageType').val(packageType);
-                $('#selectedPackageId').val(packageId);
-
-                // নতুন প্যানেল ওপেন করার সাথে সাথে গ্লোবাল কোয়ান্টিটি ইনপুট এবং ঐ কার্ডের ডিসপ্লে ১ এ রিসেট করা
-                $('#service_qty_input').val(1);
-                $('.pkgQuantityDisplay').text('1');
-
-                // নতুন প্রাইস রি-ক্যালকুলেট করা
-                calculateTotalOrderPrice();
+                calculateCardPrice(parentCard);
             });
 
-            // ৩. কোয়ান্টিটি ইনক্রিমেন্ট (+) বাটন (শুধুমাত্র কারেন্ট একটিভ কার্ডের জন্য)
+            // ৩. প্লাস (+) বাটন ক্লিক ইভেন্ট
             $(document).on('click', '.pkgIncrementBtn', function(e) {
                 e.preventDefault();
-                let activeCard = $(this).closest('.kwork-card-wrapper');
-                let displaySpan = activeCard.find('.pkgQuantityDisplay');
+                let parentCard = $(this).closest('.kwork-card-wrapper');
+                let qtyInput = parentCard.find('.service_qty_hidden');
+                let qtyDisplay = parentCard.find('.pkgQuantityDisplay');
 
-                let currentQty = parseInt($('#service_qty_input').val()) || 1;
+                let currentQty = parseInt(qtyInput.val()) || 1;
                 currentQty++;
 
-                // হিডেন ইনপুট এবং শুধুমাত্র এই কার্ডের টেক্সট ডিসপ্লে আপডেট
-                $('#service_qty_input').val(currentQty);
-                displaySpan.text(currentQty);
+                qtyInput.val(currentQty);
+                qtyDisplay.text(currentQty);
 
-                calculateTotalOrderPrice();
+                calculateCardPrice(parentCard);
             });
 
-            // ৪. কোয়ান্টিটি ডিক্রিমেন্ট (-) বাটন (শুধুমাত্র কারেন্ট একটিভ কার্ডের জন্য)
+            // ৪. মাইনাস (-) বাটন ক্লিক ইভেন্ট
             $(document).on('click', '.pkgDecrementBtn', function(e) {
                 e.preventDefault();
-                let activeCard = $(this).closest('.kwork-card-wrapper');
-                let displaySpan = activeCard.find('.pkgQuantityDisplay');
+                let parentCard = $(this).closest('.kwork-card-wrapper');
+                let qtyInput = parentCard.find('.service_qty_hidden');
+                let qtyDisplay = parentCard.find('.pkgQuantityDisplay');
 
-                let currentQty = parseInt($('#service_qty_input').val()) || 1;
+                let currentQty = parseInt(qtyInput.val()) || 1;
                 if (currentQty > 1) {
                     currentQty--;
 
-                    // হিডেন ইনপুট এবং শুধুমাত্র এই কার্ডের টেক্সট ডিসপ্লে আপডেট
-                    $('#service_qty_input').val(currentQty);
-                    displaySpan.text(currentQty);
+                    qtyInput.val(currentQty);
+                    qtyDisplay.text(currentQty);
 
-                    calculateTotalOrderPrice();
+                    calculateCardPrice(parentCard);
                 }
             });
 
-            // ৫. এক্সট্রা সার্ভিস চেকবক্স টগল ইভেন্ট
-            $(document).on('change', '.pkgExtraServicesCheckbox', function() {
-                calculateTotalOrderPrice();
+            // প্রথমবার পেজ লোড হওয়ার সময় একটিভ থাকা বেসিক কার্ডের প্রাইস ইনিশিয়ালাইজ করা
+            $('.kwork-card-wrapper.active').each(function() {
+                calculateCardPrice($(this));
             });
-
-            // ফার্স্ট টাইম ইনিশিয়াল পেজ লোড রান
-            calculateTotalOrderPrice();
 
         })(jQuery);
     </script>
