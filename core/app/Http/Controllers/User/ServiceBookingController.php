@@ -54,7 +54,10 @@ class ServiceBookingController extends Controller
     public function confirmBooking()
     {
         $pageTitle    = 'Checkout';
+
         $orderDetails = session('orderDetails');
+
+        dd($orderDetails);
 
         if (!$orderDetails) {
             $notify[] = ['error', 'Order booking not found!'];
