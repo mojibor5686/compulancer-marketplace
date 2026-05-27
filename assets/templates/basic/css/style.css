@@ -8374,7 +8374,6 @@ textarea.form--control {
 
 .jss-details-sidebar {
   width: 100%;
-  max-width: 385px;
   margin-left: auto;
   background-color: hsl(var(--white));
 }
