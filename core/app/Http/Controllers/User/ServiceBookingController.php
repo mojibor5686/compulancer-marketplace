@@ -43,7 +43,7 @@ class ServiceBookingController extends Controller
             'grandTotal'        => $servicePrice,
             'orderNumber'       => getTrx(),
             'price'             => $servicePrice,
-            'package_type'     => $request->package_type,
+            'extraServices'     => $request->package_type,
             'couponId'          => null
         ]);
 
