@@ -447,6 +447,7 @@ class ServiceController extends Controller
 
         return response()->json([
             'success'      => true,
+            'message'      => 'Service packages saved successfully.',
             'redirect_url' => route('user.seller.service.index')
         ]);
     }
