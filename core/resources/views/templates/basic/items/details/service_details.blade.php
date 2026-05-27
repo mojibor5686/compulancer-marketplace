@@ -25,7 +25,7 @@
         $premiumFeatures = $premiumFeatures ?? [];
     @endphp
 
-    <div class="kwork-packages-accordion d-flex flex-column gap-3"
+    <div class="kwork-packages-accordion d-none d-md-flex flex-column gap-3"
         style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
 
         @if ($basicPkg)
@@ -37,7 +37,6 @@
                     </div>
                     <i class="las la-angle-down accordion-arrow"></i>
                 </div>
-
                 <div class="kwork-card-body">
                     <form action="{{ route('user.service.add.booking', $productDetails->id) }}" method="POST"
                         class="package-order-form">
@@ -66,27 +65,14 @@
 
                         <div class="order-action-area">
                             <div class="quantity-row d-flex align-items-center justify-content-between mb-3">
-                                <span class="qty-label"><i class="las la-cubes"></i> @lang('Quantity')</span>
-                                <div class="qty-counter">
-                                    <button type="button" class="pkgDecrementBtn"><i class="las la-minus"></i></button>
-                                    <span class="pkgQuantityDisplay">1</span>
-                                    <button type="button" class="pkgIncrementBtn"><i class="las la-plus"></i></button>
-                                </div>
-                                <input type="hidden" name="service_qty" class="service_qty_hidden" value="1">
+                                <span class="qty-label"><i class="las la-cubes"></i> @lang('Number of words / Qty')</span>
+                                <input type="number" name="service_qty" class="form-control table-qty-input-desktop"
+                                    value="1" min="1" style="width: 80px; text-align: center;">
                             </div>
-
-                            @auth
-                                <button type="submit" class="kwork-order-btn">
-                                    @lang('Order for') &nbsp;&#2547;<span
-                                        class="finalTotalPriceDisplay">{{ number_format($basicPkg->price ?? 0, 0) }}</span>
-                                </button>
-                            @else
-                                <button type="button" class="kwork-order-btn" data-bs-toggle="modal"
-                                    data-bs-target="#signInModal">
-                                    @lang('Order for') &nbsp;&#2547;<span
-                                        class="finalTotalPriceDisplay">{{ number_format($basicPkg->price ?? 0, 0) }}</span>
-                                </button>
-                            @endauth
+                            <button type="submit" class="kwork-order-btn">
+                                @lang('Order for') &nbsp;&#2547;<span
+                                    class="finalTotalPriceDisplay">{{ number_format($basicPkg->price ?? 0, 0) }}</span>
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -102,7 +88,6 @@
                     </div>
                     <i class="las la-angle-down accordion-arrow"></i>
                 </div>
-
                 <div class="kwork-card-body" style="display: none;">
                     <form action="{{ route('user.service.add.booking', $productDetails->id) }}" method="POST"
                         class="package-order-form">
@@ -133,27 +118,14 @@
 
                         <div class="order-action-area">
                             <div class="quantity-row d-flex align-items-center justify-content-between mb-3">
-                                <span class="qty-label"><i class="las la-cubes"></i> @lang('Quantity')</span>
-                                <div class="qty-counter">
-                                    <button type="button" class="pkgDecrementBtn"><i class="las la-minus"></i></button>
-                                    <span class="pkgQuantityDisplay">1</span>
-                                    <button type="button" class="pkgIncrementBtn"><i class="las la-plus"></i></button>
-                                </div>
-                                <input type="hidden" name="service_qty" class="service_qty_hidden" value="1">
+                                <span class="qty-label"><i class="las la-cubes"></i> @lang('Number of words / Qty')</span>
+                                <input type="number" name="service_qty" class="form-control table-qty-input-desktop"
+                                    value="1" min="1" style="width: 80px; text-align: center;">
                             </div>
-
-                            @auth
-                                <button type="submit" class="kwork-order-btn">
-                                    @lang('Order for') &nbsp;&#2547;<span
-                                        class="finalTotalPriceDisplay">{{ number_format($standardPkg->price ?? 0, 0) }}</span>
-                                </button>
-                            @else
-                                <button type="button" class="kwork-order-btn" data-bs-toggle="modal"
-                                    data-bs-target="#signInModal">
-                                    @lang('Order for') &nbsp;&#2547;<span
-                                        class="finalTotalPriceDisplay">{{ number_format($standardPkg->price ?? 0, 0) }}</span>
-                                </button>
-                            @endauth
+                            <button type="submit" class="kwork-order-btn">
+                                @lang('Order for') &nbsp;&#2547;<span
+                                    class="finalTotalPriceDisplay">{{ number_format($standardPkg->price ?? 0, 0) }}</span>
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -169,7 +141,6 @@
                     </div>
                     <i class="las la-angle-down accordion-arrow"></i>
                 </div>
-
                 <div class="kwork-card-body" style="display: none;">
                     <form action="{{ route('user.service.add.booking', $productDetails->id) }}" method="POST"
                         class="package-order-form">
@@ -199,286 +170,301 @@
 
                         <div class="order-action-area">
                             <div class="quantity-row d-flex align-items-center justify-content-between mb-3">
-                                <span class="qty-label"><i class="las la-cubes"></i> @lang('Quantity')</span>
-                                <div class="qty-counter">
-                                    <button type="button" class="pkgDecrementBtn"><i
-                                            class="las la-minus"></i></button>
-                                    <span class="pkgQuantityDisplay">1</span>
-                                    <button type="button" class="pkgIncrementBtn"><i
-                                            class="las la-plus"></i></button>
-                                </div>
-                                <input type="hidden" name="service_qty" class="service_qty_hidden" value="1">
+                                <span class="qty-label"><i class="las la-cubes"></i> @lang('Number of words / Qty')</span>
+                                <input type="number" name="service_qty" class="form-control table-qty-input-desktop"
+                                    value="1" min="1" style="width: 80px; text-align: center;">
                             </div>
-
-                            @auth
-                                <button type="submit" class="kwork-order-btn">
-                                    @lang('Order for') &nbsp;&#2547;<span
-                                        class="finalTotalPriceDisplay">{{ number_format($premiumPkg->price ?? 0, 0) }}</span>
-                                </button>
-                            @else
-                                <button type="button" class="kwork-order-btn" data-bs-toggle="modal"
-                                    data-bs-target="#signInModal">
-                                    @lang('Order for') &nbsp;&#2547;<span
-                                        class="finalTotalPriceDisplay">{{ number_format($premiumPkg->price ?? 0, 0) }}</span>
-                                </button>
-                            @endauth
+                            <button type="submit" class="kwork-order-btn">
+                                @lang('Order for') &nbsp;&#2547;<span
+                                    class="finalTotalPriceDisplay">{{ number_format($premiumPkg->price ?? 0, 0) }}</span>
+                            </button>
                         </div>
                     </form>
                 </div>
             </div>
         @endif
+    </div>
 
+
+    <div class="kwork-mobile-package-view d-md-none bg-white border rounded">
+        <div class="mobile-tabs-grid d-flex border-bottom text-center">
+            <div class="mobile-tab-item flex-fill active" data-target="mob-basic">
+                <div class="label">@lang('Basic')</div>
+                <div class="price">&#2547;{{ number_format($basicPkg->price ?? 0, 0) }}</div>
+            </div>
+            <div class="mobile-tab-item flex-fill" data-target="mob-standard">
+                <div class="label">@lang('Standard')</div>
+                <div class="price">&#2547;{{ number_format($standardPkg->price ?? 0, 0) }}</div>
+            </div>
+            <div class="mobile-tab-item flex-fill" data-target="mob-premium">
+                <div class="label">@lang('Premium')</div>
+                <div class="price">&#2547;{{ number_format($premiumPkg->price ?? 0, 0) }}</div>
+            </div>
+        </div>
+
+        <div class="mobile-tab-content-wrapper p-3">
+            <div class="mob-panel-block" id="mob-basic">
+                <form action="{{ route('user.service.add.booking', $productDetails->id) }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="package_type" value="basic">
+                    <input type="hidden" name="package_id" value="{{ $basicPkg->id ?? '' }}">
+                    <input type="hidden" name="service_id" value="{{ $productDetails->id }}">
+
+                    <h5 class="package-title font-weight-bold mb-2">@lang('Package Summary')</h5>
+                    <p class="text-muted small mb-3">{{ $basicPkg->package_title ?? '' }} -
+                        {{ $basicPkg->package_description ?? '' }}</p>
+
+                    <ul class="feature-list-mobile mb-3">
+                        @foreach ($basicFeatures as $featureName => $isAvailable)
+                            <li
+                                class="d-flex align-items-center justify-content-between py-1 border-bottom small {{ $isAvailable == 'no' ? 'text-muted opacity-50' : '' }}">
+                                <span>{{ __($featureName) }}</span>
+                                <i
+                                    class="las {{ $isAvailable == 'yes' ? 'la-check text-success' : 'la-check text-muted opacity-25' }} fs-5"></i>
+                            </li>
+                        @endforeach
+                        <li class="d-flex align-items-center justify-content-between py-1 border-bottom small">
+                            <span>@lang('Delivery')</span>
+                            <span class="font-weight-bold">{{ $basicPkg->delivery_time ?? '1' }}
+                                @lang('days')</span>
+                        </li>
+                    </ul>
+
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <span class="small font-weight-bold">@lang('Number of words')</span>
+                        <input type="number" name="service_qty" class="form-control mobile-qty-input-box"
+                            data-price="{{ $basicPkg->price ?? 0 }}" value="1" min="1"
+                            style="width: 75px; height: 32px; text-align: center;">
+                    </div>
+
+                    <div class="row gx-2">
+                        <div class="col-10">
+                            <button type="submit"
+                                class="btn btn-success w-100 kwork-mob-submit-btn">@lang('Order for') &#2547;<span
+                                    class="mob-price-text">{{ number_format($basicPkg->price ?? 0, 0) }}</span></button>
+                        </div>
+                        <div class="col-2">
+                            <button type="button"
+                                class="btn btn-outline-success w-100 p-0 d-flex align-items-center justify-content-center"
+                                style="height: 42px;"><i class="las la-shopping-cart fs-5"></i></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="mob-panel-block d-none" id="mob-standard">
+                <form action="{{ route('user.service.add.booking', $productDetails->id) }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="package_type" value="standard">
+                    <input type="hidden" name="package_id" value="{{ $standardPkg->id ?? '' }}">
+                    <input type="hidden" name="service_id" value="{{ $productDetails->id }}">
+
+                    <h5 class="package-title font-weight-bold mb-2">@lang('Package Summary')</h5>
+                    <p class="text-muted small mb-3">{{ $standardPkg->package_title ?? '' }} -
+                        {{ $standardPkg->package_description ?? '' }}</p>
+
+                    <ul class="feature-list-mobile mb-3">
+                        @foreach ($standardFeatures as $featureName => $isAvailable)
+                            <li
+                                class="d-flex align-items-center justify-content-between py-1 border-bottom small {{ $isAvailable == 'no' ? 'text-muted opacity-50' : '' }}">
+                                <span>{{ __($featureName) }}</span>
+                                <i
+                                    class="las {{ $isAvailable == 'yes' ? 'la-check text-success' : 'la-check text-muted opacity-25' }} fs-5"></i>
+                            </li>
+                        @endforeach
+                        <li class="d-flex align-items-center justify-content-between py-1 border-bottom small">
+                            <span>@lang('Delivery')</span>
+                            <span class="font-weight-bold">{{ $standardPkg->delivery_time ?? '3' }}
+                                @lang('days')</span>
+                        </li>
+                    </ul>
+
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <span class="small font-weight-bold">@lang('Number of words')</span>
+                        <input type="number" name="service_qty" class="form-control mobile-qty-input-box"
+                            data-price="{{ $standardPkg->price ?? 0 }}" value="1" min="1"
+                            style="width: 75px; height: 32px; text-align: center;">
+                    </div>
+
+                    <div class="row gx-2">
+                        <div class="col-10">
+                            <button type="submit"
+                                class="btn btn-success w-100 kwork-mob-submit-btn">@lang('Order for') &#2547;<span
+                                    class="mob-price-text">{{ number_format($standardPkg->price ?? 0, 0) }}</span></button>
+                        </div>
+                        <div class="col-2">
+                            <button type="button"
+                                class="btn btn-outline-success w-100 p-0 d-flex align-items-center justify-content-center"
+                                style="height: 42px;"><i class="las la-shopping-cart fs-5"></i></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="mob-panel-block d-none" id="mob-premium">
+                <form action="{{ route('user.service.add.booking', $productDetails->id) }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="package_type" value="premium">
+                    <input type="hidden" name="package_id" value="{{ $premiumPkg->id ?? '' }}">
+                    <input type="hidden" name="service_id" value="{{ $productDetails->id }}">
+
+                    <h5 class="package-title font-weight-bold mb-2">@lang('Package Summary')</h5>
+                    <p class="text-muted small mb-3">{{ $premiumPkg->package_title ?? '' }} -
+                        {{ $premiumPkg->package_description ?? '' }}</p>
+
+                    <ul class="feature-list-mobile mb-3">
+                        @foreach ($premiumFeatures as $featureName => $isAvailable)
+                            <li
+                                class="d-flex align-items-center justify-content-between py-1 border-bottom small {{ $isAvailable == 'no' ? 'text-muted opacity-50' : '' }}">
+                                <span>{{ __($featureName) }}</span>
+                                <i
+                                    class="las {{ $isAvailable == 'yes' ? 'la-check text-success' : 'la-check text-muted opacity-25' }} fs-5"></i>
+                            </li>
+                        @endforeach
+                        <li class="d-flex align-items-center justify-content-between py-1 border-bottom small">
+                            <span>@lang('Delivery')</span>
+                            <span class="font-weight-bold">{{ $premiumPkg->delivery_time ?? '5' }}
+                                @lang('days')</span>
+                        </li>
+                    </ul>
+
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <span class="small font-weight-bold">@lang('Number of words')</span>
+                        <input type="number" name="service_qty" class="form-control mobile-qty-input-box"
+                            data-price="{{ $premiumPkg->price ?? 0 }}" value="1" min="1"
+                            style="width: 75px; height: 32px; text-align: center;">
+                    </div>
+
+                    <div class="row gx-2">
+                        <div class="col-10">
+                            <button type="submit"
+                                class="btn btn-success w-100 kwork-mob-submit-btn">@lang('Order for') &#2547;<span
+                                    class="mob-price-text">{{ number_format($premiumPkg->price ?? 0, 0) }}</span></button>
+                        </div>
+                        <div class="col-2">
+                            <button type="button"
+                                class="btn btn-outline-success w-100 p-0 d-flex align-items-center justify-content-center"
+                                style="height: 42px;"><i class="las la-shopping-cart fs-5"></i></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 
 <style>
-    .kwork-card-wrapper {
-        border: 1px solid #dadbdd;
-        border-radius: 6px;
-        background: #fff;
-        overflow: hidden;
-        transition: all 0.2s ease-in-out;
+    /* মোবাইল ট্যাব ডিজাইন */
+    .mobile-tabs-grid {
+        background-color: #fafafa;
     }
 
-    .kwork-card-header {
-        padding: 14px 20px;
-        background: #fff;
+    .mobile-tab-item {
+        padding: 10px 5px;
         cursor: pointer;
-        user-select: none;
+        color: #8c8c8c;
+        border-bottom: 3px solid transparent;
+        transition: all 0.2s ease;
     }
 
-    .kwork-card-header .currency-symbol {
-        font-size: 20px;
-        font-weight: 700;
-        color: #3c88ee;
-    }
-
-    .kwork-card-header .package-name {
-        font-size: 15px;
-        font-weight: 600;
-        color: #2d3748;
-    }
-
-    .kwork-card-header .accordion-arrow {
-        font-size: 16px;
-        color: #a0aec0;
-        transition: transform 0.2s;
-    }
-
-    .kwork-card-body {
-        padding: 0 20px 20px 20px;
-        border-top: 1px solid #f0f0f0;
-        background: #fafafa;
-    }
-
-    .kwork-card-wrapper.active {
-        border-color: #3c88ee;
-        box-shadow: 0 4px 12px rgba(60, 136, 238, 0.06);
-    }
-
-    .kwork-card-wrapper.active .kwork-card-header {
-        background: #fafafa;
-        border-bottom: none;
-    }
-
-    .kwork-card-wrapper.active .accordion-arrow {
-        transform: rotate(180deg);
-        color: #3c88ee;
-    }
-
-    .package-title-badge {
-        font-size: 14px;
-        font-weight: 600;
-        color: #4a5568;
-        padding-top: 15px;
-    }
-
-    .package-desc {
-        font-size: 13.5px;
-        color: #62646a;
-        line-height: 1.5;
-        margin-bottom: 15px;
-    }
-
-    .delivery-revision-row {
+    .mobile-tab-item .label {
         font-size: 13px;
-        color: #74767e;
         font-weight: 600;
     }
 
-    .delivery-revision-row i {
+    .mobile-tab-item .price {
         font-size: 15px;
-        color: #999;
+        font-weight: 700;
     }
 
-    .feature-list {
+    .mobile-tab-item.active {
+        color: #1dbf73;
+        border-bottom-color: #1dbf73;
+        background-color: #fff;
+    }
+
+    .feature-list-mobile {
         list-style: none;
-        padding: 0;
-        margin: 0 0 20px 0;
+        padding-left: 0;
     }
 
-    .feature-list li {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        font-size: 13.5px;
-        color: #404145;
-        margin-bottom: 8px;
+    .kwork-mob-submit-btn {
+        background-color: #1dbf73 !important;
+        border-color: #1dbf73 !important;
+        font-weight: 700;
+        height: 42px;
     }
 
-    .feature-list li.disabled {
-        color: #b5b6ba;
-        text-decoration: line-through;
-        opacity: 0.65;
-    }
-
-    .feature-list .check-icon {
-        color: #3c88ee;
-        font-size: 15px;
+    /* ডেস্কটপ সিএসএস এনহান্সমেন্ট */
+    .table-qty-input-desktop {
+        border: 1px solid #dadbdd;
+        height: 34px;
         font-weight: bold;
     }
-
-    .feature-list .cross-icon {
-        color: #b5b6ba;
-        font-size: 14px;
-    }
-
-    .qty-counter {
-        display: flex;
-        align-items: center;
-        border: 1px solid #e2e8f0;
-        border-radius: 4px;
-        background: #fff;
-        height: 30px;
-    }
-
-    .qty-counter button {
-        border: none;
-        background: transparent;
-        width: 30px;
-        height: 100%;
-        color: #718096;
-        outline: none;
-    }
-
-    .qty-counter .pkgQuantityDisplay {
-        width: 30px;
-        text-align: center;
-        font-weight: 600;
-        font-size: 13px;
-    }
-
-    .qty-label {
-        font-size: 13px;
-        font-weight: 600;
-        color: #62646a;
-    }
-
-    .kwork-order-btn {
-        width: 100%;
-        background-color: #3c88ee;
-        color: #fff;
-        font-weight: 700;
-        font-size: 15px;
-        padding: 12px 20px;
-        border-radius: 4px;
-        border: none;
-        transition: background 0.15s ease;
-        outline: none;
-    }
-
-    .kwork-order-btn:hover {
-        background-color: #2a75d3;
-    }
 </style>
+
 @push('script')
     <script>
         (function($) {
             "use strict";
 
-            // প্রতিটি প্যাকেজের স্ট্যাটিক বেইজ প্রাইস অবজেক্ট
-            var packagePrices = {
+            // ================== মোবাইলের জন্য ট্যাব চেঞ্জার লজিক ==================
+            $('.mobile-tab-item').on('click', function() {
+                $('.mobile-tab-item').removeClass('active');
+                $(this).addClass('active');
+
+                let targetPanel = $(this).data('target');
+                $('.mob-panel-block').addClass('d-none');
+                $('#' + targetPanel).removeClass('d-none');
+            });
+
+            // ================== মোবাইলের প্রাইস ও কোয়ান্টিটি রিয়েলটাইম ক্যালকুলেটর ==================
+            $('.mobile-qty-input-box').on('input change', function() {
+                let qty = parseInt($(this).val()) || 1;
+                if (qty < 1) {
+                    qty = 1;
+                    $(this).val(1);
+                }
+
+                let basePrice = parseFloat($(this).data('price')) || 0;
+                let finalTotal = basePrice * qty;
+
+                // সংশ্লিষ্ট প্যানেলের বাটনের ভেতরের টেক্সট আপডেট
+                $(this).closest('form').find('.mob-price-text').text(finalTotal.toLocaleString('en-US'));
+            });
+
+
+            // ================== ডেস্কটপ ভিউ ক্যালকুলেটর ও অ্যাকর্ডিয়ন স্লাইড লজিক ==================
+            var desktopPrices = {
                 basic: parseFloat("{{ $basicPkg->price ?? 0 }}"),
                 standard: parseFloat("{{ $standardPkg->price ?? 0 }}"),
                 premium: parseFloat("{{ $premiumPkg->price ?? 0 }}")
             };
 
-            // ১. সিঙ্গেল কার্ড প্রাইস ক্যালকুলেটর ফাংশন
-            function calculateCardPrice(wrapper) {
-                let pkgType = wrapper.data('package');
-                let basePrice = packagePrices[pkgType] || 0;
-
-                // শুধুমাত্র এই ফর্মের ভেতরের হিডেন ইনপুট থেকে কোয়ান্টিটি নেওয়া
-                let qty = parseInt(wrapper.find('.service_qty_hidden').val()) || 1;
-
-                // টোটাল ক্যালকুলেশন
-                let finalPrice = basePrice * qty;
-
-                // শুধুমাত্র এই ফর্মের ভেতরের বাটনের প্রাইস টেক্সট আপডেট
-                wrapper.find('.finalTotalPriceDisplay').text(finalPrice.toLocaleString('en-US'));
+            function updateDesktopPrice(wrapper) {
+                let type = wrapper.data('package');
+                let base = desktopPrices[type] || 0;
+                let qty = parseInt(wrapper.find('.table-qty-input-desktop').val()) || 1;
+                wrapper.find('.finalTotalPriceDisplay').text((base * qty).toLocaleString('en-US'));
             }
 
-            // ২. Kwork Accordion Header স্লাইড ও টগল ইভেন্ট
+            $('.table-qty-input-desktop').on('input change', function() {
+                updateDesktopPrice($(this).closest('.kwork-card-wrapper'));
+            });
+
             $('.kwork-card-header').on('click', function(e) {
                 if ($(e.target).closest('.order-action-area').length) return;
+                let parent = $(this).closest('.kwork-card-wrapper');
+                if (parent.hasClass('active')) return;
 
-                let parentCard = $(this).closest('.kwork-card-wrapper');
-                if (parentCard.hasClass('active')) return;
-
-                // বাকি সব ক্লোজ করা
                 $('.kwork-card-body').slideUp(200);
                 $('.kwork-card-wrapper').removeClass('active');
 
-                // কারেন্ট প্যানেল ওপেন করা
-                parentCard.addClass('active');
-                parentCard.find('.kwork-card-body').slideDown(200);
-
-                // ওপেন হওয়ার সময় এই ফর্মের কোয়ান্টিটি ইনপুট ১ এ রিসেট করা
-                parentCard.find('.service_qty_hidden').val(1);
-                parentCard.find('.pkgQuantityDisplay').text('1');
-
-                calculateCardPrice(parentCard);
+                parent.addClass('active');
+                parent.find('.kwork-card-body').slideDown(200);
+                parent.find('.table-qty-input-desktop').val(1);
+                updateDesktopPrice(parent);
             });
-
-            // ৩. প্লাস (+) বাটন ক্লিক ইভেন্ট
-            $(document).on('click', '.pkgIncrementBtn', function(e) {
-                e.preventDefault();
-                let parentCard = $(this).closest('.kwork-card-wrapper');
-                let qtyInput = parentCard.find('.service_qty_hidden');
-                let qtyDisplay = parentCard.find('.pkgQuantityDisplay');
-
-                let currentQty = parseInt(qtyInput.val()) || 1;
-                currentQty++;
-
-                qtyInput.val(currentQty);
-                qtyDisplay.text(currentQty);
-
-                calculateCardPrice(parentCard);
-            });
-
-            // ৪. মাইনাস (-) বাটন ক্লিক ইভেন্ট
-            $(document).on('click', '.pkgDecrementBtn', function(e) {
-                e.preventDefault();
-                let parentCard = $(this).closest('.kwork-card-wrapper');
-                let qtyInput = parentCard.find('.service_qty_hidden');
-                let qtyDisplay = parentCard.find('.pkgQuantityDisplay');
-
-                let currentQty = parseInt(qtyInput.val()) || 1;
-                if (currentQty > 1) {
-                    currentQty--;
-
-                    qtyInput.val(currentQty);
-                    qtyDisplay.text(currentQty);
-
-                    calculateCardPrice(parentCard);
-                }
-            });
-
-            // প্রথমবার পেজ লোড হওয়ার সময় একটিভ থাকা বেসিক কার্ডের প্রাইস ইনিশিয়ালাইজ করা
-            $('.kwork-card-wrapper.active').each(function() {
-                calculateCardPrice($(this));
-            });
-
         })(jQuery);
     </script>
 @endpush
