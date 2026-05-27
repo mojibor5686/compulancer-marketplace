@@ -83,7 +83,7 @@
 @endsection
 
 @push('script')
-    <script src="{{ asset('assets/global/js/nicEdit.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/NicEdit/0.93/nicEdit.min.js"></script>
 
     <script>
         (function($) {

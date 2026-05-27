@@ -69,11 +69,8 @@
     </form>
 @endsection
 
-@push('script-lib')
-    <script src="{{ asset('assets/global/js/nicEdit.js') }}"></script>
-@endpush
-
 @push('script')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/NicEdit/0.93/nicEdit.min.js"></script>
     <script>
         (function($) {
             "use strict";
