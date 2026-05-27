@@ -26,8 +26,6 @@ class ServiceBookingController extends Controller
 
         $service = Service::where('id', $request->service_id)->active()->notAuthUser()->checkData()->with('user')->first();
 
-        dd($request->all(), $service);
-
         if (!$service) {
             $notify[] = ['error', 'You are not allowed to make a booking'];
             return back()->withNotify($notify);
