@@ -7,28 +7,36 @@
                 $standardPkg = $service->packages->where('package_type', 'standard')->first();
                 $premiumPkg = $service->packages->where('package_type', 'premium')->first();
 
+                // যেকোনো একটি প্যাকেজ থেকে ফিচারের লিস্ট বের করে নিলেই হবে, কারণ ফিচার সবার সেম থাকে
+                $savedFeatures = $basicPkg && is_array($basicPkg->features) ? array_keys($basicPkg->features) : [];
+
                 $basicFeatures = $basicPkg ? $basicPkg->features : [];
                 $standardFeatures = $standardPkg ? $standardPkg->features : [];
                 $premiumFeatures = $premiumPkg ? $premiumPkg->features : [];
             @endphp
 
             <div class="gig-overview-space">
-                <div class="form--group-lg mb-3">
-                    <label class="form-label form--label"><i class="las la-box"></i> @lang('Service Pricing Packages')</label>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <label class="form-label form--label mb-0"><i class="las la-box"></i> @lang('Service Pricing Packages')</label>
+                    <button type="button" class="btn btn--success btn--sm" id="addNewFeatureBtn">
+                        <i class="las la-plus"></i> @lang('Add Custom Feature Row')
+                    </button>
                 </div>
 
                 <div class="table-responsive">
-                    <table class="table table-bordered align-middle bg-white" style="border: 1px solid #dadbdd !important;">
+                    <table class="table table-bordered align-middle bg-white" id="packagesTable"
+                        style="border: 1px solid #dadbdd !important;">
                         <thead>
                             <tr class="bg-light text-center">
-                                <th style="width: 25%; min-width: 200px;" class="text-start p-3">@lang('Package Criteria')</th>
-                                <th style="width: 25%; min-width: 200px;" class="p-3">@lang('BASIC')</th>
-                                <th style="width: 25%; min-width: 200px;" class="p-3">@lang('STANDARD')</th>
-                                <th style="width: 25%; min-width: 200px;" class="p-3">@lang('PREMIUM')</th>
+                                <th style="width: 25%; min-width: 200px;" class="text-start p-3">@lang('Package Criteria (Custom)')</th>
+                                <th style="width: 22%; min-width: 150px;" class="p-3">@lang('BASIC')</th>
+                                <th style="width: 22%; min-width: 150px;" class="p-3">@lang('STANDARD')</th>
+                                <th style="width: 22%; min-width: 150px;" class="p-3">@lang('PREMIUM')</th>
+                                <th style="width: 9%; text-align: center;">@lang('Action')</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
+                        <tbody id="packageTableBody">
+                            <tr class="fixed-row">
                                 <td class="fw-bold p-3">@lang('Package Title')</td>
                                 <td><input type="text" name="package_title[basic]" class="form-control form--control"
                                         value="{{ $basicPkg->package_title ?? '' }}" placeholder="e.g. Silver Plan"
@@ -39,25 +47,27 @@
                                 <td><input type="text" name="package_title[premium]" class="form-control form--control"
                                         value="{{ $premiumPkg->package_title ?? '' }}" placeholder="e.g. Diamond Plan"
                                         required></td>
+                                <td></td>
                             </tr>
 
-                            <tr>
+                            <tr class="fixed-row">
                                 <td class="fw-bold p-3">@lang('Package Description')</td>
                                 <td>
-                                    <textarea name="package_description[basic]" class="form-control form--control" rows="3"
+                                    <textarea name="package_description[basic]" class="form-control form--control" rows="2"
                                         placeholder="What's included..." required>{{ $basicPkg->package_description ?? '' }}</textarea>
                                 </td>
                                 <td>
-                                    <textarea name="package_description[standard]" class="form-control form--control" rows="3"
+                                    <textarea name="package_description[standard]" class="form-control form--control" rows="2"
                                         placeholder="What's included..." required>{{ $standardPkg->package_description ?? '' }}</textarea>
                                 </td>
                                 <td>
-                                    <textarea name="package_description[premium]" class="form-control form--control" rows="3"
+                                    <textarea name="package_description[premium]" class="form-control form--control" rows="2"
                                         placeholder="What's included..." required>{{ $premiumPkg->package_description ?? '' }}</textarea>
                                 </td>
+                                <td></td>
                             </tr>
 
-                            <tr>
+                            <tr class="fixed-row">
                                 <td class="fw-bold p-3">@lang('Delivery Time')</td>
                                 <td><input type="text" name="delivery_time[basic]" class="form-control form--control"
                                         value="{{ $basicPkg->delivery_time ?? '' }}" placeholder="e.g. 1 Day" required></td>
@@ -67,96 +77,72 @@
                                 <td><input type="text" name="delivery_time[premium]" class="form-control form--control"
                                         value="{{ $premiumPkg->delivery_time ?? '' }}" placeholder="e.g. 5 Days" required>
                                 </td>
+                                <td></td>
                             </tr>
 
-                            <tr>
-                                <td class="fw-bold p-3">@lang('Complex Layout')</td>
-                                <td class="text-center"><input type="checkbox" name="features[basic][complex_layout]"
-                                        value="yes"
-                                        {{ isset($basicFeatures['complex_layout']) && $basicFeatures['complex_layout'] == 'yes' ? 'checked' : '' }}
-                                        style="transform: scale(1.3);"></td>
-                                <td class="text-center"><input type="checkbox" name="features[standard][complex_layout]"
-                                        value="yes"
-                                        {{ isset($standardFeatures['complex_layout']) && $standardFeatures['complex_layout'] == 'yes' ? 'checked' : '' }}
-                                        style="transform: scale(1.3);"></td>
-                                <td class="text-center"><input type="checkbox" name="features[premium][complex_layout]"
-                                        value="yes"
-                                        {{ isset($premiumFeatures['complex_layout']) && $premiumFeatures['complex_layout'] == 'yes' ? 'checked' : '' }}
-                                        style="transform: scale(1.3);"></td>
-                            </tr>
+                            @if (count($savedFeatures) > 0)
+                                @foreach ($savedFeatures as $index => $featureKey)
+                                    <tr class="feature-row">
+                                        <td>
+                                            <input type="text" name="custom_features[{{ $index }}][name]"
+                                                class="form-control form--control" value="{{ $featureKey }}"
+                                                placeholder="e.g. Keywords, Meta tags" required>
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="checkbox" name="custom_features[{{ $index }}][basic]"
+                                                value="yes"
+                                                {{ isset($basicFeatures[$featureKey]) && $basicFeatures[$featureKey] == 'yes' ? 'checked' : '' }}
+                                                style="transform: scale(1.3);">
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="checkbox" name="custom_features[{{ $index }}][standard]"
+                                                value="yes"
+                                                {{ isset($standardFeatures[$featureKey]) && $standardFeatures[$featureKey] == 'yes' ? 'checked' : '' }}
+                                                style="transform: scale(1.3);">
+                                        </td>
+                                        <td class="text-center">
+                                            <input type="checkbox" name="custom_features[{{ $index }}][premium]"
+                                                value="yes"
+                                                {{ isset($premiumFeatures[$featureKey]) && $premiumFeatures[$featureKey] == 'yes' ? 'checked' : '' }}
+                                                style="transform: scale(1.3);">
+                                        </td>
+                                        <td class="text-center">
+                                            <button type="button" class="btn btn--danger btn--sm removeFeatureRowBtn"><i
+                                                    class="las la-times"></i></button>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @else
+                                <tr class="feature-row">
+                                    <td><input type="text" name="custom_features[0][name]"
+                                            class="form-control form--control" placeholder="e.g. Keywords" required></td>
+                                    <td class="text-center"><input type="checkbox" name="custom_features[0][basic]"
+                                            value="yes" style="transform: scale(1.3);"></td>
+                                    <td class="text-center"><input type="checkbox" name="custom_features[0][standard]"
+                                            value="yes" style="transform: scale(1.3);"></td>
+                                    <td class="text-center"><input type="checkbox" name="custom_features[0][premium]"
+                                            value="yes" style="transform: scale(1.3);"></td>
+                                    <td class="text-center"><button type="button"
+                                            class="btn btn--danger btn--sm removeFeatureRowBtn"><i
+                                                class="las la-times"></i></button></td>
+                                </tr>
+                            @endif
 
-                            <tr>
-                                <td class="fw-bold p-3">@lang('Schema Markup')</td>
-                                <td class="text-center"><input type="checkbox" name="features[basic][schema_markup]"
-                                        value="yes"
-                                        {{ isset($basicFeatures['schema_markup']) && $basicFeatures['schema_markup'] == 'yes' ? 'checked' : '' }}
-                                        style="transform: scale(1.3);"></td>
-                                <td class="text-center"><input type="checkbox" name="features[standard][schema_markup]"
-                                        value="yes"
-                                        {{ isset($standardFeatures['schema_markup']) && $standardFeatures['schema_markup'] == 'yes' ? 'checked' : '' }}
-                                        style="transform: scale(1.3);"></td>
-                                <td class="text-center"><input type="checkbox" name="features[premium][schema_markup]"
-                                        value="yes"
-                                        {{ isset($premiumFeatures['schema_markup']) && $premiumFeatures['schema_markup'] == 'yes' ? 'checked' : '' }}
-                                        style="transform: scale(1.3);"></td>
-                            </tr>
-
-                            <tr>
-                                <td class="fw-bold p-3">@lang('Menu Included')</td>
-                                <td class="text-center"><input type="checkbox" name="features[basic][menu]" value="yes"
-                                        {{ isset($basicFeatures['menu']) && $basicFeatures['menu'] == 'yes' ? 'checked' : '' }}
-                                        style="transform: scale(1.3);"></td>
-                                <td class="text-center"><input type="checkbox" name="features[standard][menu]"
-                                        value="yes"
-                                        {{ isset($standardFeatures['menu']) && $standardFeatures['menu'] == 'yes' ? 'checked' : '' }}
-                                        style="transform: scale(1.3);"></td>
-                                <td class="text-center"><input type="checkbox" name="features[premium][menu]"
-                                        value="yes"
-                                        {{ isset($premiumFeatures['menu']) && $premiumFeatures['menu'] == 'yes' ? 'checked' : '' }}
-                                        style="transform: scale(1.3);"></td>
-                            </tr>
-
-                            <tr>
-                                <td class="fw-bold p-3">@lang('Number of Pages')</td>
-                                <td><input type="text" name="features[basic][pages_count]"
-                                        class="form-control form--control"
-                                        value="{{ $basicFeatures['pages_count'] ?? '' }}" placeholder="e.g. 1"></td>
-                                <td><input type="text" name="features[standard][pages_count]"
-                                        class="form-control form--control"
-                                        value="{{ $standardFeatures['pages_count'] ?? '' }}" placeholder="e.g. 5"></td>
-                                <td><input type="text" name="features[premium][pages_count]"
-                                        class="form-control form--control"
-                                        value="{{ $premiumFeatures['pages_count'] ?? '' }}" placeholder="e.g. 10"></td>
-                            </tr>
-
-                            <tr>
-                                <td class="fw-bold p-3">@lang('Revisions')</td>
-                                <td><input type="text" name="features[basic][revisions]"
-                                        class="form-control form--control"
-                                        value="{{ $basicFeatures['revisions'] ?? '' }}" placeholder="e.g. 3"></td>
-                                <td><input type="text" name="features[standard][revisions]"
-                                        class="form-control form--control"
-                                        value="{{ $standardFeatures['revisions'] ?? '' }}" placeholder="e.g. 5"></td>
-                                <td><input type="text" name="features[premium][revisions]"
-                                        class="form-control form--control"
-                                        value="{{ $premiumFeatures['revisions'] ?? '' }}" placeholder="e.g. Unlimited">
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td class="fw-bold p-3">@lang('Price') ({{ __(gs('cur_text')) }})</td>
+                            <tr id="priceRow" class="table-success">
+                                <td class="fw-bold p-3 text-success">@lang('Price') ({{ __(gs('cur_text')) }})</td>
                                 <td><input type="number" step="any" name="price[basic]"
-                                        class="form-control form--control fw-bold"
+                                        class="form-control form--control fw-bold text-success"
                                         value="{{ $basicPkg ? getAmount($basicPkg->price) : '' }}" placeholder="0.00"
                                         required></td>
                                 <td><input type="number" step="any" name="price[standard]"
-                                        class="form-control form--control fw-bold"
+                                        class="form-control form--control fw-bold text-success"
                                         value="{{ $standardPkg ? getAmount($standardPkg->price) : '' }}"
                                         placeholder="0.00" required></td>
                                 <td><input type="number" step="any" name="price[premium]"
-                                        class="form-control form--control fw-bold"
+                                        class="form-control form--control fw-bold text-success"
                                         value="{{ $premiumPkg ? getAmount($premiumPkg->price) : '' }}" placeholder="0.00"
                                         required></td>
+                                <td></td>
                             </tr>
                         </tbody>
                     </table>
@@ -177,6 +163,38 @@
         (function($) {
             "use strict";
 
+            // ডাইনামিক রো যোগ করার স্ক্রিপ্ট
+            $('#addNewFeatureBtn').on('click', function() {
+                let index = $('.feature-row').length + Date.now(); // ইউনিক ইনডেক্স তৈরির জন্য
+
+                var html = `<tr class="feature-row">
+                                <td>
+                                    <input type="text" name="custom_features[${index}][name]" class="form-control form--control" placeholder="Enter feature name (e.g. Meta tags)" required>
+                                </td>
+                                <td class="text-center">
+                                    <input type="checkbox" name="custom_features[${index}][basic]" value="yes" style="transform: scale(1.3);">
+                                </td>
+                                <td class="text-center">
+                                    <input type="checkbox" name="custom_features[${index}][standard]" value="yes" style="transform: scale(1.3);">
+                                </td>
+                                <td class="text-center">
+                                    <input type="checkbox" name="custom_features[${index}][premium]" value="yes" style="transform: scale(1.3);">
+                                </td>
+                                <td class="text-center">
+                                    <button type="button" class="btn btn--danger btn--sm removeFeatureRowBtn"><i class="las la-times"></i></button>
+                                </td>
+                            </tr>`;
+
+                // প্রাইস রো এর ঠিক ওপরে নতুন কাস্টম রো পুশ করবে
+                $('#priceRow').before(html);
+            });
+
+            // রো ডিলিট করার স্ক্রিপ্ট
+            $(document).on('click', '.removeFeatureRowBtn', function() {
+                $(this).closest('.feature-row').remove();
+            });
+
+            // Ajax Form Submission
             $('#saveAndContinue').on('click', function() {
                 var btn = $(this);
                 var originalButtonText = btn.html();
@@ -200,7 +218,7 @@
                     contentType: false,
                     success: function(response) {
                         if (response.success) {
-                            notify('success', `@lang('Service packages saved successfully')`);
+                            notify('success', response.message);
                             if (response.redirect_url) {
                                 window.location.href = response.redirect_url;
                             }
