@@ -1,7 +1,17 @@
 @extends('Template::layouts.seller_service')
+
+@push('style')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css">
+    <style>
+        /* আপনার থিমের সাথে ম্যাচ করানোর জন্য সামান্য স্টাইল */
+        .iziToast {
+            z-index: 99999 !important;
+        }
+    </style>
+@endpush
+
 @section('service')
     <form id="tagFeatureForm">
-        <!-- Search Tag -->
         <div class="form--group-lg">
             <label class="form-label form--label">@lang('Search Tag')</label>
             <div class="form--group">
@@ -22,7 +32,6 @@
             </div>
         </div>
 
-        <!-- Include Feature -->
         <div class="form--group-lg">
             <label class="form-label form--label">@lang('Include Feature')</label>
             <div class="form--group">
@@ -41,7 +50,6 @@
             </div>
         </div>
 
-        <!-- Submit Button -->
         <div class="form--group-lg text-end mt-4">
             <button class="btn btn--base btn--lg" id="saveAndContinue" type="button">
                 @lang('Save & Continue')
@@ -51,17 +59,33 @@
 @endsection
 
 @push('script')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
+
     <script>
         (function($) {
             "use strict";
 
-            function showNotification(type, message) {
+            // কাস্টম নোটিফাই ফাংশন - যা থিমের notify না থাকলে iziToast দিয়ে মেসেজ দেখাবে
+            function customNotify(type, message) {
                 if (typeof notify !== 'undefined') {
                     notify(type, message);
                 } else {
-                    alert(message);
+                    if (type === 'success') {
+                        iziToast.success({
+                            title: 'Success',
+                            message: message,
+                            position: 'topRight'
+                        });
+                    } else {
+                        iziToast.error({
+                            title: 'Error',
+                            message: message,
+                            position: 'topRight'
+                        });
+                    }
                 }
             }
+
             // Handle form submission for 'Save & Continue' button
             $('#saveAndContinue').on('click', function() {
                 var btn = $(this);
@@ -82,16 +106,16 @@
                             if (!response.is_update) {
                                 window.location.href = response.redirect_url;
                             } else {
-                                notify('success', `@lang('Service tag & feature updated successfully')`);
+                                customNotify('success', `@lang('Service tag & feature updated successfully')`);
                                 btn.html(originalButtonText).prop('disabled', false);
                             }
                         } else {
-                            notify('error', response.message);
+                            customNotify('error', response.message);
                             btn.html(originalButtonText).prop('disabled', false);
                         }
                     },
                     error: function(xhr, status, error) {
-                        notify('error', error);
+                        customNotify('error', error);
                         btn.html(originalButtonText).prop('disabled', false);
                     }
                 });
