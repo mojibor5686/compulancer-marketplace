@@ -1,11 +1,9 @@
 <div class="jss-details-sidebar__block" style="background: transparent;">
     @php
-        // ডাটাবেজ থেকে প্যাকেজগুলো আলাদা করা হচ্ছে
         $basicPkg = $productDetails->packages->where('package_type', 'basic')->first();
         $standardPkg = $productDetails->packages->where('package_type', 'standard')->first();
         $premiumPkg = $productDetails->packages->where('package_type', 'premium')->first();
 
-        // ফিচারগুলোর জেসন ডিকোড হ্যান্ডলিং
         $basicFeatures = $basicPkg
             ? (is_array($basicPkg->features)
                 ? $basicPkg->features
@@ -235,7 +233,7 @@
                                         id="extra_service_{{ $key }}"
                                         data-price="{{ number_format($extraService->price, 0, '.', '') }}"
                                         value="{{ $extraService->id }}"
-                                        style="width: 18px; height: 18px; accent-color: #1dbf73; cursor: pointer;">
+                                        style="width: 18px; height: 18px; accent-color: #3c88ee; cursor: pointer;">
                                     <span
                                         style="font-size: 14px; color: #4a5568; font-weight: 500;">{{ $extraService->name }}</span>
                                 </div>
@@ -270,7 +268,7 @@
     .kwork-card-header .currency-symbol {
         font-size: 20px;
         font-weight: 700;
-        color: #1dbf73;
+        color: #3c88ee;
     }
 
     .kwork-card-header .package-name {
@@ -293,8 +291,8 @@
 
     /* Active Card UI State Update */
     .kwork-card-wrapper.active {
-        border-color: #1dbf73;
-        box-shadow: 0 4px 12px rgba(29, 191, 115, 0.06);
+        border-color: #3c88ee;
+        box-shadow: 0 4px 12px rgba(60, 136, 238, 0.06);
     }
 
     .kwork-card-wrapper.active .kwork-card-header {
@@ -304,7 +302,7 @@
 
     .kwork-card-wrapper.active .accordion-arrow {
         transform: rotate(180deg);
-        color: #1dbf73;
+        color: #3c88ee;
     }
 
     /* Inner Typography */
@@ -356,7 +354,7 @@
     }
 
     .feature-list .check-icon {
-        color: #1dbf73;
+        color: #3c88ee;
         font-size: 15px;
         font-weight: bold;
     }
@@ -401,7 +399,7 @@
     /* Global Order Button Clones */
     .kwork-order-btn {
         width: 100%;
-        background-color: #1dbf73;
+        background-color: #3c88ee;
         color: #fff;
         font-weight: 700;
         font-size: 15px;
@@ -413,7 +411,7 @@
     }
 
     .kwork-order-btn:hover {
-        background-color: #19a462;
+        background-color: #3c88ee;
     }
 
     .marketplace-extra-card:hover {
