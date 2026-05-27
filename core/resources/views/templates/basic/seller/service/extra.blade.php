@@ -143,18 +143,18 @@
                                 </td>
                             </tr>
 
-                            <tr class="table-success">
-                                <td class="fw-bold p-3 text-success">@lang('Price') ({{ __(gs('cur_text')) }})</td>
+                            <tr>
+                                <td class="fw-bold p-3">@lang('Price') ({{ __(gs('cur_text')) }})</td>
                                 <td><input type="number" step="any" name="price[basic]"
-                                        class="form-control form--control fw-bold text-success"
+                                        class="form-control form--control fw-bold"
                                         value="{{ $basicPkg ? getAmount($basicPkg->price) : '' }}" placeholder="0.00"
                                         required></td>
                                 <td><input type="number" step="any" name="price[standard]"
-                                        class="form-control form--control fw-bold text-success"
+                                        class="form-control form--control fw-bold"
                                         value="{{ $standardPkg ? getAmount($standardPkg->price) : '' }}"
                                         placeholder="0.00" required></td>
                                 <td><input type="number" step="any" name="price[premium]"
-                                        class="form-control form--control fw-bold text-success"
+                                        class="form-control form--control fw-bold"
                                         value="{{ $premiumPkg ? getAmount($premiumPkg->price) : '' }}" placeholder="0.00"
                                         required></td>
                             </tr>
