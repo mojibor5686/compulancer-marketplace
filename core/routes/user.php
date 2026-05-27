@@ -183,6 +183,8 @@ Route::middleware('auth')->name('user.')->group(function () {
                 Route::get('extra/{id}', 'extra')->name('extra');
                 Route::post('store-extra/{id}', 'storeExtraService')->name('store.extra');
 
+                Route::post('store-packages/{id}', 'storePackages')->name('store.packages');
+
                 Route::get('index', 'index')->name('index');
                 Route::post('extra-service/status/{serviceId}/{extraServiceId}', 'extraServiceStatus')->name('extra.service.status');
             });

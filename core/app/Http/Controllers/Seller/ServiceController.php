@@ -10,6 +10,7 @@ use App\Models\Chat;
 use App\Models\ExtraService;
 use App\Models\Feature;
 use App\Models\Service;
+use App\Models\ServicePackage;
 use App\Models\SubCategory;
 use App\Models\Transaction;
 use App\Models\WorkFile;
@@ -302,6 +303,7 @@ class ServiceController extends Controller
         if ($service->step != 4) {
             $service->step = 4;
         }
+
         $this->statusToggle($id);
         $service->save();
 
@@ -377,6 +379,65 @@ class ServiceController extends Controller
     }
 
 
+    public function storePackages(Request $request, $id)
+    {
+        $validation = Validator::make($request->all(), [
+            'package_title'            => 'required|array',
+            'package_title.*'          => 'required|string|max:255',
+            'package_description'      => 'required|array',
+            'package_description.*'    => 'required|string',
+            'delivery_time'            => 'required|array',
+            'delivery_time.*'          => 'required|string|max:255',
+            'price'                    => 'required|array',
+            'price.*'                  => 'required|numeric|min:0',
+            'features'                 => 'nullable|array',
+        ]);
+
+        if ($validation->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => $validation->errors()->all()
+            ]);
+        }
+
+        $service = Service::where('id', $id)->where('user_id', auth()->id())->first();
+        if (!$service) {
+            return response()->json([
+                'success' => false,
+                'message' => "Service not found!"
+            ]);
+        }
+
+        if ($service->step != 4) {
+            $service->step = 4;
+        }
+
+        $packageTypes = ['basic', 'standard', 'premium'];
+
+        foreach ($packageTypes as $type) {
+            $package = ServicePackage::updateOrCreate(
+                [
+                    'service_id'   => $service->id,
+                    'package_type' => $type
+                ],
+                [
+                    'package_title'       => $request->package_title[$type],
+                    'package_description' => purifylab($request->package_description[$type]),
+                    'delivery_time'       => $request->delivery_time[$type],
+                    'price'               => $request->price[$type],
+                    'features'            => isset($request->features[$type]) ? $request->features[$type] : []
+                ]
+            );
+        }
+
+        $this->statusToggle($id);
+        $service->save();
+
+        return response()->json([
+            'success'      => true,
+            'redirect_url' => route('user.seller.service.index')
+        ]);
+    }
 
     public function bookingDetails($orderNumber)
     {
