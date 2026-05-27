@@ -165,12 +165,9 @@
 
                             @include('Template::items.details.banner', ['type' => 'service'])
 
-                            <!-- Hidden Block (if any content is needed) -->
                             <div class="jss-details-main__block two d-lg-none">
-                                <!-- Content for block two (optional) -->
                             </div>
 
-                            <!-- Tab Navigation and Content -->
                             <div class="jss-details-main__block three">
                                 @php
                                     $basicPkg = $productDetails->packages->where('package_type', 'basic')->first();
@@ -195,7 +192,6 @@
                                             : json_decode($premiumPkg->features, true))
                                         : [];
 
-                                    // সমস্ত ইউনিক ফিচারগুলোর লিস্ট বের করা টেবিলের রো (Row) তৈরি করার জন্য
                                     $allFeatureNames = array_unique(
                                         array_merge(
                                             array_keys($basicFeatures),
@@ -487,25 +483,20 @@
                                     font-size: 18px;
                                 }
                             </style>
-                            <!-- End of jss-details-main__block three -->
                         </div>
-                        <!-- End of jss-details-main -->
                     </div>
-                    <!-- End of col-lg-8 -->
 
                     @push('script')
                         <script>
                             (function($) {
                                 "use strict";
 
-                                // ডাটাবেজ থেকে প্রতিটি প্যাকেজের মূল বেইজ প্রাইস স্টোর করা হলো
                                 var basePrices = {
                                     basic: parseFloat("{{ $basicPkg->price ?? 0 }}"),
                                     standard: parseFloat("{{ $standardPkg->price ?? 0 }}"),
                                     premium: parseFloat("{{ $premiumPkg->price ?? 0 }}")
                                 };
 
-                                // কোয়ান্টিটি ইনপুট বক্স চেঞ্জ ইভেন্ট
                                 $('.table-qty-input').on('input change', function() {
                                     let qty = parseInt($(this).val()) || 1;
                                     if (qty < 1) {
@@ -513,14 +504,12 @@
                                         $(this).val(1);
                                     }
 
-                                    let pkgType = $(this).data('package'); // basic, standard, or premium
+                                    let pkgType = $(this).data('package');
                                     let basePrice = basePrices[pkgType] || 0;
                                     let calculatedTotalPrice = basePrice * qty;
 
-                                    // ১. সংশ্লিষ্ট ফর্মের হিডেন service_qty ইনপুট আপডেট করা হচ্ছে 
                                     $('.form-qty-hidden-' + pkgType).val(qty);
 
-                                    // ২. টেবিলের নিচে ডিসপ্লে হওয়া রিয়েলটাইম প্রাইস টেক্সট আপডেট করা হচ্ছে
                                     $('.total-price-display-' + pkgType).text(calculatedTotalPrice.toLocaleString('en-US'));
                                 });
 
@@ -530,7 +519,6 @@
 
                     <div class="col-lg-4 d-none d-lg-block details-sidebar" style="margin-top:48px">
                         <div class="jss-details-sidebar">
-                            <!-- Service Details Widget -->
                             @include('Template::items.details.service_details', [
                                 'productDetails' => $productDetails,
                             ])
@@ -556,7 +544,6 @@
                                 }
                             </style>
 
-                            <!-- Contact Us Widget -->
                             @if ($productDetails->user)
                                 <div class="jss-details-sidebar_block" style="margin:20px 0;">
                                     <div class="widget-card">
@@ -575,7 +562,6 @@
                                 </div>
                             @endif
 
-                            <!-- Short Profile Widget -->
                             <div class="jss-details-sidebar__block">
                                 @include('Template::partials.short_profile', [
                                     'user' => $productDetails->user,
@@ -583,26 +569,22 @@
                             </div>
                         </div>
                     </div>
-                    <!-- End of col-lg-4 -->
                 </div>
-                <!-- End of row gy-5 -->
             </div>
-            <!-- End of container -->
         </section>
 
         @include('Template::partials.contact_modal', ['user' => $productDetails->user])
 
         @php
-            // ব্লেড ফাইলের ভেতরেই ডাইনামিকালি রিলেটেড সার্ভিস কুয়েরি করা হলো
             $relatedServices = \App\Models\Service::active()
                 ->where('category_id', $productDetails->category_id)
-                ->where('id', '!=', $productDetails->id) // বর্তমান সার্ভিসটি বাদ থাকবে
+                ->where('id', '!=', $productDetails->id)
                 ->with(['user', 'category'])
                 ->latest()
-                ->take(4) // টপ ৪টি রিলেটেড সার্ভিস শো করবে
+                ->take(4)
                 ->get();
 
-            $type = 'service'; // রাউট এবং ফাইল পাথের জন্য টাইপ ফিক্সড রাখা হলো
+            $type = 'service';
         @endphp
 
         @if ($relatedServices->isNotEmpty())
@@ -878,7 +860,6 @@
                 let extraService = 0;
                 let extraServicesArray = [];
 
-                // Calculate initial extra service prices if any are selected
                 $('.extraServices:checked').each(function() {
                     extraService += parseFloat($(this).data('price'));
                     extraServicesArray.push($(this).val());
@@ -945,7 +926,6 @@
                     $('.order-now-btn').attr('href', orderNowUrl);
                 }
 
-                // Check if both elements exist on the page
                 if ($('.details-sidebar').length && $('.jss-details-main__block.three').length) {
                     var sidebarContent = $('.details-sidebar').html();
                     $('.jss-details-main__block.two').html(sidebarContent);
@@ -953,8 +933,8 @@
 
                 @guest
                 $('.comments-tab-btn').on('click', function(e) {
-                    e.preventDefault(); // Prevent default tab behavior
-                    $('#loginModal').modal('show'); // Show the login modal
+                    e.preventDefault();
+                    $('#loginModal').modal('show');
                 });
             @endguest
 
