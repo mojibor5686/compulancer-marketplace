@@ -69,56 +69,6 @@
                 @endif
             </div>
         </div>
-
-        <!-- Title and Ratings -->
-        <h4 class="jss-details__title">
-            {{ __($productDetails->name) }}
-        </h4>
-
-        <ul class="jss-details-meta">
-            <li class="jss-details-meta__item">
-                <div class="ratings">
-                    <div class="ratings-stars">
-                        @for ($i = 1; $i <= 5; $i++)
-                            @if ($i <= $productDetails->total_rating)
-                                <i class="fas fa-star"></i>
-                            @else
-                                <i class="far fa-star"></i>
-                            @endif
-                        @endfor
-                    </div>
-                    @if ($productDetails->total_rating)
-                        <span
-                            class="ratings__total">({{ showAmount($productDetails->total_rating, currencyFormat: false) }})</span>
-                    @endif
-                </div>
-            </li>
-            <li class="jss-details-meta__item">
-                <div class="d-flex align-items-center gap-1">
-                    <i class="las la-thumbs-up fs-18"></i>
-                    <span>{{ $productDetails->likes }}</span>
-                </div>
-            </li>
-        </ul>
-
-        <!-- React Buttons and Social Links -->
-        <div class="mt-4 d-flex flex-wrap row-gap-3 align-items-center justify-content-between">
-            <div class="jss-details__react-btns">
-                <button
-                    class="btn btn--sm btn-outline--base make-favorite {{ auth()->check() && $productDetails->favorites->where('user_id', auth()->id())->count() ? 'active' : '' }}"
-                    type="button" data-id="{{ $productDetails->id }}" data-type="{{ $type }}"
-                    data-action="{{ route('user.buyer.favorite.store') }}" @auth data-auth="true" @endauth>
-                    <i class="las la-heart fs-16"></i>
-                    <span class="favorite-count">{{ __($productDetails->favorite) }}</span>
-                </button>
-                @if ($type == 'software')
-                    <a href="{{ $productDetails->demo_url }}" class="btn btn--sm btn--success" target="_blank">
-                        @include('Template::partials.icons.screen')
-                        <span>@lang('Preview')</span>
-                    </a>
-                @endif
-            </div>
-        </div>
     @endif
 </div>
 
