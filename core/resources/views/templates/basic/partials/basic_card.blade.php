@@ -2,20 +2,22 @@
     <div class="tab-content">
         @foreach ($items as $key => $products)
             @php
-                $take = request()->routeIs('public.profile') ? 9 : 8;
+                $take = request()->routeIs('public.profile') ? 10 : 10;
             @endphp
             <div class="tab-pane {{ $key == $maxKey ? 'active show' : '' }}" id="{{ $key }}" role="tabpanel"
                 tabindex="0">
-                <div class="row gy-4 jss-row row-list-layout">
+
+                <div class="row gy-4 jss-row row-list-layout kwrk-main-5col-grid">
                     @forelse(@$products->take($take) as $product)
                         <div
-                            class="col-sm-6 col-lg-{{ request()->routeIs('public.profile') ? '6' : '4' }} col-xxl-{{ request()->routeIs('public.profile') ? '4' : '3' }}">
+                            class="col kwrk-grid-col col-sm-6 col-lg-{{ request()->routeIs('public.profile') ? '6' : '4' }} col-xxl-{{ request()->routeIs('public.profile') ? '4' : '3' }}">
                             <x-item type="{{ $key }}" :product="$product" />
                         </div>
                     @empty
                         <x-basic-empty-message />
                     @endforelse
                 </div>
+
                 @if (@$products->take($take)->count() == $take)
                     <div class="mt-60 text-center loadMoreBtnDiv">
                         <button class="btn btn--base loadMoreBtn" type="button">@lang('Load more')</button>
@@ -25,7 +27,33 @@
         @endforeach
     </div>
 </div>
+<style>
+    @media (max-width: 575.98px) {
+        .kwrk-main-5col-grid {
+            display: flex !important;
+            flex-wrap: wrap !important;
+        }
 
+        .kwrk-main-5col-grid .kwrk-grid-col {
+            width: 50% !important;
+            flex: 0 0 50% !important;
+            max-width: 50% !important;
+        }
+    }
+
+    @media (min-width: 1200px) {
+        .kwrk-main-5col-grid {
+            display: flex !important;
+            flex-wrap: wrap !important;
+        }
+
+        .kwrk-main-5col-grid .kwrk-grid-col {
+            width: 20% !important;
+            flex: 0 0 20% !important;
+            max-width: 20% !important;
+        }
+    }
+</style>
 @push('script')
     <script>
         (function($) {
