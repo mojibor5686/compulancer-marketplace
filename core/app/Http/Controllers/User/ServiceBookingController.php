@@ -76,6 +76,8 @@ class ServiceBookingController extends Controller
         $gatewayCurrency = GatewayCurrency::whereHas('method', function ($gate) {
             $gate->where('status', Status::ENABLE);
         })->with('method')->orderby('name')->get();
+
+        dd($orderDetails);
         
         return view('Template::service.service_confirm', compact('pageTitle', 'orderDetails', 'coupon', 'gatewayCurrency'));
     }
