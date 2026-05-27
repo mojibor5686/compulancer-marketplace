@@ -408,22 +408,22 @@
 
                 let activeTab = activeCard.data('package');
 
-                // ডাটাবেজ থেকে রেন্ডার করা রিল্যান্ড দাম রিড করা (ফরমেট ছাড়া ক্লিন ফ্লোট ভ্যালু)
+                // ডাটাবেজ থেকে রেন্ডার করা প্যাকেজের প্রাইস নেওয়া
                 let basePrice = 0;
                 if (activeTab === 'basic') basePrice = parseFloat("{{ $basicPkg->price ?? 0 }}") || 0;
                 if (activeTab === 'standard') basePrice = parseFloat("{{ $standardPkg->price ?? 0 }}") || 0;
                 if (activeTab === 'premium') basePrice = parseFloat("{{ $premiumPkg->price ?? 0 }}") || 0;
 
-                // মেইন গ্লোবাল কোয়ান্টিটি ইনপুট থেকে মান নেওয়া
+                // মেইন গ্লোবাল কোয়ান্টিটি ইনপুট থেকে মান নেওয়া
                 let qty = parseInt($('#service_qty_input').val()) || 1;
 
-                // এক্সট্রা সার্ভিস সামেশন
+                // এক্সট্রা সার্ভিস সামেশন (যদি থাকে)
                 let extraTotal = 0;
                 $('.pkgExtraServicesCheckbox:checked').each(function() {
                     extraTotal += parseFloat($(this).data('price')) || 0;
                 });
 
-                // মোট সমীকরণ হিসাব
+                // মোট সমীকরণ হিসাব: (প্যাকেজ দাম * কোয়ান্টিটি) + এক্সট্রা সার্ভিস দাম
                 let finalPrice = (basePrice * qty) + extraTotal;
 
                 // শুধুমাত্র কারেন্ট ওপেন থাকা কার্ডের ভেতরের বাটনে দাম আপডেট করা
@@ -432,12 +432,12 @@
 
             // ২. Kwork Accordion Header ক্লিক ইভেন্ট
             $('.kwork-card-header').on('click', function(e) {
-                // যদি ভুলবশত কোয়ান্টিটি কাউন্টারে ক্লিক পড়ে তাহলে কোড রানিং অফ থাকবে
+                // যদি ভুলবশত কোয়ান্টিটি কাউন্টারে ক্লিক পড়ে তাহলে কোড রানিং অফ থাকবে
                 if ($(e.target).closest('.order-action-area').length) return;
 
                 let parentCard = $(this).closest('.kwork-card-wrapper');
 
-                // অলরেডি একটিভ থাকলে ক্লোজ করার প্রয়োজন নেই (Kwork সিস্টেমে যেকোনো ১টি প্যানেল ওপেন থাকতেই হয়)
+                // অলরেডি একটিভ থাকলে ক্লোজ করার প্রয়োজন নেই
                 if (parentCard.hasClass('active')) return;
 
                 // বাকি সব প্যানেল স্লাইড আপ করে বন্ধ করা
@@ -455,36 +455,43 @@
                 $('#selectedPackageType').val(packageType);
                 $('#selectedPackageId').val(packageId);
 
-                // নতুন প্যানেল ওপেন করার সাথে সাথে কোয়ান্টিটি ১ এ রিসেট করা
-                $('.pkgQuantityDisplay').text('1');
+                // নতুন প্যানেল ওপেন করার সাথে সাথে গ্লোবাল কোয়ান্টিটি ইনপুট এবং ঐ কার্ডের ডিসপ্লে ১ এ রিসেট করা
                 $('#service_qty_input').val(1);
+                $('.pkgQuantityDisplay').text('1');
 
                 // নতুন প্রাইস রি-ক্যালকুলেট করা
                 calculateTotalOrderPrice();
             });
 
-            // ৩. কোয়ান্টিটি ইনক্রিমেন্ট (+) বাটন
+            // ৩. কোয়ান্টিটি ইনক্রিমেন্ট (+) বাটন (শুধুমাত্র কারেন্ট একটিভ কার্ডের জন্য)
             $(document).on('click', '.pkgIncrementBtn', function(e) {
                 e.preventDefault();
+                let activeCard = $(this).closest('.kwork-card-wrapper');
+                let displaySpan = activeCard.find('.pkgQuantityDisplay');
+
                 let currentQty = parseInt($('#service_qty_input').val()) || 1;
                 currentQty++;
 
-                // পেজের সব কোয়ান্টিটি টেক্সট সিঙ্ক রাখা
-                $('.pkgQuantityDisplay').text(currentQty);
+                // হিডেন ইনপুট এবং শুধুমাত্র এই কার্ডের টেক্সট ডিসপ্লে আপডেট
                 $('#service_qty_input').val(currentQty);
+                displaySpan.text(currentQty);
 
                 calculateTotalOrderPrice();
             });
 
-            // ৪. কোয়ান্টিটি ডিক্রিমেন্ট (-) বাটন
+            // ৪. কোয়ান্টিটি ডিক্রিমেন্ট (-) বাটন (শুধুমাত্র কারেন্ট একটিভ কার্ডের জন্য)
             $(document).on('click', '.pkgDecrementBtn', function(e) {
                 e.preventDefault();
+                let activeCard = $(this).closest('.kwork-card-wrapper');
+                let displaySpan = activeCard.find('.pkgQuantityDisplay');
+
                 let currentQty = parseInt($('#service_qty_input').val()) || 1;
                 if (currentQty > 1) {
                     currentQty--;
 
-                    $('.pkgQuantityDisplay').text(currentQty);
+                    // হিডেন ইনপুট এবং শুধুমাত্র এই কার্ডের টেক্সট ডিসপ্লে আপডেট
                     $('#service_qty_input').val(currentQty);
+                    displaySpan.text(currentQty);
 
                     calculateTotalOrderPrice();
                 }
