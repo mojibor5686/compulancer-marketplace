@@ -6861,8 +6861,8 @@ textarea.form--control {
 .offcanvas-sidebar--dashboard .offcanvas-sidebar-menu__title {
   width: 100%;
   padding-bottom: 15px;
-  border-bottom: 1px solid hsl(var(--white)/0.2);
-  color: hsl(var(--white)/0.7);
+  border-bottom: 1px solid hsl(var(--base)/0.2);
+  color: hsl(var(--base)/0.7);
   font-size: 14px;
   font-weight: 600;
   line-height: 125%;

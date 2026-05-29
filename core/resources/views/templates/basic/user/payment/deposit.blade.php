@@ -13,33 +13,39 @@
                             </div>
                             <div class="col-lg-6">
                                 <div class="payment-system-list is-scrollable gateway-option-list">
-                                    @foreach ($gatewayCurrency as $data)
-                                        <label for="{{ titleToKey($data->name) }}"
-                                            class="payment-item @if ($loop->index > 4) d-none @endif gateway-option">
+                                    <div class="payment-system-list is-scrollable gateway-option-list">
+                                        <label for="account_balance" class="payment-item gateway-option">
                                             <div class="payment-item__info">
                                                 <span class="payment-item__check"></span>
-                                                <span class="payment-item__name">{{ __($data->name) }}</span>
+                                                <span class="payment-item__name">@lang('Account Balance')
+                                                    ({{ showAmount(auth()->user()->balance) }})</span>
                                             </div>
                                             <div class="payment-item__thumb">
                                                 <img class="payment-item__thumb-img"
-                                                    src="{{ getImage(getFilePath('gateway') . '/' . $data->method->image) }}"
-                                                    alt="@lang('payment-thumb')">
+                                                    src="{{ getImage(null, isAvatar: true) }}" alt="@lang('account-balance')">
                                             </div>
-                                            <input class="payment-item__radio gateway-input"
-                                                id="{{ titleToKey($data->name) }}" hidden
-                                                data-gateway='@json($data)' type="radio" name="gateway"
-                                                value="{{ $data->method_code }}"
-                                                @if (old('gateway')) @checked(old('gateway') == $data->method_code) @else @checked($loop->first) @endif
-                                                data-min-amount="{{ showAmount($data->min_amount) }}"
-                                                data-max-amount="{{ showAmount($data->max_amount) }}">
+                                            <input class="payment-item__radio gateway-input" id="account_balance" hidden
+                                                type="radio" name="gateway" value="wallet"
+                                                @if (old('gateway')) @checked(old('gateway') == 'wallet') @endif>
                                         </label>
-                                    @endforeach
-                                    @if ($gatewayCurrency->count() > 4)
-                                        <button type="button" class="payment-item__btn more-gateway-option">
-                                            <p class="payment-item__btn-text">@lang('Show All Payment Options')</p>
-                                            <span class="payment-item__btn__icon"><i class="fas fa-chevron-down"></i></span>
-                                        </button>
-                                    @endif
+
+                                        <label for="uddoktapay" class="payment-item gateway-option">
+                                            <div class="payment-item__info">
+                                                <span class="payment-item__check"></span>
+                                                <span
+                                                    class="payment-item__name">{{ __('মোবাইল ব্যাংকিং (Bkash/Nagad/Rocket)') }}</span>
+                                            </div>
+                                            <div class="payment-item__thumb">
+                                                <img class="payment-item__thumb-img"
+                                                    src="https://sylhetvoice24.com/curator/media/e40bc8c1-9e85-4cb1-9943-059951b22bcc.jpg?s=8a51ba6a05dff38f7c7e2555fbab6a62"
+                                                    alt="@lang('payment-thumb')" style="object-fit: contain; max-height: 50px;">
+                                            </div>
+                                            <input class="payment-item__radio gateway-input" id="uddoktapay" hidden
+                                                data-gateway='{"name":"UddoktaPay","currency":"BDT","percent_charge":"0","fixed_charge":"0","rate":"1"}'
+                                                type="radio" name="gateway" value="uddoktapay"
+                                                @checked(old('gateway') == 'uddoktapay') data-min-amount="10" data-max-amount="50000">
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
