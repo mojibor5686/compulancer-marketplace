@@ -48,9 +48,9 @@
         }
 
         .kwrk-main-5col-grid .kwrk-grid-col {
-            width: 33.333% !important;
-            flex: 0 0 33.333% !important;
-            max-width: 33.333% !important;
+            width: 25% !important;
+            flex: 0 0 25% !important;
+            max-width: 25% !important;
         }
     }
 </style>
