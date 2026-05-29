@@ -8,7 +8,7 @@
                 $imgPath = $hasImage ? getImage(getFilePath('software') . '/' . $software->image) : '';
             @endphp
 
-            <div class="box mb-3 upload-content" id="thumbnailWrapper"
+            <label for="image-upload" class="box mb-3 upload-content" id="thumbnailWrapper"
                 style="@if ($hasImage) background-image: url({{ $imgPath }}); @endif">
                 <div class="dark-overlay"></div>
 
@@ -18,7 +18,7 @@
                             accept="image/png, image/jpeg" style="display: none;">
                     </div>
                 </div>
-            </div>
+            </label>
 
             <small class="mt-3 text-muted text-center d-block">
                 @lang('Supported Files'): <b>@lang('.png, .jpg, .jpeg')</b> <br>
@@ -46,22 +46,6 @@
                 @lang('Maximum 6 images allowed') <br>
                 @lang('Image will be resized into') <b>{{ getFileSize('extraImage') }}px</b>
             </small>
-
-            <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <button type="button" class="close m-3 ms-auto" data-bs-dismiss="modal" aria-label="Close">
-                            <i class="las la-times"></i>
-                        </button>
-                        <div class="modal-body text-center">
-                            <i class="las la-times-circle f-size--100 text--danger mb-15"></i>
-                            <h3 class="text--danger mb-15">@lang('Maximum 6 images are allowed!')</h3>
-                            <p class="mb-15">@lang('The rest of the images you have selected are removed')</p>
-                            <button type="button" class="btn btn--dark" data-bs-dismiss="modal">@lang('Continue')</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
 
         <div class="form--group-lg text-end mt-4">
@@ -106,8 +90,6 @@
         .upload-options {
             position: relative;
             z-index: 2;
-            pointer-events: none;
-            /* ক্লিকের ঝামেলা এড়াতে */
         }
 
         .show-image-area {
@@ -136,12 +118,22 @@
         (function($) {
             "use strict";
 
-            // থাম্বনেইল বক্সে ক্লিক করলেই ফাইল আপলোডার ওপেন হবে
-            $('#thumbnailWrapper').on('click', function() {
-                $('#image-upload').click();
+            // প্লাগইন লোড হতে যাতে মিস না হয় তাই আমরা উইন্ডো লোড হবার পর বা সেফ জোনে ইনিশিয়েট করব
+            $(window).on('load', function() {
+                if ($.isFunction($.fn.imageUploader)) {
+                    const preloadedImages = $('.image-gallery-wrapper').data('images') || [];
+                    $('.input-images').imageUploader({
+                        preloaded: preloadedImages,
+                        imagesInputName: 'extra_image',
+                        preloadedInputName: 'old',
+                        maxFiles: 6
+                    });
+                } else {
+                    console.error("imageUploader library asset path is missing or not loading properly.");
+                }
             });
 
-            // ফাইল সিলেক্ট করার পর ইনস্ট্যান্ট প্রিভিউ দেখানোর লজিক
+            // থাম্বনেইল প্রিভিউ (কোনো লুপ ক্র্যাশ নাই কারণ ইভেন্ট সিঙ্গেল)
             $('#image-upload').on('change', function() {
                 const file = this.files[0];
                 if (file) {
@@ -153,16 +145,7 @@
                 }
             });
 
-            // ইমেজ গ্যালারি প্লাগইন ইনিশিয়ালাইজেশন
-            const preloadedImages = $('.image-gallery-wrapper').data('images') || [];
-            $('.input-images').imageUploader({
-                preloaded: preloadedImages,
-                imagesInputName: 'extra_image',
-                preloadedInputName: 'old',
-                maxFiles: 6
-            });
-
-            // কাস্টম নোটিফিকেশন ফাংশন (iziToast সাপোর্ট সহ)
+            // কাস্টম নোটিফিকেশন ফাংশন
             function showNotify(type, message) {
                 if (typeof notify !== 'undefined') {
                     notify(type, message);
@@ -177,7 +160,7 @@
                 }
             }
 
-            // ফর্ম সাবমিশন (AJAX)
+            // AJAX ফর্ম সাবমিট
             $('#saveAndContinue').on('click', function() {
                 var btn = $(this);
                 var originalHtml = btn.html();

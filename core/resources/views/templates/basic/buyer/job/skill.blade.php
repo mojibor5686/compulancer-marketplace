@@ -4,28 +4,22 @@
         <form id="tagFeatureForm">
             <!-- Job Skill Section -->
             <div class="gig-overview-space">
-                <div class="row">
-                    <div class="col-lg-3">
-                        <div class="gig-overview__title">
-                            <h6>@lang('Job Skill')</h6>
-                        </div>
-                    </div>
-                    <div class="col-lg-9 select2Tag">
-                        <div class="form--group">
-                            <select class="form-control form--control select2-auto-tokenize" name="skill[]"
-                                multiple="multiple" required>
-                                @if (@$job->skill)
-                                    @foreach ($job->skill as $option)
-                                        <option value="{{ $option }}" selected>{{ __($option) }}</option>
-                                    @endforeach
-                                @endif
-                            </select>
-                            <small class="mt-2">
-                                @lang('Separate multiple keywords by') <code>,</code> (@lang('comma'))
-                                @lang('or') <code>@lang('enter')</code> @lang('key').
-                                @lang('Minimum 3 & maximum 15 tags.')
-                            </small>
-                        </div>
+                <div class="form--group">
+                    <label class="form-label form--label required">@lang('Job Skill')</label>
+                    <div class="select2Tag">
+                        <select class="form-control form--control select2-auto-tokenize" name="skill[]" multiple="multiple"
+                            required>
+                            @if (@$job->skill)
+                                @foreach ($job->skill as $option)
+                                    <option value="{{ $option }}" selected>{{ __($option) }}</option>
+                                @endforeach
+                            @endif
+                        </select>
+                        <small class="mt-2 d-block">
+                            @lang('Separate multiple keywords by') <code>,</code> (@lang('comma'))
+                            @lang('or') <code>@lang('enter')</code> @lang('key').
+                            @lang('Minimum 3 & maximum 15 tags.')
+                        </small>
                     </div>
                 </div>
             </div>
@@ -49,7 +43,8 @@
             $('#saveAndContinue').on('click', function() {
                 var btn = $(this);
                 var originalButtonText = btn.html();
-                btn.html(`<div class="spinner-border"></div> @lang('Saving')...`).prop('disabled', true);
+                btn.html(`<div class="spinner-border spinner-border-sm"></div> @lang('Saving')...`).prop(
+                    'disabled', true);
 
                 var formData = new FormData($('#tagFeatureForm')[0]);
                 formData.append('_token', '{{ csrf_token() }}');
