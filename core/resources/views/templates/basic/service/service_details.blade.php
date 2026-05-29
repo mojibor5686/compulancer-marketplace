@@ -658,10 +658,6 @@
 
                                         <div class="px-2"
                                             style="display: flex !important; justify-content: space-between !important; align-items: center !important;">
-                                            <div>
-                                                <i class="ri-check-line"
-                                                    style="font-size: 20px !important; color: #b5b6ba !important; font-weight: bold;"></i>
-                                            </div>
                                             <div style="text-align: right !important;">
                                                 <span
                                                     style="font-weight: 700 !important; color: #1dbf73 !important; font-size: 16px !important; display: flex; align-items: center; gap: 2px;">
@@ -669,34 +665,6 @@
                                                         style="font-size: 14px; font-weight: 600;">&#2547;</span>{{ number_format($product->price) }}
                                                 </span>
                                             </div>
-                                        </div>
-
-                                        <hr style="border: 0; border-top: 1px solid #e4e5e7; margin:0 !important;">
-
-                                        <div class="px-2 py-2"
-                                            style="display: flex !important; align-items: center !important; justify-content: space-between !important;">
-                                            <div
-                                                style="display: flex !important; flex-direction: column !important; gap: 4px !important;">
-                                                <div onclick="window.open('{{ route('public.profile', ['username' => $product->user->username, 'contact' => 'true']) }}', '_blank')"
-                                                    style="display: flex !important; align-items: center !important; gap: 6px !important; cursor: pointer !important;">
-                                                    <span
-                                                        style="width: 8px; height: 8px; background-color: #b5b6ba; border-radius: 50%; display: inline-block;"></span>
-                                                    <span
-                                                        style="font-size: 13px !important; text-transform: capitalize; font-weight: 600 !important; color: #404145 !important; max-width: 90px !important; white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important;"
-                                                        title="{{ $product->user ? $product->user->username : $product->username ?? 'babsmart_' }}">
-                                                        {{ $product->user ? $product->user->username : $product->username ?? 'babsmart_' }}
-                                                    </span>
-                                                </div>
-
-                                                <div
-                                                    style="display: inline-flex; align-items: center; background: {{ $badgeBg }}; border: 1px solid {{ $badgeColor }}40; padding: 2px 6px; border-radius: 3px; width: fit-content;">
-                                                    <span
-                                                        style="color: {{ $badgeColor }}; font-size: 9px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px;">
-                                                        {{ $badgeText }}
-                                                    </span>
-                                                </div>
-                                            </div>
-
                                             <div
                                                 style="display: flex !important; align-items: center !important; gap: 3px !important; font-size: 13px !important; font-weight: 700 !important;">
                                                 <span
@@ -704,6 +672,34 @@
                                                 <span style="color: #ff7a00 !important;">{{ $cardAvgRating }}</span>
                                                 <span
                                                     style="color: #74767e !important; font-weight: 400 !important;">({{ $totalReviews }})</span>
+                                            </div>
+                                        </div>
+
+                                        <hr style="border: 0; border-top: 1px solid #e4e5e7; margin:0 !important;">
+
+                                        <div class="px-2 py-2"
+                                            style="display: flex !important; align-items: center !important; justify-content: space-between !important; gap: 8px !important;">
+                                            <div
+                                                style="display: flex !important; flex-direction: column !important; gap: 6px !important; flex: 1 !important;">
+                                                <div onclick="window.open('{{ route('public.profile', ['username' => $product->user->username, 'contact' => 'true']) }}', '_blank')"
+                                                    style="display: flex !important; align-items: center !important; gap: 8px !important; cursor: pointer !important; transition: all 0.2s ease;">
+                                                    <img src="{{ getImage(getFilePath('userProfile') . '/' . @$product->user->image, isAvatar: true) }}"
+                                                        alt="{{ $product->user->username }}"
+                                                        style="width: 28px !important; height: 28px !important; border-radius: 50% !important; object-fit: cover !important; border: 1px solid #e4e5e7 !important;">
+                                                    <span
+                                                        style="font-size: 13px !important; font-weight: 600 !important; color: #404145 !important; text-transform: capitalize; letter-spacing: 0.5px; max-width: 100px !important; white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important;"
+                                                        title="{{ $product->user ? $product->user->username : 'Unknown' }}">
+                                                        {{ $product->user ? $product->user->username : 'Unknown' }}
+                                                    </span>
+                                                </div>
+
+                                                <div
+                                                    style="display: inline-flex; align-items: center; background: {{ $badgeBg }}; border: 1px solid {{ $badgeColor }}40; padding: 4px 8px; border-radius: 4px; width: fit-content;">
+                                                    <span
+                                                        style="color: {{ $badgeColor }}; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">
+                                                        {{ $badgeText }}
+                                                    </span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
