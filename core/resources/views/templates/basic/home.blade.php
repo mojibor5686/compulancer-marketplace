@@ -128,7 +128,7 @@
                                                                 alt="{{ $product->user->username }}"
                                                                 style="width: 28px !important; height: 28px !important; border-radius: 50% !important; object-fit: cover !important; border: 1px solid #e4e5e7 !important;">
                                                             <span
-                                                                style="font-size: 13px !important; font-weight: 600 !important; color: #404145 !important; max-width: 100px !important; white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important;"
+                                                                style="font-size: 13px !important; font-weight: 600 !important; color: #404145 !important; text-transform: capitalize; letter-spacing: 0.5px; max-width: 100px !important; white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important;"
                                                                 title="{{ $product->user ? $product->user->username : 'Unknown' }}">
                                                                 {{ $product->user ? $product->user->username : 'Unknown' }}
                                                             </span>
