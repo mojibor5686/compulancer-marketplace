@@ -34,10 +34,41 @@
     </div>
 @endsection
 
+@push('style')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css">
+    <style>
+        .iziToast {
+            z-index: 99999 !important;
+        }
+    </style>
+@endpush
+
 @push('script')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
+
     <script>
         (function($) {
             "use strict";
+
+            function customNotify(type, message) {
+                if (typeof notify !== 'undefined') {
+                    notify(type, message);
+                } else {
+                    if (type === 'success') {
+                        iziToast.success({
+                            title: 'Success',
+                            message: message,
+                            position: 'topRight'
+                        });
+                    } else {
+                        iziToast.error({
+                            title: 'Error',
+                            message: message,
+                            position: 'topRight'
+                        });
+                    }
+                }
+            }
 
             // Handle form submission
             $('#saveAndContinue').on('click', function() {
@@ -60,16 +91,16 @@
                             if (!response.is_update) {
                                 window.location.href = response.redirect_url;
                             } else {
-                                notify('success', `@lang('Job skill updated successfully')`);
+                                customNotify('success', `@lang('Job skill updated successfully')`);
                                 btn.html(originalButtonText).prop('disabled', false);
                             }
                         } else {
-                            notify('error', response.message);
+                            customNotify('error', response.message);
                             btn.html(originalButtonText).prop('disabled', false);
                         }
                     },
                     error: function(xhr, status, error) {
-                        notify('error', error);
+                        customNotify('error', error);
                         btn.html(originalButtonText).prop('disabled', false);
                     }
                 });
