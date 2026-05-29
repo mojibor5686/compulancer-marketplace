@@ -42,7 +42,7 @@ class ItemController extends Controller
     public function serviceDetails($slug, $id)
     {
         $pageTitle = 'Service Details';
-        $productDetails = Service::where('id', $id)->active()->userActiveCheck()->checkData()->with('user')->first();
+        $productDetails = Service::where('id', $id)->with('user')->first();
         if (! $productDetails) {
             $notify[] = ['error', 'The requested service is no longer available or has been removed'];
 

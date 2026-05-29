@@ -23,7 +23,8 @@ class ServiceBookingController extends Controller
             'service_qty'      => 'required|integer|min:1',
         ]);
 
-        $service = Service::where('id', $request->service_id)->active()->notAuthUser()->checkData()->with('user')->first();
+        $service = Service::where('id', $request->service_id)->with('user')->first();
+        
         $package = ServicePackage::where('id', $request->package_id)->first();
 
         if (!$service) {
