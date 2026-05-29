@@ -80,27 +80,6 @@ public function depositInsert( Request $request,  $orderNumber = null ) {
             
             Log::info('--- UddoktaPay Payment Initiate Start ---', ['user_id' => $user->id, 'amount' => $request->amount]);
 
-            // if ($orderNumber) {
-            //     try {
-            //         if (!$orderDetails || $orderDetails['orderNumber'] != $orderNumber) {
-            //             Log::warning('UddoktaPay Order booking not found in session', ['order_number' => $orderNumber]);
-            //             $notify[] = ['error', 'Order booking not found!'];
-            //             return to_route('home')->withNotify($notify);
-            //         }
-
-            //         $bookingCreate = static::bookingCreate($orderDetails);
-            //         if (!$bookingCreate) {
-            //             $notify[] = ['error', 'Order booking not found!'];
-            //             return to_route('home')->withNotify($notify);
-            //         }
-            //         $bookingId = $bookingCreate->id;
-            //     } catch (\Exception $e) {
-            //         Log::error('UddoktaPay Booking Exception: ' . $e->getMessage());
-            //         $notify[] = ['error', 'Something went wrong during booking'];
-            //         return back()->withNotify($notify);
-            //     }
-            // }
-
             $trx = $orderNumber ? $orderNumber : getTrx();
             
             $deposit                  = new Deposit();
