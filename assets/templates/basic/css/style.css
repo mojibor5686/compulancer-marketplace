@@ -6765,8 +6765,8 @@ textarea.form--control {
 }
 
 .offcanvas-sidebar--dashboard .offcanvas-sidebar-menu__item.active .offcanvas-sidebar-menu__link {
-  color: hsl(var(--base));
-  background-color: hsl(var(--white));
+  color: hsl(var(--white));
+  background-color: hsl(var(--base));
 }
 
 .offcanvas-sidebar--dashboard .offcanvas-sidebar-menu__item.active .offcanvas-sidebar-menu__link svg {
