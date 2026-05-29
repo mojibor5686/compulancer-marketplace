@@ -14,21 +14,6 @@
                             <div class="col-lg-6">
                                 <div class="payment-system-list is-scrollable gateway-option-list">
                                     <div class="payment-system-list is-scrollable gateway-option-list">
-                                        <label for="account_balance" class="payment-item gateway-option">
-                                            <div class="payment-item__info">
-                                                <span class="payment-item__check"></span>
-                                                <span class="payment-item__name">@lang('Account Balance')
-                                                    ({{ showAmount(auth()->user()->balance) }})</span>
-                                            </div>
-                                            <div class="payment-item__thumb">
-                                                <img class="payment-item__thumb-img"
-                                                    src="{{ getImage(null, isAvatar: true) }}" alt="@lang('account-balance')">
-                                            </div>
-                                            <input class="payment-item__radio gateway-input" id="account_balance" hidden
-                                                type="radio" name="gateway" value="wallet"
-                                                @if (old('gateway')) @checked(old('gateway') == 'wallet') @endif>
-                                        </label>
-
                                         <label for="uddoktapay" class="payment-item gateway-option">
                                             <div class="payment-item__info">
                                                 <span class="payment-item__check"></span>
