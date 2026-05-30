@@ -5295,7 +5295,7 @@ textarea.form--control {
   font-size: 1rem;
   white-space: nowrap;
   color: hsl(var(--white));
-  background-color: hsl(var(--black-two));
+  background-color: #333;
 }
 
 .table--custom td {
@@ -5335,7 +5335,7 @@ textarea.form--control {
   font-size: 0.875rem;
   font-weight: 600;
   line-height: 140%;
-  color: hsl(var(--black-two));
+  color: #333;
 }
 
 .table--custom .author-info {
