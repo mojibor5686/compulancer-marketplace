@@ -241,7 +241,7 @@ h3,
 h4,
 h5,
 h6 {
-  color: hsl(var(--heading-color));
+  color: #333;
   font-family: var(--heading-font);
   font-weight: 700;
   margin-bottom: 16px;
@@ -1835,7 +1835,7 @@ ol {
   font-size: 1rem;
   font-weight: 500;
   line-height: 150%;
-  color: hsl(var(--gray-two));
+  color: #444;
   margin-bottom: 6px;
 }
 
