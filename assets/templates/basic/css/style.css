@@ -3639,7 +3639,7 @@ input[type=number] {
   font-size: 0.9375rem;
   font-weight: 500;
   line-height: 133.333%;
-  color: hsl(var(--black-two));
+  color: #333;
 }
 
 .form--label:not(:last-child) {
@@ -3702,7 +3702,7 @@ input[type=number] {
 }
 
 .form--control {
-  color: hsl(var(--black-two)) !important;
+  color: #333 !important;
   background-color: transparent;
 }
 
