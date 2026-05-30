@@ -6766,15 +6766,15 @@ textarea.form--control {
 
 .offcanvas-sidebar--dashboard .offcanvas-sidebar-menu__item.active .offcanvas-sidebar-menu__link {
   color: hsl(var(--white));
-  background-color: hsl(var(--base));
+  background-color: #333;
 }
 
 .offcanvas-sidebar--dashboard .offcanvas-sidebar-menu__item.active .offcanvas-sidebar-menu__link svg {
-  stroke: hsl(var(--base));
+  stroke: #333;
 }
 
 .offcanvas-sidebar--dashboard .offcanvas-sidebar-menu__item.active .offcanvas-sidebar-menu__link svg path {
-  stroke: hsl(var(--base));
+  stroke: #333;
 }
 
 .offcanvas-sidebar--dashboard .offcanvas-sidebar-menu__link {
@@ -6791,7 +6791,7 @@ textarea.form--control {
   font-size: 0.9375rem;
   font-weight: 600;
   line-height: 140%;
-  color: hsl(var(--white));
+  color: #333;
 }
 
 .offcanvas-sidebar--dashboard .offcanvas-sidebar-menu__item .smart-icons {
@@ -6845,7 +6845,7 @@ textarea.form--control {
 .offcanvas-sidebar--dashboard .offcanvas-sidebar-menu__link[aria-expanded=true],
 .offcanvas-sidebar--dashboard .offcanvas-sidebar-menu__link:hover {
   color: hsl(var(--white));
-  background-color: hsl(var(--white)/0.05);
+  background-color: #333
 }
 
 .offcanvas-sidebar--dashboard .offcanvas-sidebar-menu__link[aria-expanded=true] svg,
@@ -6862,7 +6862,7 @@ textarea.form--control {
   width: 100%;
   padding-bottom: 15px;
   border-bottom: 1px solid hsl(var(--base)/0.2);
-  color: hsl(var(--base)/0.7);
+  color: #444;
   font-size: 14px;
   font-weight: 600;
   line-height: 125%;
