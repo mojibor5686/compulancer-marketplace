@@ -5,7 +5,7 @@
         <div class="form--group-lg">
             <label class="form-label form--label required" for="name">@lang('Name')</label>
             <input class="form-control form--control" name="name" type="text" value="{{ old('name', @$service->name) }}"
-                required>
+                placeholder="@lang('Enter service name')" required>
             <p class="fs-14 mt-1">@lang('Your service name is the most important place to include keywords that buyers would likely use to search for a service like yours.')</p>
         </div>
 
@@ -39,14 +39,15 @@
                     <div class="input-group input--group">
                         <input class="form-control form--control" name="price" type="number"
                             value="{{ old('price', @$service->price ? showAmount($service->price, currencyFormat: false) : null) }}"
-                            step="any" min="0" required>
+                            placeholder="@lang('Enter price')" step="any" min="0" required>
                         <span class="input-group-text">{{ __(gs('cur_text')) }}</span>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="input-group input--group">
                         <input class="form-control form--control" name="max_order_qty" type="number"
-                            value="{{ old('max_order_qty', @$service->max_order_qty) }}" min="1" required>
+                            value="{{ old('max_order_qty', @$service->max_order_qty) }}" placeholder="@lang('Enter quantity')"
+                            min="1" required>
                         <span class="input-group-text">@lang('Unit')</span>
                     </div>
                 </div>
@@ -57,7 +58,7 @@
             <label class="form-label form--label required">@lang('Estimated Delivery Time')</label>
             <div class="input-group input--group">
                 <input class="form-control form--control" name="delivery_time" type="number"
-                    value="{{ old('delivery_time', @$service->delivery_time) }}" required>
+                    value="{{ old('delivery_time', @$service->delivery_time) }}" placeholder="@lang('Enter days')" required>
                 <span class="input-group-text">@lang('Days')</span>
             </div>
             <p class="fs-14 mt-1">@lang('Provide the most affordable delivery days.')</p>
@@ -65,7 +66,8 @@
 
         <div class="form--group-lg">
             <label class="form-label form--label required">@lang('Service Description')</label>
-            <textarea class="form-control form--control" name="description" rows="6" required>{{ old('description', @$service->description) }}</textarea>
+            <textarea class="form-control form--control" name="description" rows="6" placeholder="@lang('Enter service description')"
+                required>{{ old('description', @$service->description) }}</textarea>
             <p class="fs-14 mt-1">@lang('Provide a detailed description of your service.')</p>
         </div>
 
