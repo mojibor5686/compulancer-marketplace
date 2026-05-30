@@ -175,7 +175,7 @@
   --section-bg: 0 0% 98%;
   --body-bg: var(--white);
   --body-color: var(--gray-two);
-  --heading-color: var(--black-two);
+  --heading-color: #222222;
   /* Box Shadows */
   --header-box-shadow: 0px -1px 15px 3px hsl(var(--black) / 0.1);
   --mobile-box-shadow: 0px -1px 5px 0px hsl(var(--black) / 0.1);
