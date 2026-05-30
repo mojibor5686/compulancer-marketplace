@@ -203,7 +203,7 @@
 
                 <a href="{{ route('home') }}" class="d-flex align-items-center navbar-brand me-0">
                     <img src="{{ siteLogo() }}" alt="Site Logo" class="img-fluid"
-                        style="height: 70px; object-fit: contain;" />
+                        style="height: 40px; object-fit: contain;" />
                 </a>
 
                 @if (auth()->check())
@@ -502,7 +502,8 @@
                                 Remember me
                             </label>
                         </div>
-                        <a href="{{ route('user.password.request') }}" class="text-primary text-decoration-none" style="font-weight: 500;">Forgot
+                        <a href="{{ route('user.password.request') }}" class="text-primary text-decoration-none"
+                            style="font-weight: 500;">Forgot
                             your password?</a>
                     </div>
 
