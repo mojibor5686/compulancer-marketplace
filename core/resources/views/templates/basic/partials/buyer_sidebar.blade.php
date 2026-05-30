@@ -7,7 +7,7 @@
         class="sidebar-brand-wrapper d-flex align-items-center p-3 border-bottom border-secondary border-opacity-25 mb-2">
         <a href="{{ url('/') }}" class="text-decoration-none" style="width: 100%">
             <img src="{{ siteLogo() }}" alt="Compulancer Logo" class="img-fluid"
-                style="max-height: 60px; width:100%; mix-blend-mode: multiply;">
+                style="max-height: 60px; width:70%; mix-blend-mode: multiply;">
         </a>
     </div>
 
