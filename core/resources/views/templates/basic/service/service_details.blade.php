@@ -958,7 +958,7 @@
         $(document).ready(function() {
             $(document).on('click touchstart', '#js-mob-submit-btn', function(e) {
                 e.preventDefault();
-                e.stopPropagation(); 
+                e.stopPropagation();
 
                 console.log("মোবাইল ফিক্সড বাটনে সাকসেসফুলি ক্লিক/টাচ লেগেছে!");
 

@@ -8379,7 +8379,7 @@ textarea.form--control {
 }
 
 .jss-details-sidebar__block:not(:last-child) {
-  margin-bottom: 40px;
+  margin: 20px 0;
 }
 
 @media screen and (min-width: 992px) {
