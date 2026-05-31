@@ -17,7 +17,7 @@ class SoftwareBookingController extends Controller
 
     public function addBooking($id)
     {
-        $software = Software::where('id', $id)->active()->notAuthUser()->checkData()->with('user')->first();
+        $software = Software::where('id', $id)->with('user')->first();
 
         if (!$software) {
             $notify[] = ['error', 'You are not allowed to make a booking'];
