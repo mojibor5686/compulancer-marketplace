@@ -34,7 +34,7 @@ class ServiceBookingController extends Controller
 
         $quantity     = $request->service_qty;
 
-        $servicePrice = $package->price * $quantity;
+        $servicePrice = $package->price ?? $service->price * $quantity;
 
         session()->forget('orderDetails');
         session()->put('orderDetails', [
