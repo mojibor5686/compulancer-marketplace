@@ -245,6 +245,15 @@
             </div>
         </div>
 
+        <div class="kwrk-mob-panel-block" id="kwrk-mob-basic">
+            <form action="{{ route('user.service.add.booking', $productDetails->id) }}" method="POST"
+                class="m-0 p-0">
+                @csrf
+                <input type="hidden" name="package_type" value="defult">
+                <input type="hidden" name="service_id" value="{{ $productDetails->id }}">
+            </form>
+        </div>
+
         <div class="kwrk-mobile-tab-content-container">
             @if ($basicPkg)
                 <div class="kwrk-mob-panel-block" id="kwrk-mob-basic">
