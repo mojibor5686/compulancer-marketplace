@@ -1,5 +1,10 @@
 @extends('Template::layouts.frontend')
 @section('content')
+    <style>
+        .kwork-hero-section {
+            display: none
+        }
+    </style>
     <main class="page-wrapper pt-0">
         <section class="pt-60">
             <div class="container">

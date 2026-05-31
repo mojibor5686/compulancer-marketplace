@@ -1,5 +1,10 @@
 @extends('Template::layouts.frontend')
 @section('content')
+    <style>
+        .kwork-hero-section {
+            display: none
+        }
+    </style>
     <main class="page-wrapper">
         <section class="jss-details py-120">
             <div class="container">
