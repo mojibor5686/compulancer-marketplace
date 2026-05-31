@@ -540,7 +540,7 @@
                                         method="POST">
                                         @csrf
                                         <div class="extra_services_container"></div>
-
+                                        <input type="hidden" value="{{ $productDetails->id }}" name="service_id">
                                         <div class="widget-card">
                                             <div class="widget-card__header">
                                                 <h5 class="widget-card__title">@lang('Service Details')</h5>
