@@ -201,195 +201,205 @@
                                     );
                                 @endphp
 
-                                <div class="kwork-package-table-section mb-5 d-none d-lg-block">
-                                    <h3 class="kwork-section-title mb-3">@lang('Select a Package')</h3>
-                                    <div class="table-responsive">
-                                        <table class="table kwork-package-compare-table">
-                                            <thead>
-                                                <tr>
-                                                    <th style="width: 25%;"></th>
-                                                    <th style="width: 25%; text-align: center;">@lang('BASIC')</th>
-                                                    <th style="width: 25%; text-align: center;">@lang('STANDARD')</th>
-                                                    <th style="width: 25%; text-align: center;">@lang('PREMIUM')</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr class="row-package-summary">
-                                                    <td class="feature-label-col">@lang('Package Summary')</td>
-                                                    <td>
-                                                        <div class="pkg-table-desc">{{ $basicPkg->package_title ?? '' }}
-                                                        </div>
-                                                        <small
-                                                            class="text-muted">{{ $basicPkg->package_description ?? '' }}</small>
-                                                    </td>
-                                                    <td>
-                                                        <div class="pkg-table-desc">{{ $standardPkg->package_title ?? '' }}
-                                                        </div>
-                                                        <small
-                                                            class="text-muted">{{ $standardPkg->package_description ?? '' }}</small>
-                                                    </td>
-                                                    <td>
-                                                        <div class="pkg-table-desc">{{ $premiumPkg->package_title ?? '' }}
-                                                        </div>
-                                                        <small
-                                                            class="text-muted">{{ $premiumPkg->package_description ?? '' }}</small>
-                                                    </td>
-                                                </tr>
-
-                                                @foreach ($allFeatureNames as $featureName)
+                                @if ($basicPkg || $standardPkg || $premiumPkg)
+                                    <div class="kwork-package-table-section mb-5 d-none d-lg-block">
+                                        <h3 class="kwork-section-title mb-3">@lang('Select a Package')</h3>
+                                        <div class="table-responsive">
+                                            <table class="table kwork-package-compare-table">
+                                                <thead>
                                                     <tr>
-                                                        <td class="feature-label-col">{{ __($featureName) }}</td>
+                                                        <th style="width: 25%;"></th>
+                                                        <th style="width: 25%; text-align: center;">@lang('BASIC')</th>
+                                                        <th style="width: 25%; text-align: center;">@lang('STANDARD')</th>
+                                                        <th style="width: 25%; text-align: center;">@lang('PREMIUM')</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr class="row-package-summary">
+                                                        <td class="feature-label-col">@lang('Package Summary')</td>
+                                                        <td>
+                                                            <div class="pkg-table-desc">{{ $basicPkg->package_title ?? '' }}
+                                                            </div>
+                                                            <small
+                                                                class="text-muted">{{ $basicPkg->package_description ?? '' }}</small>
+                                                        </td>
+                                                        <td>
+                                                            <div class="pkg-table-desc">
+                                                                {{ $standardPkg->package_title ?? '' }}
+                                                            </div>
+                                                            <small
+                                                                class="text-muted">{{ $standardPkg->package_description ?? '' }}</small>
+                                                        </td>
+                                                        <td>
+                                                            <div class="pkg-table-desc">
+                                                                {{ $premiumPkg->package_title ?? '' }}
+                                                            </div>
+                                                            <small
+                                                                class="text-muted">{{ $premiumPkg->package_description ?? '' }}</small>
+                                                        </td>
+                                                    </tr>
+
+                                                    @foreach ($allFeatureNames as $featureName)
+                                                        <tr>
+                                                            <td class="feature-label-col">{{ __($featureName) }}</td>
+                                                            <td class="text-center">
+                                                                @if (isset($basicFeatures[$featureName]))
+                                                                    <i
+                                                                        class="las {{ $basicFeatures[$featureName] == 'yes' ? 'la-check text--success' : 'la-minus text-muted' }} fs-18"></i>
+                                                                @else
+                                                                    <i class="las la-minus text-muted fs-18"></i>
+                                                                @endif
+                                                            </td>
+                                                            <td class="text-center">
+                                                                @if (isset($standardFeatures[$featureName]))
+                                                                    <i
+                                                                        class="las {{ $standardFeatures[$featureName] == 'yes' ? 'la-check text--success' : 'la-minus text-muted' }} fs-18"></i>
+                                                                @else
+                                                                    <i class="las la-minus text-muted fs-18"></i>
+                                                                @endif
+                                                            </td>
+                                                            <td class="text-center">
+                                                                @if (isset($premiumFeatures[$featureName]))
+                                                                    <i
+                                                                        class="las {{ $premiumFeatures[$featureName] == 'yes' ? 'la-check text--success' : 'la-minus text-muted' }} fs-18"></i>
+                                                                @else
+                                                                    <i class="las la-minus text-muted fs-18"></i>
+                                                                @endif
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+
+                                                    <tr>
+                                                        <td class="feature-label-col">@lang('Revisions')</td>
+                                                        <td class="text-center">@lang('Unlimited')</td>
+                                                        <td class="text-center">@lang('Unlimited')</td>
+                                                        <td class="text-center">@lang('Unlimited')</td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td class="feature-label-col">@lang('Delivery')</td>
+                                                        <td class="text-center">{{ $basicPkg->delivery_time ?? '1' }}
+                                                            @lang('day')</td>
+                                                        <td class="text-center">{{ $standardPkg->delivery_time ?? '3' }}
+                                                            @lang('days')</td>
+                                                        <td class="text-center">{{ $premiumPkg->delivery_time ?? '5' }}
+                                                            @lang('days')</td>
+                                                    </tr>
+
+                                                    <tr class="row-quantity-inputs">
+                                                        <td class="feature-label-col">@lang('Number of words / Qty')</td>
                                                         <td class="text-center">
-                                                            @if (isset($basicFeatures[$featureName]))
-                                                                <i
-                                                                    class="las {{ $basicFeatures[$featureName] == 'yes' ? 'la-check text--success' : 'la-minus text-muted' }} fs-18"></i>
-                                                            @else
-                                                                <i class="las la-minus text-muted fs-18"></i>
+                                                            @if ($basicPkg)
+                                                                <div class="pkg-table-qty-box">
+                                                                    <input type="number"
+                                                                        class="form-control table-qty-input"
+                                                                        data-package="basic" value="1"
+                                                                        min="1">
+                                                                </div>
                                                             @endif
                                                         </td>
                                                         <td class="text-center">
-                                                            @if (isset($standardFeatures[$featureName]))
-                                                                <i
-                                                                    class="las {{ $standardFeatures[$featureName] == 'yes' ? 'la-check text--success' : 'la-minus text-muted' }} fs-18"></i>
-                                                            @else
-                                                                <i class="las la-minus text-muted fs-18"></i>
+                                                            @if ($standardPkg)
+                                                                <div class="pkg-table-qty-box">
+                                                                    <input type="number"
+                                                                        class="form-control table-qty-input"
+                                                                        data-package="standard" value="1"
+                                                                        min="1">
+                                                                </div>
                                                             @endif
                                                         </td>
                                                         <td class="text-center">
-                                                            @if (isset($premiumFeatures[$featureName]))
-                                                                <i
-                                                                    class="las {{ $premiumFeatures[$featureName] == 'yes' ? 'la-check text--success' : 'la-minus text-muted' }} fs-18"></i>
-                                                            @else
-                                                                <i class="las la-minus text-muted fs-18"></i>
+                                                            @if ($premiumPkg)
+                                                                <div class="pkg-table-qty-box">
+                                                                    <input type="number"
+                                                                        class="form-control table-qty-input"
+                                                                        data-package="premium" value="1"
+                                                                        min="1">
+                                                                </div>
                                                             @endif
                                                         </td>
                                                     </tr>
-                                                @endforeach
 
-                                                <tr>
-                                                    <td class="feature-label-col">@lang('Revisions')</td>
-                                                    <td class="text-center">@lang('Unlimited')</td>
-                                                    <td class="text-center">@lang('Unlimited')</td>
-                                                    <td class="text-center">@lang('Unlimited')</td>
-                                                </tr>
+                                                    <tr class="row-action-forms">
+                                                        <td class="feature-label-col"></td>
 
-                                                <tr>
-                                                    <td class="feature-label-col">@lang('Delivery')</td>
-                                                    <td class="text-center">{{ $basicPkg->delivery_time ?? '1' }}
-                                                        @lang('day')</td>
-                                                    <td class="text-center">{{ $standardPkg->delivery_time ?? '3' }}
-                                                        @lang('days')</td>
-                                                    <td class="text-center">{{ $premiumPkg->delivery_time ?? '5' }}
-                                                        @lang('days')</td>
-                                                </tr>
+                                                        <td class="text-center">
+                                                            @if ($basicPkg)
+                                                                <form
+                                                                    action="{{ route('user.service.add.booking', $productDetails->id) }}"
+                                                                    method="POST" class="table-package-form">
+                                                                    @csrf
+                                                                    <input type="hidden" name="package_type"
+                                                                        value="basic">
+                                                                    <input type="hidden" name="package_id"
+                                                                        value="{{ $basicPkg->id }}">
+                                                                    <input type="hidden" name="service_id"
+                                                                        value="{{ $productDetails->id }}">
+                                                                    <input type="hidden" name="service_qty"
+                                                                        class="form-qty-hidden-basic" value="1">
 
-                                                <tr class="row-quantity-inputs">
-                                                    <td class="feature-label-col">@lang('Number of words / Qty')</td>
-                                                    <td class="text-center">
-                                                        @if ($basicPkg)
-                                                            <div class="pkg-table-qty-box">
-                                                                <input type="number" class="form-control table-qty-input"
-                                                                    data-package="basic" value="1" min="1">
-                                                            </div>
-                                                        @endif
-                                                    </td>
-                                                    <td class="text-center">
-                                                        @if ($standardPkg)
-                                                            <div class="pkg-table-qty-box">
-                                                                <input type="number" class="form-control table-qty-input"
-                                                                    data-package="standard" value="1"
-                                                                    min="1">
-                                                            </div>
-                                                        @endif
-                                                    </td>
-                                                    <td class="text-center">
-                                                        @if ($premiumPkg)
-                                                            <div class="pkg-table-qty-box">
-                                                                <input type="number" class="form-control table-qty-input"
-                                                                    data-package="premium" value="1" min="1">
-                                                            </div>
-                                                        @endif
-                                                    </td>
-                                                </tr>
+                                                                    <div class="pkg-table-price mb-2">&#2547;<span
+                                                                            class="total-price-display-basic">{{ number_format($basicPkg->price ?? 0, 0) }}</span>
+                                                                    </div>
+                                                                    <button type="submit"
+                                                                        class="btn btn-success w-100 btn-sm kwork-table-order-btn">@lang('Order')</button>
+                                                                </form>
+                                                            @endif
+                                                        </td>
 
-                                                <tr class="row-action-forms">
-                                                    <td class="feature-label-col"></td>
+                                                        <td class="text-center">
+                                                            @if ($standardPkg)
+                                                                <form
+                                                                    action="{{ route('user.service.add.booking', $productDetails->id) }}"
+                                                                    method="POST" class="table-package-form">
+                                                                    @csrf
+                                                                    <input type="hidden" name="package_type"
+                                                                        value="standard">
+                                                                    <input type="hidden" name="package_id"
+                                                                        value="{{ $standardPkg->id }}">
+                                                                    <input type="hidden" name="service_id"
+                                                                        value="{{ $productDetails->id }}">
+                                                                    <input type="hidden" name="service_qty"
+                                                                        class="form-qty-hidden-standard" value="1">
 
-                                                    <td class="text-center">
-                                                        @if ($basicPkg)
-                                                            <form
-                                                                action="{{ route('user.service.add.booking', $productDetails->id) }}"
-                                                                method="POST" class="table-package-form">
-                                                                @csrf
-                                                                <input type="hidden" name="package_type" value="basic">
-                                                                <input type="hidden" name="package_id"
-                                                                    value="{{ $basicPkg->id }}">
-                                                                <input type="hidden" name="service_id"
-                                                                    value="{{ $productDetails->id }}">
-                                                                <input type="hidden" name="service_qty"
-                                                                    class="form-qty-hidden-basic" value="1">
+                                                                    <div class="pkg-table-price mb-2">&#2547;<span
+                                                                            class="total-price-display-standard">{{ number_format($standardPkg->price ?? 0, 0) }}</span>
+                                                                    </div>
+                                                                    <button type="submit"
+                                                                        class="btn btn-success w-100 btn-sm kwork-table-order-btn">@lang('Order')</button>
+                                                                </form>
+                                                            @endif
+                                                        </td>
 
-                                                                <div class="pkg-table-price mb-2">&#2547;<span
-                                                                        class="total-price-display-basic">{{ number_format($basicPkg->price ?? 0, 0) }}</span>
-                                                                </div>
-                                                                <button type="submit"
-                                                                    class="btn btn-success w-100 btn-sm kwork-table-order-btn">@lang('Order')</button>
-                                                            </form>
-                                                        @endif
-                                                    </td>
+                                                        <td class="text-center">
+                                                            @if ($premiumPkg)
+                                                                <form
+                                                                    action="{{ route('user.service.add.booking', $productDetails->id) }}"
+                                                                    method="POST" class="table-package-form">
+                                                                    @csrf
+                                                                    <input type="hidden" name="package_type"
+                                                                        value="premium">
+                                                                    <input type="hidden" name="package_id"
+                                                                        value="{{ $premiumPkg->id }}">
+                                                                    <input type="hidden" name="service_id"
+                                                                        value="{{ $productDetails->id }}">
+                                                                    <input type="hidden" name="service_qty"
+                                                                        class="form-qty-hidden-premium" value="1">
 
-                                                    <td class="text-center">
-                                                        @if ($standardPkg)
-                                                            <form
-                                                                action="{{ route('user.service.add.booking', $productDetails->id) }}"
-                                                                method="POST" class="table-package-form">
-                                                                @csrf
-                                                                <input type="hidden" name="package_type"
-                                                                    value="standard">
-                                                                <input type="hidden" name="package_id"
-                                                                    value="{{ $standardPkg->id }}">
-                                                                <input type="hidden" name="service_id"
-                                                                    value="{{ $productDetails->id }}">
-                                                                <input type="hidden" name="service_qty"
-                                                                    class="form-qty-hidden-standard" value="1">
-
-                                                                <div class="pkg-table-price mb-2">&#2547;<span
-                                                                        class="total-price-display-standard">{{ number_format($standardPkg->price ?? 0, 0) }}</span>
-                                                                </div>
-                                                                <button type="submit"
-                                                                    class="btn btn-success w-100 btn-sm kwork-table-order-btn">@lang('Order')</button>
-                                                            </form>
-                                                        @endif
-                                                    </td>
-
-                                                    <td class="text-center">
-                                                        @if ($premiumPkg)
-                                                            <form
-                                                                action="{{ route('user.service.add.booking', $productDetails->id) }}"
-                                                                method="POST" class="table-package-form">
-                                                                @csrf
-                                                                <input type="hidden" name="package_type"
-                                                                    value="premium">
-                                                                <input type="hidden" name="package_id"
-                                                                    value="{{ $premiumPkg->id }}">
-                                                                <input type="hidden" name="service_id"
-                                                                    value="{{ $productDetails->id }}">
-                                                                <input type="hidden" name="service_qty"
-                                                                    class="form-qty-hidden-premium" value="1">
-
-                                                                <div class="pkg-table-price mb-2">&#2547;<span
-                                                                        class="total-price-display-premium">{{ number_format($premiumPkg->price ?? 0, 0) }}</span>
-                                                                </div>
-                                                                <button type="submit"
-                                                                    class="btn btn-success w-100 btn-sm kwork-table-order-btn">@lang('Order')</button>
-                                                            </form>
-                                                        @endif
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                                                    <div class="pkg-table-price mb-2">&#2547;<span
+                                                                            class="total-price-display-premium">{{ number_format($premiumPkg->price ?? 0, 0) }}</span>
+                                                                    </div>
+                                                                    <button type="submit"
+                                                                        class="btn btn-success w-100 btn-sm kwork-table-order-btn">@lang('Order')</button>
+                                                                </form>
+                                                            @endif
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
-                                </div>
+                                @endif
 
                                 <div class="kwork-description-section mb-5">
                                     <h3 class="kwork-section-title mb-3">@lang('Compulancer Overview')</h3>
