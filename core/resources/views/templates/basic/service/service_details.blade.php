@@ -79,7 +79,7 @@
                                 <div style="border: 1px solid #eee; padding: 10px; border-bottom: none;">
                                     <h1 class="kwork-gig-title mb-1 fs-3 fs-lg-1"
                                         style="font-weight: 700; color: #222222; line-height: 1.25; letter-spacing: -0.5px;">
-                                        {{ __($productDetails->title ?? 'I will do unique, modern and professional business logo design') }}
+                                        {{ __($productDetails->name ?? 'I will do unique, modern and professional business logo design') }}
                                     </h1>
 
                                     @php
