@@ -144,15 +144,6 @@
                                     </button>
                                 </li>
                             </ul>
-
-                            <div class="layout-toggle-btns">
-                                <button class="layout-toggle-btn grid-layout active" type="button" title="Grid View">
-                                    @include('Template::partials.icons.grid')
-                                </button>
-                                <button class="layout-toggle-btn list-layout" type="button" title="List View">
-                                    @include('Template::partials.icons.list')
-                                </button>
-                            </div>
                         </div>
                     </div>
 
