@@ -36,7 +36,7 @@
                                     <div class="d-flex justify-content-between align-items-center mb-1">
                                         <h6 class="m-0 text-truncate text-capitalize {{ $isActive ? 'text-white' : 'text-dark' }}"
                                             style="font-size: 14px;">
-                                            {{ $sidebarUser->username }}
+                                            {{ $sidebarUser->username ?? 'User' }}
                                         </h6>
                                     </div>
                                     <small class="d-block text-truncate {{ $isActive ? 'text-white-50' : 'text-muted' }}"
