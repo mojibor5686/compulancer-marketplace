@@ -165,7 +165,7 @@
 
 .single-message.message--right .message-content {
     border: 1px solid hsl(var(--base) / 0.09);
-    background-color: hsl(var(--heading-color));
+    background-color: #444444 !important;
     margin-left: auto;
 }
 
