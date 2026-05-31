@@ -248,7 +248,7 @@
         <div class="kwrk-mobile-tab-content-container">
 
             @if (!$basicPkg && !$standardPkg && !$premiumPkg)
-                <div class="kwrk-mob-panel-block" id="kwrk-mob-default" style="display: block;">
+                <div class="kwrk-mob-panel-block active-mobile-panel" id="kwrk-mob-default" style="display: block;">
                     <form action="{{ route('user.service.add.booking', $productDetails->id) }}" method="POST"
                         class="m-0 p-0 target-mobile-form">
                         @csrf
