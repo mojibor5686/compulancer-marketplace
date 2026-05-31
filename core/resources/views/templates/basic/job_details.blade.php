@@ -197,7 +197,7 @@
                                         @else
                                             <div class="widget-card__footer mt-3">
                                                 <button class="btn btn--base w-100 btn--lg" data-bs-toggle="modal"
-                                                    data-bs-target="#loginModal" type="button"
+                                                    data-bs-target="#signInModal" type="button"
                                                     @disabled(@$existingJobBidCheck)>@lang('Bid Now')</button>
                                             </div>
                                         @endauth
@@ -308,7 +308,7 @@
                 @guest
                 $('.comments-tab-btn').on('click', function(e) {
                     e.preventDefault(); // Prevent default tab behavior
-                    $('#loginModal').modal('show'); // Show the login modal
+                    $('#signInModal').modal('show'); // Show the login modal
                 });
             @endguest
 
