@@ -139,7 +139,6 @@
                                     </div>
 
 
-
                                     <!-- Reviews Tab -->
                                     <div class="tab-pane" id="jss-details-tab-3" role="tabpanel" tabindex="0">
                                         @include('Template::items.details.reviews', [
