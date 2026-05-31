@@ -587,7 +587,7 @@
                                                     </button>
                                                 @else
                                                     <button type="button" class="mt-4 btn btn--lg btn--base w-100"
-                                                        data-bs-toggle="modal" data-bs-target="#singInModal">
+                                                        data-bs-toggle="modal" data-bs-target="#signInModal">
                                                         @lang('Order Now')
                                                         <span
                                                             class="totalPrice">{{ number_format($productDetails->price, 0) }}</span>
