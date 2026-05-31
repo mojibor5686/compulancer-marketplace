@@ -247,25 +247,6 @@
 
         <div class="kwrk-mobile-tab-content-container">
 
-            @if (!$basicPkg && !$standardPkg && !$premiumPkg)
-                <div class="kwrk-mob-panel-block active-mobile-panel" id="kwrk-mob-default" style="display: block;">
-                    <form action="{{ route('user.service.add.booking', $productDetails->id) }}" method="POST"
-                        class="m-0 p-0 target-mobile-form">
-                        @csrf
-                        <input type="hidden" name="package_type" value="custom">
-                        <input type="hidden" name="package_id" value="0">
-                        <input type="hidden" name="service_id" value="{{ $productDetails->id }}">
-
-                        <input type="hidden" name="service_qty" class="form-control kwrk-mobile-qty-input"
-                            data-price="{{ $productDetails->price ?? 0 }}" value="1">
-
-                        <div class="alert alert-info mx-3 mt-2 text-center" style="font-size: 13px;">
-                            <i class="las la-info-circle"></i> @lang('Ordering direct service without any specific tier plan.')
-                        </div>
-                    </form>
-                </div>
-            @endif
-
             @if ($basicPkg)
                 <div class="kwrk-mob-panel-block" id="kwrk-mob-basic">
                     <form action="{{ route('user.service.add.booking', $productDetails->id) }}" method="POST"
