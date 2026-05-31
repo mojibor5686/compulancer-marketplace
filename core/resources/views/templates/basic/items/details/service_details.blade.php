@@ -28,6 +28,25 @@
     <div class="kwork-packages-accordion d-flex flex-column gap-3 kwrk-desktop-only"
         style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
 
+        @if (!$basicPkg && !$standardPkg && !$premiumPkg)
+            <div class="kwrk-mob-panel-block" id="kwrk-mob-default" style="display: block;">
+                <form action="{{ route('user.service.add.booking', $productDetails->id) }}" method="POST"
+                    class="m-0 p-0 target-mobile-form">
+                    @csrf
+                    <input type="hidden" name="package_type" value="custom">
+                    <input type="hidden" name="package_id" value="0">
+                    <input type="hidden" name="service_id" value="{{ $productDetails->id }}">
+
+                    <input type="hidden" name="service_qty" class="form-control kwrk-mobile-qty-input"
+                        data-price="{{ $productDetails->price ?? 0 }}" value="1">
+
+                    <div class="alert alert-info mx-3 mt-2 text-center" style="font-size: 13px;">
+                        <i class="las la-info-circle"></i> @lang('Ordering direct service without any specific tier plan.')
+                    </div>
+                </form>
+            </div>
+        @endif
+
         @if ($basicPkg)
             <div class="kwork-card-wrapper active" data-package="basic">
                 <div class="kwork-card-header d-flex justify-content-between align-items-center">
@@ -135,9 +154,11 @@
                             <div class="quantity-row d-flex align-items-center justify-content-between mb-3">
                                 <span class="qty-label"><i class="las la-cubes"></i> @lang('Quantity')</span>
                                 <div class="qty-counter">
-                                    <button type="button" class="pkgDecrementBtn"><i class="las la-minus"></i></button>
+                                    <button type="button" class="pkgDecrementBtn"><i
+                                            class="las la-minus"></i></button>
                                     <span class="pkgQuantityDisplay">1</span>
-                                    <button type="button" class="pkgIncrementBtn"><i class="las la-plus"></i></button>
+                                    <button type="button" class="pkgIncrementBtn"><i
+                                            class="las la-plus"></i></button>
                                 </div>
                                 <input type="hidden" name="service_qty" class="service_qty_hidden" value="1">
                             </div>
@@ -243,15 +264,6 @@
                 <div class="label">@lang('Premium')</div>
                 <div class="price">&#2547;{{ number_format($premiumPkg->price ?? 0, 0) }}</div>
             </div>
-        </div>
-
-        <div class="kwrk-mob-panel-block" id="kwrk-mob-basic">
-            <form action="{{ route('user.service.add.booking', $productDetails->id) }}" method="POST"
-                class="m-0 p-0">
-                @csrf
-                <input type="hidden" name="package_type" value="defult">
-                <input type="hidden" name="service_id" value="{{ $productDetails->id }}">
-            </form>
         </div>
 
         <div class="kwrk-mobile-tab-content-container">
