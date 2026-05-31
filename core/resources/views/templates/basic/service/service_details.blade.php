@@ -1,18 +1,5 @@
 @extends('Template::layouts.frontend')
 @section('content')
-    <div class="mobile-fixed-bottom-action d-sm-none">
-        <div class="container-fluid px-3">
-            <div class="d-flex align-items-center gap-2 w-100">
-                <a href="#" class="btn btn-chat-mobile d-flex align-items-center justify-content-center gap-2">
-                    <i class="far fa-comment-dots"></i>
-                    <span>@lang('Chat')</span>
-                </a>
-                <a href="#" class="btn btn-order-mobile flex-grow-1 text-center js-mobile-fixed-order-trigger">
-                    @lang('Order for')
-                </a>
-            </div>
-        </div>
-    </div>
     <style>
         .kwork-hero-section {
             display: none
@@ -293,8 +280,7 @@
                                                                 <div class="pkg-table-qty-box">
                                                                     <input type="number"
                                                                         class="form-control table-qty-input"
-                                                                        data-package="basic" value="1"
-                                                                        min="1">
+                                                                        data-package="basic" value="1" min="1">
                                                                 </div>
                                                             @endif
                                                         </td>
@@ -819,42 +805,47 @@
         @endif
     </main>
 
-    @auth
-        <div class="mobile-fixed-bottom-action d-sm-none">
-            <div class="container-fluid px-3">
-                <div class="d-flex align-items-center gap-2 w-100">
-                    <button type="button" class="btn btn-chat-mobile d-flex align-items-center justify-content-center gap-2"
-                        data-bs-toggle="modal" data-bs-target="#contactModal">
-                        <i class="far fa-comment-dots"></i>
-                        <span>@lang('Chat')</span>
-                    </button>
+    @if ($basicPkg || $standardPkg || $premiumPkg)
+        @auth
+            <div class="mobile-fixed-bottom-action d-sm-none">
+                <div class="container-fluid px-3">
+                    <div class="d-flex align-items-center gap-2 w-100">
+                        <button type="button"
+                            class="btn btn-chat-mobile d-flex align-items-center justify-content-center gap-2"
+                            data-bs-toggle="modal" data-bs-target="#contactModal">
+                            <i class="far fa-comment-dots"></i>
+                            <span>@lang('Chat')</span>
+                        </button>
 
-                    <button type="button" class="btn btn-order-mobile flex-grow-1 text-center js-mobile-fixed-order-trigger">
-                        @lang('Order for') &#2547;<span
-                            class="totalPrice">{{ number_format($basicPkg->price ?? 0, 0) }}</span>
-                    </button>
+                        <button type="button"
+                            class="btn btn-order-mobile flex-grow-1 text-center js-mobile-fixed-order-trigger">
+                            @lang('Order for') &#2547;<span
+                                class="totalPrice">{{ number_format($basicPkg->price ?? 0, 0) }}</span>
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
-    @else
-        <div class="mobile-fixed-bottom-action d-sm-none">
-            <div class="container-fluid px-3">
-                <div class="d-flex align-items-center gap-2 w-100">
-                    <button type="button" class="btn btn-chat-mobile d-flex align-items-center justify-content-center gap-2"
-                        data-bs-toggle="modal" data-bs-target="#signInModal">
-                        <i class="far fa-comment-dots"></i>
-                        <span>@lang('Chat')</span>
-                    </button>
+        @else
+            <div class="mobile-fixed-bottom-action d-sm-none">
+                <div class="container-fluid px-3">
+                    <div class="d-flex align-items-center gap-2 w-100">
+                        <button type="button"
+                            class="btn btn-chat-mobile d-flex align-items-center justify-content-center gap-2"
+                            data-bs-toggle="modal" data-bs-target="#signInModal">
+                            <i class="far fa-comment-dots"></i>
+                            <span>@lang('Chat')</span>
+                        </button>
 
-                    <button type="button" class="btn btn-order-mobile flex-grow-1 text-center" data-bs-toggle="modal"
-                        data-bs-target="#signInModal">
-                        @lang('Order for') &#2547;<span
-                            class="totalPrice">{{ number_format($basicPkg->price ?? 0, 0) }}</span>
-                    </button>
+                        <button type="button" class="btn btn-order-mobile flex-grow-1 text-center" data-bs-toggle="modal"
+                            data-bs-target="#signInModal">
+                            @lang('Order for') &#2547;<span
+                                class="totalPrice">{{ number_format($basicPkg->price ?? 0, 0) }}</span>
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
-    @endauth
+        @endauth
+    @endif
 
     @auth
         @push('script')
