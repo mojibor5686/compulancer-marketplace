@@ -521,7 +521,7 @@
                                 ])
                             @else
                                 <div class="jss-details-sidebar__block">
-                                    <form class="jss-details-sidebar__block"
+                                    <form class="jss-details-sidebar__block" id="jss-main-order-form"
                                         action="{{ route('user.service.add.booking', $productDetails->id) }}"
                                         method="POST">
                                         @csrf
@@ -845,6 +845,45 @@
                 </div>
             </div>
         @endauth
+    @else
+        @auth
+            <div class="mobile-fixed-bottom-action d-sm-none">
+                <div class="container-fluid px-3">
+                    <div class="d-flex align-items-center gap-2 w-100">
+                        <button type="button"
+                            class="btn btn-chat-mobile d-flex align-items-center justify-content-center gap-2"
+                            data-bs-toggle="modal" data-bs-target="#contactModal">
+                            <i class="far fa-comment-dots"></i>
+                            <span>@lang('Chat')</span>
+                        </button>
+
+                        <button type="button" id="js-mob-submit-btn" class="btn btn-order-mobile flex-grow-1 text-center">
+                            @lang('Order for') &#2547;<span
+                                class="totalPrice">{{ number_format($productDetails->price ?? 0, 0) }}</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        @else
+            <div class="mobile-fixed-bottom-action d-sm-none">
+                <div class="container-fluid px-3">
+                    <div class="d-flex align-items-center gap-2 w-100">
+                        <button type="button"
+                            class="btn btn-chat-mobile d-flex align-items-center justify-content-center gap-2"
+                            data-bs-toggle="modal" data-bs-target="#signInModal">
+                            <i class="far fa-comment-dots"></i>
+                            <span>@lang('Chat')</span>
+                        </button>
+
+                        <button type="button" class="btn btn-order-mobile flex-grow-1 text-center" data-bs-toggle="modal"
+                            data-bs-target="#signInModal">
+                            @lang('Order for') &#2547;<span
+                                class="totalPrice">{{ number_format($productDetails->price ?? 0, 0) }}</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        @endauth
     @endif
 
     @auth
@@ -915,6 +954,27 @@
 @endsection
 
 @push('script')
+    <script>
+        $(document).ready(function() {
+            $(document).on('click touchstart', '#js-mob-submit-btn', function(e) {
+                e.preventDefault();
+                e.stopPropagation(); 
+
+                console.log("মোবাইল ফিক্সড বাটনে সাকসেসফুলি ক্লিক/টাচ লেগেছে!");
+
+                var $targetForm = $('#jss-main-order-form');
+
+                if ($targetForm.length) {
+                    console.log("টার্গেট ফর্ম পাওয়া গেছে। সাবমিট করা হচ্ছে...");
+
+                    $targetForm.get(0).submit();
+                } else {
+                    console.log("❌ কোনো ফর্ম পাওয়া যায়নি! আইডি ঠিক আছে কি না চেক করুন।");
+                }
+            });
+        });
+    </script>
+
     <script>
         (function($) {
                 "use strict";
