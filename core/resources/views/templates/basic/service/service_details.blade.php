@@ -466,99 +466,6 @@
                                     </div>
                                 @endif
 
-                                @push('script')
-                                    <script>
-                                        (function($) {
-                                                "use strict";
-
-                                                let quantity = 1;
-                                                let servicePrice = parseFloat('{{ showAmount($productDetails->price, currencyFormat: false) }}');
-                                                let extraService = 0;
-                                                let extraServicesArray = [];
-
-                                                $('.extraServices:checked').each(function() {
-                                                    extraService += parseFloat($(this).data('price'));
-                                                    extraServicesArray.push($(this).val());
-                                                });
-                                                updatePrices();
-                                                updateExtraServices();
-
-                                                $(document).on('click', '.incrementBtn', function() {
-                                                    quantity++;
-                                                    $('.quantity').text(quantity);
-                                                    $('input[name="service_qty"]').val(quantity);
-                                                    updatePrices();
-                                                });
-
-                                                $(document).on('click', '.decrementBtn', function() {
-                                                    if (quantity > 1) {
-                                                        quantity--;
-                                                        $('.quantity').text(quantity);
-                                                        $('input[name="service_qty"]').val(quantity);
-                                                        updatePrices();
-                                                    }
-                                                });
-
-                                                $(document).on('change', '.extraServices', function() {
-                                                    extraService = 0;
-                                                    extraServicesArray = [];
-                                                    $('.extraServices:checked').each(function() {
-                                                        extraService += parseFloat($(this).data('price'));
-                                                        extraServicesArray.push($(this).val());
-                                                    });
-                                                    $('.extraServicePrice').text(extraService.toFixed(2));
-                                                    updatePrices();
-                                                    updateExtraServices();
-                                                });
-
-                                                function updatePrices() {
-                                                    let totalServicePrice = servicePrice * quantity;
-                                                    let totalExtraPrice = extraService;
-                                                    let total = totalServicePrice + totalExtraPrice;
-
-                                                    $('.servicePrice').text(totalServicePrice.toFixed(2));
-                                                    $('.extraServicePrice').text(totalExtraPrice.toFixed(2));
-                                                    $('.totalPrice').text(total.toFixed(2));
-
-                                                    updateOrderNowLink();
-                                                }
-
-                                                function updateExtraServices() {
-                                                    $('.extra_services_container').empty();
-                                                    $('.extraServices:checked').each(function() {
-                                                        const extraServiceId = $(this).val();
-                                                        $('<input>').attr({
-                                                            type: 'hidden',
-                                                            name: 'extra_services[]',
-                                                            value: extraServiceId
-                                                        }).appendTo('.extra_services_container');
-                                                    });
-                                                }
-
-                                                function updateOrderNowLink() {
-                                                    let extraServicesQuery = extraServicesArray.join(',');
-                                                    let orderNowUrl =
-                                                        `{{ route('user.service.add.booking', $productDetails->id) }}?quantity=${quantity}&extra_services=${extraServicesQuery}`;
-                                                    $('.order-now-btn').attr('href', orderNowUrl);
-                                                }
-
-                                                if ($('.details-sidebar').length && $('.jss-details-main__block.three').length) {
-                                                    var sidebarContent = $('.details-sidebar').html();
-                                                    $('.jss-details-main__block.two').html(sidebarContent);
-                                                }
-
-                                                @guest
-                                                $('.comments-tab-btn').on('click', function(e) {
-                                                    e.preventDefault();
-                                                    $('#signInModal').modal('show');
-                                                });
-                                            @endguest
-
-
-                                        })(jQuery);
-                                    </script>
-                                @endpush
-
                                 <div class="kwork-description-section mb-5">
                                     <h3 class="kwork-section-title mb-3">@lang('Compulancer Overview')</h3>
                                     <div class="kwork-real-description-body p-3 bg-white border rounded">
@@ -687,9 +594,76 @@
 
                     <div class="col-lg-4 d-none d-lg-block details-sidebar" style="margin-top:48px">
                         <div class="jss-details-sidebar">
-                            @include('Template::items.details.service_details', [
-                                'productDetails' => $productDetails,
-                            ])
+                            @if ($basicPkg || $standardPkg || $premiumPkg)
+                                @include('Template::items.details.service_details', [
+                                    'productDetails' => $productDetails,
+                                ])
+                            @else
+                                <div class="jss-details-sidebar__block">
+                                    <form class="jss-details-sidebar__block"
+                                        action="{{ route('user.service.add.booking', $productDetails->id) }}"
+                                        method="POST">
+                                        @csrf
+                                        <div class="extra_services_container"></div>
+
+                                        <div class="widget-card">
+                                            <div class="widget-card__header">
+                                                <h5 class="widget-card__title">@lang('Service Details')</h5>
+                                            </div>
+                                            <div class="widget-card__body">
+                                                <ul class="info-list style-two">
+                                                    <li class="info-list-item">
+                                                        <span class="info-list-item__label">@lang('Estimated Delivery Time')</span>
+                                                        <span
+                                                            class="info-list-item__value">{{ $productDetails->delivery_time ?? 'N/A' }}
+                                                            @lang('Days')</span>
+                                                    </li>
+                                                    <li class="info-list-item">
+                                                        <span class="info-list-item__label">@lang('Service Price')</span>
+                                                        <span class="info-list-item__value">{{ gs('cur_sym') }}
+                                                            <span
+                                                                class="servicePrice">{{ number_format($productDetails->price, 0) }}
+                                                            </span>
+                                                        </span>
+                                                    </li>
+                                                    <li class="info-list-item">
+                                                        <span class="info-list-item__label">@lang('Quantity')</span>
+                                                        <div class="quantity-control">
+                                                            <button type="button"
+                                                                class="quantity-btn quantity-btn--minus decrementBtn">
+                                                                <i class="las la-minus"></i>
+                                                            </button>
+                                                            <span
+                                                                class="info-list-item__value d-flex align-items-center quantity">1</span>
+                                                            <button type="button"
+                                                                class="quantity-btn quantity-btn--plus incrementBtn">
+                                                                <i class="las la-plus"></i>
+                                                            </button>
+                                                            <input type="hidden" name="service_qty" value="1">
+                                                        </div>
+                                                    </li>
+                                                </ul>
+
+                                                @auth
+                                                    <button type="submit" class="mt-4 btn btn--lg btn--base w-100">
+                                                        @lang('Order Now')
+                                                        <span
+                                                            class="totalPrice">{{ number_format($productDetails->price, 0) }}</span>
+                                                    </button>
+                                                @else
+                                                    <button type="button" class="mt-4 btn btn--lg btn--base w-100"
+                                                        data-bs-toggle="modal" data-bs-target="#singInModal">
+                                                        @lang('Order Now')
+                                                        <span
+                                                            class="totalPrice">{{ number_format($productDetails->price, 0) }}</span>
+                                                    </button>
+                                                @endauth
+
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            @endif
 
                             <style>
                                 .marketplace-extra-card:hover {
