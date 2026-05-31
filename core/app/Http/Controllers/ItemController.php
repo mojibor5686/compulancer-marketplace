@@ -28,7 +28,7 @@ class ItemController extends Controller
         $pageTitle = 'Software';
         $type = 'software';
 
-        return view('Template::home', compact('pageTitle', 'type'));
+        return view('Template::software', compact('pageTitle', 'type'));
     }
 
     public function job()
@@ -36,7 +36,7 @@ class ItemController extends Controller
         $pageTitle = 'Job';
         $type = 'job';
 
-        return view('Template::home', compact('pageTitle', 'type'));
+        return view('Template::job', compact('pageTitle', 'type'));
     }
 
     public function serviceDetails($slug, $id)
