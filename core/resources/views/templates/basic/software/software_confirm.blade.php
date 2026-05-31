@@ -57,108 +57,107 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Order Details Section -->
-                    <div class="col-lg-4">
-                        <div class="widget-card">
-                            <div class="widget-card__header">
-                                <h5 class="widget-card__title">@lang('Order Details')</h5>
-                            </div>
-                            <div class="widget-card__body">
-                                <ul class="info-list style-two">
-                                    <li class="info-list-item">
-                                        <span class="info-list-item__label">@lang('Software Price')</span>
-                                        <span class="info-list-item__value">
-                                            <span id="softwarePrice">{{ showAmount($software->price) }}</span>
-                                        </span>
-                                    </li>
-                                    <li class="info-list-item">
-                                        <span class="info-list-item__label">@lang('Total Price')</span>
-                                        <span class="info-list-item__value">
-                                            {{ showAmount($software->price) }}
-                                        </span>
-                                    </li>
-                                    <li class="info-list-item">
-                                        <span class="info-list-item__label">@lang('Discount')</span>
-                                        <span class="info-list-item__value">
-                                            <span id="discount">{{ showAmount($orderDetails['discount']) }}</span>
-                                        </span>
-                                    </li>
-                                    <li class="info-list-item">
-                                        <span class="info-list-item__label">@lang('Grand Total')</span>
-                                        <span class="info-list-item__value">
-                                            <span id="grandTotal">{{ showAmount($orderDetails['grandTotal']) }}</span>
-                                        </span>
-                                    </li>
-                                </ul>
-                            </div>
-
-                            <div class="widget-card__header pt-0 mt-3">
-                                <h5 class="widget-card__title">@lang('Payment Details')</h5>
-                            </div>
-                            <div class="widget-card__body">
-                                <ul class="info-list style-two">
-                                    <li class="info-list-item deposit-info">
-                                        <span class="info-list-item__label">@lang('Amount')</span>
-                                        <div class="deposit-info__input">
-                                            <div class="deposit-info__input-group input-group">
-                                                <span class="deposit-info__input-group-text">{{ gs('cur_sym') }}</span>
-                                                <input type="text" class="form-control form--control amount"
-                                                    name="amount" placeholder="@lang('00.00')"
-                                                    value="{{ getAmount($orderDetails['grandTotal']) }}" autocomplete="off"
-                                                    readonly>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="info-list-item deposit-info hideInfo">
-                                        <div class="d-flex align-items-center gap-2">
-                                            <span class="info-list-item__label">@lang('Processing Charge')</span>
-                                            <span data-bs-toggle="tooltip" title="@lang('Processing charge for payment gateways')"
-                                                class="proccessing-fee-info">
-                                                <i class="las la-info-circle"></i>
+                        <!-- Order Details Section -->
+                        <div class="col-lg-4">
+                            <div class="widget-card">
+                                <div class="widget-card__header">
+                                    <h5 class="widget-card__title">@lang('Order Details')</h5>
+                                </div>
+                                <div class="widget-card__body">
+                                    <ul class="info-list style-two">
+                                        <li class="info-list-item">
+                                            <span class="info-list-item__label">@lang('Software Price')</span>
+                                            <span class="info-list-item__value">
+                                                <span id="softwarePrice">{{ showAmount($software->price) }}</span>
                                             </span>
-                                        </div>
-                                        <div class="deposit-info__input">
-                                            <p class="text mb-0">
-                                                <span class="processing-fee">@lang('0.00')</span>
-                                                {{ __(gs('cur_text')) }}
-                                            </p>
-                                        </div>
-                                    </li>
-                                    <li class="info-list-item deposit-info total-amount">
-                                        <div class="d-flex align-items-center gap-2">
-                                            <span class="info-list-item__label">@lang('Total')</span>
-                                        </div>
-                                        <div class="deposit-info__input">
-                                            <p class="text mb-0">
-                                                <span class="final-amount">@lang('0.00')</span>
-                                                {{ __(gs('cur_text')) }}
-                                            </p>
-                                        </div>
-                                    </li>
-                                    @if ($coupon)
-                                        <li class="info-list-item flex-column align-items-start">
-                                            <span class="info-list-item__label mb-2">@lang('Coupon')</span>
-                                            <!-- Include coupon partial -->
-                                            @include('Template::partials.coupon')
                                         </li>
-                                    @endif
-                                </ul>
-                                <button type="submit" class="btn btn--lg btn--base w-100 mt-3"
-                                    disabled>@lang('Pay Now')</button>
+                                        <li class="info-list-item">
+                                            <span class="info-list-item__label">@lang('Total Price')</span>
+                                            <span class="info-list-item__value">
+                                                {{ showAmount($software->price) }}
+                                            </span>
+                                        </li>
+                                        <li class="info-list-item">
+                                            <span class="info-list-item__label">@lang('Discount')</span>
+                                            <span class="info-list-item__value">
+                                                <span id="discount">{{ showAmount($orderDetails['discount']) }}</span>
+                                            </span>
+                                        </li>
+                                        <li class="info-list-item">
+                                            <span class="info-list-item__label">@lang('Grand Total')</span>
+                                            <span class="info-list-item__value">
+                                                <span id="grandTotal">{{ showAmount($orderDetails['grandTotal']) }}</span>
+                                            </span>
+                                        </li>
+                                    </ul>
+                                </div>
 
-                                <div class="info-text mt-3">
-                                    <p class="text text-muted small">
-                                        @lang('Ensuring your funds grow safely through our secure deposit process with world-class payment options.')
-                                    </p>
+                                <div class="widget-card__header pt-0 mt-3">
+                                    <h5 class="widget-card__title">@lang('Payment Details')</h5>
+                                </div>
+                                <div class="widget-card__body">
+                                    <ul class="info-list style-two">
+                                        <li class="info-list-item deposit-info">
+                                            <span class="info-list-item__label">@lang('Amount')</span>
+                                            <div class="deposit-info__input">
+                                                <div class="deposit-info__input-group input-group">
+                                                    <span class="deposit-info__input-group-text">{{ gs('cur_sym') }}</span>
+                                                    <input type="text" class="form-control form--control amount"
+                                                        name="amount" placeholder="@lang('00.00')"
+                                                        value="{{ getAmount($orderDetails['grandTotal']) }}"
+                                                        autocomplete="off" readonly>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li class="info-list-item deposit-info hideInfo">
+                                            <div class="d-flex align-items-center gap-2">
+                                                <span class="info-list-item__label">@lang('Processing Charge')</span>
+                                                <span data-bs-toggle="tooltip" title="@lang('Processing charge for payment gateways')"
+                                                    class="proccessing-fee-info">
+                                                    <i class="las la-info-circle"></i>
+                                                </span>
+                                            </div>
+                                            <div class="deposit-info__input">
+                                                <p class="text mb-0">
+                                                    <span class="processing-fee">@lang('0.00')</span>
+                                                    {{ __(gs('cur_text')) }}
+                                                </p>
+                                            </div>
+                                        </li>
+                                        <li class="info-list-item deposit-info total-amount">
+                                            <div class="d-flex align-items-center gap-2">
+                                                <span class="info-list-item__label">@lang('Total')</span>
+                                            </div>
+                                            <div class="deposit-info__input">
+                                                <p class="text mb-0">
+                                                    <span class="final-amount">@lang('0.00')</span>
+                                                    {{ __(gs('cur_text')) }}
+                                                </p>
+                                            </div>
+                                        </li>
+                                        @if ($coupon)
+                                            <li class="info-list-item flex-column align-items-start">
+                                                <span class="info-list-item__label mb-2">@lang('Coupon')</span>
+                                                <!-- Include coupon partial -->
+                                                @include('Template::partials.coupon')
+                                            </li>
+                                        @endif
+                                    </ul>
+                                    <button type="submit" class="btn btn--lg btn--base w-100 mt-3"
+                                        disabled>@lang('Pay Now')</button>
+
+                                    <div class="info-text mt-3">
+                                        <p class="text text-muted small">
+                                            @lang('Ensuring your funds grow safely through our secure deposit process with world-class payment options.')
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
+                        </div>
                     </div>
-            </div>
-            </form>
+                </form>
             </div>
         </section>
 
