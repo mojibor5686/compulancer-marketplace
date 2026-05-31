@@ -7,7 +7,7 @@
                     <i class="far fa-comment-dots"></i>
                     <span>@lang('Chat')</span>
                 </a>
-                <a href="#" class="btn btn-order-mobile flex-grow-1 text-center">
+                <a href="#" class="btn btn-order-mobile flex-grow-1 text-center js-mobile-fixed-order-trigger">
                     @lang('Order for')
                 </a>
             </div>
