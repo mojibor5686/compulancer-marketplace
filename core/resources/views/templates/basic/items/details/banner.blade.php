@@ -28,6 +28,41 @@
                 @endforeach
             </div>
         </div>
+
+        <div class="jss-details-sidebar_d-block d-md-none mt-3">
+            <div class="widget-card">
+                <div class="widget-card__header">
+                    <h5 class="widget-card__title">@lang('Bid Details')</h5>
+                </div>
+                <div class="widget-card__body">
+                    <ul class="info-list">
+                        <li class="info-list-item">
+                            <span class="info-list-item__label">@lang('Completion Time')</span>
+                            <span class="info-list-item__value">{{ $productDetails->delivery_time }}
+                                @lang('Days')</span>
+                        </li>
+                        <li class="info-list-item">
+                            <span class="info-list-item__label">@lang('Budget')</span>
+                            <span class="info-list-item__value">{{ showAmount($productDetails->price) }}</span>
+                        </li>
+                    </ul>
+                    @auth
+                        @if (auth()->id() != $productDetails->user_id)
+                            <div class="widget-card__footer mt-3">
+                                <button class="btn btn--base w-100 btn--lg" data-bs-toggle="modal"
+                                    data-bs-target="#bidModal" type="button"
+                                    @disabled(@$existingJobBidCheck)>@lang('Bid Now')</button>
+                            </div>
+                        @endif
+                    @else
+                        <div class="widget-card__footer mt-3">
+                            <button class="btn btn--base w-100 btn--lg" data-bs-toggle="modal" data-bs-target="#signInModal"
+                                type="button" @disabled(@$existingJobBidCheck)>@lang('Bid Now')</button>
+                        </div>
+                    @endauth
+                </div>
+            </div>
+        </div>
     @else
         <!-- Image Slider -->
         <div class="jss-details-slider" style="border: none;">
