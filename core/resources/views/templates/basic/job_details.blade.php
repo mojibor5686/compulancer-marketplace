@@ -204,7 +204,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- Include other widgets if needed -->
                             @include('Template::partials.short_profile', [
                                 'user' => $productDetails->user,
                             ])
