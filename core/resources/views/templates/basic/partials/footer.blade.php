@@ -6,29 +6,11 @@
 
 <footer class="footer kwork-footer">
     <div class="container">
-        <!-- Top Content -->
-        <div class="kwork-footer__top">
-            <div class="row g-4">
-                <div class="col-lg-12">
-                    <div class="kwork-footer__brand-top">
-                        <img src="{{ siteLogo() }}" alt="Logo" class="work-footer__logo"
-                            style="height: 40px !important;">
-                        <h2 class="kwork-footer__title mt-2">
-                            {{ __(@$footerContent->data_values->heading) }}
-                        </h2>
-                    </div>
-                    <p class="kwork-footer__subtitle">
-                        {{ __(@$footerContent->data_values->description) }}
-                    </p>
-                </div>
-            </div>
-        </div>
-
         <!-- Middle Links -->
         <div class="kwork-footer__middle">
             <div class="row g-4 align-items-start">
                 <!-- Brand & Payments -->
-                <div class="col-lg-3 col-sm-6">
+                <div class="col-lg-3 col-sm-6 md-d-block d-none">
                     <div class="kwork-footer__brand">
                         <a href="{{ route('home') }}">
                             <img src="{{ siteLogo() }}" alt="Logo" class="kwork-footer__logo" height="40">
