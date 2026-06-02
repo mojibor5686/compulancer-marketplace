@@ -9,17 +9,9 @@
         <!-- Middle Links -->
         <div class="kwork-footer__middle">
             <div class="row g-4 align-items-start">
-                <!-- Brand & Payments -->
-                <div class="col-lg-3 col-sm-6 md-d-block d-none">
-                    <div class="kwork-footer__brand">
-                        <a href="{{ route('home') }}">
-                            <img src="{{ siteLogo() }}" alt="Logo" class="kwork-footer__logo" height="40">
-                        </a>
-                    </div>
-                </div>
 
                 <!-- About Menu -->
-                <div class="col-lg-3 col-sm-6 kwork-footer__col">
+                <div class="col-lg-4 col-sm-6 kwork-footer__col">
                     <h5 class="kwork-footer__heading d-flex justify-content-between align-items-center"
                         data-bs-toggle="collapse" data-bs-target="#footerAbout" aria-expanded="false">
                         @lang('Abouts Us')
@@ -35,7 +27,7 @@
                 </div>
 
                 <!-- Resources Menu -->
-                <div class="col-lg-3 col-sm-6 kwork-footer__col">
+                <div class="col-lg-4 col-sm-6 kwork-footer__col">
                     <h5 class="kwork-footer__heading d-flex justify-content-between align-items-center"
                         data-bs-toggle="collapse" data-bs-target="#footerResources" aria-expanded="false">
                         @lang('Resources')
@@ -52,7 +44,7 @@
                 </div>
 
                 <!-- Help Center Menu -->
-                <div class="col-lg-3 col-sm-6 kwork-footer__col">
+                <div class="col-lg-4 col-sm-6 kwork-footer__col">
                     <h5 class="kwork-footer__heading d-flex justify-content-between align-items-center"
                         data-bs-toggle="collapse" data-bs-target="#footerHelp" aria-expanded="false">
                         @lang('Help Center')
