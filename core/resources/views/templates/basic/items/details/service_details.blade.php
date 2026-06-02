@@ -472,7 +472,6 @@
                 var totalPrice = basePrice * qty;
 
                 $activePanel.find('.kwrk-mob-price-text').text(formatNumber(totalPrice));
-
                 $('.mobile-fixed-bottom-action .totalPrice').text(formatNumber(totalPrice));
             }
         }
@@ -490,17 +489,32 @@
         });
 
         $(document).on('input change keyup', '.kwrk-mobile-qty-input', function() {
-            if ($(this).val() < 1) {
+            var val = parseInt($(this).val());
+            if (isNaN(val) || val < 1) {
                 $(this).val(1);
             }
             updateMobileFixedBottomPrice();
         });
 
+        $(document).on('click', '.mob-qty-row button', function() {
+            var $button = $(this);
+            var $input = $button.siblings('.kwrk-mobile-qty-input');
+            var currentVal = parseInt($input.val()) || 1;
+
+            if ($button.text().trim() === '+') {
+                $input.val(currentVal + 1);
+            } else if ($button.text().trim() === '-') {
+                if (currentVal > 1) {
+                    $input.val(currentVal - 1);
+                }
+            }
+
+            updateMobileFixedBottomPrice();
+        });
+
         $(document).on('click', '.js-mobile-fixed-order-trigger', function(e) {
             e.preventDefault();
-
             var $activeForm = $('.kwrk-mob-panel-block:visible').find('form');
-
             if ($activeForm.length) {
                 $activeForm.submit();
             }
