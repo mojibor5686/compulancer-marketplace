@@ -256,7 +256,7 @@
                         <input type="hidden" name="package_id" value="{{ $basicPkg->id }}">
                         <input type="hidden" name="service_id" value="{{ $productDetails->id }}">
 
-                        <h4 class="mob-pkg-title">@lang('Basic Package')</h4>
+                        <h4 class="mob-pkg-title">{{ $basicPkg->package_title ?? 'Basic Package' }}</h4>
                         <p class="mob-pkg-desc">{{ $basicPkg->package_description ?? 'Basic Package' }}</p>
 
                         <ul class="mob-feature-ul">
@@ -307,7 +307,7 @@
                         <input type="hidden" name="package_id" value="{{ $standardPkg->id }}">
                         <input type="hidden" name="service_id" value="{{ $productDetails->id }}">
 
-                        <h4 class="mob-pkg-title">@lang('Standard Package')</h4>
+                        <h4 class="mob-pkg-title">{{ $standardPkg->package_title ?? 'Standard Package' }}</h4>
                         <p class="mob-pkg-desc">{{ $standardPkg->package_description ?? 'Standard Package' }}</p>
 
                         <ul class="mob-feature-ul">
@@ -358,7 +358,7 @@
                         <input type="hidden" name="package_id" value="{{ $premiumPkg->id }}">
                         <input type="hidden" name="service_id" value="{{ $productDetails->id }}">
 
-                        <h4 class="mob-pkg-title">@lang('Premium Package')</h4>
+                        <h4 class="mob-pkg-title">{{ $premiumPkg->package_title ?? 'Premium Package' }}</h4>
                         <p class="mob-pkg-desc">{{ $premiumPkg->package_description ?? 'Premium Package' }}</p>
 
                         <ul class="mob-feature-ul">
