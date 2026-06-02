@@ -4,20 +4,20 @@
     <form id="galleryForm" enctype="multipart/form-data">
         <div class="form--group-lg">
             <label class="form-label form--label">@lang('Thumbnail Image')</label>
-            <div class="box mb-3 upload-content" id="thumbnailBox"
-                style="background: {{ $service->image ? 'url(' . getImage(getFilePath('service') . '/' . $service->image) . ') center center / cover no-repeat' : '#f9f9f9' }};">
-                <div class="dark-overlay"></div>
-
+            <div class="box mb-3 upload-content custom-upload-box-design" id="thumbnailBox"
+                style="background: {{ $service->image ? 'url(' . getImage(getFilePath('service') . '/' . $service->image) . ') center center / cover no-repeat' : '#ffffff' }};">
+                <div class="dark-overlay" style="{{ $service->image ? '' : 'display:none;' }}"></div>
                 <div class="upload-options firstUploadOption">
                     <label class="show-image" for="image-upload">
                         <span class="upload-content__label show-image-area">
+                            <i class="las la-plus-circle"></i>
+                            <span>@lang('Upload Image')</span>
                             <input class="image-upload" id="image-upload" name="image" type="file"
                                 accept="image/png, image/jpeg">
                         </span>
                     </label>
                 </div>
             </div>
-
             <small class="mt-3 text-muted text-center d-block">
                 @lang('Supported Files'): <b>@lang('.png, .jpg, .jpeg')</b> <br>
                 @lang('Image will be resized into') <b>{{ getFileSize('service') }}px</b>
@@ -29,39 +29,41 @@
             if ($service->extra_image && is_array($service->extra_image)) {
                 foreach ($service->extra_image as $key => $image) {
                     $images[] = [
-                        'id' => $image, // ব্যাকএন্ড ট্র্যাকিং এর জন্য ইমেজ নেম আইডি হিসেবে ব্যবহার উত্তম
+                        'id' => $image,
                         'src' => getImage(getFilePath('extraImage') . '/' . $image),
                     ];
                 }
             }
         @endphp
 
-        <div class="form--group-lg mt-4" id="galleryContainer" data-images="{{ json_encode($images) }}">
+        <div class="form--group-lg mt-4">
             <label class="form-label form--label">@lang('Image Gallery')</label>
-
-            <div class="input-images" style="padding-top: .5rem;"></div>
-
+            <div class="custom-gallery-wrapper">
+                <div class="gallery-grid" id="galleryGrid">
+                    @if ($service->extra_image && is_array($service->extra_image))
+                        @foreach ($service->extra_image as $key => $image)
+                            <div class="gallery-item old-image-item" data-image-name="{{ $image }}">
+                                <img src="{{ getImage(getFilePath('extraImage') . '/' . $image) }}" alt="Gallery Image">
+                                <button type="button" class="remove-old-btn">×</button>
+                                <input type="hidden" name="old[]" value="{{ $image }}">
+                            </div>
+                        @endforeach
+                    @endif
+                    <div class="custom-upload-box-design" id="uploadTriggerBox">
+                        <div class="upload-box-content">
+                            <i class="las la-plus-circle"></i>
+                            <span>@lang('Upload Image')</span>
+                        </div>
+                        <input type="file" id="customGalleryInput" multiple accept="image/png, image/jpeg"
+                            style="display: none;">
+                    </div>
+                </div>
+            </div>
             <small class="mt-3 text-muted text-center d-block">
                 @lang('Supported Files'): <b>@lang('.png, .jpg, .jpeg')</b> <br>
                 @lang('Maximum 6 images allowed') <br>
                 @lang('Image will be resized into') <b>{{ getFileSize('extraImage') }}px</b>
             </small>
-
-            <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <button type="button" class="close m-3 ms-auto" data-bs-dismiss="modal" aria-label="Close">
-                            <i class="las la-times"></i>
-                        </button>
-                        <div class="modal-body text-center">
-                            <i class="las la-times-circle f-size--100 text--danger mb-15"></i>
-                            <h3 class="text--danger mb-15">@lang('Maximum 6 images are allowed!')</h3>
-                            <p class="mb-15">@lang('The rest of the images you have selected are removed')</p>
-                            <button type="button" class="btn btn--dark" data-bs-dismiss="modal">@lang('Continue')</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
 
         <div class="form--group-lg text-end mt-4">
@@ -73,23 +75,42 @@
 @endsection
 
 @push('style')
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/gh/christianbueso/image-uploader@master/dist/image-uploader.min.css">
-
     <style>
-        .upload-content {
-            border: 2px dashed #cccccc;
-            padding: 20px;
+        .custom-upload-box-design {
+            border: 2px dashed #cbd5e1;
+            background: #ffffff;
             display: flex;
-            justify-content: center;
             align-items: center;
-            height: 150px;
-            background-size: cover;
-            background-position: center;
-            border-radius: 8px;
+            justify-content: center;
+            height: 140px;
+            width: 100%;
+            border-radius: 12px;
             position: relative;
             cursor: pointer;
+            transition: all 0.3s ease;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .custom-upload-box-design:hover {
+            border-color: #4f46e5;
+            background-color: #f8fafc;
+        }
+
+        .custom-upload-box-design i {
+            font-size: 32px;
+            display: block;
+            margin-bottom: 5px;
+            color: #64748b;
+            text-align: center;
+        }
+
+        .custom-upload-box-design span {
+            font-size: 13px;
+            font-weight: 500;
+            color: #64748b;
+            display: block;
+            text-align: center;
         }
 
         .dark-overlay {
@@ -99,7 +120,7 @@
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.4);
-            border-radius: 8px;
+            border-radius: 10px;
             z-index: 1;
         }
 
@@ -114,46 +135,69 @@
             z-index: 2;
         }
 
-        .upload-options label.show-image .show-image-area {
-            display: inline-block;
-            color: #ffffff;
-            font-size: 24px;
-            text-align: center;
-        }
-
-        .upload-options label.show-image .show-image-area::before {
-            font-family: 'Line Awesome Free';
-            font-weight: 900;
-            content: "\f382";
-            font-size: 48px;
-        }
-
         .upload-options label.show-image .show-image-area input[type="file"] {
             display: none;
         }
 
-        /* ইমেজ গ্যালারি ডিজাইন ফিক্স (বক্স শো না হওয়ার সমস্যা সমাধান) */
-        .image-uploader {
-            min-height: 12rem;
-            border: 2px dashed #cbd5e1 !important;
-            background: #f8fafc !important;
-            border-radius: 8px !important;
-            padding: 15px !important;
+        .custom-gallery-wrapper {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 15px;
+            min-height: 170px;
         }
 
-        .image-uploader .upload-text i {
-            color: #64748b !important;
-            font-size: 40px !important;
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 15px;
+            align-items: center;
+        }
+
+        .gallery-item {
+            width: 100%;
+            height: 140px;
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid #cbd5e1;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .gallery-item button {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: #ef4444;
+            color: #ffffff;
+            border: none;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            font-size: 14px;
+            font-weight: bold;
+            line-height: 1;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
         }
     </style>
 @endpush
 
 @push('script')
-    <script src="https://cdn.jsdelivr.net/gh/christianbueso/image-uploader@master/dist/image-uploader.min.js"></script>
-
     <script>
         (function($) {
             "use strict";
+
+            let selectedGalleryFiles = [];
 
             function safeNotify(type, msg) {
                 if (typeof notify !== 'undefined') {
@@ -163,63 +207,79 @@
                 }
             }
 
-            // Click Bubbling Stop করা হয়েছে 
-            $('label.show-image').on('click', function(event) {
-                event.stopPropagation();
-            });
-
-            $('#image-upload').on('click', function(event) {
-                event.stopPropagation();
-            });
-
-            $('.upload-content').on('click', function() {
-                $('#image-upload').click();
-            });
-
-            // উইন্ডো সম্পূর্ণ লোড হওয়ার পর প্লাগইন ফায়ার করার ব্যবস্থা
-            $(window).on('load', function() {
-                if ($.fn.imageUploader) {
-                    $('.input-images').each((i, element) => {
-                        let dataImages = $('#galleryContainer').attr('data-images');
-                        let preloadedArr = [];
-
-                        try {
-                            if (dataImages) {
-                                preloadedArr = JSON.parse(dataImages);
-                            }
-                        } catch (e) {
-                            console.error("Failed to parse gallery images JSON:", e);
-                        }
-
-                        $(element).imageUploader({
-                            preloaded: preloadedArr,
-                            imagesInputName: 'extra_image', // কন্ট্রোলারের $request->extra_image নেম পাবে
-                            preloadedInputName: 'old',
-                            maxFiles: 6
-                        });
-                    });
-                } else {
-                    console.error("imageUploader library is missing.");
+            $('#thumbnailBox').on('click', function(event) {
+                if (!$(event.target).is('#image-upload')) {
+                    $('#image-upload').trigger('click');
                 }
             });
 
-            // Thumbnail Live Preview
             $('#image-upload').on('change', function() {
                 const file = this.files[0];
                 if (file) {
                     const reader = new FileReader();
                     reader.onload = function(e) {
                         $('#thumbnailBox').css({
-                            'background-image': `url(${e.target.result})`,
-                            'background-size': 'cover',
-                            'background-position': 'center'
+                            'background-image': `url(${e.target.result})`
                         });
+                        $('#thumbnailBox').find('.dark-overlay').show();
+                        $('#thumbnailBox').find('.upload-box-content, i, span').css('color', '#ffffff');
                     };
                     reader.readAsDataURL(file);
                 }
             });
 
-            // AJAX Form Submission (গ্যালারি ইমেজ পুশিং সহ ফিক্সড)
+            $('#uploadTriggerBox').on('click', function(event) {
+                if (!$(event.target).is('#customGalleryInput')) {
+                    $('#customGalleryInput').trigger('click');
+                }
+            });
+
+            $('#customGalleryInput').on('change', function() {
+                const files = this.files;
+                let currentTotal = $('.gallery-item').length + selectedGalleryFiles.filter(f => f !== null)
+                    .length;
+
+                if (currentTotal + files.length > 6) {
+                    safeNotify('error', '@lang('Maximum 6 images are allowed!')');
+                    $(this).val('');
+                    return;
+                }
+
+                $.each(files, function(index, file) {
+                    if (!file.type.match('image.*')) return;
+
+                    selectedGalleryFiles.push(file);
+                    const fileIndex = selectedGalleryFiles.length - 1;
+
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const html = `
+                            <div class="gallery-item new-preview-item" data-index="${fileIndex}">
+                                <img src="${e.target.result}" alt="Preview">
+                                <button type="button" class="remove-new-btn">×</button>
+                            </div>
+                        `;
+                        $('#uploadTriggerBox').before(html);
+                    };
+                    reader.readAsDataURL(file);
+                });
+
+                $(this).val('');
+            });
+
+            $(document).on('click', '.remove-new-btn', function(e) {
+                e.stopPropagation();
+                const item = $(this).closest('.gallery-item');
+                const index = item.data('index');
+                selectedGalleryFiles[index] = null;
+                item.remove();
+            });
+
+            $(document).on('click', '.remove-old-btn', function(e) {
+                e.stopPropagation();
+                $(this).closest('.gallery-item').remove();
+            });
+
             $('#saveAndContinue').on('click', function(e) {
                 e.preventDefault();
 
@@ -231,13 +291,11 @@
                 var formData = new FormData($('#galleryForm')[0]);
                 formData.append('_token', '{{ csrf_token() }}');
 
-                // ক্রিশ্চিয়ান বুয়েসোর প্লাগইনের ফাইলগুলো ম্যানুয়ালি FormData-তে যুক্ত করার সেকশন (ব্যাকএন্ডে ডেটা পাওয়ার জন্য)
-                let imageUploaderInput = window.Element || $('.input-images input[type="file"]');
-                if (imageUploaderInput.length && imageUploaderInput[0].files) {
-                    $.each(imageUploaderInput[0].files, function(i, file) {
+                selectedGalleryFiles.forEach(function(file) {
+                    if (file !== null) {
                         formData.append('extra_image[]', file);
-                    });
-                }
+                    }
+                });
 
                 $.ajax({
                     url: '{{ route('user.seller.service.store.gallery', $service->id) }}',
@@ -264,6 +322,7 @@
                     }
                 });
             });
+
         })(jQuery);
     </script>
 @endpush
