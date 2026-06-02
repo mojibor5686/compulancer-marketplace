@@ -5,7 +5,7 @@
         $contactElements = getContent('contact.element', false, null, true);
     @endphp
 
-    <main class="page-wrapper pt-80 pb-80 main-contact-wrapper">
+    <main class="page-wrapper pb-80 main-contact-wrapper">
         <div class="container">
 
             <div class="row g-5 align-items-stretch" style="margin-top: 40px;">
