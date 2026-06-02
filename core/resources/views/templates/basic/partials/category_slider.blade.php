@@ -343,7 +343,7 @@
                     data-freelancers="{{ json_encode($freelancers) }}">
 
                     <img src="{{ $freelancers[0]['image'] }}" alt="{{ $freelancers[0]['name'] }}"
-                        class="hero-freelancer-img" id="jsFreelancerImg">
+                        class="hero-freelancer-img" id="jsFreelancerImg" style="mix-blend-mode: multiply; ">
 
                     <div class="freelancer-info-badge" id="jsFreelancerBadge">
                         <div class="rating-stars text-warning mb-1">
