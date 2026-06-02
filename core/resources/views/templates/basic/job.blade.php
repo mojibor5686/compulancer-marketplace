@@ -33,7 +33,7 @@
                             <div class="row gy-4 row-cols-2 row-cols-lg-5 jss-row kwrk-responsive-grid">
                                 @include('Template::partials.loader')
                                 @forelse($jobs ?? [] as $product)
-                                    @if ($loop->iteration > 6)
+                                    @if ($loop->iteration > 20)
                                         @break
                                     @endif
 
