@@ -277,30 +277,60 @@
                                                         <td class="feature-label-col">@lang('Number of words / Qty')</td>
                                                         <td class="text-center">
                                                             @if ($basicPkg)
-                                                                <div class="pkg-table-qty-box">
+                                                                <div
+                                                                    class="pkg-table-qty-box d-flex align-items-center justify-content-center gap-1">
+                                                                    <button type="button"
+                                                                        class="btn btn-sm btn-outline-secondary px-2 py-0"
+                                                                        onclick="let input = this.nextElementSibling; if(input.value > 1) { input.value = parseInt(input.value) - 1; input.dispatchEvent(new Event('change')); }">-</button>
+
                                                                     <input type="number"
-                                                                        class="form-control table-qty-input"
-                                                                        data-package="basic" value="1" min="1">
+                                                                        class="form-control table-qty-input text-center mx-1"
+                                                                        data-package="basic" value="1" min="1"
+                                                                        style="width: 60px;">
+
+                                                                    <button type="button"
+                                                                        class="btn btn-sm btn-outline-secondary px-2 py-0"
+                                                                        onclick="let input = this.previousElementSibling; input.value = parseInt(input.value) + 1; input.dispatchEvent(new Event('change'));">+</button>
                                                                 </div>
                                                             @endif
                                                         </td>
+
                                                         <td class="text-center">
                                                             @if ($standardPkg)
-                                                                <div class="pkg-table-qty-box">
+                                                                <div
+                                                                    class="pkg-table-qty-box d-flex align-items-center justify-content-center gap-1">
+                                                                    <button type="button"
+                                                                        class="btn btn-sm btn-outline-secondary px-2 py-0"
+                                                                        onclick="let input = this.nextElementSibling; if(input.value > 1) { input.value = parseInt(input.value) - 1; input.dispatchEvent(new Event('change')); }">-</button>
+
                                                                     <input type="number"
-                                                                        class="form-control table-qty-input"
+                                                                        class="form-control table-qty-input text-center mx-1"
                                                                         data-package="standard" value="1"
-                                                                        min="1">
+                                                                        min="1" style="width: 60px;">
+
+                                                                    <button type="button"
+                                                                        class="btn btn-sm btn-outline-secondary px-2 py-0"
+                                                                        onclick="let input = this.previousElementSibling; input.value = parseInt(input.value) + 1; input.dispatchEvent(new Event('change'));">+</button>
                                                                 </div>
                                                             @endif
                                                         </td>
+
                                                         <td class="text-center">
                                                             @if ($premiumPkg)
-                                                                <div class="pkg-table-qty-box">
+                                                                <div
+                                                                    class="pkg-table-qty-box d-flex align-items-center justify-content-center gap-1">
+                                                                    <button type="button"
+                                                                        class="btn btn-sm btn-outline-secondary px-2 py-0"
+                                                                        onclick="let input = this.nextElementSibling; if(input.value > 1) { input.value = parseInt(input.value) - 1; input.dispatchEvent(new Event('change')); }">-</button>
+
                                                                     <input type="number"
-                                                                        class="form-control table-qty-input"
+                                                                        class="form-control table-qty-input text-center mx-1"
                                                                         data-package="premium" value="1"
-                                                                        min="1">
+                                                                        min="1" style="width: 60px;">
+
+                                                                    <button type="button"
+                                                                        class="btn btn-sm btn-outline-secondary px-2 py-0"
+                                                                        onclick="let input = this.previousElementSibling; input.value = parseInt(input.value) + 1; input.dispatchEvent(new Event('change'));">+</button>
                                                                 </div>
                                                             @endif
                                                         </td>
