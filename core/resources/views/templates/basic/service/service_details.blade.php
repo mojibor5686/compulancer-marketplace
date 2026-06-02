@@ -1,5 +1,8 @@
 @extends('Template::layouts.frontend')
 @section('content')
+    <!-- Line Awesome CDN Link -->
+    <link rel="stylesheet"
+        href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
     <style>
         .kwork-hero-section {
             display: none
@@ -285,8 +288,8 @@
 
                                                                     <input type="number"
                                                                         class="form-control table-qty-input text-center mx-1"
-                                                                        data-package="basic" value="1" min="1"
-                                                                        style="width: 60px;">
+                                                                        data-package="basic" value="1"
+                                                                        min="1" style="width: 60px;">
 
                                                                     <button type="button"
                                                                         class="btn btn-sm btn-outline-secondary px-2 py-0"
