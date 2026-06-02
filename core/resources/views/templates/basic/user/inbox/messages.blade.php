@@ -96,6 +96,14 @@
                     </div>
 
                     <div class="chat-box__footer bg-light p-3 border-top h-stack">
+                        <div id="chat-file-preview-container" class="d-none" style="margin-bottom: 10px;">
+                            <div class="preview-inner"
+                                style="display: flex; align-items: center; gap: 10px; position: relative; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 8px; padding: 10px; width: fit-content; max-width: 250px; box-shadow: 0 2px 6px rgba(0,0,0,0.05);">
+                                <div id="preview-content" style="display: flex; align-items: center; gap: 10px;"></div>
+                                <button type="button" id="remove-preview-btn" class="btn-close" aria-label="Close"
+                                    style="position: absolute; top: 5px; right: 5px; width: 14px; height: 14px; font-size: 10px; padding: 0;"></button>
+                            </div>
+                        </div>
                         <form id="chat-form" enctype="multipart/form-data">
                             @csrf
                             <input type="hidden" name="unique_id" value="{{ $inbox->unique_id }}">
@@ -183,6 +191,39 @@
         .attached {
             color: #3a84ff !important;
         }
+
+        /* নতুন কোড: প্রিভিউ ইমেজ ও আইকনের সাইজ রেগুলেশন */
+        #chat-file-preview-container img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 6px;
+            border: 1px solid #cbd5e1;
+        }
+
+        #chat-file-preview-container .file-preview-icon-box {
+            width: 50px;
+            height: 50px;
+            background: #f1f5f9;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #475569;
+            font-size: 24px;
+            border: 1px solid #cbd5e1;
+        }
+
+        #chat-file-preview-container .file-preview-name {
+            font-size: 12px;
+            color: #334155;
+            word-break: break-all;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
 
         @media (max-width: 767px) {
             .alignment-wrapper {
@@ -285,6 +326,12 @@
                 $('#chat-sidebar-wrapper').removeClass('active');
                 $('#chat-sidebar-backdrop').removeClass('show');
             });
+
+            // নতুন কোড: ক্রস বাটনে ক্লিক করলে ফাইল রিমুভ ও প্রিভিউ হাইড করার লজিক
+            $(document).on('click', '#remove-preview-btn', function() {
+                $('#file').val(''); // মেইন ফাইল ইনপুট খালি করা হলো
+                handleFileAttachment([]); // খালি অ্যারে পাঠিয়ে প্রিভিউ ক্লোজ করা হলো
+            });
         });
     </script>
     <script>
@@ -358,21 +405,50 @@
             // Initialize tooltip
             $('[data-bs-toggle="tooltip"]').tooltip();
 
-            // Change attachment icon color when file is selected
-            // Handle file attachment UI
             function handleFileAttachment(files) {
                 const attachmentIcon = $('.chat-send-file');
+                const previewContainer = $('#chat-file-preview-container');
+                const previewContent = $('#preview-content');
+
                 if (files.length > 0) {
+                    const file = files[0];
                     attachmentIcon.find('.attachment-icon').addClass('attached');
-                    // Add tooltip with filename
-                    attachmentIcon
-                        .attr('data-bs-original-title', files[0].name)
-                        .tooltip('show');
+                    attachmentIcon.attr('data-bs-original-title', file.name).tooltip('show');
+
+                    // FileReader দিয়ে ফাইলটি ব্রাউজারে রিড করা হচ্ছে
+                    const reader = new FileReader();
+
+                    reader.onload = function(e) {
+                        let previewHtml = '';
+
+                        // যদি সিলেক্ট করা ফাইলটি ইমেজ বা ছবি হয়
+                        if (file.type.match('image.*')) {
+                            previewHtml = `<img src="${e.target.result}" alt="preview">
+                               <span class="file-preview-name">${file.name}</span>`;
+                        }
+                        // যদি পিডিএফ ফাইল হয়
+                        else if (file.type === 'application/pdf') {
+                            previewHtml = `<div class="file-preview-icon-box"><i class="far fa-file-pdf text-danger"></i></div>
+                               <span class="file-preview-name">${file.name}</span>`;
+                        }
+                        // অন্য যেকোনো সাধারণ ফাইল হলে
+                        else {
+                            previewHtml = `<div class="file-preview-icon-box"><i class="far fa-file"></i></div>
+                               <span class="file-preview-name">${file.name}</span>`;
+                        }
+
+                        previewContent.html(previewHtml);
+                        previewContainer.removeClass('d-none'); // প্রিভিউ এরিয়া শো করবে
+                    }
+
+                    reader.readAsDataURL(file);
                     notify('success', 'File attached successfully');
                 } else {
+                    // ফাইল না থাকলে প্রিভিউ হাইড হয়ে যাবে
                     attachmentIcon.find('.attachment-icon').removeClass('attached');
-                    // Reset tooltip to default
                     attachmentIcon.attr('data-bs-original-title', 'Attach a file');
+                    previewContainer.addClass('d-none');
+                    previewContent.html('');
                 }
             }
 
@@ -397,6 +473,8 @@
                 var formData = new FormData(this);
                 var hasMessage = $('#message').val().trim() !== '';
                 var hasFile = $('#file')[0].files.length > 0;
+
+                handleFileAttachment([]);
 
                 if (!hasMessage && !hasFile) {
                     notify('error', '@lang('Please provide a message or attach a file.')');
