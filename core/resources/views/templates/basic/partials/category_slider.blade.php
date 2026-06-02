@@ -1,9 +1,9 @@
 @php
     $freelancers = [
         [
-            'name' => 'Lilith',
-            'role' => 'Web Developer',
-            'image' => 'https://cdn.kwork.com/images/index/banner-user-5.png?ver=6',
+            'name' => 'Sanoar Hossain Chayan',
+            'role' => 'Senior Wordpress Developer',
+            'image' => '/assets/images/Sanoar.jpeg',
         ],
         [
             'name' => 'Nuruzzaman',
@@ -11,24 +11,9 @@
             'image' => '/assets/images/Nuruzzaman.png',
         ],
         [
-            'name' => 'Eugene',
-            'role' => 'Voice Actor',
-            'image' => 'https://cdn.kwork.com/images/index/banner-user-6.png?ver=7',
-        ],
-        [
-            'name' => 'Alexander',
-            'role' => 'SEO Specialist',
-            'image' => 'https://cdn.kwork.com/images/index/banner-user-1.png?ver=2',
-        ],
-        [
             'name' => 'Ahmed Shakil',
             'role' => 'Ther German Academy (Education Support)',
             'image' => '/assets/images/Shakil.png',
-        ],
-        [
-            'name' => 'Sophia',
-            'role' => 'Graphic Designer',
-            'image' => 'https://cdn.kwork.com/images/index/banner-user-2.png?ver=3',
         ],
         [
             'name' => 'Amir Hamza',

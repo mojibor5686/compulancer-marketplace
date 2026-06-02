@@ -276,24 +276,17 @@
                         <div class="mob-qty-row">
                             <span class="qty-text">@lang('Number of words') <i class="lar la-question-circle"
                                     style="color:#b5b6ba;"></i></span>
-
-                            <!-- Custom - + Qty Container -->
                             <div
                                 style="display: flex !important; align-items: center !important; justify-content: flex-start !important; gap: 5px !important; margin-top: 8px !important;">
-                                <!-- Minus Button -->
-                                <button type="button"
-                                    style="width: 35px !important; height: 36px !important; padding: 0 !important; font-size: 18px !important; line-height: 1 !important; border: 1px solid #ccc !important; background-color: #f8f9fa !important; color: #333 !important; border-radius: 4px !important; cursor: pointer !important; display: inline-block !important; user-select: none !important;"
-                                    onclick="let input = this.nextElementSibling; if(parseInt(input.value) > 1) { input.value = parseInt(input.value) - 1; input.dispatchEvent(new Event('change')); }">-</button>
+                                <button type="button" class="mob-minus-btn"
+                                    style="width: 35px !important; height: 36px !important; padding: 0 !important; font-size: 18px !important; line-height: 1 !important; border: 1px solid #ccc !important; background-color: #f8f9fa !important; color: #333 !important; border-radius: 4px !important; cursor: pointer !important; display: inline-block !important; user-select: none !important;">-</button>
 
-                                <!-- Input Field -->
                                 <input type="number" name="service_qty" class="kwrk-mobile-qty-input"
                                     data-price="{{ $basicPkg->price ?? 0 }}" value="1" min="1"
                                     style="width: 65px !important; height: 36px !important; text-align: center !important; font-size: 15px !important; border: 1px solid #ccc !important; border-radius: 4px !important; padding: 0 !important; margin: 0 2px !important; box-sizing: border-box !important; -moz-appearance: textfield !important;" />
 
-                                <!-- Plus Button -->
-                                <button type="button"
-                                    style="width: 35px !important; height: 36px !important; padding: 0 !important; font-size: 18px !important; line-height: 1 !important; border: 1px solid #ccc !important; background-color: #f8f9fa !important; color: #333 !important; border-radius: 4px !important; cursor: pointer !important; display: inline-block !important; user-select: none !important;"
-                                    onclick="let input = this.previousElementSibling; input.value = (parseInt(input.value) || 0) + 1; input.dispatchEvent(new Event('change'));">+</button>
+                                <button type="button" class="mob-plus-btn"
+                                    style="width: 35px !important; height: 36px !important; padding: 0 !important; font-size: 18px !important; line-height: 1 !important; border: 1px solid #ccc !important; background-color: #f8f9fa !important; color: #333 !important; border-radius: 4px !important; cursor: pointer !important; display: inline-block !important; user-select: none !important;">+</button>
                             </div>
                         </div>
 
@@ -344,24 +337,17 @@
                         <div class="mob-qty-row">
                             <span class="qty-text">@lang('Number of words') <i class="lar la-question-circle"
                                     style="color:#b5b6ba;"></i></span>
-
-                            <!-- Custom - + Qty Container -->
                             <div
                                 style="display: flex !important; align-items: center !important; justify-content: flex-start !important; gap: 5px !important; margin-top: 8px !important;">
-                                <!-- Minus Button -->
-                                <button type="button"
-                                    style="width: 35px !important; height: 36px !important; padding: 0 !important; font-size: 18px !important; line-height: 1 !important; border: 1px solid #ccc !important; background-color: #f8f9fa !important; color: #333 !important; border-radius: 4px !important; cursor: pointer !important; display: inline-block !important; user-select: none !important;"
-                                    onclick="let input = this.nextElementSibling; if(parseInt(input.value) > 1) { input.value = parseInt(input.value) - 1; input.dispatchEvent(new Event('change')); }">-</button>
+                                <button type="button" class="mob-minus-btn"
+                                    style="width: 35px !important; height: 36px !important; padding: 0 !important; font-size: 18px !important; line-height: 1 !important; border: 1px solid #ccc !important; background-color: #f8f9fa !important; color: #333 !important; border-radius: 4px !important; cursor: pointer !important; display: inline-block !important; user-select: none !important;">-</button>
 
-                                <!-- Input Field -->
                                 <input type="number" name="service_qty" class="kwrk-mobile-qty-input"
                                     data-price="{{ $standardPkg->price ?? 0 }}" value="1" min="1"
                                     style="width: 65px !important; height: 36px !important; text-align: center !important; font-size: 15px !important; border: 1px solid #ccc !important; border-radius: 4px !important; padding: 0 !important; margin: 0 2px !important; box-sizing: border-box !important; -moz-appearance: textfield !important;" />
 
-                                <!-- Plus Button -->
-                                <button type="button"
-                                    style="width: 35px !important; height: 36px !important; padding: 0 !important; font-size: 18px !important; line-height: 1 !important; border: 1px solid #ccc !important; background-color: #f8f9fa !important; color: #333 !important; border-radius: 4px !important; cursor: pointer !important; display: inline-block !important; user-select: none !important;"
-                                    onclick="let input = this.previousElementSibling; input.value = (parseInt(input.value) || 0) + 1; input.dispatchEvent(new Event('change'));">+</button>
+                                <button type="button" class="mob-plus-btn"
+                                    style="width: 35px !important; height: 36px !important; padding: 0 !important; font-size: 18px !important; line-height: 1 !important; border: 1px solid #ccc !important; background-color: #f8f9fa !important; color: #333 !important; border-radius: 4px !important; cursor: pointer !important; display: inline-block !important; user-select: none !important;">+</button>
                             </div>
                         </div>
 
@@ -412,24 +398,17 @@
                         <div class="mob-qty-row">
                             <span class="qty-text">@lang('Number of words') <i class="lar la-question-circle"
                                     style="color:#b5b6ba;"></i></span>
-
-                            <!-- Custom - + Qty Container -->
                             <div
                                 style="display: flex !important; align-items: center !important; justify-content: flex-start !important; gap: 5px !important; margin-top: 8px !important;">
-                                <!-- Minus Button -->
-                                <button type="button"
-                                    style="width: 35px !important; height: 36px !important; padding: 0 !important; font-size: 18px !important; line-height: 1 !important; border: 1px solid #ccc !important; background-color: #f8f9fa !important; color: #333 !important; border-radius: 4px !important; cursor: pointer !important; display: inline-block !important; user-select: none !important;"
-                                    onclick="let input = this.nextElementSibling; if(parseInt(input.value) > 1) { input.value = parseInt(input.value) - 1; input.dispatchEvent(new Event('change')); }">-</button>
+                                <button type="button" class="mob-minus-btn"
+                                    style="width: 35px !important; height: 36px !important; padding: 0 !important; font-size: 18px !important; line-height: 1 !important; border: 1px solid #ccc !important; background-color: #f8f9fa !important; color: #333 !important; border-radius: 4px !important; cursor: pointer !important; display: inline-block !important; user-select: none !important;">-</button>
 
-                                <!-- Input Field -->
                                 <input type="number" name="service_qty" class="kwrk-mobile-qty-input"
                                     data-price="{{ $premiumPkg->price ?? 0 }}" value="1" min="1"
                                     style="width: 65px !important; height: 36px !important; text-align: center !important; font-size: 15px !important; border: 1px solid #ccc !important; border-radius: 4px !important; padding: 0 !important; margin: 0 2px !important; box-sizing: border-box !important; -moz-appearance: textfield !important;" />
 
-                                <!-- Plus Button -->
-                                <button type="button"
-                                    style="width: 35px !important; height: 36px !important; padding: 0 !important; font-size: 18px !important; line-height: 1 !important; border: 1px solid #ccc !important; background-color: #f8f9fa !important; color: #333 !important; border-radius: 4px !important; cursor: pointer !important; display: inline-block !important; user-select: none !important;"
-                                    onclick="let input = this.previousElementSibling; input.value = (parseInt(input.value) || 0) + 1; input.dispatchEvent(new Event('change'));">+</button>
+                                <button type="button" class="mob-plus-btn"
+                                    style="width: 35px !important; height: 36px !important; padding: 0 !important; font-size: 18px !important; line-height: 1 !important; border: 1px solid #ccc !important; background-color: #f8f9fa !important; color: #333 !important; border-radius: 4px !important; cursor: pointer !important; display: inline-block !important; user-select: none !important;">+</button>
                             </div>
                         </div>
 
@@ -496,19 +475,21 @@
             updateMobileFixedBottomPrice();
         });
 
-        $(document).on('click', '.mob-qty-row button', function() {
-            var $button = $(this);
-            var $input = $button.siblings('.kwrk-mobile-qty-input');
+        $(document).on('click', '.mob-plus-btn', function(e) {
+            e.preventDefault();
+            var $input = $(this).siblings('.kwrk-mobile-qty-input');
             var currentVal = parseInt($input.val()) || 1;
+            $input.val(currentVal + 1);
+            updateMobileFixedBottomPrice();
+        });
 
-            if ($button.text().trim() === '+') {
-                $input.val(currentVal + 1);
-            } else if ($button.text().trim() === '-') {
-                if (currentVal > 1) {
-                    $input.val(currentVal - 1);
-                }
+        $(document).on('click', '.mob-minus-btn', function(e) {
+            e.preventDefault();
+            var $input = $(this).siblings('.kwrk-mobile-qty-input');
+            var currentVal = parseInt($input.val()) || 1;
+            if (currentVal > 1) {
+                $input.val(currentVal - 1);
             }
-
             updateMobileFixedBottomPrice();
         });
 
