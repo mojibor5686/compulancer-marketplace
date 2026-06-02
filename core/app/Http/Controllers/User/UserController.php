@@ -186,12 +186,6 @@ class UserController extends Controller
             ],
         ]);
 
-        if (preg_match("/[^a-z0-9_]/", trim($request->username))) {
-            $notify[] = ['info', 'Username can contain only lowercase letters, numbers, and underscores.'];
-            $notify[] = ['error', 'No special characters, spaces, or capital letters are allowed in the username.'];
-            return back()->withNotify($notify)->withInput($request->all());
-        }
-
         $user->country_code    = $request->country_code;
         $user->mobile          = $request->mobile;
         $user->username        = $request->username;
@@ -206,8 +200,6 @@ class UserController extends Controller
 
         return to_route('user.home');
     }
-
-
 
     public function addDeviceToken(Request $request)
     {
@@ -461,9 +453,6 @@ class UserController extends Controller
         $notify[] = ['success', 'Image removed successfully'];
         return back()->withNotify($notify);
     }
-
-
-
 
     public function downloadAttachment($fileHash)
     {
