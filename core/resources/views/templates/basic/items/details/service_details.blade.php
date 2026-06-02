@@ -378,8 +378,25 @@
                         <div class="mob-qty-row">
                             <span class="qty-text">@lang('Number of words') <i class="lar la-question-circle"
                                     style="color:#b5b6ba;"></i></span>
-                            <input type="number" name="service_qty" class="form-control kwrk-mobile-qty-input"
-                                data-price="{{ $premiumPkg->price ?? 0 }}" value="1" min="1">
+
+                            <!-- Custom - + Qty Container -->
+                            <div
+                                style="display: flex !important; align-items: center !important; justify-content: flex-start !important; gap: 5px !important; margin-top: 8px !important;">
+                                <!-- Minus Button -->
+                                <button type="button"
+                                    style="width: 35px !important; height: 36px !important; padding: 0 !important; font-size: 18px !important; line-height: 1 !important; border: 1px solid #ccc !important; background-color: #f8f9fa !important; color: #333 !important; border-radius: 4px !important; cursor: pointer !important; display: inline-block !important; user-select: none !important;"
+                                    onclick="let input = this.nextElementSibling; if(parseInt(input.value) > 1) { input.value = parseInt(input.value) - 1; input.dispatchEvent(new Event('change')); }">-</button>
+
+                                <!-- Input Field -->
+                                <input type="number" name="service_qty" class="kwrk-mobile-qty-input"
+                                    data-price="{{ $premiumPkg->price ?? 0 }}" value="1" min="1"
+                                    style="width: 65px !important; height: 36px !important; text-align: center !important; font-size: 15px !important; border: 1px solid #ccc !important; border-radius: 4px !important; padding: 0 !important; margin: 0 2px !important; box-sizing: border-box !important; -moz-appearance: textfield !important;" />
+
+                                <!-- Plus Button -->
+                                <button type="button"
+                                    style="width: 35px !important; height: 36px !important; padding: 0 !important; font-size: 18px !important; line-height: 1 !important; border: 1px solid #ccc !important; background-color: #f8f9fa !important; color: #333 !important; border-radius: 4px !important; cursor: pointer !important; display: inline-block !important; user-select: none !important;"
+                                    onclick="let input = this.previousElementSibling; input.value = (parseInt(input.value) || 0) + 1; input.dispatchEvent(new Event('change'));">+</button>
+                            </div>
                         </div>
 
                         <div class="mob-action-buttons">
