@@ -1,6 +1,5 @@
 @extends('Template::layouts.frontend')
 @section('content')
-    <!-- Line Awesome CDN Link -->
     <link rel="stylesheet"
         href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
     <style>
@@ -278,62 +277,69 @@
 
                                                     <tr class="row-quantity-inputs">
                                                         <td class="feature-label-col">@lang('Number of words / Qty')</td>
-                                                        <td class="text-center">
+
+                                                        <!-- Basic Package -->
+                                                        <td class="text-center"
+                                                            style="text-align: center !important; vertical-align: middle !important;">
                                                             @if ($basicPkg)
                                                                 <div
-                                                                    class="pkg-table-qty-box d-flex align-items-center justify-content-center gap-1">
+                                                                    style="display: flex !important; align-items: center !important; justify-content: center !important; gap: 5px !important; width: 100% !important; max-width: 150px !important; margin: 0 auto !important;">
                                                                     <button type="button"
-                                                                        class="btn btn-sm btn-outline-secondary px-2 py-0"
-                                                                        onclick="let input = this.nextElementSibling; if(input.value > 1) { input.value = parseInt(input.value) - 1; input.dispatchEvent(new Event('change')); }">-</button>
+                                                                        style="width: 30px !important; height: 32px !important; padding: 0 !important; font-size: 16px !important; line-height: 1 !important; border: 1px solid #ccc !important; background-color: #f8f9fa !important; color: #333 !important; border-radius: 4px !important; cursor: pointer !important; display: inline-block !important;"
+                                                                        onclick="let input = this.nextElementSibling; if(parseInt(input.value) > 1) { input.value = parseInt(input.value) - 1; input.dispatchEvent(new Event('change')); }">-</button>
 
-                                                                    <input type="number"
-                                                                        class="form-control table-qty-input text-center mx-1"
+                                                                    <input type="number" class="table-qty-input"
                                                                         data-package="basic" value="1"
-                                                                        min="1" style="width: 60px;">
+                                                                        min="1"
+                                                                        style="width: 55px !important; height: 32px !important; text-align: center !important; font-size: 14px !important; border: 1px solid #ccc !important; border-radius: 4px !important; padding: 0 !important; margin: 0 4px !important; box-sizing: border-box !important; -moz-appearance: textfield !important;" />
 
                                                                     <button type="button"
-                                                                        class="btn btn-sm btn-outline-secondary px-2 py-0"
-                                                                        onclick="let input = this.previousElementSibling; input.value = parseInt(input.value) + 1; input.dispatchEvent(new Event('change'));">+</button>
+                                                                        style="width: 30px !important; height: 32px !important; padding: 0 !important; font-size: 16px !important; line-height: 1 !important; border: 1px solid #ccc !important; background-color: #f8f9fa !important; color: #333 !important; border-radius: 4px !important; cursor: pointer !important; display: inline-block !important;"
+                                                                        onclick="let input = this.previousElementSibling; input.value = (parseInt(input.value) || 0) + 1; input.dispatchEvent(new Event('change'));">+</button>
                                                                 </div>
                                                             @endif
                                                         </td>
 
-                                                        <td class="text-center">
+                                                        <!-- Standard Package -->
+                                                        <td class="text-center"
+                                                            style="text-align: center !important; vertical-align: middle !important;">
                                                             @if ($standardPkg)
                                                                 <div
-                                                                    class="pkg-table-qty-box d-flex align-items-center justify-content-center gap-1">
+                                                                    style="display: flex !important; align-items: center !important; justify-content: center !important; gap: 5px !important; width: 100% !important; max-width: 150px !important; margin: 0 auto !important;">
                                                                     <button type="button"
-                                                                        class="btn btn-sm btn-outline-secondary px-2 py-0"
-                                                                        onclick="let input = this.nextElementSibling; if(input.value > 1) { input.value = parseInt(input.value) - 1; input.dispatchEvent(new Event('change')); }">-</button>
+                                                                        style="width: 30px !important; height: 32px !important; padding: 0 !important; font-size: 16px !important; line-height: 1 !important; border: 1px solid #ccc !important; background-color: #f8f9fa !important; color: #333 !important; border-radius: 4px !important; cursor: pointer !important; display: inline-block !important;"
+                                                                        onclick="let input = this.nextElementSibling; if(parseInt(input.value) > 1) { input.value = parseInt(input.value) - 1; input.dispatchEvent(new Event('change')); }">-</button>
 
-                                                                    <input type="number"
-                                                                        class="form-control table-qty-input text-center mx-1"
+                                                                    <input type="number" class="table-qty-input"
                                                                         data-package="standard" value="1"
-                                                                        min="1" style="width: 60px;">
+                                                                        min="1"
+                                                                        style="width: 55px !important; height: 32px !important; text-align: center !important; font-size: 14px !important; border: 1px solid #ccc !important; border-radius: 4px !important; padding: 0 !important; margin: 0 4px !important; box-sizing: border-box !important; -moz-appearance: textfield !important;" />
 
                                                                     <button type="button"
-                                                                        class="btn btn-sm btn-outline-secondary px-2 py-0"
-                                                                        onclick="let input = this.previousElementSibling; input.value = parseInt(input.value) + 1; input.dispatchEvent(new Event('change'));">+</button>
+                                                                        style="width: 30px !important; height: 32px !important; padding: 0 !important; font-size: 16px !important; line-height: 1 !important; border: 1px solid #ccc !important; background-color: #f8f9fa !important; color: #333 !important; border-radius: 4px !important; cursor: pointer !important; display: inline-block !important;"
+                                                                        onclick="let input = this.previousElementSibling; input.value = (parseInt(input.value) || 0) + 1; input.dispatchEvent(new Event('change'));">+</button>
                                                                 </div>
                                                             @endif
                                                         </td>
 
-                                                        <td class="text-center">
+                                                        <!-- Premium Package -->
+                                                        <td class="text-center"
+                                                            style="text-align: center !important; vertical-align: middle !important;">
                                                             @if ($premiumPkg)
                                                                 <div
-                                                                    class="pkg-table-qty-box d-flex align-items-center justify-content-center gap-1">
+                                                                    style="display: flex !important; align-items: center !important; justify-content: center !important; gap: 5px !important; width: 100% !important; max-width: 150px !important; margin: 0 auto !important;">
                                                                     <button type="button"
-                                                                        class="btn btn-sm btn-outline-secondary px-2 py-0"
-                                                                        onclick="let input = this.nextElementSibling; if(input.value > 1) { input.value = parseInt(input.value) - 1; input.dispatchEvent(new Event('change')); }">-</button>
+                                                                        style="width: 30px !important; height: 32px !important; padding: 0 !important; font-size: 16px !important; line-height: 1 !important; border: 1px solid #ccc !important; background-color: #f8f9fa !important; color: #333 !important; border-radius: 4px !important; cursor: pointer !important; display: inline-block !important;"
+                                                                        onclick="let input = this.nextElementSibling; if(parseInt(input.value) > 1) { input.value = parseInt(input.value) - 1; input.dispatchEvent(new Event('change')); }">-</button>
 
-                                                                    <input type="number"
-                                                                        class="form-control table-qty-input text-center mx-1"
+                                                                    <input type="number" class="table-qty-input"
                                                                         data-package="premium" value="1"
-                                                                        min="1" style="width: 60px;">
+                                                                        min="1"
+                                                                        style="width: 55px !important; height: 32px !important; text-align: center !important; font-size: 14px !important; border: 1px solid #ccc !important; border-radius: 4px !important; padding: 0 !important; margin: 0 4px !important; box-sizing: border-box !important; -moz-appearance: textfield !important;" />
 
                                                                     <button type="button"
-                                                                        class="btn btn-sm btn-outline-secondary px-2 py-0"
-                                                                        onclick="let input = this.previousElementSibling; input.value = parseInt(input.value) + 1; input.dispatchEvent(new Event('change'));">+</button>
+                                                                        style="width: 30px !important; height: 32px !important; padding: 0 !important; font-size: 16px !important; line-height: 1 !important; border: 1px solid #ccc !important; background-color: #f8f9fa !important; color: #333 !important; border-radius: 4px !important; cursor: pointer !important; display: inline-block !important;"
+                                                                        onclick="let input = this.previousElementSibling; input.value = (parseInt(input.value) || 0) + 1; input.dispatchEvent(new Event('change'));">+</button>
                                                                 </div>
                                                             @endif
                                                         </td>
