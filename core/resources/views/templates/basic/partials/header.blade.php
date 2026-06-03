@@ -494,11 +494,11 @@
                     </div>
 
                     <div class="d-flex align-items-center justify-content-between mb-4" style="font-size: 13px;">
-                        <div class="form-check">
+                        <div class="form-check custom-agree-checkbox">
                             <input class="form-check-input shadow-none" type="checkbox" name="remember"
                                 id="rememberMe">
-                            <label class="form-check-label text-secondary" style="cursor: pointer;" mercantile
-                                for="rememberMe">
+                            <label class="form-check-label text-secondary" style="cursor: pointer; margin-left: 8px;"
+                                mercantile for="rememberMe">
                                 Remember me
                             </label>
                         </div>
@@ -684,12 +684,13 @@
                                     $policyPages = getContent('policy_pages.element', orderById: true);
                                 @endphp
                                 <div class="col-12 mt-2">
-                                    <div class="form-check" style="font-size: 13px;">
-                                        <input class="form-check-input shadow-none" id="agreeModal" name="agree"
+                                    <div class="form-check custom-agree-checkbox d-flex align-items-start gap-2"
+                                        style="font-size: 13px;">
+                                        <input class="form-check-input" id="agreeModal" name="agree"
                                             type="checkbox" required>
-                                        <label class="form-check-label text-secondary" for="agreeModal"
+                                        <label class="form-check-label text-secondary ms-1 pt-0.5" for="agreeModal"
                                             style="cursor: pointer;">
-                                            @lang('I agree with')
+                                            <span style="font-size: 13px;">@lang('I agree with')</span>
                                             @foreach ($policyPages as $policy)
                                                 <a class="text-primary text-decoration-none font-weight-500"
                                                     target="_blank"
@@ -740,6 +741,34 @@
         </div>
     @endif
 </div>
+
+
+<style>
+    .custom-agree-checkbox .form-check-input {
+        width: 18px !important;
+        height: 18px !important;
+        cursor: pointer;
+        border: 2px solid #3C88EE !important;
+        border-radius: 4px !important;
+        transition: all 0.2s ease-in-out;
+        margin-top: -1px !important;
+    }
+
+    .custom-agree-checkbox .form-check-input:checked {
+        background-color: #3C88EE !important;
+        border-color: #3C88EE !important;
+    }
+
+    .custom-agree-checkbox .form-check-input:focus {
+        border-color: #3C88EE !important;
+        box-shadow: 0 0 0 0.25rem rgba(5, 150, 105, 0.25) !important;
+    }
+
+    .custom-agree-checkbox {
+        display: flex;
+        align-items: flex-start;
+    }
+</style>
 
 @if (auth()->check() && auth()->user()->profile_complete == 0)
     <div class="modal fade" id="profileCompleteModal" data-bs-backdrop="static" data-bs-keyboard="false"
