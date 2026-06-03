@@ -198,7 +198,7 @@ class UserController extends Controller
         $user->profile_complete = Status::YES;
         $user->save();
 
-        return to_route('user.home');
+        return back()->withNotify([['success', 'Profile updated successfully']]);
     }
 
     public function addDeviceToken(Request $request)
