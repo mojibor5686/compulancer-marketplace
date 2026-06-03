@@ -570,7 +570,7 @@
     .package-desc {
         font-size: 13.5px;
         color: #62646a;
-        line-height: 1.5;
+        line-height: 1.8;
         margin-bottom: 15px;
     }
 
@@ -742,7 +742,7 @@
         .mob-pkg-desc {
             font-size: 13px !important;
             color: #74767e !important;
-            line-height: 1.4 !important;
+            line-height: 1.8 !important;
             margin-bottom: 15px !important;
         }
 

@@ -209,22 +209,22 @@
                                                         <td>
                                                             <div class="pkg-table-desc">{{ $basicPkg->package_title ?? '' }}
                                                             </div>
-                                                            <small
-                                                                class="text-muted">{{ $basicPkg->package_description ?? '' }}</small>
+                                                            <small class="text-muted"
+                                                                style="line-height: 1.8;">{{ $basicPkg->package_description ?? '' }}</small>
                                                         </td>
                                                         <td>
                                                             <div class="pkg-table-desc">
                                                                 {{ $standardPkg->package_title ?? '' }}
                                                             </div>
-                                                            <small
-                                                                class="text-muted">{{ $standardPkg->package_description ?? '' }}</small>
+                                                            <small class="text-muted"
+                                                                style="line-height: 1.8;">{{ $standardPkg->package_description ?? '' }}</small>
                                                         </td>
                                                         <td>
                                                             <div class="pkg-table-desc">
                                                                 {{ $premiumPkg->package_title ?? '' }}
                                                             </div>
-                                                            <small
-                                                                class="text-muted">{{ $premiumPkg->package_description ?? '' }}</small>
+                                                            <small class="text-muted"
+                                                                style="line-height: 1.8;">{{ $premiumPkg->package_description ?? '' }}</small>
                                                         </td>
                                                     </tr>
 
