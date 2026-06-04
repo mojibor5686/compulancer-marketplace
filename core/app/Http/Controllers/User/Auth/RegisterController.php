@@ -39,6 +39,7 @@ class RegisterController extends Controller {
             'lastname'  => 'required',
             'email'     => 'required|string|email|unique:users',
             'password'  => 'required',
+            'type'      => 'required',
             'agree'     => $agree
         ], [
             'firstname.required' => 'The first name field is required',
@@ -80,6 +81,7 @@ class RegisterController extends Controller {
         $user            = new User();
         $user->email     = strtolower( $data[ 'email' ] );
         $user->firstname = $data[ 'firstname' ];
+        $user->type      = $data[ 'type' ];
         $user->lastname  = $data[ 'lastname' ];
         $user->password  = Hash::make( $data[ 'password' ] );
         $user->ref_by    = $referUser ? $referUser->id : 0;
@@ -109,11 +111,11 @@ class RegisterController extends Controller {
             $userLogin->country      = $exist->country;
         } else {
             $info                    = json_decode( json_encode( getIpInfo() ), true );
-            $userLogin->longitude    = isset( $info[ 'long' ] ) ? implode( ',', $info[ 'long' ] ) : '';
-            $userLogin->latitude     = isset( $info[ 'lat' ] ) ? implode( ',', $info[ 'lat' ] ) : '';
-            $userLogin->city         = isset( $info[ 'city' ] ) ? implode( ',', $info[ 'city' ] ) : '';
-            $userLogin->country_code = isset( $info[ 'code' ] ) ? implode( ',', $info[ 'code' ] ) : '';
-            $userLogin->country      = isset( $info[ 'country' ] ) ? implode( ',', $info[ 'country' ] ) : '';
+            $userLogin->longitude    = isset( $info[ 'long' ] ) ? implode( ', ', $info[ 'long' ] ) : '';
+            $userLogin->latitude     = isset( $info[ 'lat' ] ) ? implode( ', ', $info[ 'lat' ] ) : '';
+            $userLogin->city         = isset( $info[ 'city' ] ) ? implode( ', ', $info[ 'city' ] ) : '';
+            $userLogin->country_code = isset( $info[ 'code' ] ) ? implode( ', ', $info[ 'code' ] ) : '';
+            $userLogin->country      = isset( $info[ 'country' ] ) ? implode( ', ', $info[ 'country' ] ) : '';
         }
 
         $userAgent          = osBrowser();
