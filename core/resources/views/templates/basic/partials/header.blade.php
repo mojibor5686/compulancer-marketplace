@@ -579,6 +579,7 @@
                     <form id="modalSignUpForm" class="verify-gcaptcha" action="{{ route('user.register') }}"
                         method="POST" novalidate>
                         @csrf
+                        <input type="hidden" name="type" id="modal-user-role" value="buyer">
                         <div class="row g-3">
 
                             @if (session()->get('reference') != null)
@@ -742,6 +743,22 @@
     @endif
 </div>
 
+@push('script')
+    <script>
+        (function($) {
+            "use strict";
+            $(document).ready(function() {
+                $('.auth-toggle-item').on('click', function() {
+                    $('.auth-toggle-item').removeClass('active');
+                    $(this).addClass('active');
+
+                    var currentRole = $(this).data('type');
+                    $('#modal-user-role').val(currentRole);
+                });
+            });
+        })(jQuery);
+    </script>
+@endpush
 
 <style>
     .custom-agree-checkbox .form-check-input {

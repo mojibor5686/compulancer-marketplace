@@ -1,4 +1,4 @@
-<div class="social-auth-btns d-flex justify-content-center align-items-center gap-3 w-100">
+<div class="social-auth-btns d-flex justify-content-center align-items-center gap-3 w-auto">
     @if (@$credentials->facebook->status == Status::ENABLE)
         <a class="btn btn-light d-flex align-items-center justify-content-center border shadow-sm p-0"
             href="{{ route('user.social.login', 'facebook') }}"
