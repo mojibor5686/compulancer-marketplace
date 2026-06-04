@@ -236,7 +236,7 @@
             <div class="d-flex align-items-center gap-3 desktop-stretch-width justify-content-end">
                 @if ($isUser || $user)
                     <div class="d-none d-lg-block small font-weight-bold">
-                        @if (session('userType') === 'buyer' || (session('userType') === null && request()->routeIs('user.buyer.*')))
+                        @if ($user->type === 'buyer')
                             <a href="{{ route('user.seller.home') }}"
                                 class="text-kwork-green text-decoration-none font-weight-600">@lang('Switch to Seller')</a>
                         @else
@@ -261,10 +261,17 @@
                                     {{ '@' . @$user->username }}</div>
                             </div>
                             <div class="py-1">
-                                <a class="dropdown-item d-flex align-items-center py-2 text-secondary"
-                                    style="font-size: 14px;" href="{{ route('user.seller.home') }}">
-                                    <i class="ri-dashboard-line me-2 text-secondary fs-5"></i> @lang('Dashboard')
-                                </a>
+                                @if ($user->type === 'buyer')
+                                    <a class="dropdown-item d-flex align-items-center py-2 text-secondary"
+                                        style="font-size: 14px;" href="{{ route('user.buyer.home') }}">
+                                        <i class="ri-dashboard-line me-2 text-secondary fs-5"></i> @lang('Dashboard')
+                                    </a>
+                                @else
+                                    <a class="dropdown-item d-flex align-items-center py-2 text-secondary"
+                                        style="font-size: 14px;" href="{{ route('user.seller.home') }}">
+                                        <i class="ri-dashboard-line me-2 text-secondary fs-5"></i> @lang('Dashboard')
+                                    </a>
+                                @endif
                                 <a class="dropdown-item d-flex align-items-center py-2 text-secondary"
                                     style="font-size: 14px;" href="{{ route('user.profile.setting') }}">
                                     <i class="ri-user-settings-line me-2 text-secondary fs-5"></i> @lang('Edit Profile')
