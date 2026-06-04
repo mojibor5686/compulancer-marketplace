@@ -140,7 +140,6 @@
 }
 
 .single-message.message--left .message-content {
-
     border-radius: 10px 10px 10px 0;
 }
 
@@ -159,13 +158,13 @@
 
 .single-message.message--left .message-content {
     border: 1px solid hsl(var(--base) / 0.09);
-    background-color: #9f9f9f !important;
+    background-color: #e1e1e1 !important;
     margin-left: auto;
 }
 
 .single-message.message--right .message-content {
     border: 1px solid hsl(var(--base) / 0.09);
-    background-color: #444444 !important;
+    background-color: rgb(128, 238, 170) !important;
     margin-left: auto;
 }
 
@@ -189,7 +188,7 @@
 .single-message .message-text {
     font-size: 14px;
     display: block;
-    color: white;
+    color: rgb(17, 17, 17);
 }
 
 .single-message .message-author {
