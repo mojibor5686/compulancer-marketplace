@@ -180,8 +180,6 @@ class ServiceBookingController extends Controller
         ]);
     }
 
-
-
     protected function extraServicePriceCalculation($requestedExtraServices, $serviceId)
     {
         $extraServices = ExtraService::whereIn('id', $requestedExtraServices)->where('service_id', $serviceId)->active()->get();
@@ -190,5 +188,39 @@ class ServiceBookingController extends Controller
         }
 
         return [$extraServices, $extraServices->sum('price')];
+    }
+
+    public static function sendOrderNotificationMail($orderDetails)
+    {
+        try {
+            $buyer = auth()->user();
+            $orderType = isset($orderDetails['software']) ? 'software' : 'service';
+            $grandTotal = $orderDetails['grandTotal'] ?? $orderDetails['totalPrice'];
+
+            $buyerMail = new \App\Mail\OrderNotification(
+                $buyer->fullname,
+                $orderDetails['orderNumber'],
+                $grandTotal,
+                'buyer',
+                $orderType
+            );
+            $buyerMail->sendCustomMail($buyer->email);
+
+            $itemData = $orderDetails[$orderType] ?? null;
+            $seller = $itemData ? $itemData->user : null;
+
+            if ($seller) {
+                $sellerMail = new \App\Mail\OrderNotification(
+                    $seller->fullname,
+                    $orderDetails['orderNumber'],
+                    $grandTotal,
+                    'seller',
+                    $orderType
+                );
+                $sellerMail->sendCustomMail($seller->email);
+            }
+        } catch (\Exception $e) {
+            \Log::error('Order notification mail dispatch failed: ' . $e->getMessage());
+        }
     }
 }

@@ -14,7 +14,6 @@ use App\Traits\BookingOrder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
-// লগিং সিস্টেমের জন্য ফাসাদ যুক্ত করা হলো
 
 class PaymentController extends Controller {
     use BookingOrder;
@@ -48,9 +47,6 @@ public function depositInsert( Request $request,  $orderNumber = null ) {
         return back()->withNotify( $notify );
     }
 
-    // ===  ===  ===  ===  ===  ===  ===  ===  ===  ===  ===  ===  ===  ===
-    // ১. অ্যাকাউন্ট ব্যালেন্স ( Wallet ) প্রসেস
-    // ===  ===  ===  ===  ===  ===  ===  ===  ===  ===  ===  ===  ===  ===
     if ( $request->gateway == 'wallet' ) {
 
         if ( $amount > $user->balance ) {
@@ -63,6 +59,9 @@ public function depositInsert( Request $request,  $orderNumber = null ) {
                 $booking       = static::bookingStatusChange($bookingCreate->id);
 
                 static::bookingTransactionCreate($booking, $user);
+                
+                \App\Http\Controllers\User\ServiceBookingController::sendOrderNotificationMail($orderDetails);
+
                 static::clearSessionData();
             } catch (\Exception $e) {
                 Log::error('Wallet Payment Exception: ' . $e->getMessage());
@@ -73,9 +72,6 @@ public function depositInsert( Request $request,  $orderNumber = null ) {
             return redirect($successUrl);
         }
 
-        // ==========================================
-        // ২. ডাইনামিক UddoktaPay গেটওয়ে প্রসেস
-        // ==========================================
         if ($request->gateway == 'uddoktapay') {
             
             Log::info('--- UddoktaPay Payment Initiate Start ---', ['user_id' => $user->id, 'amount' => $request->amount]);
@@ -146,9 +142,6 @@ public function depositInsert( Request $request,  $orderNumber = null ) {
         return back()->withNotify($notify);
     }
 
-    // ==========================================
-    // ৩. UddoktaPay এর রেসপন্স ভেরিফিকেশন মেথড
-    // ==========================================
     public function uddoktapayCallback(Request $request)
     {
         Log::info('--- UddoktaPay Callback Hit ---', $request->all());
@@ -198,7 +191,6 @@ public function depositInsert( Request $request,  $orderNumber = null ) {
         return to_route('home')->withNotify($notify);
     }
 
-    // হোস্টেড রিকোয়েস্ট ব্যাকগ্রাউন্ড ভেরিফিকেশনের জন্য ওয়েবহুক
     public function uddoktapayWebhook(Request $request)
     {
         Log::info('--- UddoktaPay Webhook Hit ---', [
@@ -328,6 +320,12 @@ public function depositInsert( Request $request,  $orderNumber = null ) {
             if ($deposit->order_number && $deposit->booking_id) {
                 $booking = static::bookingStatusChange($deposit->booking_id);
                 static::bookingTransactionCreate($booking, $user, $deposit);
+
+                $orderDetails = session('orderDetails');
+                if($orderDetails){
+                    \App\Http\Controllers\User\ServiceBookingController::sendOrderNotificationMail($orderDetails);
+                }
+
                 static::clearSessionData();
             }
         }

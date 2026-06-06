@@ -8,6 +8,7 @@ use App\Models\Coupon;
 use App\Models\GatewayCurrency;
 use App\Models\Software;
 use App\Traits\BookingOrder;
+use App\Mail\OrderNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -99,12 +100,10 @@ class SoftwareBookingController extends Controller
             return response()->json(['error' => 'The coupon was not found or is disabled.']);
         }
 
-        // Check if coupon is expired
         if ($coupon->expiry_date && $coupon->expiry_date < now()) {
             return response()->json(['error' => 'This coupon has expired.']);
         }
 
-        // Check if coupon has uses left
         if ($coupon->usage_limit != -1 && $coupon->usage_limit <= 0) {
             return response()->json(['error' => 'This coupon has reached its usage limit.']);
         }
@@ -151,5 +150,39 @@ class SoftwareBookingController extends Controller
             'grandTotal' => $orderDetails['grandTotal'],
             'discount'   => $orderDetails['discount'],
         ]);
+    }
+
+    public static function sendOrderNotificationMail($orderDetails)
+    {
+        try {
+            $buyer = auth()->user();
+            $orderType = isset($orderDetails['software']) ? 'software' : 'service';
+            $grandTotal = $orderDetails['grandTotal'] ?? $orderDetails['totalPrice'];
+
+            $buyerMail = new OrderNotification(
+                $buyer->fullname,
+                $orderDetails['orderNumber'],
+                $grandTotal,
+                'buyer',
+                $orderType
+            );
+            $buyerMail->sendCustomMail($buyer->email);
+
+            $itemData = $orderDetails[$orderType] ?? null;
+            $seller = $itemData ? $itemData->user : null;
+
+            if ($seller) {
+                $sellerMail = new OrderNotification(
+                    $seller->fullname,
+                    $orderDetails['orderNumber'],
+                    $grandTotal,
+                    'seller',
+                    $orderType
+                );
+                $sellerMail->sendCustomMail($seller->email);
+            }
+        } catch (\Exception $e) {
+            \Log::error('Order notification mail dispatch failed: ' . $e->getMessage());
+        }
     }
 }
