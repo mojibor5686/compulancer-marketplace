@@ -4,9 +4,10 @@ namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Queue\SerializesModels;
 
-class NewMessageNotification extends Mailable  {
+class NewMessageNotification extends Mailable {
     use Queueable, SerializesModels;
 
     public $senderName;
@@ -18,11 +19,13 @@ class NewMessageNotification extends Mailable  {
     * Create a new message instance.
     */
 
-    public function __construct( $senderName, $receiverName, $messageContent, $actionUrl )  {
+    public function __construct( $senderName, $receiverName, $messageContent, $actionUrl ) {
         $this->senderName     = $senderName;
         $this->receiverName   = $receiverName;
         $this->messageContent = $messageContent;
         $this->actionUrl      = $actionUrl;
+
+        Log::info( "NewMessageNotification Class called. Sending mail from '{$this->senderName}' to '{$this->receiverName}'." );
 
         $config = gs( 'mail_config' );
         $siteName = gs( 'site_name' ) ?? 'Compulancer';
@@ -56,7 +59,7 @@ class NewMessageNotification extends Mailable  {
     * Build the message.
     */
 
-    public function build()  {
+    public function build() {
         return $this->subject( 'New Message from ' . $this->senderName )
         ->view( 'mail.new_message' );
     }
