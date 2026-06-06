@@ -13,7 +13,6 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
 
 class InboxController extends Controller
 {
@@ -123,16 +122,13 @@ class InboxController extends Controller
             $actionUrl = 'https://compulancer.com/user/inbox/messages/'.$checkInbox->unique_id;
 
             if (! Cache::has('user-online-'.$receiver->id)) {
-                try {
-                    Mail::to($receiver->email)->send(new NewMessageNotification(
-                        $sender->username,
-                        $receiver->username,
-                        $request->message,
-                        $actionUrl
-                    ));
-                } catch (Exception $e) {
-                    Log::error('Mail failed to send in existing inbox. Error: '.$e->getMessage());
-                }
+                $notification = new NewMessageNotification(
+                    $sender->username,
+                    $receiver->username,
+                    $request->message,
+                    $actionUrl
+                );
+                $notification->sendCustomMail($receiver->email);
             } else {
                 Log::info("Mail skipped. User ID {$receiver->id} is Online.");
             }
@@ -157,16 +153,13 @@ class InboxController extends Controller
         $actionUrl = 'https://compulancer.com/user/inbox/messages/'.$inbox->unique_id;
 
         if (! Cache::has('user-online-'.$receiver->id)) {
-            try {
-                Mail::to($receiver->email)->send(new NewMessageNotification(
-                    $sender->username,
-                    $receiver->username,
-                    $request->message,
-                    $actionUrl
-                ));
-            } catch (Exception $e) {
-                Log::error('Mail failed to send in new inbox creation. Error: '.$e->getMessage());
-            }
+            $notification = new NewMessageNotification(
+                $sender->username,
+                $receiver->username,
+                $request->message,
+                $actionUrl
+            );
+            $notification->sendCustomMail($receiver->email);
         } else {
             Log::info("Mail skipped. User ID {$receiver->id} is Online.");
         }
@@ -231,16 +224,13 @@ class InboxController extends Controller
         $actionUrl = 'https://compulancer.com/user/inbox/messages/'.$inbox->unique_id;
 
         if (! Cache::has('user-online-'.$receiver->id)) {
-            try {
-                Mail::to($receiver->email)->send(new NewMessageNotification(
-                    $sender->username,
-                    $receiver->username,
-                    $mailContent,
-                    $actionUrl
-                ));
-            } catch (Exception $e) {
-                Log::error('Mail failed to send in storeMessage thread. Error: '.$e->getMessage());
-            }
+            $notification = new NewMessageNotification(
+                $sender->username,
+                $receiver->username,
+                $mailContent,
+                $actionUrl
+            );
+            $notification->sendCustomMail($receiver->email);
         } else {
             Log::info("Mail skipped. User ID {$receiver->id} is Online.");
         }
