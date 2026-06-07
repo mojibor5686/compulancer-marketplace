@@ -13,8 +13,8 @@
                                 </svg>
                             </div>
                             <div class="success-form__content text-center">
-                                <h3>@lang('Order Placed Successfully')</h3>
-                                <p>@lang('Your order has been placed successfully and is currently awaiting approval by the seller. You will be notified once the seller reviews your request').</p>
+                                <h3 style="color: #111;">@lang('Order Placed Successfully')</h3>
+                                <p style="color: #333">@lang('Your order has been placed successfully and is currently awaiting approval by the seller. You will be notified once the seller reviews your request').</p>
                                 <a href="{{ route('user.buyer.booked.details', $orderNumber) }}"
                                     class="btn btn-primary mt-3">
                                     @lang('View Service Details')
