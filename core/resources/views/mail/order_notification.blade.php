@@ -8,7 +8,7 @@
 
 <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; background-color: #f9f9f9; padding: 20px;">
     <div
-        style="max-width: 600px; margin: 0 auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+        style="max-width: 100%; margin: 0 auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
         <h2 style="color: #2c3e50; margin-top: 0;">Order Notification</h2>
         <p>Hello <strong>{{ $receiverName }}</strong>,</p>
 
