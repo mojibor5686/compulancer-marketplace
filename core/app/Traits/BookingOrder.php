@@ -33,7 +33,7 @@ trait BookingOrder {
             $booking->service_id    = $orderDetails[ 'service' ]->id;
             $booking->quantity      = $orderDetails[ 'quantity' ];
             $booking->service_price = $orderDetails[ 'price' ];
-            $booking->extra_price   = $orderDetails[ 'extraServicePrice' ] ?? null;
+            $booking->extra_price   = $orderDetails[ 'extraServicePrice' ] ?? 0;
             $booking->seller_id     = $orderDetails[ 'service' ]->user->id;
             $booking->expired_date  = now()->addDays( $orderDetails[ 'service' ]->delivery_time )->format( 'Y-m-d' );
 
@@ -48,7 +48,6 @@ trait BookingOrder {
                 ] );
             }
 
-            // ফিক্স: সরাসরি 'software' কী চেক করা হচ্ছে
         } elseif ( isset( $orderDetails[ 'software' ] ) ) {
             Log::info( 'Processing as SOFTWARE Order Type' );
 
