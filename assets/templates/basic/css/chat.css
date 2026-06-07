@@ -75,6 +75,10 @@
     .chat-send-area .chat-send-file {
         order: 2;
     }
+
+    .single-message .message-content {
+        padding: 8px;
+    }
 }
 
 .chat-author {
@@ -148,7 +152,7 @@
 }
 
 .single-message .message-content {
-    padding: 15px;
+    padding: 16px;
     min-width: 180px;
 }
 

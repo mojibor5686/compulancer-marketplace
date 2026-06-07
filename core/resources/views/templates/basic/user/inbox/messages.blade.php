@@ -392,7 +392,7 @@
                                 </div>
                                 <span class="message-time d-block text-end mt-2">${data.createdAt}</span>
                             </div>
-                            <div class="message-author">
+                            <div class="message-author d-none md-d-block">
                                 <img src="${data.sender.image}" class="thumb">
                             </div>
                         </div>`;
