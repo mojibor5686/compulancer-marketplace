@@ -51,8 +51,6 @@ public function depositInsert( Request $request,  $orderNumber = null ) {
 
         if ( $amount > $user->balance ) {
 
-            dd( 'Insufficient balance for wallet payment. User balance: ' . $user->balance . ', Attempted amount: ' . $amount );
-
             $notify[] = [ 'error', 'You don\'t have enough balance!'];
                 return back()->withNotify($notify);
             }
