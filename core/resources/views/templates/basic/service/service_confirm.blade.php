@@ -3,8 +3,7 @@
     <main class="page-wrapper pt-0">
         <section class="pt-60">
             <div class="container">
-                <form action="{{ route('user.deposit.insert', $orderDetails['orderNumber']) }}" class="deposit-form"
-                    method="POST">
+                <form action="{{ route('user.deposit.create') }}" class="deposit-form" method="POST">
                     @csrf
                     <input type="hidden" name="currency">
                     <div class="row gy-4 mb-4">

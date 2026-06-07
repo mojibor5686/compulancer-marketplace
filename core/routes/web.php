@@ -1,9 +1,10 @@
 <?php
 
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/clear', function () {
-    \Illuminate\Support\Facades\Artisan::call('optimize:clears');
+    Artisan::call('optimize:clears');
 });
 
 Route::post('pusher/auth', 'SiteController@pusher')->name('pusher.auth');
@@ -21,12 +22,10 @@ Route::controller('TicketController')->prefix('ticket')->name('ticket.')->group(
     Route::get('download/{attachment_id}', 'ticketDownload')->name('download');
 });
 
-
 Route::controller('SearchController')->group(function () {
     Route::get('search', 'search')->name('search');
     Route::get('filter', 'filter')->name('filter');
 });
-
 
 // Fetch More Operations
 Route::controller('FetchController')->prefix('fetch')->name('fetch.')->group(function () {
@@ -55,15 +54,12 @@ Route::controller('ItemController')->group(function () {
     Route::get('subcategory/{slug}/{id}', 'subcategoryWiseProduct')->name('subcategory.wise.product');
 });
 
-
-
 Route::controller('SiteController')->group(function () {
     Route::get('adRedirect/{id}', 'adRedirect')->name('adRedirect');
     Route::get('/contact', 'contact')->name('contact');
     Route::post('/contact', 'contactSubmit');
 
     Route::post('subscriber', 'subscriberStore')->name('subscriber.store');
-
 
     Route::get('/change/{lang?}', 'changeLanguage')->name('lang');
 

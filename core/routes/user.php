@@ -34,13 +34,12 @@ Route::namespace('User\Auth')->name('user.')->middleware('guest')->group(functio
     });
 });
 
-
 Route::middleware('auth')->name('user.')->group(function () {
 
     Route::get('user-data', 'User\UserController@userData')->name('data');
     Route::post('user-data-submit', 'User\UserController@userDataSubmit')->name('data.submit');
 
-    //authorization
+    // authorization
     Route::middleware('registration.complete')->namespace('User')->controller('AuthorizationController')->group(function () {
         Route::get('authorization', 'authorizeForm')->name('authorization');
         Route::get('resend-verify/{type}', 'sendVerifyCode')->name('send.verify.code');
@@ -67,25 +66,24 @@ Route::middleware('auth')->name('user.')->group(function () {
                 // Extra Image Remove
                 Route::post('image-remove/{id}/{imageName}/{type}', 'removeExtraImage')->name('image.remove');
 
-
-                //2FA
+                // 2FA
                 Route::get('twofactor', 'show2faForm')->name('twofactor');
                 Route::post('twofactor/enable', 'create2fa')->name('twofactor.enable');
                 Route::post('twofactor/disable', 'disable2fa')->name('twofactor.disable');
 
-                //KYC
+                // KYC
                 Route::get('kyc-form', 'kycForm')->name('kyc.form');
                 Route::get('kyc-data', 'kycData')->name('kyc.data');
                 Route::post('kyc-submit', 'kycSubmit')->name('kyc.submit');
 
-                //Report
+                // Report
                 Route::any('deposit/history', 'depositHistory')->name('deposit.history');
                 Route::get('transactions', 'transactions')->name('transactions');
 
                 Route::post('add-device-token', 'addDeviceToken')->name('add.device.token');
             });
 
-            //Profile setting
+            // Profile setting
             Route::controller('ProfileController')->group(function () {
                 Route::get('profile-setting', 'profile')->name('profile.setting');
                 Route::post('profile-setting', 'submitProfile');
@@ -100,8 +98,6 @@ Route::middleware('auth')->name('user.')->group(function () {
                 Route::get('coupon/apply', 'couponApply')->name('coupon.apply');
                 Route::get('coupon/remove', 'couponRemove')->name('coupon.remove');
             });
-
-
 
             Route::controller('SoftwareBookingController')->name('software.')->prefix('software')->group(function () {
                 Route::post('booking/booking/{id}', 'addBooking')->name('add.booking');
@@ -152,7 +148,8 @@ Route::middleware('auth')->name('user.')->group(function () {
         // Payment
         Route::prefix('deposit')->name('deposit.')->controller('Gateway\PaymentController')->group(function () {
             Route::any('/', 'deposit')->name('index');
-            Route::post('insert/{orderNumber?}/{bookingId?}', 'depositInsert')->name('insert');
+            Route::post('create', 'createOrder')->name('create');
+            Route::post('insert', 'depositInsert')->name('insert');
             Route::get('confirm', 'depositConfirm')->name('confirm');
             Route::get('manual', 'manualDepositConfirm')->name('manual.confirm');
             Route::post('manual', 'manualDepositUpdate')->name('manual.update');
@@ -167,8 +164,7 @@ Route::middleware('auth')->name('user.')->group(function () {
                 Route::get('job/details/{id}', 'jobDetails')->name('job.details');
             });
 
-
-            //Seller - Service //
+            // Seller - Service //
             Route::controller('ServiceController')->prefix('service')->name('service.')->group(function () {
 
                 Route::get('basic/{id?}', 'basic')->name('basic');
@@ -196,7 +192,6 @@ Route::middleware('auth')->name('user.')->group(function () {
                 Route::get('details/{orderNumber}', 'bookingDetails')->name('details');
             });
 
-
             // Seller Software Manage
             Route::controller('SoftwareController')->name('software.')->prefix('software')->group(function () {
                 Route::get('basic/{id?}', 'basic')->name('basic');
@@ -218,7 +213,6 @@ Route::middleware('auth')->name('user.')->group(function () {
             Route::get('software/sale/logs', 'SoftwareController@salesLog')->name('sale.software.log');
         });
 
-
         // buyer route
         Route::namespace('Buyer')->name('buyer.')->prefix('buyer')->group(function () {
             Route::controller('BuyerController')->group(function () {
@@ -232,7 +226,6 @@ Route::middleware('auth')->name('user.')->group(function () {
 
                 Route::get('software/purchase/log', 'softwarePurchase')->name('software.log');
             });
-
 
             // Buyer-job-create
             Route::controller('JobController')->name('job.')->prefix('job')->group(function () {
@@ -257,7 +250,6 @@ Route::middleware('auth')->name('user.')->group(function () {
                 Route::post('approve/{id}', 'bidApprove')->name('bid.approve');
                 Route::post('cancel/{id}', 'bidCancel')->name('bid.cancel');
             });
-
 
             Route::controller('JobController')->name('hiring.')->prefix('hiring')->group(function () {
                 Route::get('list', 'hiringList')->name('list');
